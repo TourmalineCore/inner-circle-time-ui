@@ -7,7 +7,7 @@ import '../env-config'
 import '../../src/styles/index.scss'
 
 // commands
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
