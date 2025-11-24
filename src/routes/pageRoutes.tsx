@@ -1,6 +1,5 @@
 import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 //accessPermissions: Map<any, boolean>
 export function getPageRoutes() {
   const routes: {
