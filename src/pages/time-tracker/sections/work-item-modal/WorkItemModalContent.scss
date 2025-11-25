@@ -1,0 +1,35 @@
+.work-item-modal {
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 12px;
+    gap: 10px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__completion-time-container {
+    display: flex;
+  }
+
+  &__time-range {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__label {
+    font-size: 12px;
+  }
+
+  &__date-field {
+    margin-right: 16px;
+  }
+
+  &__date-field,
+  &__time-field {
+    width: 60px;
+  }
+}
