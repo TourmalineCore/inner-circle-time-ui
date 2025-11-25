@@ -17,7 +17,7 @@ jobs:
   deploy-to-prod:
     name: Deploy service to k8s for prod environment  
     needs: [push_to_registry]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
