@@ -3,6 +3,7 @@
 # on:
 #   push:
 #     branches: [ feature/* ]
+#     types: [opened, synchronize, reopened]
 
 # jobs:
   # install_cypress:
