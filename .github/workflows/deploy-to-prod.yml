@@ -65,12 +65,3 @@ jobs:
           AUTH_API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
           USER_LOGIN: ${{ secrets.INNER_CIRCLE_PROD_AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS  }}
           USER_PASSWORD: ${{ secrets.INNER_CIRCLE_PROD_AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS  }}
-
-      - name: Upload videos of tests failed 
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
-          path: |
-            cypress/videos/*.mp4
-            cypress/screenshots/**/*.png
