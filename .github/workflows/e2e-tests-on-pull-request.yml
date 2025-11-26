@@ -1,8 +1,8 @@
 name: E2E Tests in PR
 
 on:
-  push:
-    branches: [ feature/* ]
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   # this is needed to wait for the new docker image to be build and published to the registry
