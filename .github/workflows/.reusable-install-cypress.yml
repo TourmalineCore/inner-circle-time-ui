@@ -5,7 +5,7 @@ on:
   workflow_call:
 
 jobs:
-  install_cypress:
+  install-cypress:
     runs-on: ubuntu-24.04
     container:
       image: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1

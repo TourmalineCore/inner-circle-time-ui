@@ -9,14 +9,14 @@ jobs:
   # this is needed to wait for the new docker image to be build and published to the registry
   # so that we can use the image to run ui of the needed commit related version as part of local-env
   # the idea is taken from here https://stackoverflow.com/a/71489231
-  push_to_registry:
+  push-to-registry:
     uses: ./.github/workflows/.reusable-docker-build-and-push.yml
     # without this it cannot login to the registry
     secrets: inherit
 
-  deploy_to_prod:
+  deploy-to-prod:
     name: Deploy service to k8s for prod environment  
-    needs: [push_to_registry]
+    needs: [push-to-registry]
     runs-on: ubuntu-24.04
     steps:
       - name: Check out the repo
@@ -42,10 +42,10 @@ jobs:
             --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
           helmfile-auto-init: "false"
 
-  e2e_test_prod:
+  e2e-test-prod:
     runs-on: ubuntu-24.04
     container: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
-    needs: [deploy_to_prod]
+    needs: [deploy-to-prod]
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4

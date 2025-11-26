@@ -8,19 +8,19 @@ jobs:
   # this is needed to wait for the new docker image to be build and published to the registry
   # so that we can use the image to run ui of the needed commit related version as part of local-env
   # the idea is taken from here https://stackoverflow.com/a/71489231
-  push_to_registry:
+  push-to-registry:
     uses: ./.github/workflows/.reusable-docker-build-and-push.yml
     # without this it cannot login to the registry
     secrets: inherit
 
-  install_cypress:
+  install-cypress:
     uses: ./.github/workflows/.reusable-install-cypress.yml
 
-  e2e_test:
+  e2e-test-against-local-env:
     runs-on: ubuntu-24.04
     needs:
-      - install_cypress
-      - push_to_registry
+      - install-cypress
+      - push-to-registry
     steps:
       - name: Checkout local-env
         uses: actions/checkout@v4
