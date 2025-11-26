@@ -26,7 +26,7 @@ jobs:
         run: |
           cd $HOME
           mkdir .kube
-          echo "${{ secrets.DEV_KUBECONFIG }}" > .kube/config
+          echo "${{ secrets.INNER_CIRCLE_PROD_KUBECONFIG }}" > .kube/config
 
       - name: Deploy
         uses: helmfile/helmfile-action@v1.9.0
@@ -36,10 +36,10 @@ jobs:
           helmfile-args: >
             apply --suppress-diff --namespace dev-inner-circle -f ci/helmfile.yaml 
             --state-values-set image.tag=sha-${{ github.sha }} 
-            --state-values-set ingress.hostname=${{ secrets.DEV_HOST }}
-            --state-values-set extraConfigMapEnvVars.LINK_TO_TIME_SERVICE='/time/'
-            --state-values-set extraConfigMapEnvVars.API_ROOT='/api'
-            --state-values-set extraConfigMapEnvVars.API_ROOT_AUTH='/api/auth'
+            --state-values-set ingress.hostname=${{ secrets.INNER_CIRCLE_PROD_HOSTNAME }}
+            --state-values-set extraConfigMapEnvVars.LINK_TO_TIME_SERVICE=${{ secrets.INNER_CIRCLE_PROD_LINK_TO_TIME_SERVICE }}
+            --state-values-set extraConfigMapEnvVars.API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_API_ROOT_URL }}
+            --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
           helmfile-auto-init: "false"
 
   e2e-test-prod:
@@ -61,12 +61,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
-          CYPRESS_BASE_URL: ${{ secrets.DEV_BASE_URL }}
-          API_ROOT: '/api'
-          API_ROOT_AUTH: '/api/auth'
-          LINK_TO_TIME_SERVICE: '/time/'
-          USER_LOGIN: ${{ secrets.DEV_USER_LOGIN }}
-          USER_PASSWORD: ${{ secrets.DEV_USER_PASSWORD }}
+          CYPRESS_BASE_URL: ${{ secrets.INNER_CIRCLE_PROD_BASE_URL }}
+          API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_API_ROOT_URL }}
+          AUTH_API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
+          LINK_TO_TIME_SERVICE: ${{ secrets.INNER_CIRCLE_PROD_LINK_TO_TIME_SERVICE }}
+          USER_LOGIN: ${{ secrets.INNER_CIRCLE_PROD_USER_LOGIN }}
+          USER_PASSWORD: ${{ secrets.INNER_CIRCLE_PROD_USER_PASSWORD }}
 
       - name: Upload videos of tests failed 
         uses: actions/upload-artifact@v4

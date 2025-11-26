@@ -1,7 +1,6 @@
 describe(`Go to the main page after authorization`, () => {
   beforeEach(`Authorize`, () => {
     cy.authByApi()
-    
   })
 
   it(`

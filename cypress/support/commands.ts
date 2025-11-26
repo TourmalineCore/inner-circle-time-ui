@@ -27,7 +27,7 @@ export { }
 Cypress.Commands.add(`authByApi`, () => {
   let accessToken: any
   const authService = createAuthService({
-    authApiRoot: Cypress.env(`API_ROOT_AUTH`),
+    authApiRoot: Cypress.env(`AUTH_API_ROOT_URL`),
     authType: `ls`,
     tokenAccessor: `accessToken`,
     refreshTokenAccessor: `refreshToken`,
@@ -38,7 +38,7 @@ Cypress.Commands.add(`authByApi`, () => {
   cy
     .request({
       method: `POST`,
-      url: `${Cypress.env(`API_ROOT_AUTH`)}/login`,
+      url: `${Cypress.env(`AUTH_API_ROOT_URL`)}/login`,
       body: {
         login: Cypress.env(`USER_LOGIN`),
         password: Cypress.env(`USER_PASSWORD`),

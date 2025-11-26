@@ -18,5 +18,5 @@ releases:
           hostname: "{{ .StateValues.ingress.hostname }}"
       - extraConfigMapEnvVars:
           LINK_TO_TIME_SERVICE: "{{ .StateValues.extraConfigMapEnvVars.LINK_TO_TIME_SERVICE }}"
-          API_ROOT: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT }}"
-          API_ROOT_AUTH: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT_AUTH }}"
+          API_ROOT_URL: "{{ .StateValues.extraConfigMapEnvVars.API_ROOT_URL }}"
+          AUTH_API_ROOT_URL: "{{ .StateValues.extraConfigMapEnvVars.AUTH_API_ROOT_URL }}"
