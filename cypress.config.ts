@@ -14,7 +14,6 @@ export default defineConfig({
     env: {
       API_ROOT_URL: process.env.API_ROOT_URL,
       AUTH_API_ROOT_URL: process.env.AUTH_API_ROOT_URL,
-      LINK_TO_TIME_SERVICE: process.env.LINK_TO_TIME_SERVICE,
       USER_LOGIN: process.env.USER_LOGIN,
       USER_PASSWORD: process.env.USER_PASSWORD,
     },

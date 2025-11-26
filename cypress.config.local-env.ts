@@ -5,9 +5,8 @@ export default defineConfig({
   e2e: {
     baseUrl: `http://localhost:30090`,
     env: {
-      API_ROOT_URL: `/api`,
+      API_ROOT_URL: `/api/time`,
       AUTH_API_ROOT_URL: `/api/auth`,
-      LINK_TO_TIME_SERVICE: `/time`,
       USER_LOGIN: `ceo@tourmalinecore.com`,
       USER_PASSWORD: `cEoPa$$wo1d`,
     },
