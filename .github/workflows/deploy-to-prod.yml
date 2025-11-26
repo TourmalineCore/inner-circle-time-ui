@@ -63,8 +63,8 @@ jobs:
           CYPRESS_BASE_URL: ${{ secrets.INNER_CIRCLE_PROD_BASE_URL }}
           API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_TIME_API_ROOT_URL }}
           AUTH_API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
-          USER_LOGIN: 'test@test.ru'
-          USER_PASSWORD: 'password1234'
+          USER_LOGIN: ${{ secrets.TEST_LOGIN  }}
+          USER_PASSWORD: ${{ secrets.TEST_PASSWORD  }}
           # USER_LOGIN: ${{ secrets.INNER_CIRCLE_PROD_AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS  }}
           # USER_PASSWORD: ${{ secrets.INNER_CIRCLE_PROD_AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS  }}
 
