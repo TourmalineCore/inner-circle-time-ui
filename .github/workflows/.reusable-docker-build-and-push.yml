@@ -6,6 +6,6 @@ on:
 
 jobs:
   push-to-registry:
-    uses: TourmalineCore/inner-circle-github-workflows/.github/workflows/docker_build_and_push.yml@feature/update-workflows
+    uses: TourmalineCore/inner-circle-github-workflows/.github/workflows/.reusable-docker-build-and-push.yml@feature/update-workflows
     # without this it cannot login to the registry
     secrets: inherit
