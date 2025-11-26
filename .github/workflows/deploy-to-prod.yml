@@ -34,11 +34,10 @@ jobs:
           helmfile-version: 'v0.164.0'
           helm-version: 'v3.18.0'
           helmfile-args: >
-            apply --suppress-diff --namespace dev-inner-circle -f ci/helmfile.yaml 
+            apply --suppress-diff --namespace ${{ secrets.INNER_CIRCLE_PROD_NAMESPACE }} -f ci/helmfile.yaml 
             --state-values-set image.tag=sha-${{ github.sha }} 
             --state-values-set ingress.hostname=${{ secrets.INNER_CIRCLE_PROD_HOSTNAME }}
-            --state-values-set extraConfigMapEnvVars.LINK_TO_TIME_SERVICE=${{ secrets.INNER_CIRCLE_PROD_LINK_TO_TIME_SERVICE }}
-            --state-values-set extraConfigMapEnvVars.API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_API_ROOT_URL }}
+            --state-values-set extraConfigMapEnvVars.API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_TIME_API_ROOT_URL }}
             --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
           helmfile-auto-init: "false"
 
@@ -62,17 +61,7 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_BASE_URL: ${{ secrets.INNER_CIRCLE_PROD_BASE_URL }}
-          API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_API_ROOT_URL }}
+          API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_TIME_API_ROOT_URL }}
           AUTH_API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
-          LINK_TO_TIME_SERVICE: ${{ secrets.INNER_CIRCLE_PROD_LINK_TO_TIME_SERVICE }}
-          USER_LOGIN: ${{ secrets.INNER_CIRCLE_PROD_USER_LOGIN }}
-          USER_PASSWORD: ${{ secrets.INNER_CIRCLE_PROD_USER_PASSWORD }}
-
-      - name: Upload videos of tests failed 
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: cypress-videos
-          path: |
-            cypress/videos/*.mp4
-            cypress/screenshots/**/*.png
+          USER_LOGIN: ${{ secrets.INNER_CIRCLE_PROD_AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS  }}
+          USER_PASSWORD: ${{ secrets.INNER_CIRCLE_PROD_AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS  }}
