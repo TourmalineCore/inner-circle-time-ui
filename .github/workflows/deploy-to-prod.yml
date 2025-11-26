@@ -54,7 +54,7 @@ jobs:
         with:
           browser: electron
           # parallel: true
-          group: "Electron e2e prod"
+          # group: "Electron e2e prod"
         env:
           # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
