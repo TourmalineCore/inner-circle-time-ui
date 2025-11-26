@@ -1,7 +1,7 @@
 # name: Check lint and Run Tests in PR
 
 # on:
-#   push:
+#   pull_request::
 #     branches: [ feature/* ]
 #     types: [opened, synchronize, reopened]
 
