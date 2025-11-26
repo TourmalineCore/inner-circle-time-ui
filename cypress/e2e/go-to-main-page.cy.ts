@@ -10,6 +10,6 @@ describe(`Go to the main page after authorization`, () => {
   `, () => {
     cy.visit(`/`)
         
-    cy.contains(`EmployeesTEST`)
+    cy.contains(`Employees`)
   })
 })
