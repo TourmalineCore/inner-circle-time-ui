@@ -14,7 +14,7 @@ jobs:
     # without this it cannot login to the registry
     secrets: inherit
 
-  deploy-to-prod:
+  deploy_to_prod:
     name: Deploy service to k8s for prod environment  
     needs: [push_to_registry]
     runs-on: ubuntu-24.04
@@ -42,10 +42,10 @@ jobs:
             --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL=${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}
           helmfile-auto-init: "false"
 
-  e2e-test-prod:
+  e2e_test_prod:
     runs-on: ubuntu-24.04
     container: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
-    needs: [deploy-to-prod]
+    needs: [deploy_to_prod]
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4

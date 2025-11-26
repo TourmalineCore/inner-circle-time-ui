@@ -13,13 +13,13 @@ jobs:
     # without this it cannot login to the registry
     secrets: inherit
 
-  install-cypress:
+  install_cypress:
     uses: ./.github/workflows/.reusable-install-cypress.yml
 
-  e2e-test:
+  e2e_test:
     runs-on: ubuntu-24.04
     needs:
-      - install-cypress
+      - install_cypress
       - push_to_registry
     steps:
       - name: Checkout local-env
