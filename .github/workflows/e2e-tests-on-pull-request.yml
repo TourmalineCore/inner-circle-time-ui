@@ -19,7 +19,7 @@ jobs:
   e2e-test:
     runs-on: ubuntu-24.04
     needs:
-      - install
+      - install-cypress
       - push_to_registry
     steps:
       - name: Checkout local-env
