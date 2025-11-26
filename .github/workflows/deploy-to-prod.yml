@@ -53,10 +53,10 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           browser: electron
-          parallel: true
+          # parallel: true
           group: "Electron e2e prod"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_BASE_URL: ${{ secrets.INNER_CIRCLE_PROD_BASE_URL }}
