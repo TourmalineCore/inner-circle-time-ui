@@ -1,20 +1,12 @@
-import { Views } from "react-big-calendar"
 import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContainer } from "./TimeTrackerTableContainer"
 
 describe(`TimeTrackerTableContainer`, () => {
   beforeEach(() => {
-    cy.intercept(
-      `GET`,
-      `*/tracking/work-entries?startTime=2025-11-24T00:00:00&endTime=2025-11-30T23:59:59`,
-      (req) => {
-        req.alias = `getWorkEntries`
-        req.reply({
-          statusCode: 200,
-        })
-      },
-    )
+    cy.clock(new Date(2025, 10, 27), [
+      `Date`,
+    ])
   })
 
   describe(`Initialization`, initializationTests)
@@ -22,11 +14,41 @@ describe(`TimeTrackerTableContainer`, () => {
 
 function initializationTests() {
   it(`
+  GIVEN mobile view
+  WHEN render the component
+  SHOULD see them
+  `, () => {
+    cy.viewport(375, 768)
+
+    cy.intercept(
+      `GET`,
+      `*/time/tracking/work-entries?startTime=2025-11-27T00:00:00&endTime=2025-11-27T00:00:00`,
+      {
+        statusCode: 200,
+      },
+    )
+      .as(`getWorkEntries`)
+
+    mountComponent()
+
+    cy.wait(`@getWorkEntries`)
+  })
+
+  it(`
   GIVEN desktop view
   WHEN render the component
   SHOULD see them
   `, () => {
-    cy.viewport(1366, 768)
+    cy.viewport(1366, 1024)
+
+    cy.intercept(
+      `GET`,
+      `*/time/tracking/work-entries?startTime=2025-11-24T00:00:00&endTime=2025-11-30T00:00:00`,
+      {
+        statusCode: 200,
+      },
+    )
+      .as(`getWorkEntries`)
 
     mountComponent()
 
@@ -36,11 +58,6 @@ function initializationTests() {
 
 function mountComponent() {
   const timeTrackerState = new TimeTrackerTableState()
-
-  timeTrackerState.setViewPeriod({
-    date: new Date(2025-11-27),
-    view: Views.WEEK,
-  })
   
   cy
     .mount(

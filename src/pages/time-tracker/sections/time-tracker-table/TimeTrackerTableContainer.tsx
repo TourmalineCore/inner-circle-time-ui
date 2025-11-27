@@ -5,6 +5,7 @@ import { api } from "../../../../common/api"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
+import { WorkItem } from '../../types'
 
 export const TimeTrackerTableContainer = observer(({
   onOpenWorkItemModal,
@@ -37,10 +38,6 @@ export const TimeTrackerTableContainer = observer(({
         ? Views.DAY
         : Views.WEEK,
     })
-
-    timeTrackerState.setViewPeriod({
-      date: new Date(),
-    })
   }, [
     isMobile,
   ])
@@ -48,8 +45,14 @@ export const TimeTrackerTableContainer = observer(({
   useEffect(() => {
     if (viewStartDate === null && viewEndDate === null) return
 
-    function loadedWorkItems() {
-      api.get(`/tracking/work-entries?startTime=${viewStartDate}&endTime=${viewEndDate}`)
+    async function loadedWorkItems() {
+      const {
+        data,
+      } = await api.get<WorkItem[]>(`/tracking/work-entries?startTime=${viewStartDate}&endTime=${viewEndDate}`)
+
+      timeTrackerState.initialize({
+        loadedWorkItems: data,
+      })
     }
 
     loadedWorkItems()
