@@ -2,6 +2,16 @@ import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContainer } from "./TimeTrackerTableContainer"
 
+const WORK_ITEMS_RESPONSE = [
+  {
+    id: 1,
+    title: `task4455`,
+    taskId: `#4455`,
+    startTime: new Date(`2025-11-27T09:00:00`),
+    endTime: new Date(`2025-11-27T11:30:00`),
+  }
+]
+
 describe(`TimeTrackerTableContainer`, () => {
   beforeEach(() => {
     // set cypress default date
@@ -28,6 +38,7 @@ function initializationTests() {
         `*/time/tracking/work-entries?startTime=2025-11-27T00:00:00&endTime=2025-11-27T23:59:59`,
         {
           statusCode: 200,
+          body: WORK_ITEMS_RESPONSE,
         },
       )
       .as(`getWorkEntries`)
@@ -35,6 +46,9 @@ function initializationTests() {
     mountComponent()
 
     cy.wait(`@getWorkEntries`)
+
+    cy.contains(`task4455`)
+    cy.contains(`9:00 AM – 11:30 AM`)
   })
 
   it(`
@@ -50,6 +64,7 @@ function initializationTests() {
         `*/time/tracking/work-entries?startTime=2025-11-24T00:00:00&endTime=2025-11-30T23:59:59`,
         {
           statusCode: 200,
+          body: WORK_ITEMS_RESPONSE,
         },
       )
       .as(`getWorkEntries`)
@@ -75,7 +90,7 @@ function switchPeriodsTests() {
         `*/time/tracking/work-entries?startTime=2025-11-28T00:00:00&endTime=2025-11-28T23:59:59`,
         {
           statusCode: 200,
-          body: []
+          body: WORK_ITEMS_RESPONSE,
         },
       )
       .as(`getNextDay`)
@@ -107,7 +122,7 @@ function switchPeriodsTests() {
         `*/time/tracking/work-entries?startTime=2025-11-17T00:00:00&endTime=2025-11-23T23:59:59`,
         {
           statusCode: 200,
-          body: []
+          body: WORK_ITEMS_RESPONSE,
         },
       )
       .as(`getPreviousDay`)
