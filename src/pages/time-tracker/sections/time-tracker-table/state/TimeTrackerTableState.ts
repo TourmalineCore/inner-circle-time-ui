@@ -1,11 +1,11 @@
 import { makeAutoObservable } from 'mobx'
-import { WorkItem } from '../../../types'
+import { View, WorkItem } from '../../../types'
 import moment from 'moment'
 
 export class TimeTrackerTableState {
   private _workItems: WorkItem[] = []
 
-  private _currentView: 'day' | 'week' = `week`
+  private _currentView: View = `week`
 
   private _viewStartDate: string | null = null
 
@@ -42,7 +42,7 @@ export class TimeTrackerTableState {
   setCurrentView({
     view,
   }: {
-    view: 'day' | 'week',
+    view: View,
   }) {
     this._currentView = view
   }
@@ -52,7 +52,7 @@ export class TimeTrackerTableState {
     view,
   }: {
     date: Date,
-    view: 'day' | 'week',
+    view: View,
   }) {
     this._viewStartDate = moment(date)
       .startOf(view)

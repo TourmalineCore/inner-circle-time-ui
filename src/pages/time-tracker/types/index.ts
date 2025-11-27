@@ -10,3 +10,5 @@ export type WorkItem = {
   start: Date,
   end: Date,
 }
+
+export type View = 'day' | 'week'
