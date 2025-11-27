@@ -42,7 +42,9 @@ export const TimeTrackerTableContainer = observer(({
       date: new Date(),
       view: currentView,
     })
-  }, [])
+  }, [
+    isMobile,
+  ])
   
   useEffect(() => {
     if (viewStartDate === null && viewEndDate === null) return
@@ -57,6 +59,8 @@ export const TimeTrackerTableContainer = observer(({
     viewEndDate,
     isMobile,
   ])
+
+  if (!currentView) return
 
   return (
     <TimeTrackerTableContent 

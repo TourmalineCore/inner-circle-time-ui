@@ -5,7 +5,7 @@ import moment from 'moment'
 export class TimeTrackerTableState {
   private _workItems: WorkItem[] = []
 
-  private _currentView: View = `week`
+  private _currentView: View | null = null
 
   private _viewStartDate: string | null = null
 

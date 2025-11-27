@@ -7,7 +7,7 @@ import { useCallback, useContext } from 'react'
 import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import moment from 'moment'
 import 'moment/locale/ru'
-import { momentLocalizer, Views, Calendar, SlotInfo } from 'react-big-calendar'
+import { momentLocalizer, Calendar, SlotInfo} from 'react-big-calendar'
 import { View } from '../../types'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
@@ -59,8 +59,7 @@ export const TimeTrackerTableContent = observer(({
       dayLayoutAlgorithm="no-overlap"
       view={currentView}
       views={[
-        Views.WEEK,
-        Views.DAY,
+        currentView,
       ]}
       formats={{
         timeGutterFormat: `HH:mm`,
