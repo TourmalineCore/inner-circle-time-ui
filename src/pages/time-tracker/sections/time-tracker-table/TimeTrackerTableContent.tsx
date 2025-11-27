@@ -3,11 +3,18 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './TimeTrackerTableContent.scss'
 
 import { observer } from 'mobx-react-lite'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext } from 'react'
 import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import moment from 'moment'
-import { momentLocalizer, View, Views, Calendar, SlotInfo } from 'react-big-calendar'
-import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
+import 'moment/locale/ru'
+import { momentLocalizer, Views, Calendar, SlotInfo } from 'react-big-calendar'
+
+// This is necessary so that the calendar starts on Monday, not Sunday
+moment.locale(`ru`, {
+  week: {
+    dow: 1, 
+  },
+})
 
 const localizer = momentLocalizer(moment)
 
@@ -27,19 +34,9 @@ export const TimeTrackerTableContent = observer(({
   const timeTrackerState = useContext(TimeTrackerStateContext)
 
   const {
-    isMobile,
-  } = useDeviceSize()
-  
-  const [
+    workItems,
     currentView,
-    setCurrentView,
-  ] = useState<View>(isMobile ? Views.DAY : Views.WEEK)
-
-  useEffect(() => {
-    setCurrentView(isMobile ? Views.DAY : Views.WEEK)
-  }, [
-    isMobile,
-  ])
+  } = timeTrackerState
 
   const handleSelectSlot = useCallback(({
     start,
@@ -67,8 +64,10 @@ export const TimeTrackerTableContent = observer(({
       formats={{
         timeGutterFormat: `HH:mm`,
       }}
-      onView={setCurrentView}
-      events={timeTrackerState.workItems}
+      onView={(view) => timeTrackerState.setCurrentView({
+        view,
+      })}
+      events={workItems}
       timeslots={4}
       step={15}
       localizer={localizer}
@@ -76,6 +75,10 @@ export const TimeTrackerTableContent = observer(({
       // dayPropGetter={dayPropGetter as DayPropGetter}
       onSelectSlot={handleSelectSlot}
       // onSelectEvent={}
+      onRangeChange={(range) => timeTrackerState.setViewPeriod({
+        date: range[0],
+        view: currentView,
+      })}
       selectable
       min={moment()
         .hour(7)
