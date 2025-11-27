@@ -3,11 +3,12 @@ import { WorkItemModalContent } from "./WorkItemModalContent"
 import { api } from "../../../../common/api"
 import { useContext } from "react"
 import { WorkItemModalStateContext } from "./state/WorkItemModalStateContext"
+import moment from "moment"
 
 export const WorkItemModalContainer = observer(({
   onClose,
 }: {
-   onClose: () => unknown,
+  onClose: () => unknown,
 }) => {
   const workItemModalState = useContext(WorkItemModalStateContext)
 
@@ -21,17 +22,31 @@ export const WorkItemModalContainer = observer(({
   async function addWorkItemAsync() {
     const {
       title,
-      startTime,
-      endTime,
+      taskId,
+      date,
+      start,
+      end,
     } = workItemModalState.workItemModalData
 
-    try {
+    const startDateTime = moment(date)
+      .hours(moment(start)
+        .hours())
+      .minutes(moment(start)
+        .minutes())
+      .seconds(moment(start)
+        .seconds())
+      .format(`YYYY-MM-DDTHH:mm:ss`)
 
+    const endDateTime = moment(end)
+      .format(`YYYY-MM-DDTHH:mm:ss`)
+
+    try {
       await api.post(`/work-entries`,
         {
           title,
-          startTime,
-          endTime,
+          taskId,
+          startTime: startDateTime,
+          endTime: endDateTime,
         },
       )
     }

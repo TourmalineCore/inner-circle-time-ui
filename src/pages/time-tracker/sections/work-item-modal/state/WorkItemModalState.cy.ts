@@ -50,11 +50,11 @@ function settersTests() {
       .to
       .eq(testDate)
 
-    expect(workItemModalState.workItemModalData.startTime)
+    expect(workItemModalState.workItemModalData.start)
       .to
       .eq(testDate)
 
-    expect(workItemModalState.workItemModalData.endTime)
+    expect(workItemModalState.workItemModalData.end)
       .to
       .eq(testDate)
   })

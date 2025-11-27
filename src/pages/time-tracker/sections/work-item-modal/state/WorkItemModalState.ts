@@ -5,8 +5,8 @@ const EMPTY_WORK_ITEM_MODAL_DATA: WorkItem = {
   id: 0,
   title: ``,
   date: new Date(),
-  startTime: new Date(),
-  endTime: new Date(),
+  start: new Date(),
+  end: new Date(),
 }
 
 export class WorkItemModalState {
@@ -51,7 +51,7 @@ export class WorkItemModalState {
   }: {
     startTime: Date,
   }) {
-    this._workItemModalData.startTime = startTime
+    this._workItemModalData.start = startTime
   }
 
   setEndTime({
@@ -59,6 +59,6 @@ export class WorkItemModalState {
   }: {
     endTime: Date,
   }) {
-    this._workItemModalData.endTime = endTime
+    this._workItemModalData.end = endTime
   }
 }

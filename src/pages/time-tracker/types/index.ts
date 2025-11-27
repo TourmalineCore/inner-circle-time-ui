@@ -7,6 +7,6 @@ export type WorkItem = {
   title: string,
   date: Date,
   taskId?: string,
-  startTime: Date,
-  endTime: Date,
+  start: Date,
+  end: Date,
 }
