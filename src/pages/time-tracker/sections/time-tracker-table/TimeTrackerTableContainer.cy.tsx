@@ -82,7 +82,7 @@ function switchPeriodsTests() {
   SHOULD render next day
   AND send correct request
   `, () => {
-    cy.viewport(375, 768)
+    cy.viewport(375, 768) 
 
     cy
       .intercept(
@@ -90,7 +90,7 @@ function switchPeriodsTests() {
         `*/time/tracking/work-entries?startTime=2025-11-28T00:00:00&endTime=2025-11-28T23:59:59`,
         {
           statusCode: 200,
-          body: WORK_ITEMS_RESPONSE,
+          body: [],
         },
       )
       .as(`getNextDay`)
@@ -122,7 +122,7 @@ function switchPeriodsTests() {
         `*/time/tracking/work-entries?startTime=2025-11-17T00:00:00&endTime=2025-11-23T23:59:59`,
         {
           statusCode: 200,
-          body: WORK_ITEMS_RESPONSE,
+          body: [],
         },
       )
       .as(`getPreviousDay`)
