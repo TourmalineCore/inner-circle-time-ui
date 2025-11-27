@@ -1,4 +1,4 @@
-name: Check lint and Run Tests in PR
+name: Component Tests
 
 on:
   pull_request:
