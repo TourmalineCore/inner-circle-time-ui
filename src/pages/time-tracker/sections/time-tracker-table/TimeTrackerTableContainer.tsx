@@ -40,7 +40,6 @@ export const TimeTrackerTableContainer = observer(({
 
     timeTrackerState.setViewPeriod({
       date: new Date(),
-      view: currentView,
     })
   }, [
     isMobile,

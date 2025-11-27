@@ -49,17 +49,15 @@ export class TimeTrackerTableState {
 
   setViewPeriod({
     date,
-    view,
   }: {
     date: Date,
-    view: View,
   }) {
     this._viewStartDate = moment(date)
-      .startOf(view)
+      .startOf(this._currentView)
       .format(`YYYY-MM-DDTHH:mm:ss`)
 
     this._viewEndDate = moment(date)
-      .endOf(view)
+      .endOf(this._currentView)
       .format(`YYYY-MM-DDTHH:mm:ss`)
   }
 }

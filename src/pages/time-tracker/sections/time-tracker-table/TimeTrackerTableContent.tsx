@@ -57,9 +57,9 @@ export const TimeTrackerTableContent = observer(({
   return (
     <Calendar
       dayLayoutAlgorithm="no-overlap"
-      view={currentView}
+      view={currentView!}
       views={[
-        currentView,
+        currentView!,
       ]}
       formats={{
         timeGutterFormat: `HH:mm`,
@@ -77,16 +77,15 @@ export const TimeTrackerTableContent = observer(({
       // onSelectEvent={}
       onNavigate={(date) => timeTrackerState.setViewPeriod({
         date: date,
-        view: currentView,
       })}
       selectable
       min={moment()
-        .hour(7)
+        .hour(0)
         .minute(0)
         .toDate()}
       max={moment()
-        .hour(21)
-        .minute(0)
+        .hour(23)
+        .minute(59)
         .toDate()}
     />
   )
