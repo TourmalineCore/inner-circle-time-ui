@@ -28,7 +28,6 @@ export const useDeviceSize = () => {
     window.addEventListener(`resize`, handleWindowResize)
 
     return () => window.removeEventListener(`resize`, handleWindowResize)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return {
