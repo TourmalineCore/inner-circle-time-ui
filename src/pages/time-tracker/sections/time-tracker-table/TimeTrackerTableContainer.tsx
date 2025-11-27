@@ -48,10 +48,16 @@ export const TimeTrackerTableContainer = observer(({
     async function loadedWorkItems() {
       const {
         data,
-      } = await api.get<WorkItem[]>(`/tracking/work-entries?startTime=${viewStartDate}&endTime=${viewEndDate}`)
+      } = await api.get(`/tracking/work-entries?startTime=${viewStartDate}&endTime=${viewEndDate}`)
 
       timeTrackerState.initialize({
-        loadedWorkItems: data,
+        loadedWorkItems: data.map((workItem: any) => ({
+          id: workItem.id,
+          taskId: workItem.taskId,
+          title: workItem.title,
+          start: new Date(workItem.startTime),
+          end: new Date(workItem.endTime),
+        })) 
       })
     }
 
