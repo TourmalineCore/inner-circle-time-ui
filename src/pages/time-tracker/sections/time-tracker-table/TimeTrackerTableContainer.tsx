@@ -59,7 +59,6 @@ export const TimeTrackerTableContainer = observer(({
   }, [
     viewStartDate,
     viewEndDate,
-    isMobile,
   ])
 
   if (!currentView) return

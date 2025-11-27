@@ -92,7 +92,6 @@ function timeTrackerTableEditDataTests() {
   `, () => {
     timeTrackerTableState.setViewPeriod({
       date: new Date(`2025-11-27`),
-      view: `week`,
     })
 
     expect(timeTrackerTableState.viewStartDate)

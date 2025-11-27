@@ -4,6 +4,7 @@ import { TimeTrackerTableContainer } from "./TimeTrackerTableContainer"
 
 describe(`TimeTrackerTableContainer`, () => {
   beforeEach(() => {
+    // set cypress default date
     cy.clock(new Date(2025, 10, 27), [
       `Date`,
     ])
@@ -16,13 +17,13 @@ function initializationTests() {
   it(`
   GIVEN mobile view
   WHEN render the component
-  SHOULD see them
+  SHOULD send correct request
   `, () => {
     cy.viewport(375, 768)
 
     cy.intercept(
       `GET`,
-      `*/time/tracking/work-entries?startTime=2025-11-27T00:00:00&endTime=2025-11-27T00:00:00`,
+      `*/time/tracking/work-entries?startTime=2025-11-27T00:00:00&endTime=2025-11-27T23:59:59`,
       {
         statusCode: 200,
       },
@@ -37,13 +38,13 @@ function initializationTests() {
   it(`
   GIVEN desktop view
   WHEN render the component
-  SHOULD see them
+  SHOULD send correct request
   `, () => {
     cy.viewport(1366, 1024)
 
     cy.intercept(
       `GET`,
-      `*/time/tracking/work-entries?startTime=2025-11-24T00:00:00&endTime=2025-11-30T00:00:00`,
+      `*/time/tracking/work-entries?startTime=2025-11-24T00:00:00&endTime=2025-11-30T23:59:59`,
       {
         statusCode: 200,
       },

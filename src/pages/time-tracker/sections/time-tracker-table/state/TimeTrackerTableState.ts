@@ -13,10 +13,6 @@ export class TimeTrackerTableState {
 
   constructor() {
     makeAutoObservable(this)
-
-    this.setViewPeriod({
-      date: new Date(),
-    })
   }
 
   initialize({
@@ -49,6 +45,10 @@ export class TimeTrackerTableState {
     view: View,
   }) {
     this._currentView = view
+
+    this.setViewPeriod({
+      date: new Date(),
+    })
   }
 
   setViewPeriod({
