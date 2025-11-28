@@ -10,18 +10,17 @@ const ADDED_WORK_ENTRY_MODAL_DATA = {
 }
 
 describe(`WorkEntryModalContainer`, () => {
-
-  describe(`Initialization`, initializationTests)
+  describe(`Add Work Entry`, addWorkEntryTests)
+  describe(`On Close Modal`, onCloseModalTests)
 })
 
-function initializationTests() {
+function addWorkEntryTests() {
   it(`
-  GIVEN a work entry
-  WHEN open the corresponding modal
-  SHOULD see details related to this work entry
+  GIVEN an empty work entry
+  WHEN fill work entry field
+  AND click 'Add Task' button
+  SHOULD send correct payload to API
   `, () => {
-    cy.viewport(375, 768)
-
     cy
       .intercept(
         `POST`,
@@ -72,8 +71,30 @@ function initializationTests() {
 
 }
 
+function onCloseModalTests() {
+  it(`
+  GIVEN opened work entry modal
+  WHEN click on close button
+  SHOULD trigger onClose function once 
+  `, () => {
+    mountComponent()
+    
+    cy
+      .get(`.tc-modal__close-button`)
+      .click()
+
+    cy
+      .get(`@onClose`)
+      .should(`be.calledOnce`)
+  })
+}
+
 function mountComponent() {
   const workEntryModalState = new WorkEntryModalState()
+
+  const onClose = cy
+    .spy()
+    .as(`onClose`)
   
   workEntryModalState.setDate({
     date: new Date(`2025-11-27T09:00:00`),
@@ -89,7 +110,7 @@ function mountComponent() {
     .mount(
       <WorkEntryModalStateContext.Provider value={workEntryModalState}>
         <WorkEntryModalContainer 
-          onClose={() => {}}
+          onClose={onClose}
         />,
       </WorkEntryModalStateContext.Provider>,
     )
