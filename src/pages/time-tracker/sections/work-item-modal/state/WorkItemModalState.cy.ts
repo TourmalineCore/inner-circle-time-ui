@@ -1,7 +1,7 @@
 import { WorkItemModalState } from "./WorkItemModalState"
 
 describe(`WorkItemModalState`, () => {
-  describe(`Work Item Modal setters data`, settersTests)
+  describe(`Setters Data`, settersTests)
 })
 
 function settersTests() {
@@ -12,50 +12,83 @@ function settersTests() {
   })
 
   it(`
-  GIVEN a WorkItemModalState
-  WHEN set work item data
-  SHOULD display new values in the workItems object
+  GIVEN a state with default title
+  WHEN setting title 
+  SHOULD return updated title
   `, () => {
-    const testDate = new Date(`2025-11-24`)
-    
+    const title = `Task 1`
+
     workItemModalState.setTitle({
-      title: `Task 1`,
-    })
-
-    workItemModalState.setTaskId({
-      taskId: `#1fre33`,
-    })
-
-    workItemModalState.setDate({
-      date: testDate,
-    })
-    
-    workItemModalState.setStartTime({
-      startTime: testDate,
-    }) 
-    
-    workItemModalState.setEndTime({
-      endTime: testDate,
+      title,
     })
 
     expect(workItemModalState.workItemModalData.title)
       .to
-      .eq(`Task 1`)
+      .eq(title)
 
+  })
+
+  it(`
+  GIVEN a state with default taskId
+  WHEN setting taskId 
+  SHOULD return updated taskId
+  `, () => {
+    const taskId = `#1fre33`
+
+    workItemModalState.setTaskId({
+      taskId,
+    })
+    
     expect(workItemModalState.workItemModalData.taskId)
       .to
-      .eq(`#1fre33`)
+      .eq(taskId)
+  })
 
+  it(`
+  GIVEN a state with default date
+  WHEN setting date 
+  SHOULD return updated date
+  `, () => {
+    const date = new Date(`2025-11-24`)
+
+    workItemModalState.setDate({
+      date,
+    })
+    
     expect(workItemModalState.workItemModalData.date)
       .to
-      .eq(testDate)
+      .eq(date)
+  })
 
+  it(`
+  GIVEN a state with default startTime
+  WHEN setting startTime 
+  SHOULD return updated startTime
+  `, () => {
+    const startTime = new Date(`2025-11-24`)
+
+    workItemModalState.setStartTime({
+      startTime: startTime,
+    }) 
+    
     expect(workItemModalState.workItemModalData.start)
       .to
-      .eq(testDate)
+      .eq(startTime)
+  })
+
+  it(`
+  GIVEN a state with default endTime
+  WHEN setting endTime 
+  SHOULD return updated endTime
+  `, () => {
+    const endTime = new Date(`2025-11-24`)
+    
+    workItemModalState.setEndTime({
+      endTime,
+    })
 
     expect(workItemModalState.workItemModalData.end)
       .to
-      .eq(testDate)
+      .eq(endTime)
   })
 }
