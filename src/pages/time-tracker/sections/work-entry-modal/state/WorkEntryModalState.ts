@@ -22,6 +22,14 @@ export class WorkEntryModalState {
     return this._workEntryModalData
   }
 
+  setId({
+    id,
+  }: {
+    id: number,
+  }) {
+    this._workEntryModalData.id = id
+  }
+
   setTitle({
     title,
   }: {

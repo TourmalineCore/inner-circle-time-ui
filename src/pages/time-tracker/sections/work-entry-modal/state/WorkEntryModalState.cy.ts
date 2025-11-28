@@ -12,6 +12,22 @@ function settersTests() {
   })
 
   it(`
+  GIVEN a state with default id
+  WHEN setting id 
+  SHOULD return updated id
+  `, () => {
+    const id = 1
+
+    workEntryModalState.setId({
+      id,
+    })
+
+    expect(workEntryModalState.workEntryModalData.id)
+      .to
+      .eq(id)
+  })
+
+  it(`
   GIVEN a state with default title
   WHEN setting title 
   SHOULD return updated title
@@ -25,7 +41,6 @@ function settersTests() {
     expect(workEntryModalState.workEntryModalData.title)
       .to
       .eq(title)
-
   })
 
   it(`
