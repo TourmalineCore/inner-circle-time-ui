@@ -56,6 +56,7 @@ jobs:
           record: true
           parallel: true
           group: "Electron e2e prod"
+          working-directory: examples/quiet
           quiet: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
