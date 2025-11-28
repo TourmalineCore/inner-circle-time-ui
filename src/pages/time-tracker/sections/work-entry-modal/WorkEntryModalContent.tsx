@@ -38,6 +38,7 @@ export const WorkEntryModalContent = observer(({
             <input 
               type="text" 
               name="title" 
+              data-cy="title-input"
               value={workEntryModalData.title} 
               onChange={(e) => workEntryModalState.setTitle({
                 title: e.target.value,
@@ -52,6 +53,7 @@ export const WorkEntryModalContent = observer(({
             <input 
               type="text" 
               name="taskId" 
+              data-cy="task-id-input"
               value={workEntryModalData.taskId} 
               onChange={(e) => workEntryModalState.setTaskId({
                 taskId: e.target.value,
@@ -65,6 +67,7 @@ export const WorkEntryModalContent = observer(({
             </span>
             <div className='work-entry-modal__completion-time-container'>
               <DatePicker
+                data-cy="datepicker-input"
                 className='work-entry-modal__date-field'
                 selected={workEntryModalData.date}
                 dateFormat="dd.MM"
@@ -75,6 +78,7 @@ export const WorkEntryModalContent = observer(({
 
               <div className='work-entry-modal__time-range'>
                 <InputMask
+                  data-cy="start-time-input"
                   className='work-entry-modal__time-field'
                   mask="99:99"
                   maskChar="0"
@@ -90,6 +94,7 @@ export const WorkEntryModalContent = observer(({
                 />
                 {`-`}
                 <InputMask
+                  data-cy="end-time-input"
                   className='work-entry-modal__time-field'
                   mask="99:99"
                   maskChar="0"

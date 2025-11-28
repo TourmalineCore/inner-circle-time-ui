@@ -41,7 +41,7 @@ export const WorkEntryModalContainer = observer(({
       .format(`YYYY-MM-DDTHH:mm:ss`)
 
     try {
-      await api.post(`/work-entries`,
+      await api.post(`tracking/work-entries`,
         {
           title,
           taskId,
