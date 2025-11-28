@@ -5,14 +5,11 @@ import { WorkEntryModalContainer } from "./WorkEntryModalContainer"
 const ADDED_WORK_ENTRY_MODAL_DATA = {
   title: `Task name`,
   taskId: `1`,
-  startTime: `2025-11-29T09:00:00`,
-  endTime: `2025-11-29T11:45:00`,
+  startTime: `2025-11-16T10:00:00`,
+  endTime: `2025-11-16T11:45:00`,
 }
 
 describe(`WorkEntryModalContainer`, () => {
-  beforeEach(() => {
- //
-  })
 
   describe(`Initialization`, initializationTests)
 })
@@ -31,23 +28,46 @@ function initializationTests() {
         `*/time/tracking/work-entries`,
         {
           statusCode: 200,
-          body: ADDED_WORK_ENTRY_MODAL_DATA,
         },
       )
       .as(`addWorkEntry`)
 
     mountComponent()
 
-    cy.getByData('title-input')
+    cy
+      .getByData(`title-input`)
       .type(ADDED_WORK_ENTRY_MODAL_DATA.title)
 
-    cy.getByData('task-id-input')
+    cy
+      .getByData(`task-id-input`)
       .type(ADDED_WORK_ENTRY_MODAL_DATA.taskId)
 
-    cy.getByData('task-id-input')
-      .type(`2025-11-29`)
+    cy
+      .get(`.work-entry-modal__date-field`)
+      .click()
+      
+    cy
+      .contains(`16`)
+      .click()
 
-    cy.wait(`@addWorkEntry`)
+    cy
+      .getByData(`start-time-input`)
+      .clear()
+      .type(`10:00`)
+    
+    cy
+      .getByData(`end-time-input`)
+      .clear()
+      .type(`11:45`)
+
+    cy
+      .contains(`Add Task`)
+      .click()
+
+    cy
+      .wait(`@addWorkEntry`)
+      .its(`request.body`)
+      .should(`deep.equal`, ADDED_WORK_ENTRY_MODAL_DATA)
   })
 
 }
@@ -56,13 +76,13 @@ function mountComponent() {
   const workEntryModalState = new WorkEntryModalState()
   
   workEntryModalState.setDate({
-    date: new Date(`2025-11-27T09:00:00`)
-  })
-  workEntryModalState.setEndTime({
-    endTime: new Date(`2025-11-27T11:30:00`)
+    date: new Date(`2025-11-27T09:00:00`),
   })
   workEntryModalState.setStartTime({
-    startTime: new Date(`2025-11-27T09:00:00`)
+    startTime: new Date(`2025-11-27T09:00:00`),
+  })
+  workEntryModalState.setEndTime({
+    endTime: new Date(`2025-11-27T11:30:00`),
   })
 
   cy

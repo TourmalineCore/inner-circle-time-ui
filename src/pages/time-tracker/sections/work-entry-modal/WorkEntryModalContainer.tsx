@@ -28,17 +28,15 @@ export const WorkEntryModalContainer = observer(({
       end,
     } = workEntryModalState.workEntryModalData
 
-    const startDateTime = moment(date)
-      .hours(moment(start)
-        .hours())
-      .minutes(moment(start)
-        .minutes())
-      .seconds(moment(start)
-        .seconds())
-      .format(`YYYY-MM-DDTHH:mm:ss`)
+    const startDateTime = concatDateAndTime({
+      date,
+      time: start,
+    })
 
-    const endDateTime = moment(end)
-      .format(`YYYY-MM-DDTHH:mm:ss`)
+    const endDateTime = concatDateAndTime({
+      date,
+      time: end,
+    })
 
     try {
       await api.post(`tracking/work-entries`,
@@ -51,5 +49,22 @@ export const WorkEntryModalContainer = observer(({
       )
     }
     catch{ /* empty */ }
+  }
+
+  function concatDateAndTime({
+    date,
+    time,
+  }: {
+    date: Date,
+    time: Date,
+  }) {
+    return moment(date)
+      .hours(moment(time)
+        .hours())
+      .minutes(moment(time)
+        .minutes())
+      .seconds(moment(time)
+        .seconds())
+      .format(`YYYY-MM-DDTHH:mm:ss`)
   }
 })
