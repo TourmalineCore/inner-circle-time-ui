@@ -4,7 +4,8 @@ import { TimeTrackerTableState } from "./TimeTrackerTableState"
 
 describe(`TimeTrackerTableState`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`Time Tracker Table Data`, timeTrackerTableEditDataTests)
+  describe(`Work Items Management`, workItemsTests)
+  describe(`View Configuration`, viewTests)
 })
 
 const WORK_ITEMS_FOR_INITIALIZATION: WorkItem[] = [
@@ -19,13 +20,13 @@ const WORK_ITEMS_FOR_INITIALIZATION: WorkItem[] = [
 ]
 
 function initializationTests() {
-  const timeTrackerTableState = new TimeTrackerTableState()
-  
-  it(`  
-  GIVEN initial state with default data
-  WHEN initialize
-  SHOULD have default values
+  it(`
+  GIVEN a new TimeTrackerTableState
+  WHEN initializing state
+  SHOULD return default values
   `, () => {
+    const timeTrackerTableState = new TimeTrackerTableState()
+    
     expect(timeTrackerTableState.workItems)
       .to
       .deep
@@ -34,21 +35,21 @@ function initializationTests() {
     expect(timeTrackerTableState.currentView)
       .to
       .be
-      .eq(Views.WEEK)
+      .null
 
     expect(timeTrackerTableState.viewStartDate)
       .to
       .be
-      .eq(null)
+      .null
 
     expect(timeTrackerTableState.viewEndDate)
       .to
       .be
-      .eq(null)
+      .null
   })
 }
 
-function timeTrackerTableEditDataTests() {
+function workItemsTests() {
   let timeTrackerTableState: TimeTrackerTableState
 
   beforeEach(() => {
@@ -56,9 +57,9 @@ function timeTrackerTableEditDataTests() {
   })
 
   it(`
-  GIVEN one workItems
-  WHEN initialize it
-  SHOULD return one workItems
+  GIVEN an empty state
+  WHEN initializing with one work items
+  SHOULD return one work items
   `, () => {
     timeTrackerTableState.initialize({
       loadedWorkItems: WORK_ITEMS_FOR_INITIALIZATION,
@@ -69,39 +70,73 @@ function timeTrackerTableEditDataTests() {
       .deep
       .eq(WORK_ITEMS_FOR_INITIALIZATION)
   })
+}
+
+function viewTests() {
+  let timeTrackerTableState: TimeTrackerTableState
+
+  beforeEach(() => {
+    timeTrackerTableState = new TimeTrackerTableState()
+  })
 
   it(`
-  GIVEN view type day
-  WHEN try get currentTime
-  SHOULD return current day equal day
+  GIVEN a state with no view set
+  WHEN setting current view to day
+  SHOULD return currentView equal to the day
   `, () => {
     timeTrackerTableState.setCurrentView({
-      view: `day`,
+      view: Views.DAY, 
     })
 
     expect(timeTrackerTableState.currentView)
       .to
-      .be
       .eq(Views.DAY)
   })
 
   it(`
-  GIVEN 
-  WHEN 
-  SHOULD set new value in viewStartDate and viewEndDate
+  GIVEN week view is set
+  AND current date is 2025-11-27
+  WHEN setting view period
+  SHOULD return correct viewStartDate equal to the start date of the week
+  AND viewEndDate equal to the end date of the week
   `, () => {
+    timeTrackerTableState.setCurrentView({
+      view: Views.WEEK, 
+    })
+
     timeTrackerTableState.setViewPeriod({
-      date: new Date(`2025-11-27`),
+      date: new Date(`2025-11-27`), 
     })
 
     expect(timeTrackerTableState.viewStartDate)
       .to
-      .be
       .eq(`2025-11-23T00:00:00`)
-      
+
     expect(timeTrackerTableState.viewEndDate)
       .to
-      .be
       .eq(`2025-11-29T23:59:59`)
+  })
+
+  it(`
+  GIVEN day view is set
+  AND current date is 2025-11-23
+  WHEN setting view period
+  SHOULD return the correct viewStartDate and viewEndDate equal to the current day
+  `, () => {
+    timeTrackerTableState.setCurrentView({
+      view: Views.DAY, 
+    })
+
+    timeTrackerTableState.setViewPeriod({
+      date: new Date(`2025-11-23`), 
+    })
+
+    expect(timeTrackerTableState.viewStartDate)
+      .to
+      .eq(`2025-11-23T00:00:00`)
+
+    expect(timeTrackerTableState.viewEndDate)
+      .to
+      .eq(`2025-11-23T23:59:59`)
   })
 }

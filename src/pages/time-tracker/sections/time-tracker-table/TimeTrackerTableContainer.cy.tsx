@@ -9,7 +9,7 @@ const WORK_ITEMS_RESPONSE = [
     taskId: `#4455`,
     startTime: new Date(`2025-11-27T09:00:00`),
     endTime: new Date(`2025-11-27T11:30:00`),
-  }
+  }, 
 ]
 
 describe(`TimeTrackerTableContainer`, () => {

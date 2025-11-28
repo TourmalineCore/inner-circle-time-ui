@@ -5,7 +5,6 @@ import { api } from "../../../../common/api"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
-import { WorkItem } from '../../types'
 
 export const TimeTrackerTableContainer = observer(({
   onOpenWorkItemModal,
@@ -57,7 +56,7 @@ export const TimeTrackerTableContainer = observer(({
           title: workItem.title,
           start: new Date(workItem.startTime),
           end: new Date(workItem.endTime),
-        })) 
+        })), 
       })
     }
 
