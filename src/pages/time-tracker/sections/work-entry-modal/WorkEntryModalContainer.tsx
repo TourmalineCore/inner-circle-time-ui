@@ -1,32 +1,32 @@
 import { observer } from "mobx-react-lite"
-import { WorkItemModalContent } from "./WorkItemModalContent"
+import { WorkEntryModalContent } from "./WorkEntryModalContent"
 import { api } from "../../../../common/api"
 import { useContext } from "react"
-import { WorkItemModalStateContext } from "./state/WorkItemModalStateContext"
+import { WorkEntryModalStateContext } from "./state/WorkEntryModalStateContext"
 import moment from "moment"
 
-export const WorkItemModalContainer = observer(({
+export const WorkEntryModalContainer = observer(({
   onClose,
 }: {
   onClose: () => unknown,
 }) => {
-  const workItemModalState = useContext(WorkItemModalStateContext)
+  const workEntryModalState = useContext(WorkEntryModalStateContext)
 
   return (
-    <WorkItemModalContent
+    <WorkEntryModalContent
       onClose={onClose}
-      onAddWorkItem={addWorkItemAsync}
+      onAddWorkEntry={addWorkEntryAsync}
     />
   )
   
-  async function addWorkItemAsync() {
+  async function addWorkEntryAsync() {
     const {
       title,
       taskId,
       date,
       start,
       end,
-    } = workItemModalState.workItemModalData
+    } = workEntryModalState.workEntryModalData
 
     const startDateTime = moment(date)
       .hours(moment(start)

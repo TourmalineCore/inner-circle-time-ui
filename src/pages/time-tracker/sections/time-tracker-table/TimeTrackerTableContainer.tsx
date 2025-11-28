@@ -5,13 +5,15 @@ import { api } from "../../../../common/api"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
+import { WorkEntriesResponse } from "../../types"
+import moment from "moment"
 
 export const TimeTrackerTableContainer = observer(({
-  onOpenWorkItemModal,
-  setWorkItemModalDataTime,
+  onOpenWorkEntryModal,
+  setWorkEntryModalDataTime,
 }: {
-  onOpenWorkItemModal: () => unknown,
-  setWorkItemModalDataTime: ({
+  onOpenWorkEntryModal: () => unknown,
+  setWorkEntryModalDataTime: ({
     startTime,
     endTime,
   }: {
@@ -44,23 +46,31 @@ export const TimeTrackerTableContainer = observer(({
   useEffect(() => {
     if (viewStartDate === null && viewEndDate === null) return
 
-    async function loadedWorkItems() {
+    async function loadedWorkEntries() {
       const {
         data,
-      } = await api.get(`/tracking/work-entries?startTime=${viewStartDate}&endTime=${viewEndDate}`)
+      } = await api.get<WorkEntriesResponse>(`/tracking/work-entries?startTime=${viewStartDate}&endTime=${viewEndDate}`)
 
       timeTrackerState.initialize({
-        loadedWorkItems: data.map((workItem: any) => ({
-          id: workItem.id,
-          taskId: workItem.taskId,
-          title: workItem.title,
-          start: new Date(workItem.startTime),
-          end: new Date(workItem.endTime),
-        })), 
+        loadedData: {
+          workEntries: data
+            .workEntries
+            .map((workEntry) => ({
+              id: workEntry.id,
+              taskId: workEntry.taskId,
+              title: workEntry.title,
+              date: moment(workEntry.startTime)
+                .toDate(),
+              start: moment(workEntry.startTime)
+                .toDate(),
+              end: moment(workEntry.endTime)
+                .toDate(),
+            })), 
+        },
       })
     }
 
-    loadedWorkItems()
+    loadedWorkEntries()
   }, [
     viewStartDate,
     viewEndDate,
@@ -70,8 +80,8 @@ export const TimeTrackerTableContainer = observer(({
 
   return (
     <TimeTrackerTableContent 
-      onOpenWorkItemModal={onOpenWorkItemModal}
-      setWorkItemModalDataTime={setWorkItemModalDataTime}
+      onOpenWorkEntryModal={onOpenWorkEntryModal}
+      setWorkEntryModalDataTime={setWorkEntryModalDataTime}
     />
   )
 })

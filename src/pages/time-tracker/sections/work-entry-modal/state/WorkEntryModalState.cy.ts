@@ -1,14 +1,14 @@
-import { WorkItemModalState } from "./WorkItemModalState"
+import { WorkEntryModalState } from "./WorkEntryModalState"
 
-describe(`WorkItemModalState`, () => {
+describe(`WorkEntryModalState`, () => {
   describe(`Setters Data`, settersTests)
 })
 
 function settersTests() {
-  let workItemModalState: WorkItemModalState
+  let workEntryModalState: WorkEntryModalState
 
   beforeEach(() => {
-    workItemModalState = new WorkItemModalState()
+    workEntryModalState = new WorkEntryModalState()
   })
 
   it(`
@@ -18,11 +18,11 @@ function settersTests() {
   `, () => {
     const title = `Task 1`
 
-    workItemModalState.setTitle({
+    workEntryModalState.setTitle({
       title,
     })
 
-    expect(workItemModalState.workItemModalData.title)
+    expect(workEntryModalState.workEntryModalData.title)
       .to
       .eq(title)
 
@@ -35,11 +35,11 @@ function settersTests() {
   `, () => {
     const taskId = `#1fre33`
 
-    workItemModalState.setTaskId({
+    workEntryModalState.setTaskId({
       taskId,
     })
     
-    expect(workItemModalState.workItemModalData.taskId)
+    expect(workEntryModalState.workEntryModalData.taskId)
       .to
       .eq(taskId)
   })
@@ -51,11 +51,11 @@ function settersTests() {
   `, () => {
     const date = new Date(`2025-11-24`)
 
-    workItemModalState.setDate({
+    workEntryModalState.setDate({
       date,
     })
     
-    expect(workItemModalState.workItemModalData.date)
+    expect(workEntryModalState.workEntryModalData.date)
       .to
       .eq(date)
   })
@@ -67,11 +67,11 @@ function settersTests() {
   `, () => {
     const startTime = new Date(`2025-11-24`)
 
-    workItemModalState.setStartTime({
+    workEntryModalState.setStartTime({
       startTime: startTime,
     }) 
     
-    expect(workItemModalState.workItemModalData.start)
+    expect(workEntryModalState.workEntryModalData.start)
       .to
       .eq(startTime)
   })
@@ -83,11 +83,11 @@ function settersTests() {
   `, () => {
     const endTime = new Date(`2025-11-24`)
     
-    workItemModalState.setEndTime({
+    workEntryModalState.setEndTime({
       endTime,
     })
 
-    expect(workItemModalState.workItemModalData.end)
+    expect(workEntryModalState.workEntryModalData.end)
       .to
       .eq(endTime)
   })

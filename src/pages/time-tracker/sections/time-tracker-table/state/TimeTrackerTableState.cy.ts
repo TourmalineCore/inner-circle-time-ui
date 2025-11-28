@@ -1,23 +1,25 @@
 import { Views } from "react-big-calendar"
-import { WorkItem } from "../../../types"
+import { TimeTrackerTable } from "../../../types"
 import { TimeTrackerTableState } from "./TimeTrackerTableState"
 
 describe(`TimeTrackerTableState`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`Work Items Management`, workItemsTests)
+  describe(`Work Entries Management`, workEntriesTests)
   describe(`View Configuration`, viewTests)
 })
 
-const WORK_ITEMS_FOR_INITIALIZATION: WorkItem[] = [
-  {
-    id: 1,
-    title: `Task 1`,
-    taskId: `#2fre1`,
-    date: new Date(`2025-11-24`),
-    start: new Date(`2025-11-24T09:00:00`),
-    end: new Date(`2025-11-24T09:30:00`),
-  },
-]
+const WORK_ENTRIES_FOR_INITIALIZATION: TimeTrackerTable = {
+  workEntries: [
+    {
+      id: 1,
+      title: `Task 1`,
+      taskId: `#2fre1`,
+      date: new Date(`2025-11-24`),
+      start: new Date(`2025-11-24T09:00:00`),
+      end: new Date(`2025-11-24T09:30:00`),
+    },
+  ],
+}
 
 function initializationTests() {
   it(`
@@ -27,7 +29,7 @@ function initializationTests() {
   `, () => {
     const timeTrackerTableState = new TimeTrackerTableState()
     
-    expect(timeTrackerTableState.workItems)
+    expect(timeTrackerTableState.tableData.workEntries)
       .to
       .deep
       .eq([])
@@ -49,7 +51,7 @@ function initializationTests() {
   })
 }
 
-function workItemsTests() {
+function workEntriesTests() {
   let timeTrackerTableState: TimeTrackerTableState
 
   beforeEach(() => {
@@ -58,17 +60,17 @@ function workItemsTests() {
 
   it(`
   GIVEN an empty state
-  WHEN initializing with one work items
-  SHOULD return one work items
+  WHEN initializing with one work entry
+  SHOULD return one work entry
   `, () => {
     timeTrackerTableState.initialize({
-      loadedWorkItems: WORK_ITEMS_FOR_INITIALIZATION,
+      loadedData: WORK_ENTRIES_FOR_INITIALIZATION,
     })
 
-    expect(timeTrackerTableState.workItems)
+    expect(timeTrackerTableState.tableData)
       .to
       .deep
-      .eq(WORK_ITEMS_FOR_INITIALIZATION)
+      .eq(WORK_ENTRIES_FOR_INITIALIZATION)
   })
 }
 

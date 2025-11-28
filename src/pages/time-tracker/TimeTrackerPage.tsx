@@ -2,18 +2,18 @@ import { useMemo, useState } from "react"
 import { TimeTrackerTableState } from "./sections/time-tracker-table/state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./sections/time-tracker-table/state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContainer } from "./sections/time-tracker-table/TimeTrackerTableContainer"
-import { WorkItemModalContainer } from "./sections/work-item-modal/WorkItemModalContainer"
-import { WorkItemModalStateContext } from "./sections/work-item-modal/state/WorkItemModalStateContext"
-import { WorkItemModalState } from "./sections/work-item-modal/state/WorkItemModalState"
+import { WorkEntryModalContainer } from "./sections/work-entry-modal/WorkEntryModalContainer"
+import { WorkEntryModalStateContext } from "./sections/work-entry-modal/state/WorkEntryModalStateContext"
+import { WorkEntryModalState } from "./sections/work-entry-modal/state/WorkEntryModalState"
 
 export function TimeTrackerPage() {  
-  const timeTrackerState = useMemo(
+  const timeTrackerTableState = useMemo(
     () => new TimeTrackerTableState(),
     [],
   )
 
-  const workItemModalState = useMemo(
-    () => new WorkItemModalState(),
+  const workEntryModalState = useMemo(
+    () => new WorkEntryModalState(),
     [],
   )
 
@@ -23,35 +23,35 @@ export function TimeTrackerPage() {
   ] = useState(false)
   
   return (
-    <TimeTrackerStateContext.Provider value={timeTrackerState}>
-      <WorkItemModalStateContext.Provider value={workItemModalState}>
+    <TimeTrackerStateContext.Provider value={timeTrackerTableState}>
+      <WorkEntryModalStateContext.Provider value={workEntryModalState}>
         <TimeTrackerTableContainer
-          onOpenWorkItemModal={() => setIsOpenModal(true)}
-          setWorkItemModalDataTime={setWorkItemModalDataTime}
+          onOpenWorkEntryModal={() => setIsOpenModal(true)}
+          setWorkEntryModalDataTime={setWorkEntryModalDataTime}
         />
-        {isOpenModal && <WorkItemModalContainer
+        {isOpenModal && <WorkEntryModalContainer
           onClose={() => setIsOpenModal(false)}
         />}
-      </WorkItemModalStateContext.Provider>
+      </WorkEntryModalStateContext.Provider>
     </TimeTrackerStateContext.Provider>
   )
 
-  function setWorkItemModalDataTime({
+  function setWorkEntryModalDataTime({
     startTime,
     endTime,
   }: {
     startTime: Date,
     endTime: Date,
   }) {
-    workItemModalState.setDate({
+    workEntryModalState.setDate({
       date: startTime,
     })
 
-    workItemModalState.setStartTime({
+    workEntryModalState.setStartTime({
       startTime,
     })
     
-    workItemModalState.setEndTime({
+    workEntryModalState.setEndTime({
       endTime,
     })
   }

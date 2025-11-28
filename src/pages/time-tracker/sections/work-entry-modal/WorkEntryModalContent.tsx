@@ -1,105 +1,105 @@
 import '@tourmalinecore/react-tc-modal/es/index.css'
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import "react-datepicker/dist/react-datepicker.css"
-import './WorkItemModalContent.scss'
+import './WorkEntryModalContent.scss'
 
 import { Modal } from '@tourmalinecore/react-tc-modal'
-import { WorkItemModalStateContext } from './state/WorkItemModalStateContext'
+import { WorkEntryModalStateContext } from './state/WorkEntryModalStateContext'
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import InputMask from 'react-input-mask'
 
-export const WorkItemModalContent = observer(({
+export const WorkEntryModalContent = observer(({
   onClose,
-  onAddWorkItem,
+  onAddWorkEntry,
 }: {
   onClose: () => unknown,
-  onAddWorkItem: () => unknown,
+  onAddWorkEntry: () => unknown,
 }) => {
-  const workItemModalState = useContext(WorkItemModalStateContext)
+  const workEntryModalState = useContext(WorkEntryModalStateContext)
 
   const {
-    workItemModalData, 
-  } = workItemModalState
+    workEntryModalData, 
+  } = workEntryModalState
 
   return (
     <Modal
-      className="work-item-modal" 
+      className="work-entry-modal" 
       maxWidth={240}
       noPaddingBody
       content={(
-        <div className='work-item-modal__inner'>
-          <div className='work-item-modal__field'>
-            <span className='work-item-modal__label'>
+        <div className='work-entry-modal__inner'>
+          <div className='work-entry-modal__field'>
+            <span className='work-entry-modal__label'>
               Task name
             </span> 
             <input 
               type="text" 
               name="title" 
-              value={workItemModalData.title} 
-              onChange={(e) => workItemModalState.setTitle({
+              value={workEntryModalData.title} 
+              onChange={(e) => workEntryModalState.setTitle({
                 title: e.target.value,
               })} 
             />
           </div>
 
-          <div className='work-item-modal__field'>
-            <span className='work-item-modal__label'>
+          <div className='work-entry-modal__field'>
+            <span className='work-entry-modal__label'>
               Task id
             </span> 
             <input 
               type="text" 
               name="taskId" 
-              value={workItemModalData.taskId} 
-              onChange={(e) => workItemModalState.setTaskId({
+              value={workEntryModalData.taskId} 
+              onChange={(e) => workEntryModalState.setTaskId({
                 taskId: e.target.value,
               })} 
             />
           </div>
 
-          <div className='work-item-modal__field'>
-            <span className='work-item-modal__label'>
+          <div className='work-entry-modal__field'>
+            <span className='work-entry-modal__label'>
               Task completion time
             </span>
-            <div className='work-item-modal__completion-time-container'>
+            <div className='work-entry-modal__completion-time-container'>
               <DatePicker
-                className='work-item-modal__date-field'
-                selected={workItemModalData.date}
+                className='work-entry-modal__date-field'
+                selected={workEntryModalData.date}
                 dateFormat="dd.MM"
-                onChange={(date) => workItemModalState.setDate({
+                onChange={(date) => workEntryModalState.setDate({
                   date: date as Date,
                 })}
               />
 
-              <div className='work-item-modal__time-range'>
+              <div className='work-entry-modal__time-range'>
                 <InputMask
-                  className='work-item-modal__time-field'
+                  className='work-entry-modal__time-field'
                   mask="99:99"
                   maskChar="0"
                   value={formatTime({
-                    time: workItemModalData.start,
+                    time: workEntryModalData.start,
                   })}
-                  onChange={(e) => workItemModalState.setStartTime({
+                  onChange={(e) => workEntryModalState.setStartTime({
                     startTime: parseTimeString({
                       timeString: e.target.value,
-                      originalDate: workItemModalData.start,
+                      originalDate: workEntryModalData.start,
                     }),
                   })}
                 />
                 {`-`}
                 <InputMask
-                  className='work-item-modal__time-field'
+                  className='work-entry-modal__time-field'
                   mask="99:99"
                   maskChar="0"
                   value={formatTime({
-                    time: workItemModalData.end,
+                    time: workEntryModalData.end,
                   })}
-                  onChange={(e) => workItemModalState.setEndTime({
+                  onChange={(e) => workEntryModalState.setEndTime({
                     endTime: parseTimeString({
                       timeString: e.target.value,
-                      originalDate: workItemModalData.end,
+                      originalDate: workEntryModalData.end,
                     }),
                   })}
                 />
@@ -108,7 +108,7 @@ export const WorkItemModalContent = observer(({
           </div>
         </div>
       )}
-      onApply={onAddWorkItem}
+      onApply={onAddWorkEntry}
       applyText="Add Task"
       showApply={true}
       onClose={onClose}

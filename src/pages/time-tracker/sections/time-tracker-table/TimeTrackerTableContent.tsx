@@ -20,11 +20,11 @@ moment.locale(`ru`, {
 const localizer = momentLocalizer(moment)
 
 export const TimeTrackerTableContent = observer(({
-  onOpenWorkItemModal,
-  setWorkItemModalDataTime,
+  onOpenWorkEntryModal,
+  setWorkEntryModalDataTime,
 }: {
-  onOpenWorkItemModal: () => unknown,
-  setWorkItemModalDataTime: ({
+  onOpenWorkEntryModal: () => unknown,
+  setWorkEntryModalDataTime: ({
     startTime,
     endTime,
   }: {
@@ -35,9 +35,13 @@ export const TimeTrackerTableContent = observer(({
   const timeTrackerState = useContext(TimeTrackerStateContext)
 
   const {
-    workItems,
+    tableData,
     currentView,
   } = timeTrackerState
+
+  const {
+    workEntries, 
+  } = tableData
 
   const handleSelectSlot = useCallback(({
     start,
@@ -46,12 +50,12 @@ export const TimeTrackerTableContent = observer(({
   }: SlotInfo) => {
     if (action !== `click`) return
 
-    setWorkItemModalDataTime({
+    setWorkEntryModalDataTime({
       startTime: start,
       endTime: end,
     })
 
-    onOpenWorkItemModal()
+    onOpenWorkEntryModal()
   }, [])
 
   return (
@@ -67,7 +71,7 @@ export const TimeTrackerTableContent = observer(({
       onView={(view) => timeTrackerState.setCurrentView({
         view: view as View,
       })}
-      events={workItems}
+      events={workEntries}
       timeslots={4}
       step={15}
       localizer={localizer}

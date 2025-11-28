@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
-import { WorkItem } from '../../../types'
+import { WorkEntry } from '../../../types'
 
-const EMPTY_WORK_ITEM_MODAL_DATA: WorkItem = {
+const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntry = {
   id: 0,
   title: ``,
   date: new Date(),
@@ -9,17 +9,17 @@ const EMPTY_WORK_ITEM_MODAL_DATA: WorkItem = {
   end: new Date(),
 }
 
-export class WorkItemModalState {
-  private _workItemModalData: WorkItem = {
-    ...EMPTY_WORK_ITEM_MODAL_DATA,
+export class WorkEntryModalState {
+  private _workEntryModalData: WorkEntry = {
+    ...EMPTY_WORK_ENTRY_MODAL_DATA,
   }
 
   constructor() {
     makeAutoObservable(this)
   }
 
-  get workItemModalData() {
-    return this._workItemModalData
+  get workEntryModalData() {
+    return this._workEntryModalData
   }
 
   setTitle({
@@ -27,7 +27,7 @@ export class WorkItemModalState {
   }: {
     title: string,
   }) {
-    this._workItemModalData.title = title
+    this._workEntryModalData.title = title
   }
 
   setTaskId({
@@ -35,7 +35,7 @@ export class WorkItemModalState {
   }: {
     taskId: string,
   }) {
-    this._workItemModalData.taskId = taskId
+    this._workEntryModalData.taskId = taskId
   }
 
   setDate({
@@ -43,7 +43,7 @@ export class WorkItemModalState {
   }: {
     date: Date,
   }) {
-    this._workItemModalData.date = date
+    this._workEntryModalData.date = date
   }
 
   setStartTime({
@@ -51,7 +51,7 @@ export class WorkItemModalState {
   }: {
     startTime: Date,
   }) {
-    this._workItemModalData.start = startTime
+    this._workEntryModalData.start = startTime
   }
 
   setEndTime({
@@ -59,6 +59,6 @@ export class WorkItemModalState {
   }: {
     endTime: Date,
   }) {
-    this._workItemModalData.end = endTime
+    this._workEntryModalData.end = endTime
   }
 }

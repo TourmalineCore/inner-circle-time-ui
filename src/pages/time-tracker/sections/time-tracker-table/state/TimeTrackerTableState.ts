@@ -1,9 +1,11 @@
 import { makeAutoObservable } from 'mobx'
-import { View, WorkItem } from '../../../types'
+import { TimeTrackerTable, View } from '../../../types'
 import moment from 'moment'
 
 export class TimeTrackerTableState {
-  private _workItems: WorkItem[] = []
+  private _tableData: TimeTrackerTable = {
+    workEntries: [],
+  }
 
   private _currentView: View | null = null
 
@@ -16,15 +18,15 @@ export class TimeTrackerTableState {
   }
 
   initialize({
-    loadedWorkItems,
+    loadedData,
   }: {
-    loadedWorkItems: WorkItem[],
+    loadedData: TimeTrackerTable,
   }) {
-    this._workItems = loadedWorkItems
+    this._tableData = loadedData
   }
 
-  get workItems() {
-    return this._workItems
+  get tableData() {
+    return this._tableData
   }
 
   get currentView() {

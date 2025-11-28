@@ -1,16 +1,19 @@
+import { WorkEntriesResponse } from "../../types"
 import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContainer } from "./TimeTrackerTableContainer"
 
-const WORK_ITEMS_RESPONSE = [
-  {
-    id: 1,
-    title: `task4455`,
-    taskId: `#4455`,
-    startTime: new Date(`2025-11-27T09:00:00`),
-    endTime: new Date(`2025-11-27T11:30:00`),
-  }, 
-]
+const WORK_ENTRIES_RESPONSE: WorkEntriesResponse = {
+  workEntries: [
+    {
+      id: 1,
+      title: `task4455`,
+      taskId: `#4455`,
+      startTime: new Date(`2025-11-27T09:00:00`),
+      endTime: new Date(`2025-11-27T11:30:00`),
+    }, 
+  ],
+}
 
 describe(`TimeTrackerTableContainer`, () => {
   beforeEach(() => {
@@ -38,7 +41,7 @@ function initializationTests() {
         `*/time/tracking/work-entries?startTime=2025-11-27T00:00:00&endTime=2025-11-27T23:59:59`,
         {
           statusCode: 200,
-          body: WORK_ITEMS_RESPONSE,
+          body: WORK_ENTRIES_RESPONSE,
         },
       )
       .as(`getWorkEntries`)
@@ -64,7 +67,7 @@ function initializationTests() {
         `*/time/tracking/work-entries?startTime=2025-11-24T00:00:00&endTime=2025-11-30T23:59:59`,
         {
           statusCode: 200,
-          body: WORK_ITEMS_RESPONSE,
+          body: WORK_ENTRIES_RESPONSE,
         },
       )
       .as(`getWorkEntries`)
@@ -148,8 +151,8 @@ function mountComponent() {
     .mount(
       <TimeTrackerStateContext.Provider value={timeTrackerState}>
         <TimeTrackerTableContainer 
-          onOpenWorkItemModal={() => {}}
-          setWorkItemModalDataTime={() => {}}
+          onOpenWorkEntryModal={() => {}}
+          setWorkEntryModalDataTime={() => {}}
         />,
       </TimeTrackerStateContext.Provider>,
     )
