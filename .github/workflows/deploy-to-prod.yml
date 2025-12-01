@@ -63,7 +63,7 @@ jobs:
           --browser electron \
           --record \
           --parallel \
-          --group "Electron e2e prod" > /dev/null 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)"
+          --group "Electron e2e prod" > /dev/null 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
