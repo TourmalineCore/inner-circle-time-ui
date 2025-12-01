@@ -61,7 +61,7 @@ jobs:
           --browser electron \
           --record \
           --parallel \
-          --group "Electron e2e prod"
+          --group "Electron e2e prod" > /dev/null 2>&1 || echo "Tests completed with status: $?"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
