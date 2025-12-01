@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { WorkEntry } from '../../../types'
 
-const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntry = {
+export const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntry = {
   id: 0,
   title: ``,
   date: new Date(),
@@ -68,5 +68,9 @@ export class WorkEntryModalState {
     endTime: Date,
   }) {
     this._workEntryModalData.end = endTime
+  }
+
+  reset() {
+    this._workEntryModalData = structuredClone(EMPTY_WORK_ENTRY_MODAL_DATA)
   }
 }
