@@ -55,13 +55,15 @@ jobs:
         run: npm ci
 
       - name: E2E test on prod
+        # Learn more about '> /dev/null 2>&1': https://stackoverflow.com/a/42919998
+        # In essence it merges output and error streams and doesn't show errors in the terminal to avoid leakage of secrets in the pipeline
         run: |
           npx cypress run \
           --e2e \
           --browser electron \
           --record \
           --parallel \
-          --group "Electron e2e prod" > /dev/null 2>&1 || echo "Tests completed with status: $?"
+          --group "Electron e2e prod" > /dev/null 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
