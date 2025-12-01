@@ -8,7 +8,7 @@ import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import moment from 'moment'
 import 'moment/locale/ru'
 import { momentLocalizer, Calendar, SlotInfo} from 'react-big-calendar'
-import { View } from '../../types'
+import { View, WorkEntry } from '../../types'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -21,9 +21,11 @@ const localizer = momentLocalizer(moment)
 
 export const TimeTrackerTableContent = observer(({
   onOpenWorkEntryModal,
+  setWorkEntryModalData,
   setWorkEntryModalDataTime,
 }: {
   onOpenWorkEntryModal: () => unknown,
+  setWorkEntryModalData: (workEntry: WorkEntry) => unknown,
   setWorkEntryModalDataTime: ({
     startTime,
     endTime,
@@ -58,6 +60,12 @@ export const TimeTrackerTableContent = observer(({
     onOpenWorkEntryModal()
   }, [])
 
+  const handleSelectWorkEntry = useCallback((workEntry: WorkEntry) => {
+    setWorkEntryModalData(workEntry)
+
+    onOpenWorkEntryModal()
+  }, []) 
+
   return (
     <Calendar
       dayLayoutAlgorithm="no-overlap"
@@ -78,7 +86,7 @@ export const TimeTrackerTableContent = observer(({
       // eventPropGetter={eventPropGetter as never}
       // dayPropGetter={dayPropGetter as DayPropGetter}
       onSelectSlot={handleSelectSlot}
-      // onSelectEvent={}
+      onSelectEvent={handleSelectWorkEntry}
       onNavigate={(date) => timeTrackerState.setViewPeriod({
         date: date,
       })}

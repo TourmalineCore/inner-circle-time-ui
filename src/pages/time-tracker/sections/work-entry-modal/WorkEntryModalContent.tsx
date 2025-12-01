@@ -13,10 +13,10 @@ import InputMask from 'react-input-mask'
 
 export const WorkEntryModalContent = observer(({
   onClose,
-  onAddWorkEntry,
+  onSubmitWorkEntryAsync,
 }: {
   onClose: () => unknown,
-  onAddWorkEntry: () => unknown,
+  onSubmitWorkEntryAsync: () => unknown,
 }) => {
   const workEntryModalState = useContext(WorkEntryModalStateContext)
 
@@ -113,8 +113,11 @@ export const WorkEntryModalContent = observer(({
           </div>
         </div>
       )}
-      onApply={onAddWorkEntry}
-      applyText="Add Task"
+      onApply={onSubmitWorkEntryAsync}
+      applyText={workEntryModalData.id
+        ? `Update`
+        : `Add`
+      }
       showApply={true}
       onClose={onClose}
     />

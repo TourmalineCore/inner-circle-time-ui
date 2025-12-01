@@ -3,7 +3,7 @@ export type TimeTrackerTable = {
 }
 
 export type WorkEntry = {
-  id: number,
+  id?: number,
   title: string,
   date: Date,
   taskId?: string,
@@ -14,11 +14,13 @@ export type WorkEntry = {
 export type View = 'day' | 'week'
 
 export type WorkEntriesResponse = {
-  workEntries: {
-    id: number,
-    title: string,
-    taskId?: string,
-    startTime: Date,
-    endTime: Date,
-  }[],
+  workEntries: WorkEntryItem[],
 }
+
+export type WorkEntryItem = {
+  id: number,
+  title: string,
+  taskId?: string,
+  startTime: Date,
+  endTime: Date,
+} 

@@ -15,12 +15,13 @@ export const WorkEntryModalContainer = observer(({
   return (
     <WorkEntryModalContent
       onClose={onClose}
-      onAddWorkEntry={addWorkEntryAsync}
+      onSubmitWorkEntryAsync={onSubmitWorkEntryAsync}
     />
   )
   
-  async function addWorkEntryAsync() {
+  async function onSubmitWorkEntryAsync() {
     const {
+      id,
       title,
       taskId,
       date,
@@ -39,7 +40,7 @@ export const WorkEntryModalContainer = observer(({
     })
 
     try {
-      await api.post(`tracking/work-entries`,
+      await api.post(`tracking/work-entries${id ? `/${id}` : ``}`,
         {
           title,
           taskId,

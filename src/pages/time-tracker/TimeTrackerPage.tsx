@@ -5,6 +5,7 @@ import { TimeTrackerTableContainer } from "./sections/time-tracker-table/TimeTra
 import { WorkEntryModalContainer } from "./sections/work-entry-modal/WorkEntryModalContainer"
 import { WorkEntryModalStateContext } from "./sections/work-entry-modal/state/WorkEntryModalStateContext"
 import { WorkEntryModalState } from "./sections/work-entry-modal/state/WorkEntryModalState"
+import { WorkEntry } from "./types"
 
 export function TimeTrackerPage() {  
   const timeTrackerTableState = useMemo(
@@ -27,7 +28,8 @@ export function TimeTrackerPage() {
       <WorkEntryModalStateContext.Provider value={workEntryModalState}>
         <TimeTrackerTableContainer
           onOpenWorkEntryModal={() => setIsOpenModal(true)}
-          setWorkEntryModalDataTime={setWorkEntryModalDataTime}
+          setWorkEntryModalData={setWorkEntryModalData}
+          setWorkEntryModalDataTime={setWorkEntryModalDateAndTime}
         />
         {isOpenModal && <WorkEntryModalContainer
           onClose={() => setIsOpenModal(false)}
@@ -36,12 +38,41 @@ export function TimeTrackerPage() {
     </TimeTrackerStateContext.Provider>
   )
 
-  function setWorkEntryModalDataTime({
+  function setWorkEntryModalData({
+    id,
+    title,
+    taskId,
+    start,
+    end,
+  }: WorkEntry) {
+    if (id) {
+      workEntryModalState.setId({
+        id,
+      })
+    }
+
+    if (taskId) {
+      workEntryModalState.setTaskId({
+        taskId,
+      })
+    }
+
+    workEntryModalState.setTitle({
+      title,
+    })
+
+    setWorkEntryModalDateAndTime({
+      startTime:start,
+      endTime: end,
+    })
+  }
+
+  function setWorkEntryModalDateAndTime({
     startTime,
     endTime,
   }: {
-    startTime: Date,
-    endTime: Date,
+    startTime: WorkEntry['start'],
+    endTime: WorkEntry['end'],
   }) {
     workEntryModalState.setDate({
       date: startTime,

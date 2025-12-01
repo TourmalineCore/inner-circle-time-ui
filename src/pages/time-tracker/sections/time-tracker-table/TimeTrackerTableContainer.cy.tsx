@@ -153,6 +153,7 @@ function mountComponent() {
         <TimeTrackerTableContainer 
           onOpenWorkEntryModal={() => {}}
           setWorkEntryModalDataTime={() => {}}
+          setWorkEntryModalData={() => {}}
         />,
       </TimeTrackerStateContext.Provider>,
     )

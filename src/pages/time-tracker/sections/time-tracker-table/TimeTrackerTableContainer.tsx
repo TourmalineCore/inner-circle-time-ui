@@ -5,14 +5,16 @@ import { api } from "../../../../common/api"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
-import { WorkEntriesResponse } from "../../types"
+import { WorkEntriesResponse, WorkEntry } from "../../types"
 import moment from "moment"
 
 export const TimeTrackerTableContainer = observer(({
   onOpenWorkEntryModal,
+  setWorkEntryModalData,
   setWorkEntryModalDataTime,
 }: {
   onOpenWorkEntryModal: () => unknown,
+  setWorkEntryModalData: (workEntry: WorkEntry) => unknown,
   setWorkEntryModalDataTime: ({
     startTime,
     endTime,
@@ -81,6 +83,7 @@ export const TimeTrackerTableContainer = observer(({
   return (
     <TimeTrackerTableContent 
       onOpenWorkEntryModal={onOpenWorkEntryModal}
+      setWorkEntryModalData={setWorkEntryModalData}
       setWorkEntryModalDataTime={setWorkEntryModalDataTime}
     />
   )
