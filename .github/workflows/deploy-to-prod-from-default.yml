@@ -55,11 +55,12 @@ jobs:
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v6
         with:
-          browser: electron
           # Learn more about '> /dev/null 2>&1': https://stackoverflow.com/a/42919998
           # In essence it merges output and error streams and doesn't show errors in the terminal to avoid leakage of secrets in the pipeline
-          command: |
-            npx cypress run --e2e --browser electron > /dev/null 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)     
+          run: |
+            npx cypress run \
+            --e2e \
+            --browser electron > /dev/null 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)    
         env:
           CYPRESS_BASE_URL: ${{ secrets.INNER_CIRCLE_PROD_BASE_URL }}
           API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_TIME_API_ROOT_URL }}
