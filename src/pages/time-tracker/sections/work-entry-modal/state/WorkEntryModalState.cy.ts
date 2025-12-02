@@ -34,7 +34,7 @@ function settersTests() {
 
   it(`
   GIVEN a state with default id
-  WHEN setting id 
+  WHEN set id 
   SHOULD return updated id
   `, () => {
     const id = 1
@@ -50,7 +50,7 @@ function settersTests() {
 
   it(`
   GIVEN a state with default title
-  WHEN setting title 
+  WHEN set title 
   SHOULD return updated title
   `, () => {
     const title = `Task 1`
@@ -66,7 +66,7 @@ function settersTests() {
 
   it(`
   GIVEN a state with default taskId
-  WHEN setting taskId 
+  WHEN set taskId 
   SHOULD return updated taskId
   `, () => {
     const taskId = `#1fre33`
@@ -82,7 +82,7 @@ function settersTests() {
 
   it(`
   GIVEN a state with default date
-  WHEN setting date 
+  WHEN set date 
   SHOULD return updated date
   `, () => {
     const date = new Date(`2025-11-24`)
@@ -98,7 +98,7 @@ function settersTests() {
 
   it(`
   GIVEN a state with default startTime
-  WHEN setting startTime 
+  WHEN set startTime 
   SHOULD return updated startTime
   `, () => {
     const startTime = new Date(`2025-11-24`)
@@ -114,7 +114,7 @@ function settersTests() {
 
   it(`
   GIVEN a state with default endTime
-  WHEN setting endTime 
+  WHEN set endTime 
   SHOULD return updated endTime
   `, () => {
     const endTime = new Date(`2025-11-24`)

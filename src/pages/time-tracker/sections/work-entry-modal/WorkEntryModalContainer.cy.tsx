@@ -94,7 +94,6 @@ function addWorkEntryTests() {
       .its(`request.body`)
       .should(`deep.equal`, ADDED_WORK_ENTRY_MODAL_DATA)
   })
-
 }
 
 function updateWorkEntryTests() {
@@ -118,9 +117,11 @@ function updateWorkEntryTests() {
     workEntryModalState.setDate({
       date: new Date(`2025-11-27T09:00:00`),
     })
+
     workEntryModalState.setStartTime({
       startTime: new Date(`2025-11-27T09:00:00`),
     })
+    
     workEntryModalState.setEndTime({
       endTime: new Date(`2025-11-27T11:30:00`),
     })

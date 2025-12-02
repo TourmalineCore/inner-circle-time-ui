@@ -24,7 +24,7 @@ const WORK_ENTRIES_FOR_INITIALIZATION: TimeTrackerTable = {
 function initializationTests() {
   it(`
   GIVEN a new TimeTrackerTableState
-  WHEN initializing state
+  WHEN initialize state
   SHOULD return default values
   `, () => {
     const timeTrackerTableState = new TimeTrackerTableState()
@@ -60,7 +60,7 @@ function workEntriesTests() {
 
   it(`
   GIVEN an empty state
-  WHEN initializing with one work entry
+  WHEN initialize with one work entry
   SHOULD return one work entry
   `, () => {
     timeTrackerTableState.initialize({
@@ -83,7 +83,7 @@ function viewTests() {
 
   it(`
   GIVEN a state with no view set
-  WHEN setting current view to day
+  WHEN set current view to day
   SHOULD return currentView equal to the day
   `, () => {
     timeTrackerTableState.setCurrentView({
@@ -98,7 +98,7 @@ function viewTests() {
   it(`
   GIVEN week view is set
   AND current date is 2025-11-27
-  WHEN setting view period
+  WHEN set view period
   SHOULD return correct viewStartDate equal to the start date of the week
   AND viewEndDate equal to the end date of the week
   `, () => {
@@ -122,7 +122,7 @@ function viewTests() {
   it(`
   GIVEN day view is set
   AND current date is 2025-11-23
-  WHEN setting view period
+  WHEN set view period
   SHOULD return the correct viewStartDate and viewEndDate equal to the current day
   `, () => {
     timeTrackerTableState.setCurrentView({
