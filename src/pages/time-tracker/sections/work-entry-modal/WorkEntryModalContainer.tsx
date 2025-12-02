@@ -48,6 +48,7 @@ export const WorkEntryModalContainer = observer(({
           endTime: endDateTime,
         },
       )
+      onClose()
     }
     catch{ /* empty */ }
   }

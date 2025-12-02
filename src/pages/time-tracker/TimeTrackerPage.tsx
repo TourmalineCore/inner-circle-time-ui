@@ -32,7 +32,10 @@ export function TimeTrackerPage() {
           setWorkEntryModalDataTime={setWorkEntryModalDateAndTime}
         />
         {isOpenModal && <WorkEntryModalContainer
-          onClose={() => setIsOpenModal(false)}
+          onClose={() => {
+            setIsOpenModal(false)
+            workEntryModalState.reset()
+          }}
         />}
       </WorkEntryModalStateContext.Provider>
     </TimeTrackerStateContext.Provider>
