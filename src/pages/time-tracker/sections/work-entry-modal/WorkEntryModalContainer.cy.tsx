@@ -249,7 +249,7 @@ function mountComponent({
       <WorkEntryModalStateContext.Provider value={workEntryModalState}>
         <WorkEntryModalContainer 
           onClose={onClose}
-        />,
+        />
       </WorkEntryModalStateContext.Provider>,
     )
 }
