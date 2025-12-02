@@ -115,8 +115,8 @@ export const WorkEntryModalContent = observer(({
       )}
       onApply={onSubmitWorkEntryAsync}
       applyText={workEntryModalData.id
-        ? `Update`
-        : `Add`
+        ? `Update Task`
+        : `Add Task`
       }
       showApply={true}
       onClose={onClose}
