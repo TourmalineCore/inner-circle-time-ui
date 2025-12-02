@@ -5,10 +5,10 @@ export type TimeTrackerTable = {
 export type WorkEntry = {
   id?: number,
   title: string,
-  date: Date,
+  date: Date | null,
   taskId?: string,
-  start: Date,
-  end: Date,
+  start: Date | null,
+  end: Date | null,
 }
 
 export type View = 'day' | 'week'

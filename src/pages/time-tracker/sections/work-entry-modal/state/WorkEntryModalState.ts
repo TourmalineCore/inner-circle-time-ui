@@ -2,11 +2,10 @@ import { makeAutoObservable } from 'mobx'
 import { WorkEntry } from '../../../types'
 
 export const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntry = {
-  id: 0,
   title: ``,
-  date: new Date(),
-  start: new Date(),
-  end: new Date(),
+  date: null,
+  start: null,
+  end: null,
 }
 
 export class WorkEntryModalState {

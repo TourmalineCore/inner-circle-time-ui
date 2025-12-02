@@ -75,15 +75,15 @@ export function TimeTrackerPage() {
     endTime: WorkEntry['end'],
   }) {
     workEntryModalState.setDate({
-      date: startTime,
+      date: startTime!,
     })
 
     workEntryModalState.setStartTime({
-      startTime,
+      startTime: startTime!,
     })
     
     workEntryModalState.setEndTime({
-      endTime,
+      endTime: endTime!,
     })
   }
 }

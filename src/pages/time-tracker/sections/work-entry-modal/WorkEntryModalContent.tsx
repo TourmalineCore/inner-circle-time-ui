@@ -83,12 +83,12 @@ export const WorkEntryModalContent = observer(({
                   mask="99:99"
                   maskChar="0"
                   value={formatTime({
-                    time: workEntryModalData.start,
+                    time: workEntryModalData.start!,
                   })}
                   onChange={(e) => workEntryModalState.setStartTime({
                     startTime: parseTimeString({
                       timeString: e.target.value,
-                      originalDate: workEntryModalData.start,
+                      originalDate: workEntryModalData.start!,
                     }),
                   })}
                 />
@@ -99,12 +99,12 @@ export const WorkEntryModalContent = observer(({
                   mask="99:99"
                   maskChar="0"
                   value={formatTime({
-                    time: workEntryModalData.end,
+                    time: workEntryModalData.end!,
                   })}
                   onChange={(e) => workEntryModalState.setEndTime({
                     endTime: parseTimeString({
                       timeString: e.target.value,
-                      originalDate: workEntryModalData.end,
+                      originalDate: workEntryModalData.end!,
                     }),
                   })}
                 />

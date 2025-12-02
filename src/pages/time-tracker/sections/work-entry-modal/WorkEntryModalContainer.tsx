@@ -30,13 +30,13 @@ export const WorkEntryModalContainer = observer(({
     } = workEntryModalState.workEntryModalData
 
     const startDateTime = concatDateAndTime({
-      date,
-      time: start,
+      date: date!,
+      time: start!,
     })
 
     const endDateTime = concatDateAndTime({
-      date,
-      time: end,
+      date: date!,
+      time: end!,
     })
 
     try {
