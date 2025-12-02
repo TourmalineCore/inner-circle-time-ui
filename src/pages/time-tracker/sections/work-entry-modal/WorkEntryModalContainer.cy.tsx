@@ -42,7 +42,7 @@ function addWorkEntryTests() {
   it(`
   GIVEN an empty work entry
   WHEN fill work entry field
-  AND click 'Add' button
+  AND click 'Add Task' button
   SHOULD send correct payload to API
   `, () => {
     cy
@@ -86,7 +86,7 @@ function addWorkEntryTests() {
       .type(`11:45`)
 
     cy
-      .contains(`Add`)
+      .contains(`Add Task`)
       .click()
 
     cy
@@ -130,7 +130,7 @@ function updateWorkEntryTests() {
   it(`
   GIVEN a work entry
   WHEN update data
-  AND click 'Update' button
+  AND click 'Update Task' button
   SHOULD send correct updated payload to API
   `, () => {
     cy
@@ -168,7 +168,7 @@ function updateWorkEntryTests() {
       .type(`12:00`)
 
     cy
-      .contains(`Update`)
+      .contains(`Update Task`)
       .click()
 
     cy
@@ -203,6 +203,37 @@ function onCloseModalTests() {
       .get(`@onClose`)
       .should(`be.calledOnce`)
   })
+
+  it(`
+  GIVEN opened work entry modal
+  WHEN click on submit button
+  AND send successful request
+  SHOULD trigger onClose function once 
+  `, () => {
+    cy
+      .intercept(
+        `POST`,
+        `*/time/tracking/work-entries`,
+        {
+          statusCode: 200,
+        },
+      )
+      .as(`addWorkEntry`)
+
+    mountComponent({
+      workEntryModalState,
+    })
+    
+    cy
+      .contains(`Add Task`)
+      .click()
+
+    cy.wait(`@addWorkEntry`)
+
+    cy
+      .get(`@onClose`)
+      .should(`be.calledOnce`)
+  })
 }
 
 function mountComponent({
@@ -219,7 +250,7 @@ function mountComponent({
       <WorkEntryModalStateContext.Provider value={workEntryModalState}>
         <WorkEntryModalContainer 
           onClose={onClose}
-        />,
+        />
       </WorkEntryModalStateContext.Provider>,
     )
 }

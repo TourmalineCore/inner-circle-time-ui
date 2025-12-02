@@ -82,8 +82,6 @@ export const TimeTrackerTableContent = observer(({
       timeslots={4}
       step={15}
       localizer={localizer}
-      // eventPropGetter={eventPropGetter as never}
-      // dayPropGetter={dayPropGetter as DayPropGetter}
       onSelectSlot={handleSelectSlot}
       onSelectEvent={handleSelectWorkEntry}
       onNavigate={(date) => timeTrackerState.setViewPeriod({

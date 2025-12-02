@@ -3,7 +3,7 @@ import { WorkEntryModalContent } from "./WorkEntryModalContent"
 import { api } from "../../../../common/api"
 import { useContext } from "react"
 import { WorkEntryModalStateContext } from "./state/WorkEntryModalStateContext"
-import moment from "moment"
+import { concatDateAndTime } from "../../utils/date-and-time"
 
 export const WorkEntryModalContainer = observer(({
   onClose,
@@ -51,22 +51,5 @@ export const WorkEntryModalContainer = observer(({
       onClose()
     }
     catch{ /* empty */ }
-  }
-
-  function concatDateAndTime({
-    date,
-    time,
-  }: {
-    date: Date,
-    time: Date,
-  }) {
-    return moment(date)
-      .hours(moment(time)
-        .hours())
-      .minutes(moment(time)
-        .minutes())
-      .seconds(moment(time)
-        .seconds())
-      .format(`YYYY-MM-DDTHH:mm:ss`)
   }
 })

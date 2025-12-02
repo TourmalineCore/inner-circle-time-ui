@@ -8,8 +8,8 @@ import { WorkEntryModalStateContext } from './state/WorkEntryModalStateContext'
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import DatePicker from 'react-datepicker'
-import moment from 'moment'
 import InputMask from 'react-input-mask'
+import { formatTime, parseTimeString } from '../../utils/date-and-time'
 
 export const WorkEntryModalContent = observer(({
   onClose,
@@ -115,42 +115,11 @@ export const WorkEntryModalContent = observer(({
       )}
       onApply={onSubmitWorkEntryAsync}
       applyText={workEntryModalData.id
-        ? `Update`
-        : `Add`
+        ? `Update Task`
+        : `Add Task`
       }
       showApply={true}
       onClose={onClose}
     />
   )
-
-  function formatTime({
-    time,
-  }: {
-    time: Date,
-  }) {
-    return moment(time)
-      .format(`HH:mm`)
-  }
-
-  function parseTimeString({
-    timeString,
-    originalDate,
-  }: {
-    timeString: string,
-    originalDate: Date,
-  }) {  
-    const originalMoment = moment(originalDate)
-    const [
-      hours,
-      minutes,
-    ] = timeString.split(`:`)
-      .map(Number)
-  
-    return originalMoment
-      .set({
-        hour: isNaN(hours) ? originalMoment.hour() : hours,
-        minute: isNaN(minutes) ? originalMoment.minute() : minutes,
-      })
-      .toDate()
-  }
 })
