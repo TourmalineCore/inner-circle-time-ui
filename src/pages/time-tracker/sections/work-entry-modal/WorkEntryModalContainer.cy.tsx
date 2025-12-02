@@ -202,6 +202,37 @@ function onCloseModalTests() {
       .get(`@onClose`)
       .should(`be.calledOnce`)
   })
+
+  it(`
+  GIVEN opened work entry modal
+  WHEN click on submit button
+  AND send successful request
+  SHOULD trigger onClose function once 
+  `, () => {
+    cy
+      .intercept(
+        `POST`,
+        `*/time/tracking/work-entries`,
+        {
+          statusCode: 200,
+        },
+      )
+      .as(`addWorkEntry`)
+
+    mountComponent({
+      workEntryModalState,
+    })
+    
+    cy
+      .contains(`Add`)
+      .click()
+
+    cy.wait(`@addWorkEntry`)
+
+    cy
+      .get(`@onClose`)
+      .should(`be.calledOnce`)
+  })
 }
 
 function mountComponent({
