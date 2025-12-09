@@ -49,6 +49,7 @@ export const WorkEntryModalContainer = observer(({
         },
       )
       onClose()
+      window.location.reload()
     }
     catch{ /* empty */ }
   }
