@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
+import { WorkEntriesResponse } from '../../src/pages/time-tracker/types'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -57,6 +58,35 @@ Cypress.Commands.add(`authByApi`, () => {
         })
 
       Cypress.env(`accessToken`, accessToken.value)
+    })
+})
+
+Cypress.Commands.add(`removeWorkEntries`, () => {
+  cy.request<WorkEntriesResponse>({
+    method: `GET`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startTime=2025-10-27T00:00:00&endTime=2025-10-27T23:59:59`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+    },
+  })
+    .then(({
+      body,
+    }) => {
+      const workEntriesToDelete = body.workEntries.filter(({
+        title,
+      }) => title.startsWith(`[E2E-SMOKE]`))
+      
+      workEntriesToDelete.forEach(({
+        id,
+      }) => {
+        cy.request({
+          method: `DELETE`,
+          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries/${id}/hard-delete`,
+          headers: {
+            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+          },
+        })
+      })
     })
 })
 
