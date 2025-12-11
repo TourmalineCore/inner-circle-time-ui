@@ -154,6 +154,7 @@ function mountComponent() {
           onOpenWorkEntryModal={() => {}}
           setWorkEntryModalDataTime={() => {}}
           setWorkEntryModalData={() => {}}
+          triggerReloadState={false}
         />
       </TimeTrackerStateContext.Provider>,
     )

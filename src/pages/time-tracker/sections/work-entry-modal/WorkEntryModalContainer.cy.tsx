@@ -208,7 +208,7 @@ function onCloseModalTests() {
   GIVEN opened work entry modal
   WHEN click on submit button
   AND send successful request
-  SHOULD trigger onClose function once 
+  SHOULD trigger onClose and handleTriggerReloadState functions once 
   `, () => {
     cy
       .intercept(
@@ -233,6 +233,10 @@ function onCloseModalTests() {
     cy
       .get(`@onClose`)
       .should(`be.calledOnce`)
+
+    cy
+      .get(`@handleTriggerReloadState`)
+      .should(`be.calledOnce`)
   })
 }
 
@@ -245,11 +249,16 @@ function mountComponent({
     .spy()
     .as(`onClose`)
 
+  const handleTriggerReloadState = cy
+    .spy()
+    .as(`handleTriggerReloadState`)
+
   cy
     .mount(
       <WorkEntryModalStateContext.Provider value={workEntryModalState}>
         <WorkEntryModalContainer 
           onClose={onClose}
+          handleTriggerReloadState={handleTriggerReloadState}
         />
       </WorkEntryModalStateContext.Provider>,
     )

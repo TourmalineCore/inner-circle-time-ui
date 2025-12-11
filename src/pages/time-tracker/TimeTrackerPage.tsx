@@ -19,6 +19,11 @@ export function TimeTrackerPage() {
   )
 
   const [
+    triggerReloadState,
+    setTriggerReloadState,
+  ] = useState(false)
+
+  const [
     isOpenModal,
     setIsOpenModal,
   ] = useState(false)
@@ -30,16 +35,23 @@ export function TimeTrackerPage() {
           onOpenWorkEntryModal={() => setIsOpenModal(true)}
           setWorkEntryModalData={setWorkEntryModalData}
           setWorkEntryModalDataTime={setWorkEntryModalDateAndTime}
+          triggerReloadState={triggerReloadState}
         />
         {isOpenModal && <WorkEntryModalContainer
           onClose={() => {
             setIsOpenModal(false)
             workEntryModalState.reset()
           }}
+          handleTriggerReloadState={handleTriggerReloadState}
         />}
       </WorkEntryModalStateContext.Provider>
     </TimeTrackerStateContext.Provider>
   )
+
+  // Trigger to reload the workEntry state after adding or updating a work entry
+  function handleTriggerReloadState() {
+    setTriggerReloadState(!triggerReloadState)
+  }
 
   function setWorkEntryModalData({
     id,

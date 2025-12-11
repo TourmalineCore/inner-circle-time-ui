@@ -7,8 +7,10 @@ import { concatDateAndTime } from "../../utils/date-and-time"
 
 export const WorkEntryModalContainer = observer(({
   onClose,
+  handleTriggerReloadState,
 }: {
   onClose: () => unknown,
+  handleTriggerReloadState: () => unknown,
 }) => {
   const workEntryModalState = useContext(WorkEntryModalStateContext)
 
@@ -49,7 +51,7 @@ export const WorkEntryModalContainer = observer(({
         },
       )
       onClose()
-      window.location.reload()
+      handleTriggerReloadState()
     }
     catch{ /* empty */ }
   }
