@@ -1,0 +1,19 @@
+// remove background for current day
+.rbc-today {
+  background: unset;
+}
+
+// remove background for all day event selected cell
+.rbc-selected-cell {
+  background-color: unset;
+}
+
+// remove slot selection
+.rbc-slot-selection {
+  display: none;
+}
+
+// remove cursor for slot selection
+.rbc-slot-selecting {
+  cursor: auto;
+}
