@@ -2,12 +2,13 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './TimeTrackerTableContent.scss'
 
 import { observer } from 'mobx-react-lite'
-import { useCallback, useContext } from 'react'
+import { useContext } from 'react'
 import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import moment from 'moment'
 import 'moment/locale/ru'
 import { momentLocalizer, Calendar, SlotInfo} from 'react-big-calendar'
 import { View, WorkEntry } from '../../types'
+import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -34,6 +35,9 @@ export const TimeTrackerTableContent = observer(({
   }) => unknown, 
 }) => {
   const timeTrackerState = useContext(TimeTrackerStateContext)
+  const {
+    isMobile,
+  } = useDeviceSize()
 
   const {
     tableData,
@@ -44,26 +48,30 @@ export const TimeTrackerTableContent = observer(({
     workEntries, 
   } = tableData
 
-  const handleSelectSlot = useCallback(({
+  const handleSelectSlot = ({
     start,
     end,
     action, 
   }: SlotInfo) => {
-    if (action !== `click`) return
+    // Todo: remove select checking after added button to add event for mobile version
+    const accessAction: SlotInfo['action'] = isMobile ? `select` : `click`
+      
+    if (action == accessAction) {
 
-    setWorkEntryModalDataTime({
-      startTime: start,
-      endTime: end,
-    })
+      setWorkEntryModalDataTime({
+        startTime: start,
+        endTime: end,
+      })
 
-    onOpenWorkEntryModal()
-  }, [])
+      onOpenWorkEntryModal()
+    }
+  }
 
-  const handleSelectWorkEntry = useCallback((workEntry: WorkEntry) => {
+  const handleSelectWorkEntry = (workEntry: WorkEntry) => {
     setWorkEntryModalData(workEntry)
 
     onOpenWorkEntryModal()
-  }, []) 
+  }
 
   return (
     <Calendar
