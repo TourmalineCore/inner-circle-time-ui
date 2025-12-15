@@ -28,6 +28,13 @@
     margin-right: 16px;
   }
 
+  &__description {
+    min-height: 40px;
+    max-height: 80px;
+    resize: none;
+    field-sizing: content;
+  }
+
   &__date-field,
   &__time-field {
     width: 60px;

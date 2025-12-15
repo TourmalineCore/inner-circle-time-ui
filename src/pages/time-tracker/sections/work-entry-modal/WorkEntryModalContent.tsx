@@ -66,6 +66,7 @@ export const WorkEntryModalContent = observer(({
               Description
             </span> 
             <textarea 
+              className='work-entry-modal__description'
               name="description" 
               data-cy="description-input"
               value={workEntryModalData.description} 
