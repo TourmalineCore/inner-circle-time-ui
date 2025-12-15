@@ -1,6 +1,6 @@
 export class TimeTrackerPage {
   static visit() {
-    cy.visit(`/time`)
+    cy.visit(`/time/tracking`)
   }
 
   static addWorkEntry() {
