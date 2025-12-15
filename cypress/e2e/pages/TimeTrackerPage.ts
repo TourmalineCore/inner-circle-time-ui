@@ -84,7 +84,7 @@ export class TimeTrackerPage {
       .should(`have.value`, `#test2`)
 
     cy
-      .getByData(`decsription-input`)
+      .getByData(`description-input`)
       .should(`have.value`, `Task 2 description`)
 
     cy
