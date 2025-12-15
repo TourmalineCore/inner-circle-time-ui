@@ -81,6 +81,22 @@ function settersTests() {
   })
 
   it(`
+  GIVEN a state with default description
+  WHEN set description 
+  SHOULD return updated description
+  `, () => {
+    const description = `Task description`
+
+    workEntryModalState.setDescription({
+      description,
+    })
+    
+    expect(workEntryModalState.workEntryModalData.description)
+      .to
+      .eq(description)
+  })
+
+  it(`
   GIVEN a state with default date
   WHEN set date 
   SHOULD return updated date
@@ -145,6 +161,10 @@ function resetTests() {
 
     workEntryModalState.setTaskId({
       taskId: `1`,
+    })
+
+    workEntryModalState.setDescription({
+      description: `Task description`,
     })
 
     workEntryModalState.setDate({

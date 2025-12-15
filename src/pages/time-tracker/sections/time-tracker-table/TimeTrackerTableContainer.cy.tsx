@@ -9,6 +9,7 @@ const WORK_ENTRIES_RESPONSE: WorkEntriesResponse = {
       id: 1,
       title: `task4455`,
       taskId: `#4455`,
+      description: `description4455`,
       startTime: new Date(`2025-11-27T09:00:00`),
       endTime: new Date(`2025-11-27T11:30:00`),
     }, 

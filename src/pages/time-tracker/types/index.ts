@@ -7,6 +7,7 @@ export type WorkEntry = {
   title: string,
   date: Date | null,
   taskId: string,
+  description: string,
   start: Date | null,
   end: Date | null,
 }
@@ -21,6 +22,7 @@ export type WorkEntryItem = {
   id: number,
   title: string,
   taskId: string,
+  description: string,
   startTime: Date,
   endTime: Date,
 } 
