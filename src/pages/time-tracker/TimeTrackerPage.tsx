@@ -57,6 +57,7 @@ export function TimeTrackerPage() {
     id,
     title,
     taskId,
+    description,
     start,
     end,
   }: WorkEntry) {
@@ -66,11 +67,13 @@ export function TimeTrackerPage() {
       })
     }
 
-    if (taskId) {
-      workEntryModalState.setTaskId({
-        taskId,
-      })
-    }
+    workEntryModalState.setTaskId({
+      taskId,
+    })
+
+    workEntryModalState.setDescription({
+      description,
+    })
 
     workEntryModalState.setTitle({
       title,

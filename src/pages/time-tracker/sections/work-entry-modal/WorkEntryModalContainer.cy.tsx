@@ -5,6 +5,7 @@ import { WorkEntryModalContainer } from "./WorkEntryModalContainer"
 const ADDED_WORK_ENTRY_MODAL_DATA = {
   title: `Task name`,
   taskId: `1`,
+  description: `Task description`,
   startTime: `2025-11-16T10:00:00`,
   endTime: `2025-11-16T11:45:00`,
 }
@@ -12,6 +13,7 @@ const ADDED_WORK_ENTRY_MODAL_DATA = {
 const UPDATED_WORK_ENTRY_MODAL_DATA = {
   title: `New task name`,
   taskId: `2`,
+  description: `New task description`,
   startTime: `2025-11-27T11:00:00`,
   endTime: `2025-11-27T12:00:00`,
 }
@@ -68,6 +70,10 @@ function addWorkEntryTests() {
       .type(ADDED_WORK_ENTRY_MODAL_DATA.taskId)
 
     cy
+      .getByData(`description-input`)
+      .type(ADDED_WORK_ENTRY_MODAL_DATA.description)
+      
+    cy
       .get(`.work-entry-modal__date-field`)
       .click()
       
@@ -113,6 +119,10 @@ function updateWorkEntryTests() {
     workEntryModalState.setTaskId({
       taskId: `1`,
     })
+
+    workEntryModalState.setDescription({
+      description: `Task description`,
+    })
     
     workEntryModalState.setDate({
       date: new Date(`2025-11-27T09:00:00`),
@@ -156,6 +166,11 @@ function updateWorkEntryTests() {
       .getByData(`task-id-input`)
       .clear()
       .type(UPDATED_WORK_ENTRY_MODAL_DATA.taskId)
+
+    cy
+      .getByData(`description-input`)
+      .clear()
+      .type(UPDATED_WORK_ENTRY_MODAL_DATA.description)
 
     cy
       .getByData(`start-time-input`)

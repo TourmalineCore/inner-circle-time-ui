@@ -4,6 +4,8 @@ import { WorkEntry } from '../../../types'
 export const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntry = {
   title: ``,
   date: null,
+  taskId: ``,
+  description: ``,
   start: null,
   end: null,
 }
@@ -43,6 +45,14 @@ export class WorkEntryModalState {
     taskId: string,
   }) {
     this._workEntryModalData.taskId = taskId
+  }
+
+  setDescription({
+    description,
+  }: {
+    description: string,
+  }) {
+    this._workEntryModalData.description = description
   }
 
   setDate({

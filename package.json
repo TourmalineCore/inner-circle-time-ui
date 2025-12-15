@@ -19,8 +19,6 @@
     "cypress:open": "cypress open",
     "cypress:open:component": "cypress open --component --browser electron",
     "cypress:run:component": "cypress run --component --browser electron",
-    "cypress:open:e2e": "cypress open --e2e --browser electron --config-file cypress.config.prod.ts",
-    "cypress:run:e2e": "cypress run --e2e --config-file cypress.config.prod.ts",
     "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config-file cypress.config.local-env.ts",
     "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts"
   },

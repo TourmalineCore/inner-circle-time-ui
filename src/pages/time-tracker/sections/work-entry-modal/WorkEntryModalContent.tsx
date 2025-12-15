@@ -63,6 +63,20 @@ export const WorkEntryModalContent = observer(({
 
           <div className='work-entry-modal__field'>
             <span className='work-entry-modal__label'>
+              Description
+            </span> 
+            <textarea 
+              name="description" 
+              data-cy="description-input"
+              value={workEntryModalData.description} 
+              onChange={(e) => workEntryModalState.setDescription({
+                description: e.target.value,
+              })} 
+            />
+          </div>
+
+          <div className='work-entry-modal__field'>
+            <span className='work-entry-modal__label'>
               Task completion time
             </span>
             <div className='work-entry-modal__completion-time-container'>

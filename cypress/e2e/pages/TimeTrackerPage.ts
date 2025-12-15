@@ -20,6 +20,11 @@ export class TimeTrackerPage {
       .type(`#test`)
 
     cy
+      .getByData(`description-input`)
+      .clear()
+      .type(`Task description`)
+
+    cy
       .getByData(`start-time-input`)
       .clear()
       .type(`11:00`)
@@ -50,6 +55,11 @@ export class TimeTrackerPage {
       .type(`#test2`)
 
     cy
+      .getByData(`description-input`)
+      .clear()
+      .type(`Task 2 description`)
+
+    cy
       .getByData(`start-time-input`)
       .clear()
       .type(`13:00`)
@@ -72,6 +82,10 @@ export class TimeTrackerPage {
     cy
       .getByData(`task-id-input`)
       .should(`have.value`, `#test2`)
+
+    cy
+      .getByData(`description-input`)
+      .should(`have.value`, `Task 2 description`)
 
     cy
       .getByData(`start-time-input`)

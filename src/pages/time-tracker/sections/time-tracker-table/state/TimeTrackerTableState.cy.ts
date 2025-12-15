@@ -14,6 +14,7 @@ const WORK_ENTRIES_FOR_INITIALIZATION: TimeTrackerTable = {
       id: 1,
       title: `Task 1`,
       taskId: `#2fre1`,
+      description: `Task description`,
       date: new Date(`2025-11-24`),
       start: new Date(`2025-11-24T09:00:00`),
       end: new Date(`2025-11-24T09:30:00`),

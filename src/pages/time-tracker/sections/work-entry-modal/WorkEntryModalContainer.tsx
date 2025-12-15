@@ -26,6 +26,7 @@ export const WorkEntryModalContainer = observer(({
       id,
       title,
       taskId,
+      description,
       date,
       start,
       end,
@@ -46,6 +47,7 @@ export const WorkEntryModalContainer = observer(({
         {
           title,
           taskId,
+          description,
           startTime: startDateTime,
           endTime: endDateTime,
         },
