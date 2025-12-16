@@ -64,7 +64,7 @@ Cypress.Commands.add(`authByApi`, () => {
 Cypress.Commands.add(`removeWorkEntries`, () => {
   cy.request<WorkEntriesResponse>({
     method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startTime=2025-10-27T00:00:00&endTime=2025-10-27T23:59:59`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=2025-10-27&endDate=2025-10-27`,
     headers: {
       Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
     },
