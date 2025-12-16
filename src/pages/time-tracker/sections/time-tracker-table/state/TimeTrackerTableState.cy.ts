@@ -113,11 +113,11 @@ function viewTests() {
 
     expect(timeTrackerTableState.viewStartDate)
       .to
-      .eq(`2025-11-23T00:00:00`)
+      .eq(`2025-11-23`)
 
     expect(timeTrackerTableState.viewEndDate)
       .to
-      .eq(`2025-11-29T23:59:59`)
+      .eq(`2025-11-29`)
   })
 
   it(`
@@ -136,10 +136,10 @@ function viewTests() {
 
     expect(timeTrackerTableState.viewStartDate)
       .to
-      .eq(`2025-11-23T00:00:00`)
+      .eq(`2025-11-23`)
 
     expect(timeTrackerTableState.viewEndDate)
       .to
-      .eq(`2025-11-23T23:59:59`)
+      .eq(`2025-11-23`)
   })
 }

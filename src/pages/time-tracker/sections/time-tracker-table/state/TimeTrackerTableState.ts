@@ -60,10 +60,10 @@ export class TimeTrackerTableState {
   }) {
     this._viewStartDate = moment(date)
       .startOf(this._currentView)
-      .format(`YYYY-MM-DDTHH:mm:ss`)
+      .format(`YYYY-MM-DD`)
 
     this._viewEndDate = moment(date)
       .endOf(this._currentView)
-      .format(`YYYY-MM-DDTHH:mm:ss`)
+      .format(`YYYY-MM-DD`)
   }
 }

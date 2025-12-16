@@ -39,7 +39,7 @@ function initializationTests() {
     cy
       .intercept(
         `GET`,
-        `*/time/tracking/work-entries?startTime=2025-11-27T00:00:00&endTime=2025-11-27T23:59:59`,
+        `*/time/tracking/work-entries?startDate=2025-11-27&endDate=2025-11-27`,
         {
           statusCode: 200,
           body: WORK_ENTRIES_RESPONSE,
@@ -65,7 +65,7 @@ function initializationTests() {
     cy
       .intercept(
         `GET`,
-        `*/time/tracking/work-entries?startTime=2025-11-24T00:00:00&endTime=2025-11-30T23:59:59`,
+        `*/time/tracking/work-entries?startDate=2025-11-24&endDate=2025-11-30`,
         {
           statusCode: 200,
           body: WORK_ENTRIES_RESPONSE,
@@ -91,7 +91,7 @@ function switchPeriodsTests() {
     cy
       .intercept(
         `GET`,
-        `*/time/tracking/work-entries?startTime=2025-11-28T00:00:00&endTime=2025-11-28T23:59:59`,
+        `*/time/tracking/work-entries?startDate=2025-11-28&endDate=2025-11-28`,
         {
           statusCode: 200,
           body: [],
@@ -123,7 +123,7 @@ function switchPeriodsTests() {
     cy
       .intercept(
         `GET`,
-        `*/time/tracking/work-entries?startTime=2025-11-17T00:00:00&endTime=2025-11-23T23:59:59`,
+        `*/time/tracking/work-entries?startDate=2025-11-17&endDate=2025-11-23`,
         {
           statusCode: 200,
           body: [],
