@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite"
 import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
 import { useContext, useEffect } from "react"
-import { api } from "../../../../common/api"
+import { generatedApi } from "../../../../common/api"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
-import { WorkEntriesResponse, WorkEntry } from "../../types"
+import { WorkEntry } from "../../types"
 import moment from "moment"
 
 export const TimeTrackerTableContainer = observer(({
@@ -53,7 +53,10 @@ export const TimeTrackerTableContainer = observer(({
     async function loadedWorkEntries() {
       const {
         data,
-      } = await api.get<WorkEntriesResponse>(`/tracking/work-entries?startDate=${viewStartDate}&endDate=${viewEndDate}`)
+      } = await generatedApi.getWorkEntriesByPeriod({
+        startDate: viewStartDate as string,
+        endDate: viewEndDate as string,
+      })
 
       timeTrackerState.initialize({
         loadedData: {

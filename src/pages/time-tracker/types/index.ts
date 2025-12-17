@@ -13,16 +13,3 @@ export type WorkEntry = {
 }
 
 export type View = 'day' | 'week'
-
-export type WorkEntriesResponse = {
-  workEntries: WorkEntryItem[],
-}
-
-export type WorkEntryItem = {
-  id: number,
-  title: string,
-  taskId: string,
-  description: string,
-  startTime: Date,
-  endTime: Date,
-} 
