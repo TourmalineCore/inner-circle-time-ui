@@ -3,7 +3,7 @@ import { WorkEntryModalContent } from "./WorkEntryModalContent"
 import { useContext } from "react"
 import { WorkEntryModalStateContext } from "./state/WorkEntryModalStateContext"
 import { concatDateAndTime } from "../../utils/date-and-time"
-import { api } from "../../../../common/api"
+import { api } from "../../../../common/api/api"
 
 export const WorkEntryModalContainer = observer(({
   onClose,

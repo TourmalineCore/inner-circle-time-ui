@@ -1,7 +1,6 @@
-import { API_ROOT_URL } from './config/config'
-
-import { initApiInterceptors } from './api/initApiInterceptors'
-import { Api } from '../../api'
+import { Api } from "../../../api"
+import { API_ROOT_URL } from "../config/config"
+import { initApiInterceptors } from "./initApiInterceptors"
 
 const apiClient = new Api({
   // The generated API already contains /api/time, so it must be deleted in API_ROOT_URL
