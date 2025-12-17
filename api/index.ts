@@ -239,11 +239,11 @@ export class Api<
      * No description
      *
      * @tags Tracking
-     * @name GetWorkEntriesByPeriod
+     * @name TrackingGetWorkEntriesByPeriod
      * @summary Get work entries by period
      * @request GET:/api/time/tracking/work-entries
      */
-    getWorkEntriesByPeriod: (
+    trackingGetWorkEntriesByPeriod: (
       query: {
         /** @format date */
         startDate: string;
@@ -264,11 +264,11 @@ export class Api<
      * No description
      *
      * @tags Tracking
-     * @name CreateWorkEntry
+     * @name TrackingCreateWorkEntry
      * @summary Create a work entry
      * @request POST:/api/time/tracking/work-entries
      */
-    createWorkEntry: (
+    trackingCreateWorkEntry: (
       data: CreateWorkEntryRequest,
       params: RequestParams = {},
     ) =>
@@ -285,11 +285,11 @@ export class Api<
      * No description
      *
      * @tags Tracking
-     * @name UpdateWorkEntry
+     * @name TrackingUpdateWorkEntry
      * @summary Update a work entry
      * @request POST:/api/time/tracking/work-entries/{workEntryId}
      */
-    updateWorkEntry: (
+    trackingUpdateWorkEntry: (
       workEntryId: number,
       data: UpdateWorkEntryRequest,
       params: RequestParams = {},
@@ -306,11 +306,14 @@ export class Api<
      * No description
      *
      * @tags Tracking
-     * @name HardDeleteWorkEntry
+     * @name TrackingHardDeleteWorkEntry
      * @summary Deletes specific work entry
      * @request DELETE:/api/time/tracking/work-entries/{workEntryId}/hard-delete
      */
-    hardDeleteWorkEntry: (workEntryId: number, params: RequestParams = {}) =>
+    trackingHardDeleteWorkEntry: (
+      workEntryId: number,
+      params: RequestParams = {},
+    ) =>
       this.request<void, any>({
         path: `/api/time/tracking/work-entries/${workEntryId}/hard-delete`,
         method: "DELETE",

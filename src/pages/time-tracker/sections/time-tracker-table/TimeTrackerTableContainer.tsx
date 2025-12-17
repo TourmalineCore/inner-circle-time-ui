@@ -53,7 +53,7 @@ export const TimeTrackerTableContainer = observer(({
     async function loadedWorkEntries() {
       const {
         data,
-      } = await api.getWorkEntriesByPeriod({
+      } = await api.trackingGetWorkEntriesByPeriod({
         startDate: viewStartDate as string,
         endDate: viewEndDate as string,
       })

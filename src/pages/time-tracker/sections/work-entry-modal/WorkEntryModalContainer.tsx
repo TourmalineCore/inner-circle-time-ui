@@ -52,8 +52,8 @@ export const WorkEntryModalContainer = observer(({
 
     try {
       id 
-        ? await api.updateWorkEntry(id, workEntryData)
-        : await api.createWorkEntry(workEntryData)
+        ? await api.trackingUpdateWorkEntry(id, workEntryData)
+        : await api.trackingCreateWorkEntry(workEntryData)
 
       onClose()
       handleTriggerReloadState()
