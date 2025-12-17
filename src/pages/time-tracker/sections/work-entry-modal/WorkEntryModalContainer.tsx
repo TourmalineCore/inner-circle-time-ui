@@ -42,25 +42,18 @@ export const WorkEntryModalContainer = observer(({
       time: end!,
     })
 
+    const workEntryData = {
+      title,
+      taskId,
+      description,
+      startTime: startDateTime,
+      endTime: endDateTime,
+    }
+
     try {
-      id ? 
-        await api.updateWorkEntry(
-          id,
-          {
-            title,
-            taskId,
-            description,
-            startTime: startDateTime,
-            endTime: endDateTime,
-          })
-        : await api.createWorkEntry(
-          {
-            title,
-            taskId,
-            description,
-            startTime: startDateTime,
-            endTime: endDateTime,
-          })
+      id 
+        ? await api.updateWorkEntry(id, workEntryData)
+        : await api.createWorkEntry(workEntryData)
 
       onClose()
       handleTriggerReloadState()
