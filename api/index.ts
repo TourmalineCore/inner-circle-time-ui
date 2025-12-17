@@ -22,7 +22,7 @@ export interface CreateWorkEntryRequest {
 
 export interface CreateWorkEntryResponse {
   /** @format int64 */
-  newWorkEntryId?: number;
+  newWorkEntryId: number;
 }
 
 export interface GetWorkEntriesByPeriodResponse {
@@ -41,12 +41,12 @@ export interface UpdateWorkEntryRequest {
 
 export interface WorkEntryItem {
   /** @format int64 */
-  id?: number;
+  id: number;
   title: string;
   /** @format date-time */
-  startTime?: string;
+  startTime: string;
   /** @format date-time */
-  endTime?: string;
+  endTime: string;
   taskId: string;
   description: string;
 }

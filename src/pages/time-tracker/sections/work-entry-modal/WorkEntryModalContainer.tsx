@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite"
 import { WorkEntryModalContent } from "./WorkEntryModalContent"
-import { generatedApi } from "../../../../common/api"
 import { useContext } from "react"
 import { WorkEntryModalStateContext } from "./state/WorkEntryModalStateContext"
 import { concatDateAndTime } from "../../utils/date-and-time"
+import { api } from "../../../../common/api"
 
 export const WorkEntryModalContainer = observer(({
   onClose,
@@ -44,7 +44,7 @@ export const WorkEntryModalContainer = observer(({
 
     try {
       id ? 
-        await generatedApi.updateWorkEntry(
+        await api.updateWorkEntry(
           id,
           {
             title,
@@ -53,7 +53,7 @@ export const WorkEntryModalContainer = observer(({
             startTime: startDateTime,
             endTime: endDateTime,
           })
-        : await generatedApi.createWorkEntry(
+        : await api.createWorkEntry(
           {
             title,
             taskId,
