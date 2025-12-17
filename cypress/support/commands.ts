@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
-import { WorkEntriesResponse } from '../../src/pages/time-tracker/types'
+import { GetWorkEntriesByPeriodResponse } from '../../api'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -62,7 +62,7 @@ Cypress.Commands.add(`authByApi`, () => {
 })
 
 Cypress.Commands.add(`removeWorkEntries`, () => {
-  cy.request<WorkEntriesResponse>({
+  cy.request<GetWorkEntriesByPeriodResponse>({
     method: `GET`,
     url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=2025-10-27&endDate=2025-10-27`,
     headers: {

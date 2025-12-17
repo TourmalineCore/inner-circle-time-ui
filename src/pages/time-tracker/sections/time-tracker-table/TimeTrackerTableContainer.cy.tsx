@@ -1,17 +1,17 @@
-import { WorkEntriesResponse } from "../../types"
+import { GetWorkEntriesByPeriodResponse } from "../../../../../api"
 import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContainer } from "./TimeTrackerTableContainer"
 
-const WORK_ENTRIES_RESPONSE: WorkEntriesResponse = {
+const WORK_ENTRIES_RESPONSE: GetWorkEntriesByPeriodResponse = {
   workEntries: [
     {
       id: 1,
       title: `task4455`,
       taskId: `#4455`,
       description: `description4455`,
-      startTime: new Date(`2025-11-27T09:00:00`),
-      endTime: new Date(`2025-11-27T11:30:00`),
+      startTime: `2025-11-27T09:00:00`,
+      endTime: `2025-11-27T11:30:00`,
     }, 
   ],
 }

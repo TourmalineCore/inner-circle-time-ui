@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite"
 import { WorkEntryModalContent } from "./WorkEntryModalContent"
-import { api } from "../../../../common/api"
 import { useContext } from "react"
 import { WorkEntryModalStateContext } from "./state/WorkEntryModalStateContext"
 import { concatDateAndTime } from "../../utils/date-and-time"
+import { api } from "../../../../common/api/api"
 
 export const WorkEntryModalContainer = observer(({
   onClose,
@@ -42,16 +42,19 @@ export const WorkEntryModalContainer = observer(({
       time: end!,
     })
 
+    const workEntryData = {
+      title,
+      taskId,
+      description,
+      startTime: startDateTime,
+      endTime: endDateTime,
+    }
+
     try {
-      await api.post(`tracking/work-entries${id ? `/${id}` : ``}`,
-        {
-          title,
-          taskId,
-          description,
-          startTime: startDateTime,
-          endTime: endDateTime,
-        },
-      )
+      id 
+        ? await api.trackingUpdateWorkEntry(id, workEntryData)
+        : await api.trackingCreateWorkEntry(workEntryData)
+
       onClose()
       handleTriggerReloadState()
     }
