@@ -38,15 +38,20 @@ export function TimeTrackerPage() {
           triggerReloadState={triggerReloadState}
         />
         {isOpenModal && <WorkEntryModalContainer
-          onClose={() => {
-            setIsOpenModal(false)
-            workEntryModalState.reset()
-          }}
+          onClose={handleOnCloseWorkEntryModal}
           handleTriggerReloadState={handleTriggerReloadState}
         />}
       </WorkEntryModalStateContext.Provider>
     </TimeTrackerStateContext.Provider>
   )
+
+  function handleOnCloseWorkEntryModal() {
+    setIsOpenModal(false)
+    workEntryModalState.reset()
+    workEntryModalState.resetError()
+    workEntryModalState.resetError()
+    workEntryModalState.resetIsTriedToSubmit()
+  }
 
   // Trigger to reload the workEntry state after adding or updating a work entry
   function handleTriggerReloadState() {
