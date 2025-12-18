@@ -25,6 +25,14 @@ export const WorkEntryModalContainer = observer(({
     workEntryModalState.setIsSaving()
     workEntryModalState.setIsTriedToSubmit()
 
+    if (!workEntryModalState.isValid) {
+      workEntryModalState.setError({
+        error: `Fill in all the fields`,
+      })
+      workEntryModalState.resetIsSaving()
+      return
+    }
+
     const {
       id,
       title,
@@ -44,14 +52,6 @@ export const WorkEntryModalContainer = observer(({
       date: date!,
       time: end!,
     })
-
-    if (!workEntryModalState.isValid) {
-      workEntryModalState.setError({
-        error: `Fill in all the fields`,
-      })
-      workEntryModalState.resetIsSaving()
-      return
-    }
 
     const workEntryData = {
       title,

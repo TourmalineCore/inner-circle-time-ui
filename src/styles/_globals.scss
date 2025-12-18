@@ -69,5 +69,6 @@ body.disable-scroll {
 }
 
 .error {
-  border-color: rgb(220 0 0) !important;
+  border-width: 1px;
+  border-color: v.$color-error;
 }

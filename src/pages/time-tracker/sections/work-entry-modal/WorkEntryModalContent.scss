@@ -1,3 +1,5 @@
+@use "../../../../styles/variables" as *;
+
 .work-entry-modal {
   &__inner {
     display: flex;
@@ -33,6 +35,11 @@
     max-height: 80px;
     resize: none;
     field-sizing: content;
+  }
+
+  &__error {
+    text-align: center;
+    color: $color-error;
   }
 
   &__date-field,

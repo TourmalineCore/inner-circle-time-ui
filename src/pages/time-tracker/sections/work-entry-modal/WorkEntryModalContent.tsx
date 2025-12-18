@@ -137,7 +137,7 @@ export const WorkEntryModalContent = observer(({
           </div>
 
           { 
-            workEntryModalState.error && <span>{workEntryModalState.error}</span>
+            workEntryModalState.error && <span className='work-entry-modal__error'>{workEntryModalState.error}</span>
           }
         </div>
       )}
