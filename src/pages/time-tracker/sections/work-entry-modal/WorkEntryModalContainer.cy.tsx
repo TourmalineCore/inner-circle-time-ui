@@ -77,7 +77,7 @@ function addWorkEntryTests() {
     cy
       .get(`.work-entry-modal__date-field`)
       .click()
-      
+        
     cy
       .contains(`16`)
       .click()
@@ -276,7 +276,7 @@ function onCloseModalTests() {
 }
 
 function setErrorTests() {
-    let workEntryModalState: WorkEntryModalState
+  let workEntryModalState: WorkEntryModalState
 
   beforeEach(() => {
     workEntryModalState = new WorkEntryModalState()
