@@ -67,3 +67,7 @@ a {
 body.disable-scroll {
   overflow: hidden; // disable scrolling
 }
+
+.error {
+  border-color: rgb(220 0 0) !important;
+}

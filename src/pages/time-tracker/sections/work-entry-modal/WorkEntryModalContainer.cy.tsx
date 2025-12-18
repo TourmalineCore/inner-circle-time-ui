@@ -22,6 +22,7 @@ describe(`WorkEntryModalContainer`, () => {
   describe(`Add Work Entry`, addWorkEntryTests)
   describe(`Update Work Entry`, updateWorkEntryTests)
   describe(`On Close Modal`, onCloseModalTests)
+  describe(`Set Error`, setErrorTests)
 })
 
 function addWorkEntryTests() {
@@ -199,6 +200,25 @@ function onCloseModalTests() {
 
   beforeEach(() => {
     workEntryModalState = new WorkEntryModalState()
+
+    workEntryModalState.setTitle({
+      title: `Title`,
+    })
+    workEntryModalState.setTaskId({
+      taskId: `TaskId`,
+    })
+    workEntryModalState.setDescription({
+      description: `Description`,
+    })
+    workEntryModalState.setDate({
+      date: new Date(`2025-11-27T09:00:00`),
+    })
+    workEntryModalState.setStartTime({
+      startTime: new Date(`2025-11-27T09:00:00`),
+    })
+    workEntryModalState.setEndTime({
+      endTime: new Date(`2025-11-27T11:30:00`),
+    })
   })
 
   it(`
@@ -252,6 +272,41 @@ function onCloseModalTests() {
     cy
       .get(`@handleTriggerReloadState`)
       .should(`be.calledOnce`)
+  })
+}
+
+function setErrorTests() {
+    let workEntryModalState: WorkEntryModalState
+
+  beforeEach(() => {
+    workEntryModalState = new WorkEntryModalState()
+
+    workEntryModalState.setDate({
+      date: new Date(`2025-11-27T09:00:00`),
+    })
+    workEntryModalState.setStartTime({
+      startTime: new Date(`2025-11-27T09:00:00`),
+    })
+    workEntryModalState.setEndTime({
+      endTime: new Date(`2025-11-27T11:30:00`),
+    })
+  })
+
+  it(`
+  GIVEN opened work entry modal
+  WHEN click on submit button
+  AND there are invalid fields
+  SHOULD display error message
+  `, () => {
+    mountComponent({
+      workEntryModalState,
+    })
+
+    cy
+      .contains(`Add Task`)
+      .click()
+
+    cy.contains(`Fill in all the fields`)
   })
 }
 
