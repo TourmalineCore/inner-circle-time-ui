@@ -49,7 +49,6 @@ export function TimeTrackerPage() {
     setIsOpenModal(false)
     workEntryModalState.reset()
     workEntryModalState.resetError()
-    workEntryModalState.resetError()
     workEntryModalState.resetIsTriedToSubmit()
   }
 
