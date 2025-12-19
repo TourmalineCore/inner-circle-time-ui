@@ -23,7 +23,7 @@ export const WorkEntryModalContent = observer(({
   const {
     workEntryModalData, 
   } = workEntryModalState
-  
+
   return (
     <Modal
       className="work-entry-modal" 
@@ -137,7 +137,11 @@ export const WorkEntryModalContent = observer(({
           </div>
 
           { 
-            workEntryModalState.error && <span className='work-entry-modal__error'>{workEntryModalState.error}</span>
+            workEntryModalState.error && (
+              <span className='work-entry-modal__error'>
+                {workEntryModalState.error}
+              </span>
+            )
           }
         </div>
       )}

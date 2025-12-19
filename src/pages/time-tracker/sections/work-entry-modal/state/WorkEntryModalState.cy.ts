@@ -206,7 +206,7 @@ function validationTests() {
   
   it(`
   GIVEN an empty title
-  WHEN isValid is accessed
+  WHEN isValid is activated
   SHOULD return false and set title error to true
   `, () => {
     workEntryModalState.setIsTriedToSubmit()
@@ -223,7 +223,7 @@ function validationTests() {
 
   it(`
   GIVEN an empty taskId
-  WHEN isValid is accessed
+  WHEN isValid is activated
   SHOULD return false and set taskId error to true
   `, () => {
     workEntryModalState.setIsTriedToSubmit()
@@ -240,7 +240,7 @@ function validationTests() {
 
   it(`
   GIVEN an empty description
-  WHEN isValid is accessed
+  WHEN isValid is activated
   SHOULD return false and set description error to true
   `, () => {
     workEntryModalState.setIsTriedToSubmit()
@@ -257,7 +257,7 @@ function validationTests() {
 
   it(`
   GIVEN valid title, taskId, and description
-  WHEN isValid is accessed
+  WHEN isValid is activated
   SHOULD return true and all errors should be false
   `, () => {
     workEntryModalState.setTitle({
