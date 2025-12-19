@@ -67,3 +67,8 @@ a {
 body.disable-scroll {
   overflow: hidden; // disable scrolling
 }
+
+.error {
+  border-width: 1px;
+  border-color: v.$color-error;
+}

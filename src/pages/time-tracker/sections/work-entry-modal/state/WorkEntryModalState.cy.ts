@@ -4,6 +4,9 @@ describe(`WorkEntryModalState`, () => {
   describe(`Initial Data`, initialTests)
   describe(`Setters Data`, settersTests)
   describe(`Reset Data`, resetTests)
+  describe(`Validation`, validationTests)
+  describe(`Save And Try To Submit`, saveAndTryToSubmitTests)
+  describe(`Set Error`, setErrorTests)
 })
 
 function initialTests() {
@@ -191,5 +194,187 @@ function resetTests() {
       .to
       .deep
       .eq(EMPTY_WORK_ENTRY_MODAL_DATA)
+  })
+}
+
+function validationTests() {
+  let workEntryModalState: WorkEntryModalState
+
+  beforeEach(() => {
+    workEntryModalState = new WorkEntryModalState()
+  })
+  
+  it(`
+  GIVEN an empty title
+  WHEN isValid is activated
+  SHOULD return false and set title error to true
+  `, () => {
+    workEntryModalState.setIsTriedToSubmit()
+
+    expect(workEntryModalState.isValid)
+      .to
+      .be
+      .false
+    expect(workEntryModalState.errors.isTitleError)
+      .to
+      .be
+      .true
+  })
+
+  it(`
+  GIVEN an empty taskId
+  WHEN isValid is activated
+  SHOULD return false and set taskId error to true
+  `, () => {
+    workEntryModalState.setIsTriedToSubmit()
+
+    expect(workEntryModalState.isValid)
+      .to
+      .be
+      .false
+    expect(workEntryModalState.errors.isTaskIdError)
+      .to
+      .be
+      .true
+  })
+
+  it(`
+  GIVEN an empty description
+  WHEN isValid is activated
+  SHOULD return false and set description error to true
+  `, () => {
+    workEntryModalState.setIsTriedToSubmit()
+
+    expect(workEntryModalState.isValid)
+      .to
+      .be
+      .false
+    expect(workEntryModalState.errors.isDescriptionError)
+      .to
+      .be
+      .true
+  })
+
+  it(`
+  GIVEN valid title, taskId, and description
+  WHEN isValid is activated
+  SHOULD return true and all errors should be false
+  `, () => {
+    workEntryModalState.setTitle({
+      title: `Title`,
+    })
+    workEntryModalState.setTaskId({
+      taskId: `TaskId`,
+    })
+    workEntryModalState.setDescription({
+      description: `Description`,
+    })
+    
+    workEntryModalState.setIsTriedToSubmit()
+
+    expect(workEntryModalState.isValid)
+      .to
+      .be
+      .true
+    expect(workEntryModalState.errors)
+      .to
+      .deep
+      .equal({
+        isTitleError: false,
+        isTaskIdError: false,
+        isDescriptionError: false,
+      })
+  })
+}
+
+function saveAndTryToSubmitTests() {
+  let workEntryModalState: WorkEntryModalState
+
+  beforeEach(() => {
+    workEntryModalState = new WorkEntryModalState()
+  })
+  
+  it(`
+  GIVEN initial isSaving = false
+  WHEN trigger setIsSaving()
+  SHOULD change value to true
+  WHEN trigger resetIsSaving()
+  SHOULD change value to false
+  `, () => {
+    expect(workEntryModalState.isSaving)
+      .to
+      .be
+      .false
+
+    workEntryModalState.setIsSaving()
+    expect(workEntryModalState.isSaving)
+      .to
+      .be
+      .true
+    
+    workEntryModalState.resetIsSaving()
+    expect(workEntryModalState.isSaving)
+      .to
+      .be
+      .false
+  })
+
+  it(`
+  GIVEN initial isTriedToSubmit = false
+  WHEN trigger setIsTriedToSubmit()
+  SHOULD change value to true
+  WHEN trigger resetIsTriedToSubmit()
+  SHOULD change value to false
+  `, () => {
+    expect(workEntryModalState.isTriedToSubmit)
+      .to
+      .be
+      .false
+
+    workEntryModalState.setIsTriedToSubmit()
+    expect(workEntryModalState.isTriedToSubmit)
+      .to
+      .be
+      .true
+
+    workEntryModalState.resetIsTriedToSubmit()
+    expect(workEntryModalState.isTriedToSubmit)
+      .to
+      .be
+      .false
+  })
+}
+
+function setErrorTests() {
+  let workEntryModalState: WorkEntryModalState
+
+  beforeEach(() => {
+    workEntryModalState = new WorkEntryModalState()
+  })
+  
+  it(`
+  GIVEN initial error is empty
+  WHEN call setError() with error message
+  SHOULD set this error message
+  WHEN trigger resetError()
+  SHOULD reset to initial value
+  `, () => {
+    expect(workEntryModalState.error)
+      .to
+      .eq(``)
+
+    workEntryModalState.setError({
+      error: `Fill in all the fields`,
+    })
+
+    expect(workEntryModalState.error)
+      .to
+      .eq(`Fill in all the fields`)
+
+    workEntryModalState.resetError()
+
+    expect(workEntryModalState.error)
+      .to
+      .eq(``)
   })
 }

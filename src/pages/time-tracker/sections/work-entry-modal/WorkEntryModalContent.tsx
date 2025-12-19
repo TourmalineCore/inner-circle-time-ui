@@ -42,7 +42,10 @@ export const WorkEntryModalContent = observer(({
               value={workEntryModalData.title} 
               onChange={(e) => workEntryModalState.setTitle({
                 title: e.target.value,
-              })} 
+              })}
+              className={`${workEntryModalState.errors.isTitleError
+                ? `error` 
+                : ``}`}
             />
           </div>
 
@@ -57,7 +60,10 @@ export const WorkEntryModalContent = observer(({
               value={workEntryModalData.taskId} 
               onChange={(e) => workEntryModalState.setTaskId({
                 taskId: e.target.value,
-              })} 
+              })}
+              className={`${workEntryModalState.errors.isTaskIdError
+                ? `error` 
+                : ``}`}
             />
           </div>
 
@@ -66,13 +72,15 @@ export const WorkEntryModalContent = observer(({
               Description
             </span> 
             <textarea 
-              className='work-entry-modal__description'
               name="description" 
               data-cy="description-input"
               value={workEntryModalData.description} 
               onChange={(e) => workEntryModalState.setDescription({
                 description: e.target.value,
-              })} 
+              })}
+              className={`work-entry-modal__description ${workEntryModalState.errors.isDescriptionError
+                ? `error` 
+                : ``}`}
             />
           </div>
 
@@ -89,6 +97,7 @@ export const WorkEntryModalContent = observer(({
                 onChange={(date) => workEntryModalState.setDate({
                   date: date as Date,
                 })}
+                onKeyDown={(e) => e.preventDefault()}
               />
 
               <div className='work-entry-modal__time-range'>
@@ -126,8 +135,17 @@ export const WorkEntryModalContent = observer(({
               </div>
             </div>
           </div>
+
+          { 
+            workEntryModalState.error && (
+              <span className='work-entry-modal__error'>
+                {workEntryModalState.error}
+              </span>
+            )
+          }
         </div>
       )}
+      isButtonsDisabled={workEntryModalState.isSaving}
       onApply={onSubmitWorkEntryAsync}
       applyText={workEntryModalData.id
         ? `Update Task`

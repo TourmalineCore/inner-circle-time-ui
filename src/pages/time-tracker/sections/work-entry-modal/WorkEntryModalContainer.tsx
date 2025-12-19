@@ -22,6 +22,17 @@ export const WorkEntryModalContainer = observer(({
   )
   
   async function onSubmitWorkEntryAsync() {
+    workEntryModalState.setIsSaving()
+    workEntryModalState.setIsTriedToSubmit()
+
+    if (!workEntryModalState.isValid) {
+      workEntryModalState.setError({
+        error: `Fill in all the fields`,
+      })
+      workEntryModalState.resetIsSaving()
+      return
+    }
+
     const {
       id,
       title,
@@ -57,7 +68,12 @@ export const WorkEntryModalContainer = observer(({
 
       onClose()
       handleTriggerReloadState()
+
+      workEntryModalState.resetError()
     }
-    catch{ /* empty */ }
+    finally {
+      workEntryModalState.resetIsSaving()
+      workEntryModalState.resetIsTriedToSubmit()
+    } 
   }
 })

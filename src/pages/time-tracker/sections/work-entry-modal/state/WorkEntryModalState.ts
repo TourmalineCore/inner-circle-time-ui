@@ -15,6 +15,10 @@ export class WorkEntryModalState {
     ...EMPTY_WORK_ENTRY_MODAL_DATA,
   }
 
+  private _isSaving = false    
+  private _isTriedToSubmit = false  
+  private _error = ``  
+
   constructor() {
     makeAutoObservable(this)
   }
@@ -23,6 +27,46 @@ export class WorkEntryModalState {
     return this._workEntryModalData
   }
 
+  get isSaving() {
+    return this._isSaving
+  }
+
+  get isTriedToSubmit() {
+    return this._isTriedToSubmit
+  }
+
+  get isTitleValid() {
+    return this._workEntryModalData.title !== ``
+  }
+
+  get isTaskIdValid() {
+    return this._workEntryModalData.taskId !== ``
+  }
+
+  get isDescriptionValid() {
+    return this._workEntryModalData.description !== ``
+  }
+  
+  get isValid() {
+    return (
+      this.isTitleValid &&
+      this.isTaskIdValid &&
+      this.isDescriptionValid
+    )
+  }
+
+  get errors() {
+    return {
+      isTitleError: !this.isTitleValid && this._isTriedToSubmit,
+      isTaskIdError: !this.isTaskIdValid && this._isTriedToSubmit,
+      isDescriptionError: !this.isDescriptionValid && this._isTriedToSubmit,
+    }
+  }
+
+  get error() {
+    return this._error
+  }
+  
   setId({
     id,
   }: {
@@ -81,5 +125,33 @@ export class WorkEntryModalState {
 
   reset() {
     this._workEntryModalData = structuredClone(EMPTY_WORK_ENTRY_MODAL_DATA)
+  }
+
+  setIsSaving() {
+    this._isSaving = true
+  }
+
+  resetIsSaving() {
+    this._isSaving = false
+  }
+
+  setIsTriedToSubmit() {
+    this._isTriedToSubmit = true
+  }
+
+  resetIsTriedToSubmit() {
+    this._isTriedToSubmit = false
+  }
+
+  setError({
+    error,
+  }: {
+    error: string,
+  }) {
+    this._error = error
+  }
+
+  resetError() {
+    this._error = ``
   }
 }
