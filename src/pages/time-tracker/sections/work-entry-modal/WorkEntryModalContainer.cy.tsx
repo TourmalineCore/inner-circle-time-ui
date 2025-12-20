@@ -31,14 +31,8 @@ function addWorkEntryTests() {
   beforeEach(() => {
     workEntryModalState = new WorkEntryModalState()
 
-    workEntryModalState.setDate({
-      date: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setStartTime({
-      startTime: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setEndTime({
-      endTime: new Date(`2025-11-27T11:30:00`),
+    setupDefaultDateAndTimeState({
+      workEntryModalState,
     })
   })
 
@@ -125,16 +119,8 @@ function updateWorkEntryTests() {
       description: `Task description`,
     })
     
-    workEntryModalState.setDate({
-      date: new Date(`2025-11-27T09:00:00`),
-    })
-
-    workEntryModalState.setStartTime({
-      startTime: new Date(`2025-11-27T09:00:00`),
-    })
-    
-    workEntryModalState.setEndTime({
-      endTime: new Date(`2025-11-27T11:30:00`),
+    setupDefaultDateAndTimeState({
+      workEntryModalState,
     })
   })
 
@@ -204,20 +190,17 @@ function onCloseModalTests() {
     workEntryModalState.setTitle({
       title: `Title`,
     })
+
     workEntryModalState.setTaskId({
       taskId: `TaskId`,
     })
+
     workEntryModalState.setDescription({
       description: `Description`,
     })
-    workEntryModalState.setDate({
-      date: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setStartTime({
-      startTime: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setEndTime({
-      endTime: new Date(`2025-11-27T11:30:00`),
+
+    setupDefaultDateAndTimeState({
+      workEntryModalState,
     })
   })
 
@@ -281,14 +264,8 @@ function setErrorTests() {
   beforeEach(() => {
     workEntryModalState = new WorkEntryModalState()
 
-    workEntryModalState.setDate({
-      date: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setStartTime({
-      startTime: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setEndTime({
-      endTime: new Date(`2025-11-27T11:30:00`),
+    setupDefaultDateAndTimeState({
+      workEntryModalState,
     })
   })
 
@@ -373,4 +350,20 @@ function mountComponent({
         />
       </WorkEntryModalStateContext.Provider>,
     )
+}
+
+function setupDefaultDateAndTimeState({
+  workEntryModalState,
+}: {
+  workEntryModalState: WorkEntryModalState,
+}) {
+  workEntryModalState.setDate({
+    date: new Date(`2025-11-27T09:00:00`),
+  })
+  workEntryModalState.setStartTime({
+    startTime: new Date(`2025-11-27T09:00:00`),
+  })
+  workEntryModalState.setEndTime({
+    endTime: new Date(`2025-11-27T11:30:00`),
+  })
 }
