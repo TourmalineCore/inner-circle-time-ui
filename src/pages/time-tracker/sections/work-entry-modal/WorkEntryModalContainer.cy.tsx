@@ -308,6 +308,47 @@ function setErrorTests() {
 
     cy.contains(`Fill in all the fields`)
   })
+
+  it(`
+  GIVEN opened work entry modal
+  WHEN click on submit button
+  AND server validation error will be returned
+  SHOULD display error message
+  `, () => {
+    cy
+      .intercept(
+        `POST`,
+        `*/time/tracking/work-entries`,
+        {
+          statusCode: 400,
+          body: {
+            detail: `Error message`,
+          },
+        },
+      )
+      
+    workEntryModalState.setTitle({
+      title: `Task name`,
+    })
+
+    workEntryModalState.setTaskId({
+      taskId: `1`,
+    })
+    
+    workEntryModalState.setDescription({
+      description: `Task description`,
+    })
+    
+    mountComponent({
+      workEntryModalState,
+    })
+
+    cy
+      .contains(`Add Task`)
+      .click()
+
+    cy.contains(`Error message`)
+  })
 }
 
 function mountComponent({

@@ -4,6 +4,7 @@ import { useContext } from "react"
 import { WorkEntryModalStateContext } from "./state/WorkEntryModalStateContext"
 import { concatDateAndTime } from "../../utils/date-and-time"
 import { api } from "../../../../common/api/api"
+import axios from "axios"
 
 export const WorkEntryModalContainer = observer(({
   onClose,
@@ -70,6 +71,15 @@ export const WorkEntryModalContainer = observer(({
       handleTriggerReloadState()
 
       workEntryModalState.resetError()
+    }
+    catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          workEntryModalState.setError({
+            error: error.response.data.detail,
+          })
+        }
+      }
     }
     finally {
       workEntryModalState.resetIsSaving()
