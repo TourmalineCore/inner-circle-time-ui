@@ -31,7 +31,7 @@ function addWorkEntryTests() {
   beforeEach(() => {
     workEntryModalState = new WorkEntryModalState()
 
-    setupDefaultDateAndTimeState({
+    setDateAndTime({
       workEntryModalState,
     })
   })
@@ -119,7 +119,7 @@ function updateWorkEntryTests() {
       description: `Task description`,
     })
     
-    setupDefaultDateAndTimeState({
+    setDateAndTime({
       workEntryModalState,
     })
   })
@@ -199,7 +199,7 @@ function onCloseModalTests() {
       description: `Description`,
     })
 
-    setupDefaultDateAndTimeState({
+    setDateAndTime({
       workEntryModalState,
     })
   })
@@ -264,7 +264,7 @@ function setErrorTests() {
   beforeEach(() => {
     workEntryModalState = new WorkEntryModalState()
 
-    setupDefaultDateAndTimeState({
+    setDateAndTime({
       workEntryModalState,
     })
   })
@@ -352,7 +352,7 @@ function mountComponent({
     )
 }
 
-function setupDefaultDateAndTimeState({
+function setDateAndTime({
   workEntryModalState,
 }: {
   workEntryModalState: WorkEntryModalState,
