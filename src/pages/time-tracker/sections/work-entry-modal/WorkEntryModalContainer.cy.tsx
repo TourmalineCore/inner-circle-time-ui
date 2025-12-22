@@ -31,14 +31,8 @@ function addWorkEntryTests() {
   beforeEach(() => {
     workEntryModalState = new WorkEntryModalState()
 
-    workEntryModalState.setDate({
-      date: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setStartTime({
-      startTime: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setEndTime({
-      endTime: new Date(`2025-11-27T11:30:00`),
+    setDateAndTime({
+      workEntryModalState,
     })
   })
 
@@ -125,16 +119,8 @@ function updateWorkEntryTests() {
       description: `Task description`,
     })
     
-    workEntryModalState.setDate({
-      date: new Date(`2025-11-27T09:00:00`),
-    })
-
-    workEntryModalState.setStartTime({
-      startTime: new Date(`2025-11-27T09:00:00`),
-    })
-    
-    workEntryModalState.setEndTime({
-      endTime: new Date(`2025-11-27T11:30:00`),
+    setDateAndTime({
+      workEntryModalState,
     })
   })
 
@@ -204,20 +190,17 @@ function onCloseModalTests() {
     workEntryModalState.setTitle({
       title: `Title`,
     })
+
     workEntryModalState.setTaskId({
       taskId: `TaskId`,
     })
+
     workEntryModalState.setDescription({
       description: `Description`,
     })
-    workEntryModalState.setDate({
-      date: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setStartTime({
-      startTime: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setEndTime({
-      endTime: new Date(`2025-11-27T11:30:00`),
+
+    setDateAndTime({
+      workEntryModalState,
     })
   })
 
@@ -281,14 +264,8 @@ function setErrorTests() {
   beforeEach(() => {
     workEntryModalState = new WorkEntryModalState()
 
-    workEntryModalState.setDate({
-      date: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setStartTime({
-      startTime: new Date(`2025-11-27T09:00:00`),
-    })
-    workEntryModalState.setEndTime({
-      endTime: new Date(`2025-11-27T11:30:00`),
+    setDateAndTime({
+      workEntryModalState,
     })
   })
 
@@ -307,6 +284,47 @@ function setErrorTests() {
       .click()
 
     cy.contains(`Fill in all the fields`)
+  })
+
+  it(`
+  GIVEN opened work entry modal
+  WHEN click on submit button
+  AND server validation error will be returned
+  SHOULD display error message
+  `, () => {
+    cy
+      .intercept(
+        `POST`,
+        `*/time/tracking/work-entries`,
+        {
+          statusCode: 400,
+          body: {
+            detail: `Error message`,
+          },
+        },
+      )
+      
+    workEntryModalState.setTitle({
+      title: `Task name`,
+    })
+
+    workEntryModalState.setTaskId({
+      taskId: `1`,
+    })
+    
+    workEntryModalState.setDescription({
+      description: `Task description`,
+    })
+    
+    mountComponent({
+      workEntryModalState,
+    })
+
+    cy
+      .contains(`Add Task`)
+      .click()
+
+    cy.contains(`Error message`)
   })
 }
 
@@ -332,4 +350,20 @@ function mountComponent({
         />
       </WorkEntryModalStateContext.Provider>,
     )
+}
+
+function setDateAndTime({
+  workEntryModalState,
+}: {
+  workEntryModalState: WorkEntryModalState,
+}) {
+  workEntryModalState.setDate({
+    date: new Date(`2025-11-27T09:00:00`),
+  })
+  workEntryModalState.setStartTime({
+    startTime: new Date(`2025-11-27T09:00:00`),
+  })
+  workEntryModalState.setEndTime({
+    endTime: new Date(`2025-11-27T11:30:00`),
+  })
 }
