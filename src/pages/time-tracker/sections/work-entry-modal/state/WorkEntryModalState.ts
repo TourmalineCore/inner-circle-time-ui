@@ -1,17 +1,18 @@
 import { makeAutoObservable } from 'mobx'
-import { WorkEntry } from '../../../types'
+import { WorkEntryModal } from '../../../types'
 
-export const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntry = {
+export const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntryModal = {
   title: ``,
   date: null,
   taskId: ``,
   description: ``,
+  projectId: 0,
   start: null,
   end: null,
 }
 
 export class WorkEntryModalState {
-  private _workEntryModalData: WorkEntry = {
+  private _workEntryModalData: WorkEntryModal = {
     ...EMPTY_WORK_ENTRY_MODAL_DATA,
   }
 
@@ -73,6 +74,14 @@ export class WorkEntryModalState {
     id: number,
   }) {
     this._workEntryModalData.id = id
+  }
+
+  setProjectId({
+    projectId,
+  }: {
+    projectId: number,
+  }) {
+    this._workEntryModalData.projectId = projectId
   }
 
   setTitle({

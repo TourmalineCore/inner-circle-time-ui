@@ -4,9 +4,9 @@ import { useContext, useEffect } from "react"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
-import { WorkEntry } from "../../types"
 import moment from "moment"
 import { api } from "../../../../common/api/api"
+import { WorkEntryModal } from "../../types"
 
 export const TimeTrackerTableContainer = observer(({
   onOpenWorkEntryModal,
@@ -15,7 +15,7 @@ export const TimeTrackerTableContainer = observer(({
   triggerReloadState,
 }: {
   onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntry) => unknown,
+  setWorkEntryModalData: (workEntry: WorkEntryModal) => unknown,
   setWorkEntryModalDataTime: ({
     startTime,
     endTime,

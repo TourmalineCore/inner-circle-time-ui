@@ -1,8 +1,4 @@
-export type TimeTrackerTable = {
-  workEntries: WorkEntry[],
-}
-
-export type WorkEntry = {
+export type WorkEntryBase = {
   id?: number,
   title: string,
   date: Date | null,
@@ -10,6 +6,23 @@ export type WorkEntry = {
   description: string,
   start: Date | null,
   end: Date | null,
+}
+
+export type WorkEntryModal = WorkEntryBase & {
+  projectId: number,
+}
+
+export type TimeTrackerTable = {
+  workEntries: WorkEntries,
+}
+
+export type WorkEntries = (WorkEntryBase & {
+  projectName: string,
+})[]
+
+export type Project = {
+  value: string,
+  label: string,
 }
 
 export type View = 'day' | 'week'

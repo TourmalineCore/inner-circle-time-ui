@@ -6,6 +6,7 @@ const ADDED_WORK_ENTRY_MODAL_DATA = {
   title: `Task name`,
   taskId: `1`,
   description: `Task description`,
+  projectId: 1,
   startTime: `2025-11-16T10:00:00`,
   endTime: `2025-11-16T11:45:00`,
 }
@@ -14,6 +15,7 @@ const UPDATED_WORK_ENTRY_MODAL_DATA = {
   title: `New task name`,
   taskId: `2`,
   description: `New task description`,
+  projectId: 2,
   startTime: `2025-11-27T11:00:00`,
   endTime: `2025-11-27T12:00:00`,
 }

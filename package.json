@@ -37,6 +37,7 @@
     "react-big-calendar": "^1.19.4",
     "react-datepicker": "^8.9.0",
     "react-dom": "^18.2.0",
+    "react-dropdown": "^1.11.0",
     "react-input-mask": "^2.0.4",
     "react-responsive": "^10.0.1",
     "react-router-dom": "^6.2.2",

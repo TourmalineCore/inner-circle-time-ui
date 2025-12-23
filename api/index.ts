@@ -16,6 +16,8 @@ export interface CreateWorkEntryRequest {
   startTime: string;
   /** @format date-time */
   endTime: string;
+  /** @format int64 */
+  projectId: number;
   taskId: string;
   description: string;
 }
@@ -29,12 +31,24 @@ export interface GetWorkEntriesByPeriodResponse {
   workEntries: WorkEntryItem[];
 }
 
+export interface Project {
+  /** @format int64 */
+  id: number;
+  name: string;
+}
+
+export interface ProjectsResponse {
+  projects: Project[];
+}
+
 export interface UpdateWorkEntryRequest {
   title: string;
   /** @format date-time */
   startTime: string;
   /** @format date-time */
   endTime: string;
+  /** @format int64 */
+  projectId: number;
   taskId: string;
   description: string;
 }
@@ -47,6 +61,7 @@ export interface WorkEntryItem {
   startTime: string;
   /** @format date-time */
   endTime: string;
+  projectName: string;
   taskId: string;
   description: string;
 }
@@ -299,6 +314,29 @@ export class Api<
         method: "POST",
         body: data,
         type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Tracking
+     * @name TrackingGetEmployeeProjects
+     * @summary Get employee projects by date
+     * @request GET:/api/time/tracking/work-entries/projects
+     */
+    trackingGetEmployeeProjects: (
+      query: {
+        /** @format date */
+        date: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<ProjectsResponse, any>({
+        path: `/api/time/tracking/work-entries/projects`,
+        method: "GET",
+        query: query,
+        format: "json",
         ...params,
       }),
 
