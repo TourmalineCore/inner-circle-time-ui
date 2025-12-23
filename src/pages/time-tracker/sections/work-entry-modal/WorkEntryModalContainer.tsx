@@ -1,10 +1,11 @@
 import { observer } from "mobx-react-lite"
 import { WorkEntryModalContent } from "./WorkEntryModalContent"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { WorkEntryModalStateContext } from "./state/WorkEntryModalStateContext"
 import { concatDateAndTime } from "../../utils/date-and-time"
 import { api } from "../../../../common/api/api"
 import axios from "axios"
+import moment from "moment"
 
 export const WorkEntryModalContainer = observer(({
   onClose,
@@ -14,6 +15,10 @@ export const WorkEntryModalContainer = observer(({
   handleTriggerReloadState: () => unknown,
 }) => {
   const workEntryModalState = useContext(WorkEntryModalStateContext)
+  
+  useEffect(() => {
+    loadProjectsAsync()
+  }, [])
 
   return (
     <WorkEntryModalContent
@@ -39,6 +44,7 @@ export const WorkEntryModalContainer = observer(({
       title,
       taskId,
       description,
+      projectId,
       date,
       start,
       end,
@@ -58,6 +64,7 @@ export const WorkEntryModalContainer = observer(({
       title,
       taskId,
       description,
+      projectId,
       startTime: startDateTime,
       endTime: endDateTime,
     }
@@ -85,5 +92,26 @@ export const WorkEntryModalContainer = observer(({
       workEntryModalState.resetIsSaving()
       workEntryModalState.resetIsTriedToSubmit()
     } 
+  }
+ 
+  async function loadProjectsAsync() {
+    const {
+      data: {
+        projects,
+      },
+    } = await api.trackingGetEmployeeProjects({
+      date: moment(workEntryModalState.workEntryModalData.start)
+        .format(`YYYY-MM-DD`),
+    })
+
+    workEntryModalState.setProjects({
+      projects,
+    })
+
+    if (workEntryModalState.workEntryModalData.projectId == 0) {
+      workEntryModalState.setProjectId({
+        projectId: projects[0].id,
+      })
+    }
   }
 })

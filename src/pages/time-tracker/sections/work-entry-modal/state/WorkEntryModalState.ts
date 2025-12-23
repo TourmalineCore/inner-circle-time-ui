@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { WorkEntryModal } from '../../../types'
+import { Project } from '../../../../../../api'
 
 export const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntryModal = {
   title: ``,
@@ -16,6 +17,8 @@ export class WorkEntryModalState {
     ...EMPTY_WORK_ENTRY_MODAL_DATA,
   }
 
+  private _projects: Project[] = []
+
   private _isSaving = false    
   private _isTriedToSubmit = false  
   private _error = ``  
@@ -26,6 +29,10 @@ export class WorkEntryModalState {
 
   get workEntryModalData() {
     return this._workEntryModalData
+  }
+
+  get projects() {
+    return this._projects
   }
 
   get isSaving() {
@@ -82,6 +89,14 @@ export class WorkEntryModalState {
     projectId: number,
   }) {
     this._workEntryModalData.projectId = projectId
+  }
+
+  setProjects({
+    projects,
+  }: {
+    projects: Project[],
+  }) {
+    this._projects = projects
   }
 
   setTitle({

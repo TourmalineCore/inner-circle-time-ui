@@ -54,6 +54,28 @@ function addWorkEntryTests() {
       )
       .as(`addWorkEntry`)
 
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/work-entries/projects?date=2025-11-27`,
+        {
+          statusCode: 200,
+          body: {
+            projects: [
+              {
+                id: 1,
+                name: `ProjectOne`,
+              },
+              {
+                id: 2,
+                name: `ProjectTwo`,
+              },
+            ],
+          },
+        },
+      )
+      .as(`getProjects`)
+
     mountComponent({
       workEntryModalState,
     })
@@ -61,6 +83,10 @@ function addWorkEntryTests() {
     cy
       .getByData(`title-input`)
       .type(ADDED_WORK_ENTRY_MODAL_DATA.title)
+    
+    cy
+      .getByData(`project-select`)
+      .select(0)
 
     cy
       .getByData(`task-id-input`)
@@ -142,6 +168,28 @@ function updateWorkEntryTests() {
       )
       .as(`updateWorkEntry`)
 
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/work-entries/projects?date=2025-11-27`,
+        {
+          statusCode: 200,
+          body: {
+            projects: [
+              {
+                id: 1,
+                name: `ProjectOne`,
+              },
+              {
+                id: 2,
+                name: `ProjectTwo`,
+              },
+            ],
+          },
+        },
+      )
+      .as(`getProjects`)
+
     mountComponent({
       workEntryModalState,
     })
@@ -150,6 +198,10 @@ function updateWorkEntryTests() {
       .getByData(`title-input`)
       .clear()
       .type(UPDATED_WORK_ENTRY_MODAL_DATA.title)
+
+    cy
+      .getByData(`project-select`)
+      .select(1)
 
     cy
       .getByData(`task-id-input`)

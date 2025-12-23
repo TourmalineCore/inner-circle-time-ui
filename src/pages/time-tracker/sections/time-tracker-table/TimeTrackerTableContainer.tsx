@@ -66,6 +66,7 @@ export const TimeTrackerTableContainer = observer(({
               id: workEntry.id,
               taskId: workEntry.taskId,
               description: workEntry.description,
+              projectName: workEntry.projectName,
               title: workEntry.title,
               date: moment(workEntry.startTime)
                 .toDate(),

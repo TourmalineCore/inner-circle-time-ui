@@ -68,6 +68,28 @@ function settersTests() {
   })
 
   it(`
+  GIVEN a state with default projects
+  WHEN set projects 
+  SHOULD return updated projects
+  `, () => {
+    const projects = [
+      {
+        id: 1,
+        name: `ProjectOne`,
+      },
+    ]
+
+    workEntryModalState.setProjects({
+      projects,
+    })
+
+    expect(workEntryModalState.projects)
+      .to
+      .deep
+      .eq(projects)
+  })
+
+  it(`
   GIVEN a state with default title
   WHEN set title 
   SHOULD return updated title

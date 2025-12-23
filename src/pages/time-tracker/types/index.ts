@@ -20,9 +20,4 @@ export type WorkEntries = (WorkEntryBase & {
   projectName: string,
 })[]
 
-export type Project = {
-  value: string,
-  label: string,
-}
-
 export type View = 'day' | 'week'
