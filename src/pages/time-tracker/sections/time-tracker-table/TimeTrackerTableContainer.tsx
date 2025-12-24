@@ -58,6 +58,15 @@ export const TimeTrackerTableContainer = observer(({
         endDate: viewEndDate as string,
       })
 
+      const {
+        data: {
+          projects,
+        },
+      } = await api.trackingGetEmployeeProjectsByPeriod({
+        startDate: viewStartDate!,
+        endDate: viewEndDate!,
+      })
+
       timeTrackerState.initialize({
         loadedData: {
           workEntries: data
@@ -66,7 +75,7 @@ export const TimeTrackerTableContainer = observer(({
               id: workEntry.id,
               taskId: workEntry.taskId,
               description: workEntry.description,
-              project: workEntry.project,
+              project: projects.find((project) => project.id === workEntry.projectId)!,
               title: workEntry.title,
               date: moment(workEntry.startTime)
                 .toDate(),

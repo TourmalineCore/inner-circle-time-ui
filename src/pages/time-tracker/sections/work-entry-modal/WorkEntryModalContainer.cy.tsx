@@ -25,7 +25,7 @@ describe(`WorkEntryModalContainer`, () => {
     cy
       .intercept(
         `GET`,
-        `*/time/tracking/work-entries/projects?date=2025-11-27`,
+        `*/time/tracking/work-entries/projects?startDate=2025-11-27&endDate=2025-11-27`,
         {
           statusCode: 200,
           body: {

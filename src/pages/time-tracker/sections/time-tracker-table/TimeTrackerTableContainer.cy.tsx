@@ -9,16 +9,24 @@ const WORK_ENTRIES_RESPONSE: GetWorkEntriesByPeriodResponse = {
       id: 1,
       title: `task4455`,
       taskId: `#4455`,
-      project: {
-        id: 1,
-        name: `ProjectOne`,
-      },
+      projectId: 1,
       description: `description4455`,
       startTime: `2025-11-27T09:00:00`,
       endTime: `2025-11-27T11:30:00`,
     }, 
   ],
 }
+
+const PROJECTS = [
+  {
+    id: 1,
+    name: `ProjectOne`,
+  },
+  {
+    id: 2,
+    name: `ProjectTwo`,
+  },
+]
 
 describe(`TimeTrackerTableContainer`, () => {
   beforeEach(() => {
@@ -43,6 +51,19 @@ function initializationTests() {
     cy
       .intercept(
         `GET`,
+        `*/time/tracking/work-entries/projects?startDate=2025-11-27&endDate=2025-11-27`,
+        {
+          statusCode: 200,
+          body: {
+            projects: PROJECTS,
+          },
+        },
+      )
+      .as(`getProjects`)
+
+    cy
+      .intercept(
+        `GET`,
         `*/time/tracking/work-entries?startDate=2025-11-27&endDate=2025-11-27`,
         {
           statusCode: 200,
@@ -54,17 +75,31 @@ function initializationTests() {
     mountComponent()
 
     cy.wait(`@getWorkEntries`)
+    cy.wait(`@getProjects`)
 
     cy.contains(`task4455`)
     cy.contains(`9:00 AM – 11:30 AM`)
   })
 
-  it(`
+  it.only(`
   GIVEN desktop view
   WHEN render the component
   SHOULD send correct request
   `, () => {
     cy.viewport(1366, 1024)
+
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/work-entries/projects?startDate=2025-11-24&endDate=2025-11-30`,
+        {
+          statusCode: 200,
+          body: {
+            projects: PROJECTS,
+          },
+        },
+      )
+      .as(`getProjects`)
 
     cy
       .intercept(
@@ -80,6 +115,7 @@ function initializationTests() {
     mountComponent()
 
     cy.wait(`@getWorkEntries`)
+    cy.wait(`@getProjects`)
   })
 }
 

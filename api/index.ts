@@ -61,7 +61,8 @@ export interface WorkEntryItem {
   startTime: string;
   /** @format date-time */
   endTime: string;
-  project: Project;
+  /** @format int64 */
+  projectId: number;
   taskId: string;
   description: string;
 }
@@ -321,14 +322,16 @@ export class Api<
      * No description
      *
      * @tags Tracking
-     * @name TrackingGetEmployeeProjects
-     * @summary Get employee projects by date
+     * @name TrackingGetEmployeeProjectsByPeriod
+     * @summary Get employee projects by period
      * @request GET:/api/time/tracking/work-entries/projects
      */
-    trackingGetEmployeeProjects: (
+    trackingGetEmployeeProjectsByPeriod: (
       query: {
         /** @format date */
-        date: string;
+        startDate: string;
+        /** @format date */
+        endDate: string;
       },
       params: RequestParams = {},
     ) =>

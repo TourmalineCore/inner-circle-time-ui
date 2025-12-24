@@ -96,13 +96,16 @@ export const WorkEntryModalContainer = observer(({
   }
  
   async function loadProjectsAsync() {
+    const startDate = moment(workEntryModalState.workEntryModalData.start)
+      .format(`YYYY-MM-DD`)
+      
     const {
       data: {
         projects,
       },
-    } = await api.trackingGetEmployeeProjects({
-      date: moment(workEntryModalState.workEntryModalData.start)
-        .format(`YYYY-MM-DD`),
+    } = await api.trackingGetEmployeeProjectsByPeriod({
+      startDate,
+      endDate: startDate,
     })
 
     workEntryModalState.setProjects({
