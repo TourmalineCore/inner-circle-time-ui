@@ -135,6 +135,10 @@ function updateWorkEntryTests() {
       id: 1,
     })
 
+    workEntryModalState.setProjectId({
+      projectId: 2,
+    })
+
     workEntryModalState.setTitle({
       title: `Task name`,
     })

@@ -61,7 +61,7 @@ export interface WorkEntryItem {
   startTime: string;
   /** @format date-time */
   endTime: string;
-  projectName: string;
+  project: Project;
   taskId: string;
   description: string;
 }

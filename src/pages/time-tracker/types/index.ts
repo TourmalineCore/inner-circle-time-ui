@@ -1,3 +1,5 @@
+import { Project } from "../../../../api"
+
 export type WorkEntryBase = {
   id?: number,
   title: string,
@@ -13,11 +15,11 @@ export type WorkEntryModal = WorkEntryBase & {
 }
 
 export type TimeTrackerTable = {
-  workEntries: WorkEntries,
+  workEntries: WorkEntryItem [],
 }
 
-export type WorkEntries = (WorkEntryBase & {
-  projectName: string,
-})[]
+export type WorkEntryItem = (WorkEntryBase & {
+  project: Project,
+})
 
 export type View = 'day' | 'week'

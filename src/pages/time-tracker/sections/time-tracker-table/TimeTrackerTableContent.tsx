@@ -7,7 +7,7 @@ import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import moment from 'moment'
 import 'moment/locale/ru'
 import { momentLocalizer, Calendar, SlotInfo} from 'react-big-calendar'
-import { View, WorkEntry } from '../../types'
+import { View, WorkEntryItem } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
@@ -25,7 +25,7 @@ export const TimeTrackerTableContent = observer(({
   setWorkEntryModalDataTime,
 }: {
   onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntry) => unknown,
+  setWorkEntryModalData: (workEntry: WorkEntryItem ) => unknown,
   setWorkEntryModalDataTime: ({
     startTime,
     endTime,
@@ -67,7 +67,7 @@ export const TimeTrackerTableContent = observer(({
     }
   }
 
-  const handleSelectWorkEntry = (workEntry: WorkEntry) => {
+  const handleSelectWorkEntry = (workEntry: WorkEntryItem ) => {
     setWorkEntryModalData(workEntry)
 
     onOpenWorkEntryModal()

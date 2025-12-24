@@ -9,6 +9,10 @@ const WORK_ENTRIES_RESPONSE: GetWorkEntriesByPeriodResponse = {
       id: 1,
       title: `task4455`,
       taskId: `#4455`,
+      project: {
+        id: 1,
+        name: `ProjectOne`,
+      },
       description: `description4455`,
       startTime: `2025-11-27T09:00:00`,
       endTime: `2025-11-27T11:30:00`,

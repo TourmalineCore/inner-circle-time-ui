@@ -6,7 +6,7 @@ import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import moment from "moment"
 import { api } from "../../../../common/api/api"
-import { WorkEntryModal } from "../../types"
+import { WorkEntryItem } from "../../types"
 
 export const TimeTrackerTableContainer = observer(({
   onOpenWorkEntryModal,
@@ -15,7 +15,7 @@ export const TimeTrackerTableContainer = observer(({
   triggerReloadState,
 }: {
   onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntryModal) => unknown,
+  setWorkEntryModalData: (workEntry: WorkEntryItem ) => unknown,
   setWorkEntryModalDataTime: ({
     startTime,
     endTime,
@@ -66,7 +66,7 @@ export const TimeTrackerTableContainer = observer(({
               id: workEntry.id,
               taskId: workEntry.taskId,
               description: workEntry.description,
-              projectName: workEntry.projectName,
+              project: workEntry.project,
               title: workEntry.title,
               date: moment(workEntry.startTime)
                 .toDate(),
