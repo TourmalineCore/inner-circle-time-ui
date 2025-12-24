@@ -20,6 +20,10 @@ export class TimeTrackerPage {
       .type(`#test`)
 
     cy
+      .getByData(`project-select`)
+      .select(4)
+
+    cy
       .getByData(`description-input`)
       .clear()
       .type(`Task description`)
@@ -48,6 +52,10 @@ export class TimeTrackerPage {
       .getByData(`title-input`)
       .clear()
       .type(`[E2E-SMOKE] Task 2`)
+
+    cy
+      .getByData(`project-select`)
+      .select(5)
 
     cy
       .getByData(`task-id-input`)
