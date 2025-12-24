@@ -6,6 +6,7 @@ import { concatDateAndTime } from "../../utils/date-and-time"
 import { api } from "../../../../common/api/api"
 import axios from "axios"
 import moment from "moment"
+import { EMPTY_WORK_ENTRY_MODAL_DATA } from "./state/WorkEntryModalState"
 
 export const WorkEntryModalContainer = observer(({
   onClose,
@@ -108,7 +109,7 @@ export const WorkEntryModalContainer = observer(({
       projects,
     })
 
-    if (workEntryModalState.workEntryModalData.projectId == 0) {
+    if (workEntryModalState.workEntryModalData.projectId == EMPTY_WORK_ENTRY_MODAL_DATA.projectId) {
       workEntryModalState.setProjectId({
         projectId: projects[0].id,
       })
