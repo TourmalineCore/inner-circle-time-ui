@@ -25,7 +25,7 @@ export const TimeTrackerTableContent = observer(({
   setWorkEntryModalDataTime,
 }: {
   onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntryItem ) => unknown,
+  setWorkEntryModalData: (workEntry: WorkEntryItem) => unknown,
   setWorkEntryModalDataTime: ({
     startTime,
     endTime,
@@ -67,7 +67,7 @@ export const TimeTrackerTableContent = observer(({
     }
   }
 
-  const handleSelectWorkEntry = (workEntry: WorkEntryItem ) => {
+  const handleSelectWorkEntry = (workEntry: WorkEntryItem) => {
     setWorkEntryModalData(workEntry)
 
     onOpenWorkEntryModal()

@@ -65,7 +65,7 @@ export function TimeTrackerPage() {
     project,
     start,
     end,
-  }: WorkEntryItem ) {
+  }: WorkEntryItem) {
     if (id) {
       workEntryModalState.setId({
         id,
@@ -98,8 +98,8 @@ export function TimeTrackerPage() {
     startTime,
     endTime,
   }: {
-    startTime: WorkEntryItem ['start'],
-    endTime: WorkEntryItem ['end'],
+    startTime: WorkEntryItem['start'],
+    endTime: WorkEntryItem['end'],
   }) {
     workEntryModalState.setDate({
       date: startTime!,

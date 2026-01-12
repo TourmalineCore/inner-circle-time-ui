@@ -15,7 +15,7 @@ export type WorkEntryModal = WorkEntryBase & {
 }
 
 export type TimeTrackerTable = {
-  workEntries: WorkEntryItem [],
+  workEntries: WorkEntryItem[],
 }
 
 export type WorkEntryItem = WorkEntryBase & {

@@ -15,7 +15,7 @@ export const TimeTrackerTableContainer = observer(({
   triggerReloadState,
 }: {
   onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntryItem ) => unknown,
+  setWorkEntryModalData: (workEntry: WorkEntryItem) => unknown,
   setWorkEntryModalDataTime: ({
     startTime,
     endTime,
