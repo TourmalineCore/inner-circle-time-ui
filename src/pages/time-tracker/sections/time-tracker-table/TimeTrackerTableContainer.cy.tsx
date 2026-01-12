@@ -81,7 +81,7 @@ function initializationTests() {
     cy.contains(`9:00 AM – 11:30 AM`)
   })
 
-  it.only(`
+  it(`
   GIVEN desktop view
   WHEN render the component
   SHOULD send correct request
