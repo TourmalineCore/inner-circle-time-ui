@@ -18,8 +18,8 @@ export type TimeTrackerTable = {
   workEntries: WorkEntryItem [],
 }
 
-export type WorkEntryItem = (WorkEntryBase & {
+export type WorkEntryItem = WorkEntryBase & {
   project: Project,
-})
+}
 
 export type View = 'day' | 'week'
