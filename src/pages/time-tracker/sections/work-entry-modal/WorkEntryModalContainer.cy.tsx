@@ -6,6 +6,7 @@ const ADDED_WORK_ENTRY_MODAL_DATA = {
   title: `Task name`,
   taskId: `1`,
   description: `Task description`,
+  projectId: 1,
   startTime: `2025-11-16T10:00:00`,
   endTime: `2025-11-16T11:45:00`,
 }
@@ -14,11 +15,36 @@ const UPDATED_WORK_ENTRY_MODAL_DATA = {
   title: `New task name`,
   taskId: `2`,
   description: `New task description`,
-  startTime: `2025-11-27T11:00:00`,
-  endTime: `2025-11-27T12:00:00`,
+  projectId: 2,
+  startTime: `2025-11-18T11:00:00`,
+  endTime: `2025-11-18T12:00:00`,
 }
 
 describe(`WorkEntryModalContainer`, () => {
+  beforeEach(() => {
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/work-entries/projects?startDate=2025-11-27&endDate=2025-11-27`,
+        {
+          statusCode: 200,
+          body: {
+            projects: [
+              {
+                id: 1,
+                name: `ProjectOne`,
+              },
+              {
+                id: 2,
+                name: `ProjectTwo`,
+              },
+            ],
+          },
+        },
+      )
+      .as(`getProjects`)
+  })
+    
   describe(`Add Work Entry`, addWorkEntryTests)
   describe(`Update Work Entry`, updateWorkEntryTests)
   describe(`On Close Modal`, onCloseModalTests)
@@ -56,35 +82,17 @@ function addWorkEntryTests() {
       workEntryModalState,
     })
 
-    cy
-      .getByData(`title-input`)
-      .type(ADDED_WORK_ENTRY_MODAL_DATA.title)
+    cy.wait(`@getProjects`)
 
-    cy
-      .getByData(`task-id-input`)
-      .type(ADDED_WORK_ENTRY_MODAL_DATA.taskId)
-
-    cy
-      .getByData(`description-input`)
-      .type(ADDED_WORK_ENTRY_MODAL_DATA.description)
-      
-    cy
-      .get(`.work-entry-modal__date-field`)
-      .click()
-
-    cy
-      .contains(`16`)
-      .click()
-
-    cy
-      .getByData(`start-time-input`)
-      .clear()
-      .type(`10:00`)
-    
-    cy
-      .getByData(`end-time-input`)
-      .clear()
-      .type(`11:45`)
+    fillWorkEntryModalForm({
+      title: ADDED_WORK_ENTRY_MODAL_DATA.title,
+      projectId: 0,
+      taskId: ADDED_WORK_ENTRY_MODAL_DATA.taskId,
+      description: ADDED_WORK_ENTRY_MODAL_DATA.description,
+      day: `16`,
+      startTime: `10:00`,
+      endTime: `11:45`,
+    })
 
     cy
       .contains(`Add Task`)
@@ -105,6 +113,10 @@ function updateWorkEntryTests() {
 
     workEntryModalState.setId({
       id: 1,
+    })
+
+    workEntryModalState.setProjectId({
+      projectId: 2,
     })
 
     workEntryModalState.setTitle({
@@ -144,30 +156,17 @@ function updateWorkEntryTests() {
       workEntryModalState,
     })
 
-    cy
-      .getByData(`title-input`)
-      .clear()
-      .type(UPDATED_WORK_ENTRY_MODAL_DATA.title)
+    cy.wait(`@getProjects`)
 
-    cy
-      .getByData(`task-id-input`)
-      .clear()
-      .type(UPDATED_WORK_ENTRY_MODAL_DATA.taskId)
-
-    cy
-      .getByData(`description-input`)
-      .clear()
-      .type(UPDATED_WORK_ENTRY_MODAL_DATA.description)
-
-    cy
-      .getByData(`start-time-input`)
-      .clear()
-      .type(`11:00`)
-    
-    cy
-      .getByData(`end-time-input`)
-      .clear()
-      .type(`12:00`)
+    fillWorkEntryModalForm({
+      title: UPDATED_WORK_ENTRY_MODAL_DATA.title,
+      projectId: 1,
+      taskId: UPDATED_WORK_ENTRY_MODAL_DATA.taskId,
+      description: UPDATED_WORK_ENTRY_MODAL_DATA.description,
+      day: `18`,
+      startTime: `11:00`,
+      endTime: `12:00`,
+    })
 
     cy
       .contains(`Update Task`)
@@ -326,6 +325,61 @@ function setErrorTests() {
 
     cy.contains(`Error message`)
   })
+}
+
+function fillWorkEntryModalForm({
+  title,
+  projectId,
+  taskId,
+  description,
+  day,
+  startTime,
+  endTime,
+}: {
+  title: string,
+  projectId: number,
+  taskId: string,
+  description: string,
+  day: string,
+  startTime: string,
+  endTime: string,
+}) {
+  cy
+    .getByData(`title-input`)
+    .clear()
+    .type(title)
+    
+  cy
+    .getByData(`project-select`)
+    .select(projectId)
+
+  cy
+    .getByData(`task-id-input`)
+    .clear()
+    .type(taskId)
+
+  cy
+    .getByData(`description-input`)
+    .clear()
+    .type(description)
+      
+  cy
+    .get(`.work-entry-modal__date-field`)
+    .click()
+
+  cy
+    .contains(day)
+    .click()
+
+  cy
+    .getByData(`start-time-input`)
+    .clear()
+    .type(startTime)
+    
+  cy
+    .getByData(`end-time-input`)
+    .clear()
+    .type(endTime)
 }
 
 function mountComponent({

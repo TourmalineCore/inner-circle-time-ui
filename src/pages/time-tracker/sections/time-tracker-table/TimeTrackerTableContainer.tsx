@@ -4,9 +4,9 @@ import { useContext, useEffect } from "react"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
-import { WorkEntry } from "../../types"
 import moment from "moment"
 import { api } from "../../../../common/api/api"
+import { WorkEntryItem } from "../../types"
 
 export const TimeTrackerTableContainer = observer(({
   onOpenWorkEntryModal,
@@ -15,7 +15,7 @@ export const TimeTrackerTableContainer = observer(({
   triggerReloadState,
 }: {
   onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntry) => unknown,
+  setWorkEntryModalData: (workEntry: WorkEntryItem) => unknown,
   setWorkEntryModalDataTime: ({
     startTime,
     endTime,
@@ -58,6 +58,15 @@ export const TimeTrackerTableContainer = observer(({
         endDate: viewEndDate as string,
       })
 
+      const {
+        data: {
+          projects,
+        },
+      } = await api.trackingGetEmployeeProjectsByPeriod({
+        startDate: viewStartDate!,
+        endDate: viewEndDate!,
+      })
+
       timeTrackerState.initialize({
         loadedData: {
           workEntries: data
@@ -66,6 +75,7 @@ export const TimeTrackerTableContainer = observer(({
               id: workEntry.id,
               taskId: workEntry.taskId,
               description: workEntry.description,
+              project: projects.find((project) => project.id === workEntry.projectId)!,
               title: workEntry.title,
               date: moment(workEntry.startTime)
                 .toDate(),

@@ -1,8 +1,6 @@
-export type TimeTrackerTable = {
-  workEntries: WorkEntry[],
-}
+import { Project } from "../../../../api"
 
-export type WorkEntry = {
+export type WorkEntryBase = {
   id?: number,
   title: string,
   date: Date | null,
@@ -10,6 +8,18 @@ export type WorkEntry = {
   description: string,
   start: Date | null,
   end: Date | null,
+}
+
+export type WorkEntryModal = WorkEntryBase & {
+  projectId: number,
+}
+
+export type TimeTrackerTable = {
+  workEntries: WorkEntryItem[],
+}
+
+export type WorkEntryItem = WorkEntryBase & {
+  project: Project,
 }
 
 export type View = 'day' | 'week'
