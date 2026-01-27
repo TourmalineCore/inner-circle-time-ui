@@ -112,7 +112,7 @@ export const WorkEntryModalContainer = observer(({
       projects,
     })
 
-    if (workEntryModalState.workEntryModalData.projectId == EMPTY_WORK_ENTRY_MODAL_DATA.projectId) {
+    if (workEntryModalState.workEntryModalData.projectId === EMPTY_WORK_ENTRY_MODAL_DATA.projectId) {
       workEntryModalState.setProjectId({
         projectId: projects[0].id,
       })
