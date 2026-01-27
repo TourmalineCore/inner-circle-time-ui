@@ -1,7 +1,7 @@
 name: Install cypress
 
 on:
-  # to allow to wait for a docker image to be published to proceed in another workflow
+  # to allow to wait for a cypress install to proceed in another workflow
   workflow_call:
 
 jobs:
