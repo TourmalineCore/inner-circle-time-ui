@@ -23,6 +23,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy
+        # We use quotes because without them some vars can break down other vars
         run: |
             helmfile cache cleanup && helmfile apply --suppress-diff --namespace "${{ secrets.INNER_CIRCLE_PROD_NAMESPACE }}" -f ci/helmfile.yaml \
             --state-values-set image.tag="sha-${{ github.sha }}" \
