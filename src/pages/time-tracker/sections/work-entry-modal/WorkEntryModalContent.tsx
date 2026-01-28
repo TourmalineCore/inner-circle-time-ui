@@ -62,7 +62,8 @@ export const WorkEntryModalContent = observer(({
               })}
             >
               {workEntryModalState.projects.map(({
-                id, name,
+                id,
+                name,
               }) => (
                 <option
                   data-cy="projects-select-option"
