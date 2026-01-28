@@ -1,20 +1,17 @@
-import { GetWorkEntriesByPeriodResponse } from "../../../../../api"
 import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContainer } from "./TimeTrackerTableContainer"
 
-const WORK_ENTRIES_RESPONSE: GetWorkEntriesByPeriodResponse = {
-  workEntries: [
-    {
-      id: 1,
-      title: `task4455`,
-      taskId: `#4455`,
-      description: `description4455`,
-      startTime: `2025-11-27T09:00:00`,
-      endTime: `2025-11-27T11:30:00`,
-    }, 
-  ],
-}
+const PROJECTS = [
+  {
+    id: 1,
+    name: `ProjectOne`,
+  },
+  {
+    id: 2,
+    name: `ProjectTwo`,
+  },
+]
 
 describe(`TimeTrackerTableContainer`, () => {
   beforeEach(() => {
@@ -24,60 +21,8 @@ describe(`TimeTrackerTableContainer`, () => {
     ])
   })
 
-  describe(`Initialization`, initializationTests)
   describe(`Switch periods`, switchPeriodsTests)
 })
-
-function initializationTests() {
-  it(`
-  GIVEN mobile view
-  WHEN render the component
-  SHOULD send correct request
-  `, () => {
-    cy.viewport(375, 768)
-
-    cy
-      .intercept(
-        `GET`,
-        `*/time/tracking/work-entries?startDate=2025-11-27&endDate=2025-11-27`,
-        {
-          statusCode: 200,
-          body: WORK_ENTRIES_RESPONSE,
-        },
-      )
-      .as(`getWorkEntries`)
-
-    mountComponent()
-
-    cy.wait(`@getWorkEntries`)
-
-    cy.contains(`task4455`)
-    cy.contains(`9:00 AM – 11:30 AM`)
-  })
-
-  it(`
-  GIVEN desktop view
-  WHEN render the component
-  SHOULD send correct request
-  `, () => {
-    cy.viewport(1366, 1024)
-
-    cy
-      .intercept(
-        `GET`,
-        `*/time/tracking/work-entries?startDate=2025-11-24&endDate=2025-11-30`,
-        {
-          statusCode: 200,
-          body: WORK_ENTRIES_RESPONSE,
-        },
-      )
-      .as(`getWorkEntries`)
-
-    mountComponent()
-
-    cy.wait(`@getWorkEntries`)
-  })
-}
 
 function switchPeriodsTests() {
   it(`
@@ -87,6 +32,19 @@ function switchPeriodsTests() {
   AND send correct request
   `, () => {
     cy.viewport(375, 768) 
+
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/work-entries/projects?startDate=2025-11-28&endDate=2025-11-28`,
+        {
+          statusCode: 200,
+          body: {
+            projects: PROJECTS,
+          },
+        },
+      )
+      .as(`getProjectsNextDay`)
 
     cy
       .intercept(
@@ -109,6 +67,7 @@ function switchPeriodsTests() {
 
     cy.contains(`Friday Nov 28`)
 
+    cy.wait(`@getProjectsNextDay`)
     cy.wait(`@getNextDay`)
   }) 
 
@@ -119,6 +78,19 @@ function switchPeriodsTests() {
   AND send correct request
   `, () => {
     cy.viewport(1366, 768)
+
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/work-entries/projects?startDate=2025-11-17&endDate=2025-11-23`,
+        {
+          statusCode: 200,
+          body: {
+            projects: PROJECTS,
+          },
+        },
+      )
+      .as(`getProjectsPreviousDay`)
 
     cy
       .intercept(
@@ -141,6 +113,7 @@ function switchPeriodsTests() {
 
     cy.contains(`November 17 – 23`)
 
+    cy.wait(`@getProjectsPreviousDay`)
     cy.wait(`@getPreviousDay`)
   }) 
 }

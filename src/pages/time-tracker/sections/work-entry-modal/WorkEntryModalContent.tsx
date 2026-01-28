@@ -51,6 +51,33 @@ export const WorkEntryModalContent = observer(({
 
           <div className='work-entry-modal__field'>
             <span className='work-entry-modal__label'>
+              Project
+            </span> 
+            <select 
+              name='project'
+              data-cy="project-select"
+              value={workEntryModalData.projectId}
+              onChange={(e) => workEntryModalState.setProjectId({
+                projectId: Number(e.target.value),
+              })}
+            >
+              {workEntryModalState.projects.map(({
+                id,
+                name,
+              }) => (
+                <option
+                  data-cy="projects-select-option"
+                  key={id}
+                  value={id}
+                >
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className='work-entry-modal__field'>
+            <span className='work-entry-modal__label'>
               Task id
             </span> 
             <input 

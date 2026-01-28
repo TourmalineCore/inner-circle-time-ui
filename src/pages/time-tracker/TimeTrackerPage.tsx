@@ -5,7 +5,7 @@ import { TimeTrackerTableContainer } from "./sections/time-tracker-table/TimeTra
 import { WorkEntryModalContainer } from "./sections/work-entry-modal/WorkEntryModalContainer"
 import { WorkEntryModalStateContext } from "./sections/work-entry-modal/state/WorkEntryModalStateContext"
 import { WorkEntryModalState } from "./sections/work-entry-modal/state/WorkEntryModalState"
-import { WorkEntry } from "./types"
+import { WorkEntryItem } from "./types"
 
 export function TimeTrackerPage() {  
   const timeTrackerTableState = useMemo(
@@ -62,9 +62,10 @@ export function TimeTrackerPage() {
     title,
     taskId,
     description,
+    project,
     start,
     end,
-  }: WorkEntry) {
+  }: WorkEntryItem) {
     if (id) {
       workEntryModalState.setId({
         id,
@@ -77,6 +78,10 @@ export function TimeTrackerPage() {
 
     workEntryModalState.setDescription({
       description,
+    })
+
+    workEntryModalState.setProjectId({
+      projectId: project.id,
     })
 
     workEntryModalState.setTitle({
@@ -93,8 +98,8 @@ export function TimeTrackerPage() {
     startTime,
     endTime,
   }: {
-    startTime: WorkEntry['start'],
-    endTime: WorkEntry['end'],
+    startTime: WorkEntryItem['start'],
+    endTime: WorkEntryItem['end'],
   }) {
     workEntryModalState.setDate({
       date: startTime!,
