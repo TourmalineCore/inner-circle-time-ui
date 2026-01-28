@@ -21,7 +21,7 @@ export class TimeTrackerPage {
 
     cy
       .getByData(`project-select`)
-      .select(4)
+      .select(1)
 
     cy
       .getByData(`description-input`)
@@ -55,7 +55,7 @@ export class TimeTrackerPage {
 
     cy
       .getByData(`project-select`)
-      .select(5)
+      .select(2)
 
     cy
       .getByData(`task-id-input`)
