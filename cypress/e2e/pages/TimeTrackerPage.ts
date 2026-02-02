@@ -4,10 +4,14 @@ export class TimeTrackerPage {
   }
 
   static addWorkEntry() {
-    cy
-      .get(`.rbc-day-slot `)
+    cy.get(`.rbc-day-slot`)
+      .find(`.rbc-timeslot-group`)
       .first()
-      .click()
+      .find(`.rbc-time-slot`)
+      .first()
+      .click({
+        force: true, 
+      })
 
     cy
       .getByData(`title-input`)

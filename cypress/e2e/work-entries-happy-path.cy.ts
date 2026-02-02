@@ -25,6 +25,9 @@ describe(`Work Entries Happy Path`, () => {
   `, () => {
     TimeTrackerPage.visit()
 
+    cy.contains(`October 27 – November 02`)
+      .should(`be.visible`)
+
     TimeTrackerPage.addWorkEntry()
 
     TimeTrackerPage.updateWorkEntry()
