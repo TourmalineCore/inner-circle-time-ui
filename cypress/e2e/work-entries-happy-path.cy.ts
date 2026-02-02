@@ -25,12 +25,8 @@ describe(`Work Entries Happy Path`, () => {
   `, () => {
     TimeTrackerPage.visit()
 
-    cy.intercept(`/api/time/tracking/work-entries?startDate=2025-10-27&endDate=2025-10-27`, {
-      statusCode: 200,
-    })
-      .as(`getWorkEntries`)
-
-    cy.wait(`@getWorkEntries`)
+    cy.contains(`October 27 – November 02`)
+      .should(`be.visible`)
 
     TimeTrackerPage.addWorkEntry()
 
