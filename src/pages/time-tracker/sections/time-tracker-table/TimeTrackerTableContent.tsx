@@ -20,13 +20,13 @@ moment.locale(`ru`, {
 const localizer = momentLocalizer(moment)
 
 export const TimeTrackerTableContent = observer(({
-  onOpenWorkEntryModal,
-  setWorkEntryModalData,
-  setWorkEntryModalDataTime,
+  onOpenEntryModal,
+  setEntryModalData,
+  setEntryModalDataTime,
 }: {
-  onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntryItem) => unknown,
-  setWorkEntryModalDataTime: ({
+  onOpenEntryModal: () => unknown,
+  setEntryModalData: (workEntry: WorkEntryItem) => unknown,
+  setEntryModalDataTime: ({
     startTime,
     endTime,
   }: {
@@ -57,19 +57,19 @@ export const TimeTrackerTableContent = observer(({
       
     if (action == accessAction) {
 
-      setWorkEntryModalDataTime({
+      setEntryModalDataTime({
         startTime: start,
         endTime: end,
       })
 
-      onOpenWorkEntryModal()
+      onOpenEntryModal()
     }
   }
 
   const handleSelectWorkEntry = (workEntry: WorkEntryItem) => {
-    setWorkEntryModalData(workEntry)
+    setEntryModalData(workEntry)
 
-    onOpenWorkEntryModal()
+    onOpenEntryModal()
   }
 
   const currentView = isMobile ? Views.DAY : Views.WEEK

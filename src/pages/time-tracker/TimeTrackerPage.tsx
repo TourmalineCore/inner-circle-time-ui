@@ -2,10 +2,10 @@ import { useMemo, useState } from "react"
 import { TimeTrackerTableState } from "./sections/time-tracker-table/state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./sections/time-tracker-table/state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContainer } from "./sections/time-tracker-table/TimeTrackerTableContainer"
-import { WorkEntryModalContainer } from "./sections/work-entry-modal/WorkEntryModalContainer"
-import { WorkEntryModalStateContext } from "./sections/work-entry-modal/state/WorkEntryModalStateContext"
-import { WorkEntryModalState } from "./sections/work-entry-modal/state/WorkEntryModalState"
+import { EntryModalState } from "./sections/entry-modal/state/EntryModalState"
 import { WorkEntryItem } from "./types"
+import { EntryModalStateContext } from "./sections/entry-modal/state/EntryModalStateContext"
+import { EntryModal } from "./sections/entry-modal/EntryModal"
 
 export function TimeTrackerPage() {  
   const timeTrackerTableState = useMemo(
@@ -13,8 +13,8 @@ export function TimeTrackerPage() {
     [],
   )
 
-  const workEntryModalState = useMemo(
-    () => new WorkEntryModalState(),
+  const entryModalState = useMemo(
+    () => new EntryModalState(),
     [],
   )
 
@@ -30,34 +30,27 @@ export function TimeTrackerPage() {
   
   return (
     <TimeTrackerStateContext.Provider value={timeTrackerTableState}>
-      <WorkEntryModalStateContext.Provider value={workEntryModalState}>
+      <EntryModalStateContext.Provider value={entryModalState}>
         <TimeTrackerTableContainer
-          onOpenWorkEntryModal={() => setIsOpenModal(true)}
-          setWorkEntryModalData={setWorkEntryModalData}
-          setWorkEntryModalDataTime={setWorkEntryModalDateAndTime}
+          onOpenEntryModal={() => setIsOpenModal(true)}
+          setEntryModalData={setEntryModalData}
+          setEntryModalDataTime={setEntryModalDateAndTime}
           triggerReloadState={triggerReloadState}
         />
-        {isOpenModal && <WorkEntryModalContainer
-          onClose={handleOnCloseWorkEntryModal}
+        {isOpenModal && <EntryModal
+          onClose={() => setIsOpenModal(false)}
           handleTriggerReloadState={handleTriggerReloadState}
         />}
-      </WorkEntryModalStateContext.Provider>
+      </EntryModalStateContext.Provider>
     </TimeTrackerStateContext.Provider>
   )
-
-  function handleOnCloseWorkEntryModal() {
-    setIsOpenModal(false)
-    workEntryModalState.reset()
-    workEntryModalState.resetError()
-    workEntryModalState.resetIsTriedToSubmit()
-  }
 
   // Trigger to reload the workEntry state after adding or updating a work entry
   function handleTriggerReloadState() {
     setTriggerReloadState(!triggerReloadState)
   }
 
-  function setWorkEntryModalData({
+  function setEntryModalData({
     id,
     title,
     taskId,
@@ -88,13 +81,13 @@ export function TimeTrackerPage() {
       title,
     })
 
-    setWorkEntryModalDateAndTime({
+    setEntryModalDateAndTime({
       startTime:start,
       endTime: end,
     })
   }
 
-  function setWorkEntryModalDateAndTime({
+  function setEntryModalDateAndTime({
     startTime,
     endTime,
   }: {

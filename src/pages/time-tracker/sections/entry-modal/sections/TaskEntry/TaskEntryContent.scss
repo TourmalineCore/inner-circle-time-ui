@@ -1,6 +1,6 @@
-@use "../../../../styles/variables" as *;
+@use "../../../../../../styles/variables" as *;
 
-.work-entry-modal {
+.task-entry {
   &__inner {
     display: flex;
     flex-direction: column;

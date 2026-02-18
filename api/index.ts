@@ -10,6 +10,18 @@
  * ---------------------------------------------------------------
  */
 
+export interface CreateUnwellEntryRequest {
+  /** @format date-time */
+  startTime: string;
+  /** @format date-time */
+  endTime: string;
+}
+
+export interface CreateUnwellResponse {
+  /** @format int64 */
+  newUnwellEntryId: number;
+}
+
 export interface CreateWorkEntryRequest {
   title: string;
   /** @format date-time */
@@ -27,18 +39,38 @@ export interface CreateWorkEntryResponse {
   newWorkEntryId: number;
 }
 
+export type EntryType = number;
+
 export interface GetWorkEntriesByPeriodResponse {
-  workEntries: WorkEntryItem[];
+  workEntries: WorkEntryDto[];
+  unwellEntries: UnwellEntryDto[];
 }
 
-export interface Project {
+export interface ProjectDto {
   /** @format int64 */
   id: number;
   name: string;
 }
 
 export interface ProjectsResponse {
-  projects: Project[];
+  projects: ProjectDto[];
+}
+
+export interface UnwellEntryDto {
+  /** @format int64 */
+  id: number;
+  /** @format date-time */
+  startTime: string;
+  /** @format date-time */
+  endTime: string;
+  type: EntryType;
+}
+
+export interface UpdateUnwellEntryRequest {
+  /** @format date-time */
+  startTime: string;
+  /** @format date-time */
+  endTime: string;
 }
 
 export interface UpdateWorkEntryRequest {
@@ -53,7 +85,7 @@ export interface UpdateWorkEntryRequest {
   description: string;
 }
 
-export interface WorkEntryItem {
+export interface WorkEntryDto {
   /** @format int64 */
   id: number;
   title: string;
@@ -61,6 +93,7 @@ export interface WorkEntryItem {
   startTime: string;
   /** @format date-time */
   endTime: string;
+  type: EntryType;
   /** @format int64 */
   projectId: number;
   taskId: string;
@@ -301,6 +334,27 @@ export class Api<
      * No description
      *
      * @tags Tracking
+     * @name TrackingCreateUnwellEntry
+     * @summary Create an unwell entry
+     * @request POST:/api/time/tracking/unwell-entries
+     */
+    trackingCreateUnwellEntry: (
+      data: CreateUnwellEntryRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<CreateUnwellResponse, any>({
+        path: `/api/time/tracking/unwell-entries`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Tracking
      * @name TrackingUpdateWorkEntry
      * @summary Update a work entry
      * @request POST:/api/time/tracking/work-entries/{workEntryId}
@@ -312,6 +366,27 @@ export class Api<
     ) =>
       this.request<void, any>({
         path: `/api/time/tracking/work-entries/${workEntryId}`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Tracking
+     * @name TrackingUpdateUnwellEntry
+     * @summary Update an unwell entry
+     * @request POST:/api/time/tracking/unwell-entries/{unwellEntryId}
+     */
+    trackingUpdateUnwellEntry: (
+      unwellEntryId: number,
+      data: UpdateUnwellEntryRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/api/time/tracking/unwell-entries/${unwellEntryId}`,
         method: "POST",
         body: data,
         type: ContentType.Json,

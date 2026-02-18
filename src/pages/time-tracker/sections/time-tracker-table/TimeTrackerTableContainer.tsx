@@ -9,14 +9,14 @@ import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 
 export const TimeTrackerTableContainer = observer(({
-  onOpenWorkEntryModal,
-  setWorkEntryModalData,
-  setWorkEntryModalDataTime,
+  onOpenEntryModal,
+  setEntryModalData,
+  setEntryModalDataTime,
   triggerReloadState, 
 }: {
-  onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntryItem) => unknown,
-  setWorkEntryModalDataTime: ({
+  onOpenEntryModal: () => unknown,
+  setEntryModalData: (workEntry: WorkEntryItem) => unknown,
+  setEntryModalDataTime: ({
     startTime,
     endTime,
   }: {
@@ -95,9 +95,9 @@ export const TimeTrackerTableContainer = observer(({
 
   return (
     <TimeTrackerTableContent 
-      onOpenWorkEntryModal={onOpenWorkEntryModal}
-      setWorkEntryModalData={setWorkEntryModalData}
-      setWorkEntryModalDataTime={setWorkEntryModalDataTime}
+      onOpenEntryModal={onOpenEntryModal}
+      setEntryModalData={setEntryModalData}
+      setEntryModalDataTime={setEntryModalDataTime}
     />
   )
 })
