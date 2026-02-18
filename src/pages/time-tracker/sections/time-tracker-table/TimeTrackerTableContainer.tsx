@@ -6,6 +6,7 @@ import moment from "moment"
 import { api } from "../../../../common/api/api"
 import { WorkEntryItem } from "../../types"
 import { Views } from "react-big-calendar"
+import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 
 export const TimeTrackerTableContainer = observer(({
   onOpenWorkEntryModal,
@@ -31,12 +32,18 @@ export const TimeTrackerTableContainer = observer(({
     viewEndDate,
   } = timeTrackerState
 
+  const {
+    isDesktop,
+  } = useDeviceSize()
+
   useEffect(() => {
     timeTrackerState.setViewPeriod({
       date: new Date(),
       view: Views.WEEK,
     })
-  }, [])
+  }, [
+    isDesktop,
+  ])
   
   useEffect(() => {
     if (viewStartDate === null && viewEndDate === null) return
