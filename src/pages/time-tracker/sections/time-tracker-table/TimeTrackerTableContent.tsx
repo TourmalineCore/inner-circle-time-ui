@@ -1,13 +1,13 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './TimeTrackerTableContent.scss'
+import moment from 'moment'
+import 'moment/locale/ru'
 
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
-import moment from 'moment'
-import 'moment/locale/ru'
-import { momentLocalizer, Calendar, SlotInfo} from 'react-big-calendar'
-import { View, WorkEntryItem } from '../../types'
+import { momentLocalizer, Calendar, SlotInfo, Views} from 'react-big-calendar'
+import { WorkEntryItem } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
@@ -41,7 +41,6 @@ export const TimeTrackerTableContent = observer(({
 
   const {
     tableData,
-    currentView,
   } = timeTrackerState
 
   const {
@@ -73,19 +72,18 @@ export const TimeTrackerTableContent = observer(({
     onOpenWorkEntryModal()
   }
 
+  const currentView = isMobile ? Views.DAY : Views.WEEK
+
   return (
     <Calendar
       dayLayoutAlgorithm="no-overlap"
-      view={currentView!}
+      view={currentView}
       views={[
-        currentView!,
+        currentView,
       ]}
       formats={{
         timeGutterFormat: `HH:mm`,
       }}
-      onView={(view) => timeTrackerState.setCurrentView({
-        view: view as View,
-      })}
       events={workEntries}
       timeslots={4}
       step={15}
@@ -94,6 +92,7 @@ export const TimeTrackerTableContent = observer(({
       onSelectEvent={handleSelectWorkEntry}
       onNavigate={(date) => timeTrackerState.setViewPeriod({
         date: date,
+        view: currentView,
       })}
       selectable
       min={moment()

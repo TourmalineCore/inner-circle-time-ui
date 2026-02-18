@@ -39,11 +39,6 @@ function initializationTests() {
       .deep
       .eq([])
 
-    expect(timeTrackerTableState.currentView)
-      .to
-      .be
-      .null
-
     expect(timeTrackerTableState.viewStartDate)
       .to
       .be
@@ -87,63 +82,40 @@ function viewTests() {
   })
 
   it(`
-  GIVEN a state with no view set
-  WHEN set current view to day
-  SHOULD return currentView equal to the day
+  GIVEN a state with no view period set
+  WHEN set view period to week
+  SHOULD return correctly viewStartDate and viewEndDate
   `, () => {
-    timeTrackerTableState.setCurrentView({
-      view: Views.DAY, 
-    })
-
-    expect(timeTrackerTableState.currentView)
-      .to
-      .eq(Views.DAY)
-  })
-
-  it(`
-  GIVEN week view is set
-  AND current date is 2025-11-27
-  WHEN set view period
-  SHOULD return correct viewStartDate equal to the start date of the week
-  AND viewEndDate equal to the end date of the week
-  `, () => {
-    timeTrackerTableState.setCurrentView({
+    timeTrackerTableState.setViewPeriod({
+      date: new Date(`2025-12-25`),
       view: Views.WEEK, 
     })
 
-    timeTrackerTableState.setViewPeriod({
-      date: new Date(`2025-11-27`), 
-    })
-
     expect(timeTrackerTableState.viewStartDate)
       .to
-      .eq(`2025-11-23`)
+      .eq(`2025-12-22`)
 
     expect(timeTrackerTableState.viewEndDate)
       .to
-      .eq(`2025-11-29`)
+      .eq(`2025-12-28`)
   })
 
   it(`
-  GIVEN day view is set
-  AND current date is 2025-11-23
-  WHEN set view period
-  SHOULD return the correct viewStartDate and viewEndDate equal to the current day
+  GIVEN a state with no view period set
+  WHEN set view period to day
+  SHOULD return correctly viewStartDate and viewEndDate
   `, () => {
-    timeTrackerTableState.setCurrentView({
-      view: Views.DAY, 
-    })
-
     timeTrackerTableState.setViewPeriod({
-      date: new Date(`2025-11-23`), 
+      date: new Date(`2025-12-25`),
+      view: Views.DAY, 
     })
 
     expect(timeTrackerTableState.viewStartDate)
       .to
-      .eq(`2025-11-23`)
+      .eq(`2025-12-25`)
 
     expect(timeTrackerTableState.viewEndDate)
       .to
-      .eq(`2025-11-23`)
+      .eq(`2025-12-25`)
   })
 }
