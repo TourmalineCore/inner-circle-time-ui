@@ -1,13 +1,12 @@
 import { makeAutoObservable } from 'mobx'
 import { TimeTrackerTable, View } from '../../../types'
 import moment from 'moment'
+import { Views } from 'react-big-calendar'
 
 export class TimeTrackerTableState {
   private _tableData: TimeTrackerTable = {
     workEntries: [],
   }
-
-  private _currentView: View | null = null
 
   private _viewStartDate: string | null = null
 
@@ -29,10 +28,6 @@ export class TimeTrackerTableState {
     return this._tableData
   }
 
-  get currentView() {
-    return this._currentView
-  }
-
   get viewStartDate() {
     return this._viewStartDate
   }
@@ -41,29 +36,20 @@ export class TimeTrackerTableState {
     return this._viewEndDate
   }
 
-  setCurrentView({
-    view,
-  }: {
-    view: View,
-  }) {
-    this._currentView = view
-
-    this.setViewPeriod({
-      date: new Date(),
-    })
-  }
-
   setViewPeriod({
     date,
+    view,
   }: {
     date: Date,
+    view: View,
   }) {
     this._viewStartDate = moment(date)
-      .startOf(this._currentView)
+      // isoWeek is necessary so that moment returns the date starting from Monday, not Sunday.
+      .startOf(view === Views.WEEK ? `isoWeek` : view) 
       .format(`YYYY-MM-DD`)
 
     this._viewEndDate = moment(date)
-      .endOf(this._currentView)
+      .endOf(view === Views.WEEK ? `isoWeek` : view) 
       .format(`YYYY-MM-DD`)
   }
 }

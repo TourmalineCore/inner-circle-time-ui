@@ -1,18 +1,18 @@
 import { observer } from "mobx-react-lite"
 import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
 import { useContext, useEffect } from "react"
-import { Views } from "react-big-calendar"
-import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import moment from "moment"
 import { api } from "../../../../common/api/api"
 import { WorkEntryItem } from "../../types"
+import { Views } from "react-big-calendar"
+import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 
 export const TimeTrackerTableContainer = observer(({
   onOpenWorkEntryModal,
   setWorkEntryModalData,
   setWorkEntryModalDataTime,
-  triggerReloadState,
+  triggerReloadState, 
 }: {
   onOpenWorkEntryModal: () => unknown,
   setWorkEntryModalData: (workEntry: WorkEntryItem) => unknown,
@@ -30,21 +30,19 @@ export const TimeTrackerTableContainer = observer(({
   const {
     viewStartDate,
     viewEndDate,
-    currentView, 
   } = timeTrackerState
-    
+
   const {
-    isMobile,
+    isDesktop,
   } = useDeviceSize()
 
   useEffect(() => {
-    timeTrackerState.setCurrentView({
-      view: isMobile
-        ? Views.DAY
-        : Views.WEEK,
+    timeTrackerState.setViewPeriod({
+      date: new Date(),
+      view: Views.WEEK,
     })
   }, [
-    isMobile,
+    isDesktop,
   ])
   
   useEffect(() => {
@@ -94,8 +92,6 @@ export const TimeTrackerTableContainer = observer(({
     viewEndDate,
     triggerReloadState,
   ])
-
-  if (!currentView) return
 
   return (
     <TimeTrackerTableContent 
