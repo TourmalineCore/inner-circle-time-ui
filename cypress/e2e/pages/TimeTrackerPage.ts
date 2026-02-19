@@ -107,4 +107,63 @@ export class TimeTrackerPage {
       .getByData(`end-time-input`)
       .should(`have.value`, `17:00`)
   }
+
+  static addUnwellEntry() {
+    cy.get(`.rbc-day-slot`)
+      .find(`.rbc-timeslot-group`)
+      .first()
+      .find(`.rbc-time-slot`)
+      .first()
+      .click({
+        force: true, 
+      })
+
+    cy
+      .getByData(`type-select`)
+      .select(1)
+
+    cy
+      .getByData(`start-time-input`)
+      .clear()
+      .type(`04:00`)
+    
+    cy
+      .getByData(`end-time-input`)
+      .clear()
+      .type(`05:00`)
+
+    cy
+      .contains(`Add`)
+      .click()
+  }
+
+  static updateUnwellEntry() {
+    cy
+      .getByData(`start-time-input`)
+      .clear()
+      .type(`06:00`)
+    
+    cy
+      .getByData(`end-time-input`)
+      .clear()
+      .type(`07:00`)
+
+    cy
+      .contains(`Update`)
+      .click()
+  }
+
+  static checkUnwellEntryAfterUpdate() {
+    // cy
+    //   .contains(`[E2E-SMOKE] Task 2`)
+    //   .click()
+
+    cy
+      .getByData(`start-time-input`)
+      .should(`have.value`, `05:00`)
+    
+    cy
+      .getByData(`end-time-input`)
+      .should(`have.value`, `06:00`)
+  }
 }

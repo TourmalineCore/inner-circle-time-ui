@@ -46,9 +46,7 @@ export const EntryModal = observer(({
         type: currentEntry.type,
       })
     }
-  }, [
-    type,
-  ])
+  }, [])
   
   return (
     <EntryModalStateContext.Provider value={entryModalState}>
@@ -56,6 +54,7 @@ export const EntryModal = observer(({
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContent
             onClose={onClose}
+            isExistingEntry={currentEntry.type !== undefined}
           >        
             {type == EntryType.TASK && <TaskEntryContainer 
               taskEntry={{

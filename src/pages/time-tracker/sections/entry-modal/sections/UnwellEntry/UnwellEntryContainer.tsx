@@ -27,7 +27,6 @@ export const UnwellEntryContainer = observer(({
   )
   
   async function onSubmitUnwellEntryAsync() {
-
     const {
       id,
       date,

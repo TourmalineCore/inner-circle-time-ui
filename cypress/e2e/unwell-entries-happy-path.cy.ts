@@ -1,9 +1,9 @@
 import { TimeTrackerPage } from "./pages/TimeTrackerPage"
 
-describe(`Task Entries Happy Path`, () => {
+describe(`Unwell Entries Happy Path`, () => {
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
-    cy.clock(new Date(2025, 9, 27), [
+    cy.clock(new Date(2026, 9, 27), [
       `Date`,
     ])
 
@@ -17,21 +17,21 @@ describe(`Task Entries Happy Path`, () => {
 
   it(`
   GIVEN empty time tracker table
-  WHEN add a new task entry
+  WHEN add a new unwell entry
   SHOULD see it in the time tracker table
-  THEN click on this task entry
+  THEN click on this unwell entry
   AND update data in it 
   SHOULD see correct data in the time tracker table
   `, () => {
     TimeTrackerPage.visit()
 
-    cy.contains(`October 27 – November 02`)
+    cy.contains(`October 26 – November 01`)
       .should(`be.visible`)
 
-    TimeTrackerPage.addTaskEntry()
+    TimeTrackerPage.addUnwellEntry()
 
-    TimeTrackerPage.updateTaskEntry()
+    TimeTrackerPage.updateUnwellEntry()
 
-    TimeTrackerPage.checkTaskEntryAfterUpdate()
+    TimeTrackerPage.checkUnwellEntryAfterUpdate()
   })
 })
