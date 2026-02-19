@@ -21,7 +21,7 @@
     "cypress:run:component": "cypress run --component --browser electron",
     "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config-file cypress.config.local-env.ts",
     "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts",
-    "generate-api-types": "docker-compose -f ./api-types/docker-compose.yml up --build ts_generator"
+    "generate-api-types": "docker compose -f ./api-types/docker-compose.yml up --build ts_generator"
   },
   "dependencies": {
     "@originjs/vite-plugin-federation": "^1.3.9",
