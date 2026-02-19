@@ -3,7 +3,7 @@ export class TimeTrackerPage {
     cy.visit(`/time/tracking`)
   }
 
-  static addWorkEntry() {
+  static addTaskEntry() {
     cy.get(`.rbc-day-slot`)
       .find(`.rbc-timeslot-group`)
       .first()
@@ -47,7 +47,7 @@ export class TimeTrackerPage {
       .click()
   }
 
-  static updateWorkEntry() {
+  static updateTaskEntry() {
     cy
       .contains(`[E2E-SMOKE] Task 1`)
       .click()
@@ -86,7 +86,7 @@ export class TimeTrackerPage {
       .click()
   }
 
-  static checkWorkEntryAfterUpdate() {
+  static checkTaskEntryAfterUpdate() {
     cy
       .contains(`[E2E-SMOKE] Task 2`)
       .click()

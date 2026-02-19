@@ -1,6 +1,6 @@
 import { TimeTrackerPage } from "./pages/TimeTrackerPage"
 
-describe(`Work Entries Happy Path`, () => {
+describe(`Task Entries Happy Path`, () => {
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
     cy.clock(new Date(2025, 9, 27), [
@@ -17,7 +17,7 @@ describe(`Work Entries Happy Path`, () => {
 
   it(`
   GIVEN empty time tracker table
-  WHEN add a new work entry
+  WHEN add a new task entry
   SHOULD see it in the time tracker table
   THEN click on this work entry
   AND update data in it 
@@ -28,10 +28,10 @@ describe(`Work Entries Happy Path`, () => {
     cy.contains(`October 27 – November 02`)
       .should(`be.visible`)
 
-    TimeTrackerPage.addWorkEntry()
+    TimeTrackerPage.addTaskEntry()
 
-    TimeTrackerPage.updateWorkEntry()
+    TimeTrackerPage.updateTaskEntry()
 
-    TimeTrackerPage.checkWorkEntryAfterUpdate()
+    TimeTrackerPage.checkTaskEntryAfterUpdate()
   })
 })
