@@ -29,7 +29,7 @@ export function TimeTrackerPage() {
         />
       </TimeTrackerStateContext.Provider>
       {isOpenModal && <EntryModal
-        openedEntryData={timeTrackerTableState.openedEntryData}
+        currentEntry={timeTrackerTableState.currentEntry!}
         onClose={() => setIsOpenModal(false)}
         handleTriggerReloadState={handleTriggerReloadState}
       />}

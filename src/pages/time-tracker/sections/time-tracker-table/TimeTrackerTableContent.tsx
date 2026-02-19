@@ -46,8 +46,8 @@ export const TimeTrackerTableContent = observer(({
     const accessAction: SlotInfo['action'] = isMobile ? `select` : `click`
       
     if (action == accessAction) {
-      timeTrackerState.setOpenedEntryData({
-        entryData: {
+      timeTrackerState.setCurrentEntry({
+        entry: {
           date: start,
           start,
           end,
@@ -59,8 +59,8 @@ export const TimeTrackerTableContent = observer(({
   }
 
   const handleSelectEntry = (entry: TrackedEntry) => {
-    timeTrackerState.setOpenedEntryData({
-      entryData: entry,
+    timeTrackerState.setCurrentEntry({
+      entry,
     })
 
     onOpenEntryModal()

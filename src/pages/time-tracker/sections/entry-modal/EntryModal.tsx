@@ -6,13 +6,14 @@ import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 import { EntryModalState } from "./state/EntryModalState"
 import { TrackedEntry } from "../../types"
+import { EntryType } from "../../../../common/constants/entryType"
 
 export function EntryModal({
-  openedEntryData,
+  currentEntry,
   onClose,
   handleTriggerReloadState,
 }: {
-  openedEntryData: TrackedEntry,
+  currentEntry: TrackedEntry,
   onClose: () => unknown,
   handleTriggerReloadState: () => unknown,
 }) {
@@ -27,9 +28,9 @@ export function EntryModal({
   )
 
   useEffect(() => {
-    if (openedEntryData.type) {
+    if (currentEntry.type) {
       entryModalState.setType({
-        type: openedEntryData.type,
+        type: currentEntry.type,
       })
     }
   }, [])
@@ -40,19 +41,20 @@ export function EntryModal({
         <EntryModalContent
           onClose={onClose}
         >        
-          <TaskEntryContainer 
+          {EntryType.TASK && <TaskEntryContainer 
             taskEntryData={{
-              id: openedEntryData?.id,
-              date: openedEntryData.date,
-              start: openedEntryData.start,
-              end: openedEntryData.end,
-              title: openedEntryData.title || ``,
-              projectId: openedEntryData.project?.id || 0,
-              taskId: openedEntryData.taskId || ``,
-              description: openedEntryData.description || ``,
+              id: currentEntry?.id,
+              date: currentEntry.date,
+              start: currentEntry.start,
+              end: currentEntry.end,
+              title: currentEntry.title || ``,
+              projectId: currentEntry.project?.id || 0,
+              taskId: currentEntry.taskId || ``,
+              description: currentEntry.description || ``,
             }}
             handleTriggerReloadState={handleTriggerReloadState}
           />
+          }
         </EntryModalContent>
       </TaskEntryStateContext.Provider>
     </EntryModalStateContext.Provider>

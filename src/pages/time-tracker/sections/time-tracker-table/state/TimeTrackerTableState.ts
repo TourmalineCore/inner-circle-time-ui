@@ -8,7 +8,7 @@ export class TimeTrackerTableState {
     entries: [],
   }
 
-  private _openedEntryData: any = null
+  private _currentEntry: TrackedEntry | null = null
 
   private _viewStartDate: string | null = null
 
@@ -30,8 +30,8 @@ export class TimeTrackerTableState {
     return this._tableData
   }
 
-  get openedEntryData() {
-    return this._openedEntryData
+  get currentEntry() {
+    return this._currentEntry
   }
 
   get viewStartDate() {
@@ -59,11 +59,11 @@ export class TimeTrackerTableState {
       .format(`YYYY-MM-DD`)
   }
 
-  setOpenedEntryData({
-    entryData,
+  setCurrentEntry({
+    entry,
   }: {
-    entryData: TrackedEntry,
+    entry: TrackedEntry,
   }) {
-    this._openedEntryData = entryData
+    this._currentEntry = entry
   }
 }
