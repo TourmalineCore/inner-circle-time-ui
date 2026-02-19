@@ -24,7 +24,7 @@ export const TaskEntryContent = observer(({
     <div className='task-entry__inner'>
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-                  Task name
+          Task name
         </span> 
         <input 
           type="text" 
@@ -42,7 +42,7 @@ export const TaskEntryContent = observer(({
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-                  Project
+            Project
         </span> 
         <select 
           name='project'
@@ -69,7 +69,7 @@ export const TaskEntryContent = observer(({
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-                  Task id
+            Task id
         </span> 
         <input 
           type="text" 
@@ -87,7 +87,7 @@ export const TaskEntryContent = observer(({
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-                  Description
+            Description
         </span> 
         <textarea 
           name="description" 
@@ -104,7 +104,7 @@ export const TaskEntryContent = observer(({
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-                  Task completion time
+          Task completion time
         </span>
         <div className='task-entry__completion-time-container'>
           <DatePicker
@@ -172,7 +172,6 @@ export const TaskEntryContent = observer(({
         }
       </button>
     </div>
-
   )
 },
 )

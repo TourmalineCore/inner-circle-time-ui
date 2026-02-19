@@ -1,4 +1,4 @@
-import { TaskEntryState } from "./state/TaskEntryState"
+import { EMPTY_TASK_ENTRY_DATA, TaskEntryState } from "./state/TaskEntryState"
 import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
 import { TaskEntryContainer } from "./TaskEntryContainer"
 
@@ -146,7 +146,7 @@ function mountComponent({
       <TaskEntryStateContext.Provider value={taskEntryState}>
         <TaskEntryContainer 
           handleTriggerReloadState={handleTriggerReloadState}
-        />
+          taskEntryData={EMPTY_TASK_ENTRY_DATA} />
       </TaskEntryStateContext.Provider>,
     )
 }

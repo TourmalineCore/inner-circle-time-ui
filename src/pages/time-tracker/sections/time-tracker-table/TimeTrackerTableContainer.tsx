@@ -4,25 +4,15 @@ import { useContext, useEffect } from "react"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import moment from "moment"
 import { api } from "../../../../common/api/api"
-import { WorkEntryItem } from "../../types"
+// import { WorkEntryItem } from "../../types"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 
 export const TimeTrackerTableContainer = observer(({
   onOpenEntryModal,
-  setEntryModalData,
-  setEntryModalDataTime,
   triggerReloadState, 
 }: {
   onOpenEntryModal: () => unknown,
-  setEntryModalData: (workEntry: WorkEntryItem) => unknown,
-  setEntryModalDataTime: ({
-    startTime,
-    endTime,
-  }: {
-    startTime: Date,
-    endTime: Date,
-  }) => unknown, 
   triggerReloadState: boolean,
 }) => {
   const timeTrackerState = useContext(TimeTrackerStateContext)
@@ -48,7 +38,7 @@ export const TimeTrackerTableContainer = observer(({
   useEffect(() => {
     if (viewStartDate === null && viewEndDate === null) return
 
-    async function loadedWorkEntries() {
+    async function loadedEntries() {
       const {
         data,
       } = await api.trackingGetWorkEntriesByPeriod({
@@ -67,7 +57,7 @@ export const TimeTrackerTableContainer = observer(({
 
       timeTrackerState.initialize({
         loadedData: {
-          workEntries: data
+          entries: data
             .workEntries
             .map((workEntry) => ({
               id: workEntry.id,
@@ -86,7 +76,7 @@ export const TimeTrackerTableContainer = observer(({
       })
     }
 
-    loadedWorkEntries()
+    loadedEntries()
   }, [
     viewStartDate,
     viewEndDate,
@@ -96,8 +86,6 @@ export const TimeTrackerTableContainer = observer(({
   return (
     <TimeTrackerTableContent 
       onOpenEntryModal={onOpenEntryModal}
-      setEntryModalData={setEntryModalData}
-      setEntryModalDataTime={setEntryModalDataTime}
     />
   )
 })

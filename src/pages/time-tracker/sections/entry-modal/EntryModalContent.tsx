@@ -8,7 +8,6 @@ import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { ReactNode, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { TYPES } from '../../../../common/constants/entryType'
-import { TaskEntryStateContext } from './sections/TaskEntry/state/TaskEntryStateContext'
 
 export const EntryModalContent = observer(({
   onClose,
@@ -18,7 +17,6 @@ export const EntryModalContent = observer(({
   children?: ReactNode,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
-  const taskEntryState = useContext(TaskEntryStateContext)
 
   const {
     type,
@@ -55,13 +53,7 @@ export const EntryModalContent = observer(({
           {children}
         </>
       )}
-      onClose={handleOnCloseWorkEntryModal}
+      onClose={onClose}
     />
   )
-  function handleOnCloseWorkEntryModal() {
-    onClose()
-    taskEntryState.reset()
-    taskEntryState.resetError()
-    taskEntryState.resetIsTriedToSubmit()
-  }
 })

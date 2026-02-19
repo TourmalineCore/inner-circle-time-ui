@@ -1,13 +1,20 @@
 import { ProjectDto } from "../../../../api"
+import { EntryType } from "../../../common/constants/entryType"
 
-export type WorkEntryBase = {
+export type TrackedEntry = {
   id?: number,
-  title: string,
+  title?: string,
+  taskId?: string,
+  project?: ProjectDto,
+  description?: string,
+  type?: EntryType,
   date: Date | null,
-  taskId: string,
-  description: string,
-  start: Date | null,
-  end: Date | null,
+  start: Date,
+  end: Date,
+}
+
+export type TimeTrackerTable = {
+  entries: TrackedEntry[],
 }
 
 export type EntryBase = {
@@ -22,14 +29,6 @@ export type TaskEntry = EntryBase & {
   projectId: number,
   taskId: string,
   description: string,
-}
-
-export type TimeTrackerTable = {
-  workEntries: WorkEntryItem[],
-}
-
-export type WorkEntryItem = WorkEntryBase & {
-  project: ProjectDto,
 }
 
 export type View = 'day' | 'week'

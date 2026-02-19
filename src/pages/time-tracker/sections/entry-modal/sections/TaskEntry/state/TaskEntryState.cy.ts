@@ -220,19 +220,6 @@ function resetTests() {
       endTime: new Date(`2025-11-27T11:30:00`),
     })
   })
-
-  it(`
-  GIVEN a state with filled data
-  WHEN reset data 
-  SHOULD return to default value state
-  `, () => {
-    taskEntryState.reset()
-
-    expect(taskEntryState.taskEntryData)
-      .to
-      .deep
-      .eq(EMPTY_TASK_ENTRY_DATA)
-  })
 }
 
 function validationTests() {

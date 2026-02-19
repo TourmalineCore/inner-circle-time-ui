@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import { momentLocalizer, Calendar, SlotInfo, Views} from 'react-big-calendar'
-import { WorkEntryItem } from '../../types'
+import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
@@ -21,18 +21,8 @@ const localizer = momentLocalizer(moment)
 
 export const TimeTrackerTableContent = observer(({
   onOpenEntryModal,
-  setEntryModalData,
-  setEntryModalDataTime,
 }: {
   onOpenEntryModal: () => unknown,
-  setEntryModalData: (workEntry: WorkEntryItem) => unknown,
-  setEntryModalDataTime: ({
-    startTime,
-    endTime,
-  }: {
-    startTime: Date,
-    endTime: Date,
-  }) => unknown, 
 }) => {
   const timeTrackerState = useContext(TimeTrackerStateContext)
   const {
@@ -44,7 +34,7 @@ export const TimeTrackerTableContent = observer(({
   } = timeTrackerState
 
   const {
-    workEntries, 
+    entries, 
   } = tableData
 
   const handleSelectSlot = ({
@@ -56,18 +46,22 @@ export const TimeTrackerTableContent = observer(({
     const accessAction: SlotInfo['action'] = isMobile ? `select` : `click`
       
     if (action == accessAction) {
-
-      setEntryModalDataTime({
-        startTime: start,
-        endTime: end,
+      timeTrackerState.setOpenedEntryData({
+        entryData: {
+          date: start,
+          start,
+          end,
+        },
       })
 
       onOpenEntryModal()
     }
   }
 
-  const handleSelectWorkEntry = (workEntry: WorkEntryItem) => {
-    setEntryModalData(workEntry)
+  const handleSelectEntry = (entry: TrackedEntry) => {
+    timeTrackerState.setOpenedEntryData({
+      entryData: entry,
+    })
 
     onOpenEntryModal()
   }
@@ -84,12 +78,12 @@ export const TimeTrackerTableContent = observer(({
       formats={{
         timeGutterFormat: `HH:mm`,
       }}
-      events={workEntries}
+      events={entries}
       timeslots={4}
       step={15}
       localizer={localizer}
       onSelectSlot={handleSelectSlot}
-      onSelectEvent={handleSelectWorkEntry}
+      onSelectEvent={handleSelectEntry}
       onNavigate={(date) => timeTrackerState.setViewPeriod({
         date: date,
         view: currentView,

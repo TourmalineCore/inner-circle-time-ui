@@ -147,10 +147,6 @@ export class TaskEntryState {
     this._taskEntryData.end = endTime
   }
 
-  reset() {
-    this._taskEntryData = structuredClone(EMPTY_TASK_ENTRY_DATA)
-  }
-
   setIsSaving() {
     this._isSaving = true
   }

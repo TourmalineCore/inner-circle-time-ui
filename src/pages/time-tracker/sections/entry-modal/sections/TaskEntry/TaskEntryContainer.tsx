@@ -7,15 +7,19 @@ import moment from "moment"
 import { EMPTY_TASK_ENTRY_DATA } from "./state/TaskEntryState"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
 import { api } from "../../../../../../common/api/api"
+import { TaskEntry } from "../../../../types"
 
 export const TaskEntryContainer = observer(({
+  taskEntryData,
   handleTriggerReloadState,
 }: {
+  taskEntryData: TaskEntry,
   handleTriggerReloadState: () => unknown,
 }) => {
   const taskEntryState = useContext(TaskEntryStateContext)
-  
+
   useEffect(() => {
+    setTaskEntryData(taskEntryData)
     loadProjectsAsync()
   }, [])
 
@@ -111,6 +115,50 @@ export const TaskEntryContainer = observer(({
     if (taskEntryState.taskEntryData.projectId === EMPTY_TASK_ENTRY_DATA.projectId) {
       taskEntryState.setProjectId({
         projectId: projects[0].id,
+      })
+    }
+  }
+  
+  function setTaskEntryData({
+    id,
+    title,
+    taskId,
+    description ,
+    projectId,
+    start,
+    end,
+  }: TaskEntry) {
+    taskEntryState.setDate({
+      date: start!,
+    })
+
+    taskEntryState.setStartTime({
+      startTime: start!,
+    })
+    
+    taskEntryState.setEndTime({
+      endTime: end!,
+    })
+
+    if (id) {
+      taskEntryState.setId({
+        id,
+      })
+
+      taskEntryState.setTitle({
+        title,
+      })
+
+      taskEntryState.setTaskId({
+        taskId,
+      })
+
+      taskEntryState.setDescription({
+        description,
+      })
+
+      taskEntryState.setProjectId({
+        projectId,
       })
     }
   }
