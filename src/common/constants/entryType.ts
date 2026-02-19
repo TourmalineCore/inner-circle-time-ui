@@ -1,9 +1,11 @@
 export enum EntryType {
   TASK = 1,
+  UNWELL = 2,
 }
 
 export const TYPE_LABELS: Record<EntryType, string> = {
   [EntryType.TASK]: `Task`,
+  [EntryType.UNWELL]: `Unwell`,
 }
 
 export const TYPES = Object.values(EntryType)
