@@ -1,5 +1,5 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import './TimeTrackerTableContent.scss'
+import './TimeTrackerTable.scss'
 import moment from 'moment'
 import 'moment/locale/ru'
 

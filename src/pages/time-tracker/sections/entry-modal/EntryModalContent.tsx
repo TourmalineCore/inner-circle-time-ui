@@ -1,7 +1,7 @@
 import '@tourmalinecore/react-tc-modal/es/index.css'
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import "react-datepicker/dist/react-datepicker.css"
-import './EntryModalContent.scss'
+import './EntryModal.scss'
 
 import { Modal } from '@tourmalinecore/react-tc-modal'
 import { EntryModalStateContext } from './state/EntryModalStateContext'
@@ -28,8 +28,9 @@ export const EntryModalContent = observer(({
       maxWidth={240}
       noPaddingBody
       content={(
-        < >
+        <div className="entry-modal__inner">
           <select 
+            className="entry-modal__input"
             name='type'
             data-cy="type-select"
             value={type}
@@ -51,7 +52,7 @@ export const EntryModalContent = observer(({
             ))}
           </select>
           {children}
-        </>
+        </div>
       )}
       onClose={onClose}
     />

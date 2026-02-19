@@ -2,9 +2,10 @@
 
 .entry-modal {
   &__inner {
-    display: flex;
-    flex-direction: column;
     padding: 16px 12px;
-    gap: 10px;
+  }
+
+  &__input {
+    width: 100%;
   }
 }

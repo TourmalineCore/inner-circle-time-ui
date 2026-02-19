@@ -1,6 +1,6 @@
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import "react-datepicker/dist/react-datepicker.css"
-import './TaskEntryContent.scss'
+import './TaskEntry.scss'
 
 import { TaskEntryStateContext } from './state/TaskEntryStateContext'
 import { useContext } from 'react'
@@ -21,7 +21,7 @@ export const TaskEntryContent = observer(({
   } = taskEntryState
 
   return (
-    <div className='task-entry__inner'>
+    <div className='task-entry'>
       <div className='task-entry__field'>
         <span className='task-entry__label'>
           Task name

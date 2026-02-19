@@ -1,12 +1,9 @@
 @use "../../../../../../styles/variables" as *;
 
 .task-entry {
-  &__inner {
-    display: flex;
-    flex-direction: column;
-    padding: 16px 12px;
-    gap: 10px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   &__field {
     display: flex;
