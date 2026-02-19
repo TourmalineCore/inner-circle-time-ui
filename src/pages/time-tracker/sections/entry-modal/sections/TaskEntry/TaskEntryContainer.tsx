@@ -10,16 +10,16 @@ import { api } from "../../../../../../common/api/api"
 import { TaskEntry } from "../../../../types"
 
 export const TaskEntryContainer = observer(({
-  taskEntryData,
+  taskEntry,
   handleTriggerReloadState,
 }: {
-  taskEntryData: TaskEntry,
+  taskEntry: TaskEntry,
   handleTriggerReloadState: () => unknown,
 }) => {
   const taskEntryState = useContext(TaskEntryStateContext)
 
   useEffect(() => {
-    setTaskEntryData(taskEntryData)
+    setTaskEntryData(taskEntry)
     loadProjectsAsync()
   }, [])
 

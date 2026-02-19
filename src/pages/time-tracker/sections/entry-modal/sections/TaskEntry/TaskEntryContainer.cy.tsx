@@ -146,7 +146,7 @@ function mountComponent({
       <TaskEntryStateContext.Provider value={taskEntryState}>
         <TaskEntryContainer 
           handleTriggerReloadState={handleTriggerReloadState}
-          taskEntryData={EMPTY_TASK_ENTRY_DATA} />
+          taskEntry={EMPTY_TASK_ENTRY_DATA} />
       </TaskEntryStateContext.Provider>,
     )
 }
