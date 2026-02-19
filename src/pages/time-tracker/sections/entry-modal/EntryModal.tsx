@@ -7,8 +7,12 @@ import { EntryModalStateContext } from "./state/EntryModalStateContext"
 import { EntryModalState } from "./state/EntryModalState"
 import { TrackedEntry } from "../../types"
 import { EntryType } from "../../../../common/constants/entryType"
+import { UnwellEntryContainer } from "./sections/UnwellEntry/UnwellEntryContainer"
+import { UnwellEntryStateContext } from "./sections/UnwellEntry/state/UnwellEntryStateContext"
+import { UnwellEntryState } from "./sections/UnwellEntry/state/UnwellEntryState"
+import { observer } from "mobx-react-lite"
 
-export function EntryModal({
+export const EntryModal = observer(({
   currentEntry,
   onClose,
   handleTriggerReloadState,
@@ -16,7 +20,7 @@ export function EntryModal({
   currentEntry: TrackedEntry,
   onClose: () => unknown,
   handleTriggerReloadState: () => unknown,
-}) {
+}) => {
   const entryModalState = useMemo(
     () => new EntryModalState(),
     [],
@@ -27,40 +31,59 @@ export function EntryModal({
     [],
   )
 
+  const unwellEntryState = useMemo(
+    () => new UnwellEntryState(),
+    [],
+  )
+
+  const {
+    type,
+  } = entryModalState
+
   useEffect(() => {
     if (currentEntry.type) {
       entryModalState.setType({
         type: currentEntry.type,
       })
     }
-  }, [])
-
-  const {
+  }, [
     type,
-  } = entryModalState
+  ])
   
   return (
     <EntryModalStateContext.Provider value={entryModalState}>
-      <TaskEntryStateContext.Provider value={taskEntryState}>
-        <EntryModalContent
-          onClose={onClose}
-        >        
-          {type == EntryType.TASK && <TaskEntryContainer 
-            taskEntryData={{
-              id: currentEntry?.id,
-              date: currentEntry.date,
-              start: currentEntry.start,
-              end: currentEntry.end,
-              title: currentEntry.title || ``,
-              projectId: currentEntry.project?.id || 0,
-              taskId: currentEntry.taskId || ``,
-              description: currentEntry.description || ``,
-            }}
-            handleTriggerReloadState={handleTriggerReloadState}
-          />
-          }
-        </EntryModalContent>
-      </TaskEntryStateContext.Provider>
+      <UnwellEntryStateContext.Provider value={unwellEntryState}>
+        <TaskEntryStateContext.Provider value={taskEntryState}>
+          <EntryModalContent
+            onClose={onClose}
+          >        
+            {type == EntryType.TASK && <TaskEntryContainer 
+              taskEntry={{
+                id: currentEntry?.id,
+                date: currentEntry.date,
+                start: currentEntry.start,
+                end: currentEntry.end,
+                title: currentEntry.title || ``,
+                projectId: currentEntry.project?.id || 0,
+                taskId: currentEntry.taskId || ``,
+                description: currentEntry.description || ``,
+              }}
+              handleTriggerReloadState={handleTriggerReloadState}
+            />
+            }
+            {type == EntryType.UNWELL && <UnwellEntryContainer 
+              unwellEntry={{
+                id: currentEntry?.id,
+                date: currentEntry.date,
+                start: currentEntry.start,
+                end: currentEntry.end,
+              }}
+              handleTriggerReloadState={handleTriggerReloadState}
+            />
+            }
+          </EntryModalContent>
+        </TaskEntryStateContext.Provider>
+      </UnwellEntryStateContext.Provider>
     </EntryModalStateContext.Provider>
   )
-}
+})

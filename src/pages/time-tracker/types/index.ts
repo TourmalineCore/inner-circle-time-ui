@@ -31,4 +31,6 @@ export type TaskEntry = EntryBase & {
   description: string,
 }
 
+export type UnwellEntry = EntryBase
+
 export type View = 'day' | 'week'
