@@ -125,9 +125,7 @@ function mountComponent() {
     .mount(
       <TimeTrackerStateContext.Provider value={timeTrackerState}>
         <TimeTrackerTableContainer 
-          onOpenWorkEntryModal={() => {}}
-          setWorkEntryModalDataTime={() => {}}
-          setWorkEntryModalData={() => {}}
+          onOpenEntryModal={() => {}}
           triggerReloadState={false}
         />
       </TimeTrackerStateContext.Provider>,

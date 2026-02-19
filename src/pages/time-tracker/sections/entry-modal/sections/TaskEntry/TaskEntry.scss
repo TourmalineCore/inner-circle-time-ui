@@ -1,12 +1,9 @@
-@use "../../../../styles/variables" as *;
+@use "../../../../../../styles/variables" as *;
 
-.work-entry-modal {
-  &__inner {
-    display: flex;
-    flex-direction: column;
-    padding: 16px 12px;
-    gap: 10px;
-  }
+.task-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   &__field {
     display: flex;

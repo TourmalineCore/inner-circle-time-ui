@@ -1,6 +1,6 @@
-import { EMPTY_WORK_ENTRY_MODAL_DATA, WorkEntryModalState } from "./WorkEntryModalState"
+import { EMPTY_TASK_ENTRY_DATA, TaskEntryState } from "./TaskEntryState"
 
-describe(`WorkEntryModalState`, () => {
+describe(`TaskEntryState`, () => {
   describe(`Initial Data`, initialTests)
   describe(`Setters Data`, settersTests)
   describe(`Reset Data`, resetTests)
@@ -10,29 +10,29 @@ describe(`WorkEntryModalState`, () => {
 })
 
 function initialTests() {
-  let workEntryModalState: WorkEntryModalState
+  let taskEntryState: TaskEntryState
 
   beforeEach(() => {
-    workEntryModalState = new WorkEntryModalState()
+    taskEntryState = new TaskEntryState()
   })
 
   it(`
-  GIVEN a new WorkEntryModalState
+  GIVEN a new TaskEntryState
   WHEN initialize
   SHOULD have default values
   `, () => {
-    expect(workEntryModalState.workEntryModalData)
+    expect(taskEntryState.taskEntryData)
       .to
       .deep
-      .eq(EMPTY_WORK_ENTRY_MODAL_DATA) 
+      .eq(EMPTY_TASK_ENTRY_DATA) 
   })
 }
 
 function settersTests() {
-  let workEntryModalState: WorkEntryModalState
+  let taskEntryState: TaskEntryState
 
   beforeEach(() => {
-    workEntryModalState = new WorkEntryModalState()
+    taskEntryState = new TaskEntryState()
   })
 
   it(`
@@ -42,11 +42,11 @@ function settersTests() {
   `, () => {
     const id = 1
 
-    workEntryModalState.setId({
+    taskEntryState.setId({
       id,
     })
 
-    expect(workEntryModalState.workEntryModalData.id)
+    expect(taskEntryState.taskEntryData.id)
       .to
       .eq(id)
   })
@@ -58,11 +58,11 @@ function settersTests() {
   `, () => {
     const projectId = 1
 
-    workEntryModalState.setProjectId({
+    taskEntryState.setProjectId({
       projectId,
     })
 
-    expect(workEntryModalState.workEntryModalData.projectId)
+    expect(taskEntryState.taskEntryData.projectId)
       .to
       .eq(projectId)
   })
@@ -79,11 +79,11 @@ function settersTests() {
       },
     ]
 
-    workEntryModalState.setProjects({
+    taskEntryState.setProjects({
       projects,
     })
 
-    expect(workEntryModalState.projects)
+    expect(taskEntryState.projects)
       .to
       .deep
       .eq(projects)
@@ -96,11 +96,11 @@ function settersTests() {
   `, () => {
     const title = `Task 1`
 
-    workEntryModalState.setTitle({
+    taskEntryState.setTitle({
       title,
     })
 
-    expect(workEntryModalState.workEntryModalData.title)
+    expect(taskEntryState.taskEntryData.title)
       .to
       .eq(title)
   })
@@ -112,11 +112,11 @@ function settersTests() {
   `, () => {
     const taskId = `#1fre33`
 
-    workEntryModalState.setTaskId({
+    taskEntryState.setTaskId({
       taskId,
     })
     
-    expect(workEntryModalState.workEntryModalData.taskId)
+    expect(taskEntryState.taskEntryData.taskId)
       .to
       .eq(taskId)
   })
@@ -128,11 +128,11 @@ function settersTests() {
   `, () => {
     const description = `Task description`
 
-    workEntryModalState.setDescription({
+    taskEntryState.setDescription({
       description,
     })
     
-    expect(workEntryModalState.workEntryModalData.description)
+    expect(taskEntryState.taskEntryData.description)
       .to
       .eq(description)
   })
@@ -144,11 +144,11 @@ function settersTests() {
   `, () => {
     const date = new Date(`2025-11-24`)
 
-    workEntryModalState.setDate({
+    taskEntryState.setDate({
       date,
     })
     
-    expect(workEntryModalState.workEntryModalData.date)
+    expect(taskEntryState.taskEntryData.date)
       .to
       .eq(date)
   })
@@ -160,11 +160,11 @@ function settersTests() {
   `, () => {
     const startTime = new Date(`2025-11-24`)
 
-    workEntryModalState.setStartTime({
+    taskEntryState.setStartTime({
       startTime: startTime,
     }) 
     
-    expect(workEntryModalState.workEntryModalData.start)
+    expect(taskEntryState.taskEntryData.start)
       .to
       .eq(startTime)
   })
@@ -176,70 +176,57 @@ function settersTests() {
   `, () => {
     const endTime = new Date(`2025-11-24`)
     
-    workEntryModalState.setEndTime({
+    taskEntryState.setEndTime({
       endTime,
     })
 
-    expect(workEntryModalState.workEntryModalData.end)
+    expect(taskEntryState.taskEntryData.end)
       .to
       .eq(endTime)
   })
 }
 
 function resetTests() {
-  let workEntryModalState: WorkEntryModalState
+  let taskEntryState: TaskEntryState
 
   beforeEach(() => {
-    workEntryModalState = new WorkEntryModalState()
+    taskEntryState = new TaskEntryState()
 
-    workEntryModalState.setId({
+    taskEntryState.setId({
       id: 1,
     })
 
-    workEntryModalState.setTitle({
+    taskEntryState.setTitle({
       title: `Title`,
     })
 
-    workEntryModalState.setTaskId({
+    taskEntryState.setTaskId({
       taskId: `1`,
     })
 
-    workEntryModalState.setDescription({
+    taskEntryState.setDescription({
       description: `Task description`,
     })
 
-    workEntryModalState.setDate({
+    taskEntryState.setDate({
       date: new Date(`2025-11-27T09:00:00`),
     })
 
-    workEntryModalState.setStartTime({
+    taskEntryState.setStartTime({
       startTime: new Date(`2025-11-27T09:00:00`),
     })
 
-    workEntryModalState.setEndTime({
+    taskEntryState.setEndTime({
       endTime: new Date(`2025-11-27T11:30:00`),
     })
-  })
-
-  it(`
-  GIVEN a state with filled data
-  WHEN reset data 
-  SHOULD return to default value state
-  `, () => {
-    workEntryModalState.reset()
-
-    expect(workEntryModalState.workEntryModalData)
-      .to
-      .deep
-      .eq(EMPTY_WORK_ENTRY_MODAL_DATA)
   })
 }
 
 function validationTests() {
-  let workEntryModalState: WorkEntryModalState
+  let taskEntryState: TaskEntryState
 
   beforeEach(() => {
-    workEntryModalState = new WorkEntryModalState()
+    taskEntryState = new TaskEntryState()
   })
   
   it(`
@@ -247,13 +234,13 @@ function validationTests() {
   WHEN isValid is activated
   SHOULD return false and set title error to true
   `, () => {
-    workEntryModalState.setIsTriedToSubmit()
+    taskEntryState.setIsTriedToSubmit()
 
-    expect(workEntryModalState.isValid)
+    expect(taskEntryState.isValid)
       .to
       .be
       .false
-    expect(workEntryModalState.errors.isTitleError)
+    expect(taskEntryState.errors.isTitleError)
       .to
       .be
       .true
@@ -264,13 +251,13 @@ function validationTests() {
   WHEN isValid is activated
   SHOULD return false and set taskId error to true
   `, () => {
-    workEntryModalState.setIsTriedToSubmit()
+    taskEntryState.setIsTriedToSubmit()
 
-    expect(workEntryModalState.isValid)
+    expect(taskEntryState.isValid)
       .to
       .be
       .false
-    expect(workEntryModalState.errors.isTaskIdError)
+    expect(taskEntryState.errors.isTaskIdError)
       .to
       .be
       .true
@@ -281,13 +268,13 @@ function validationTests() {
   WHEN isValid is activated
   SHOULD return false and set description error to true
   `, () => {
-    workEntryModalState.setIsTriedToSubmit()
+    taskEntryState.setIsTriedToSubmit()
 
-    expect(workEntryModalState.isValid)
+    expect(taskEntryState.isValid)
       .to
       .be
       .false
-    expect(workEntryModalState.errors.isDescriptionError)
+    expect(taskEntryState.errors.isDescriptionError)
       .to
       .be
       .true
@@ -298,23 +285,23 @@ function validationTests() {
   WHEN isValid is activated
   SHOULD return true and all errors should be false
   `, () => {
-    workEntryModalState.setTitle({
+    taskEntryState.setTitle({
       title: `Title`,
     })
-    workEntryModalState.setTaskId({
+    taskEntryState.setTaskId({
       taskId: `TaskId`,
     })
-    workEntryModalState.setDescription({
+    taskEntryState.setDescription({
       description: `Description`,
     })
     
-    workEntryModalState.setIsTriedToSubmit()
+    taskEntryState.setIsTriedToSubmit()
 
-    expect(workEntryModalState.isValid)
+    expect(taskEntryState.isValid)
       .to
       .be
       .true
-    expect(workEntryModalState.errors)
+    expect(taskEntryState.errors)
       .to
       .deep
       .equal({
@@ -326,10 +313,10 @@ function validationTests() {
 }
 
 function saveAndTryToSubmitTests() {
-  let workEntryModalState: WorkEntryModalState
+  let taskEntryState: TaskEntryState
 
   beforeEach(() => {
-    workEntryModalState = new WorkEntryModalState()
+    taskEntryState = new TaskEntryState()
   })
   
   it(`
@@ -339,19 +326,19 @@ function saveAndTryToSubmitTests() {
   WHEN trigger resetIsSaving()
   SHOULD change value to false
   `, () => {
-    expect(workEntryModalState.isSaving)
+    expect(taskEntryState.isSaving)
       .to
       .be
       .false
 
-    workEntryModalState.setIsSaving()
-    expect(workEntryModalState.isSaving)
+    taskEntryState.setIsSaving()
+    expect(taskEntryState.isSaving)
       .to
       .be
       .true
     
-    workEntryModalState.resetIsSaving()
-    expect(workEntryModalState.isSaving)
+    taskEntryState.resetIsSaving()
+    expect(taskEntryState.isSaving)
       .to
       .be
       .false
@@ -364,19 +351,19 @@ function saveAndTryToSubmitTests() {
   WHEN trigger resetIsTriedToSubmit()
   SHOULD change value to false
   `, () => {
-    expect(workEntryModalState.isTriedToSubmit)
+    expect(taskEntryState.isTriedToSubmit)
       .to
       .be
       .false
 
-    workEntryModalState.setIsTriedToSubmit()
-    expect(workEntryModalState.isTriedToSubmit)
+    taskEntryState.setIsTriedToSubmit()
+    expect(taskEntryState.isTriedToSubmit)
       .to
       .be
       .true
 
-    workEntryModalState.resetIsTriedToSubmit()
-    expect(workEntryModalState.isTriedToSubmit)
+    taskEntryState.resetIsTriedToSubmit()
+    expect(taskEntryState.isTriedToSubmit)
       .to
       .be
       .false
@@ -384,10 +371,10 @@ function saveAndTryToSubmitTests() {
 }
 
 function setErrorTests() {
-  let workEntryModalState: WorkEntryModalState
+  let taskEntryState: TaskEntryState
 
   beforeEach(() => {
-    workEntryModalState = new WorkEntryModalState()
+    taskEntryState = new TaskEntryState()
   })
   
   it(`
@@ -397,21 +384,21 @@ function setErrorTests() {
   WHEN trigger resetError()
   SHOULD reset to initial value
   `, () => {
-    expect(workEntryModalState.error)
+    expect(taskEntryState.error)
       .to
       .eq(``)
 
-    workEntryModalState.setError({
+    taskEntryState.setError({
       error: `Fill in all the fields`,
     })
 
-    expect(workEntryModalState.error)
+    expect(taskEntryState.error)
       .to
       .eq(`Fill in all the fields`)
 
-    workEntryModalState.resetError()
+    taskEntryState.resetError()
 
-    expect(workEntryModalState.error)
+    expect(taskEntryState.error)
       .to
       .eq(``)
   })

@@ -8,11 +8,11 @@ describe(`Work Entries Happy Path`, () => {
     ])
 
     cy.authByApi()
-    cy.removeWorkEntries()
+    cy.removeEntries()
   })
 
   afterEach(`Cleanup`, () => {
-    cy.removeWorkEntries()
+    cy.removeEntries()
   })
 
   it(`

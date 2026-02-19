@@ -28,17 +28,17 @@ export interface CreateWorkEntryResponse {
 }
 
 export interface GetWorkEntriesByPeriodResponse {
-  workEntries: WorkEntryItem[];
+  workEntries: WorkEntryDto[];
 }
 
-export interface Project {
+export interface ProjectDto {
   /** @format int64 */
   id: number;
   name: string;
 }
 
 export interface ProjectsResponse {
-  projects: Project[];
+  projects: ProjectDto[];
 }
 
 export interface UpdateWorkEntryRequest {
@@ -53,7 +53,7 @@ export interface UpdateWorkEntryRequest {
   description: string;
 }
 
-export interface WorkEntryItem {
+export interface WorkEntryDto {
   /** @format int64 */
   id: number;
   title: string;

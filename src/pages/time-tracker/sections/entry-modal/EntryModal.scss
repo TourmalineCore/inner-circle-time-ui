@@ -1,0 +1,12 @@
+@use "../../../../styles/variables" as *;
+
+.entry-modal {
+  &__inner {
+    padding: 16px 12px;
+  }
+
+  &__input {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}

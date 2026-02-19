@@ -61,7 +61,7 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
-Cypress.Commands.add(`removeWorkEntries`, () => {
+Cypress.Commands.add(`removeEntries`, () => {
   cy.request<GetWorkEntriesByPeriodResponse>({
     method: `GET`,
     url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=2025-10-27&endDate=2025-10-27`,
@@ -72,11 +72,11 @@ Cypress.Commands.add(`removeWorkEntries`, () => {
     .then(({
       body,
     }) => {
-      const workEntriesToDelete = body.workEntries.filter(({
+      const entriesToDelete = body.workEntries.filter(({
         title,
       }) => title.startsWith(`[E2E-SMOKE]`))
       
-      workEntriesToDelete.forEach(({
+      entriesToDelete.forEach(({
         id,
       }) => {
         cy.request({

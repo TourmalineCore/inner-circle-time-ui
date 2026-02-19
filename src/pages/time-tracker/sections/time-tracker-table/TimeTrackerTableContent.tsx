@@ -1,5 +1,5 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import './TimeTrackerTableContent.scss'
+import './TimeTrackerTable.scss'
 import moment from 'moment'
 import 'moment/locale/ru'
 
@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import { momentLocalizer, Calendar, SlotInfo, Views} from 'react-big-calendar'
-import { WorkEntryItem } from '../../types'
+import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
@@ -20,19 +20,9 @@ moment.locale(`ru`, {
 const localizer = momentLocalizer(moment)
 
 export const TimeTrackerTableContent = observer(({
-  onOpenWorkEntryModal,
-  setWorkEntryModalData,
-  setWorkEntryModalDataTime,
+  onOpenEntryModal,
 }: {
-  onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntryItem) => unknown,
-  setWorkEntryModalDataTime: ({
-    startTime,
-    endTime,
-  }: {
-    startTime: Date,
-    endTime: Date,
-  }) => unknown, 
+  onOpenEntryModal: () => unknown,
 }) => {
   const timeTrackerState = useContext(TimeTrackerStateContext)
   const {
@@ -44,7 +34,7 @@ export const TimeTrackerTableContent = observer(({
   } = timeTrackerState
 
   const {
-    workEntries, 
+    entries, 
   } = tableData
 
   const handleSelectSlot = ({
@@ -56,20 +46,24 @@ export const TimeTrackerTableContent = observer(({
     const accessAction: SlotInfo['action'] = isMobile ? `select` : `click`
       
     if (action == accessAction) {
-
-      setWorkEntryModalDataTime({
-        startTime: start,
-        endTime: end,
+      timeTrackerState.setCurrentEntry({
+        entry: {
+          date: start,
+          start,
+          end,
+        },
       })
 
-      onOpenWorkEntryModal()
+      onOpenEntryModal()
     }
   }
 
-  const handleSelectWorkEntry = (workEntry: WorkEntryItem) => {
-    setWorkEntryModalData(workEntry)
+  const handleSelectEntry = (entry: TrackedEntry) => {
+    timeTrackerState.setCurrentEntry({
+      entry,
+    })
 
-    onOpenWorkEntryModal()
+    onOpenEntryModal()
   }
 
   const currentView = isMobile ? Views.DAY : Views.WEEK
@@ -84,12 +78,12 @@ export const TimeTrackerTableContent = observer(({
       formats={{
         timeGutterFormat: `HH:mm`,
       }}
-      events={workEntries}
+      events={entries}
       timeslots={4}
       step={15}
       localizer={localizer}
       onSelectSlot={handleSelectSlot}
-      onSelectEvent={handleSelectWorkEntry}
+      onSelectEvent={handleSelectEntry}
       onNavigate={(date) => timeTrackerState.setViewPeriod({
         date: date,
         view: currentView,

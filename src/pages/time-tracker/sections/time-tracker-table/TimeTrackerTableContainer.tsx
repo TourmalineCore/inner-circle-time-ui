@@ -4,25 +4,14 @@ import { useContext, useEffect } from "react"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import moment from "moment"
 import { api } from "../../../../common/api/api"
-import { WorkEntryItem } from "../../types"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 
 export const TimeTrackerTableContainer = observer(({
-  onOpenWorkEntryModal,
-  setWorkEntryModalData,
-  setWorkEntryModalDataTime,
+  onOpenEntryModal,
   triggerReloadState, 
 }: {
-  onOpenWorkEntryModal: () => unknown,
-  setWorkEntryModalData: (workEntry: WorkEntryItem) => unknown,
-  setWorkEntryModalDataTime: ({
-    startTime,
-    endTime,
-  }: {
-    startTime: Date,
-    endTime: Date,
-  }) => unknown, 
+  onOpenEntryModal: () => unknown,
   triggerReloadState: boolean,
 }) => {
   const timeTrackerState = useContext(TimeTrackerStateContext)
@@ -48,7 +37,7 @@ export const TimeTrackerTableContainer = observer(({
   useEffect(() => {
     if (viewStartDate === null && viewEndDate === null) return
 
-    async function loadedWorkEntries() {
+    async function loadedEntries() {
       const {
         data,
       } = await api.trackingGetWorkEntriesByPeriod({
@@ -67,7 +56,7 @@ export const TimeTrackerTableContainer = observer(({
 
       timeTrackerState.initialize({
         loadedData: {
-          workEntries: data
+          entries: data
             .workEntries
             .map((workEntry) => ({
               id: workEntry.id,
@@ -86,7 +75,7 @@ export const TimeTrackerTableContainer = observer(({
       })
     }
 
-    loadedWorkEntries()
+    loadedEntries()
   }, [
     viewStartDate,
     viewEndDate,
@@ -95,9 +84,7 @@ export const TimeTrackerTableContainer = observer(({
 
   return (
     <TimeTrackerTableContent 
-      onOpenWorkEntryModal={onOpenWorkEntryModal}
-      setWorkEntryModalData={setWorkEntryModalData}
-      setWorkEntryModalDataTime={setWorkEntryModalDataTime}
+      onOpenEntryModal={onOpenEntryModal}
     />
   )
 })

@@ -1,25 +1,34 @@
-import { Project } from "../../../../api"
+import { ProjectDto } from "../../../../api"
+import { EntryType } from "../../../common/constants/entryType"
 
-export type WorkEntryBase = {
+export type TrackedEntry = {
   id?: number,
-  title: string,
+  title?: string,
+  taskId?: string,
+  project?: ProjectDto,
+  description?: string,
+  type?: EntryType,
   date: Date | null,
-  taskId: string,
-  description: string,
+  start: Date,
+  end: Date,
+}
+
+export type TimeTrackerTable = {
+  entries: TrackedEntry[],
+}
+
+export type EntryBase = {
+  id?: number,
+  date: Date | null,
   start: Date | null,
   end: Date | null,
 }
 
-export type WorkEntryModal = WorkEntryBase & {
+export type TaskEntry = EntryBase & {
+  title: string,
   projectId: number,
-}
-
-export type TimeTrackerTable = {
-  workEntries: WorkEntryItem[],
-}
-
-export type WorkEntryItem = WorkEntryBase & {
-  project: Project,
+  taskId: string,
+  description: string,
 }
 
 export type View = 'day' | 'week'

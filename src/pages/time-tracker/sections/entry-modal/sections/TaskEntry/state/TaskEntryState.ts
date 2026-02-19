@@ -1,8 +1,8 @@
 import { makeAutoObservable } from 'mobx'
-import { WorkEntryModal } from '../../../types'
-import { Project } from '../../../../../../api'
+import { TaskEntry } from '../../../../../types'
+import { ProjectDto } from '../../../../../../../../api'
 
-export const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntryModal = {
+export const EMPTY_TASK_ENTRY_DATA: TaskEntry = {
   title: ``,
   date: null,
   taskId: ``,
@@ -12,12 +12,12 @@ export const EMPTY_WORK_ENTRY_MODAL_DATA: WorkEntryModal = {
   end: null,
 }
 
-export class WorkEntryModalState {
-  private _workEntryModalData: WorkEntryModal = {
-    ...EMPTY_WORK_ENTRY_MODAL_DATA,
+export class TaskEntryState {
+  private _taskEntryData: TaskEntry = {
+    ...EMPTY_TASK_ENTRY_DATA,
   }
 
-  private _projects: Project[] = []
+  private _projects: ProjectDto[] = []
 
   private _isSaving = false    
   private _isTriedToSubmit = false  
@@ -27,8 +27,8 @@ export class WorkEntryModalState {
     makeAutoObservable(this)
   }
 
-  get workEntryModalData() {
-    return this._workEntryModalData
+  get taskEntryData() {
+    return this._taskEntryData
   }
 
   get projects() {
@@ -44,15 +44,15 @@ export class WorkEntryModalState {
   }
 
   get isTitleValid() {
-    return this._workEntryModalData.title !== ``
+    return this._taskEntryData.title !== ``
   }
 
   get isTaskIdValid() {
-    return this._workEntryModalData.taskId !== ``
+    return this._taskEntryData.taskId !== ``
   }
 
   get isDescriptionValid() {
-    return this._workEntryModalData.description !== ``
+    return this._taskEntryData.description !== ``
   }
   
   get isValid() {
@@ -80,7 +80,7 @@ export class WorkEntryModalState {
   }: {
     id: number,
   }) {
-    this._workEntryModalData.id = id
+    this._taskEntryData.id = id
   }
 
   setProjectId({
@@ -88,13 +88,13 @@ export class WorkEntryModalState {
   }: {
     projectId: number,
   }) {
-    this._workEntryModalData.projectId = projectId
+    this._taskEntryData.projectId = projectId
   }
 
   setProjects({
     projects,
   }: {
-    projects: Project[],
+    projects: ProjectDto[],
   }) {
     this._projects = projects
   }
@@ -104,7 +104,7 @@ export class WorkEntryModalState {
   }: {
     title: string,
   }) {
-    this._workEntryModalData.title = title
+    this._taskEntryData.title = title
   }
 
   setTaskId({
@@ -112,7 +112,7 @@ export class WorkEntryModalState {
   }: {
     taskId: string,
   }) {
-    this._workEntryModalData.taskId = taskId
+    this._taskEntryData.taskId = taskId
   }
 
   setDescription({
@@ -120,7 +120,7 @@ export class WorkEntryModalState {
   }: {
     description: string,
   }) {
-    this._workEntryModalData.description = description
+    this._taskEntryData.description = description
   }
 
   setDate({
@@ -128,7 +128,7 @@ export class WorkEntryModalState {
   }: {
     date: Date,
   }) {
-    this._workEntryModalData.date = date
+    this._taskEntryData.date = date
   }
 
   setStartTime({
@@ -136,7 +136,7 @@ export class WorkEntryModalState {
   }: {
     startTime: Date,
   }) {
-    this._workEntryModalData.start = startTime
+    this._taskEntryData.start = startTime
   }
 
   setEndTime({
@@ -144,11 +144,7 @@ export class WorkEntryModalState {
   }: {
     endTime: Date,
   }) {
-    this._workEntryModalData.end = endTime
-  }
-
-  reset() {
-    this._workEntryModalData = structuredClone(EMPTY_WORK_ENTRY_MODAL_DATA)
+    this._taskEntryData.end = endTime
   }
 
   setIsSaving() {

@@ -4,12 +4,12 @@ import { TimeTrackerTableState } from "./TimeTrackerTableState"
 
 describe(`TimeTrackerTableState`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`Work Entries Management`, workEntriesTests)
+  describe(`Work Entries Management`, entriesTests)
   describe(`View Configuration`, viewTests)
 })
 
-const WORK_ENTRIES_FOR_INITIALIZATION: TimeTrackerTable = {
-  workEntries: [
+const ENTRIES_FOR_INITIALIZATION: TimeTrackerTable = {
+  entries: [
     {
       id: 1,
       title: `Task 1`,
@@ -34,7 +34,7 @@ function initializationTests() {
   `, () => {
     const timeTrackerTableState = new TimeTrackerTableState()
     
-    expect(timeTrackerTableState.tableData.workEntries)
+    expect(timeTrackerTableState.tableData.entries)
       .to
       .deep
       .eq([])
@@ -51,7 +51,7 @@ function initializationTests() {
   })
 }
 
-function workEntriesTests() {
+function entriesTests() {
   let timeTrackerTableState: TimeTrackerTableState
 
   beforeEach(() => {
@@ -60,17 +60,17 @@ function workEntriesTests() {
 
   it(`
   GIVEN an empty state
-  WHEN initialize with one work entry
-  SHOULD return one work entry
+  WHEN initialize with one entry
+  SHOULD return one entry
   `, () => {
     timeTrackerTableState.initialize({
-      loadedData: WORK_ENTRIES_FOR_INITIALIZATION,
+      loadedData: ENTRIES_FOR_INITIALIZATION,
     })
 
     expect(timeTrackerTableState.tableData)
       .to
       .deep
-      .eq(WORK_ENTRIES_FOR_INITIALIZATION)
+      .eq(ENTRIES_FOR_INITIALIZATION)
   })
 }
 
