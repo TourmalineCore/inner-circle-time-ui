@@ -4,7 +4,6 @@ import { useContext, useEffect } from "react"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import moment from "moment"
 import { api } from "../../../../common/api/api"
-// import { WorkEntryItem } from "../../types"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 
