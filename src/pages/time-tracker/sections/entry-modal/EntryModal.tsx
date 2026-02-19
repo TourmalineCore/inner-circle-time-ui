@@ -34,6 +34,10 @@ export function EntryModal({
       })
     }
   }, [])
+
+  const {
+    type,
+  } = entryModalState
   
   return (
     <EntryModalStateContext.Provider value={entryModalState}>
@@ -41,7 +45,7 @@ export function EntryModal({
         <EntryModalContent
           onClose={onClose}
         >        
-          {EntryType.TASK && <TaskEntryContainer 
+          {type == EntryType.TASK && <TaskEntryContainer 
             taskEntryData={{
               id: currentEntry?.id,
               date: currentEntry.date,

@@ -17,8 +17,26 @@ export const TaskEntryContent = observer(({
   const taskEntryState = useContext(TaskEntryStateContext)
 
   const {
-    taskEntryData, 
+    taskEntryData,
+    errors,
+    error, 
   } = taskEntryState
+
+  const {
+    isTitleError,
+    isTaskIdError,
+    isDescriptionError,
+  } = errors
+ 
+  const {
+    title,
+    projectId,
+    taskId,
+    description,
+    date,
+    start,
+    end,
+  } = taskEntryData
 
   return (
     <div className='task-entry'>
@@ -30,11 +48,11 @@ export const TaskEntryContent = observer(({
           type="text" 
           name="title" 
           data-cy="title-input"
-          value={taskEntryData.title} 
+          value={title} 
           onChange={(e) => taskEntryState.setTitle({
             title: e.target.value,
           })}
-          className={`${taskEntryState.errors.isTitleError
+          className={`${isTitleError
             ? `error` 
             : ``}`}
         />
@@ -42,12 +60,12 @@ export const TaskEntryContent = observer(({
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-            Project
+          Project
         </span> 
         <select 
           name='project'
           data-cy="project-select"
-          value={taskEntryData.projectId}
+          value={projectId}
           onChange={(e) => taskEntryState.setProjectId({
             projectId: Number(e.target.value),
           })}
@@ -69,17 +87,17 @@ export const TaskEntryContent = observer(({
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-            Task id
+          Task id
         </span> 
         <input 
           type="text" 
           name="taskId" 
           data-cy="task-id-input"
-          value={taskEntryData.taskId} 
+          value={taskId} 
           onChange={(e) => taskEntryState.setTaskId({
             taskId: e.target.value,
           })}
-          className={`${taskEntryState.errors.isTaskIdError
+          className={`${isTaskIdError
             ? `error` 
             : ``}`}
         />
@@ -87,16 +105,16 @@ export const TaskEntryContent = observer(({
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-            Description
+          Description
         </span> 
         <textarea 
           name="description" 
           data-cy="description-input"
-          value={taskEntryData.description} 
+          value={description} 
           onChange={(e) => taskEntryState.setDescription({
             description: e.target.value,
           })}
-          className={`task-entry__description ${taskEntryState.errors.isDescriptionError
+          className={`task-entry__description ${isDescriptionError
             ? `error` 
             : ``}`}
         />
@@ -110,7 +128,7 @@ export const TaskEntryContent = observer(({
           <DatePicker
             data-cy="datepicker-input"
             className='task-entry__date-field'
-            selected={taskEntryData.date}
+            selected={date}
             dateFormat="dd.MM"
             onChange={(date) => taskEntryState.setDate({
               date: date as Date,
@@ -125,12 +143,12 @@ export const TaskEntryContent = observer(({
               mask="99:99"
               maskChar="0"
               value={formatTime({
-                time: taskEntryData.start!,
+                time: start!,
               })}
               onChange={(e) => taskEntryState.setStartTime({
                 startTime: parseTimeString({
                   timeString: e.target.value,
-                  originalDate: taskEntryData.start!,
+                  originalDate: start!,
                 }),
               })}
             />
@@ -141,12 +159,12 @@ export const TaskEntryContent = observer(({
               mask="99:99"
               maskChar="0"
               value={formatTime({
-                time: taskEntryData.end!,
+                time: end!,
               })}
               onChange={(e) => taskEntryState.setEndTime({
                 endTime: parseTimeString({
                   timeString: e.target.value,
-                  originalDate: taskEntryData.end!,
+                  originalDate: end!,
                 }),
               })}
             />
@@ -154,9 +172,9 @@ export const TaskEntryContent = observer(({
         </div>
       </div>
       { 
-        taskEntryState.error && (
+        error && (
           <span className='task-entry__error'>
-            {taskEntryState.error}
+            {error}
           </span>
         )
       }
