@@ -6,9 +6,10 @@ import 'moment/locale/ru'
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
-import { momentLocalizer, Calendar, SlotInfo, Views} from 'react-big-calendar'
+import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
+import { EntryContent } from './components/EntryContent/EntryContent'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -77,6 +78,13 @@ export const TimeTrackerTableContent = observer(({
       ]}
       formats={{
         timeGutterFormat: `HH:mm`,
+        eventTimeRangeFormat: ({
+          start,
+          end, 
+        }) => 
+          `${moment(start)
+            .format(`HH:mm`)} - ${moment(end)
+            .format(`HH:mm`)}`,
       }}
       events={entries}
       timeslots={4}
@@ -97,6 +105,9 @@ export const TimeTrackerTableContent = observer(({
         .hour(23)
         .minute(59)
         .toDate()}
+      components={{
+        event: EntryContent, 
+      }}
     />
   )
 })
