@@ -139,7 +139,7 @@ export class TimeTrackerPage {
 
   static updateUnwellEntry() {
     cy
-      .contains(`4:00 AM – 5:00 AM`)
+      .contains(`Feeling unwell`)
       .click()
 
     cy
@@ -159,7 +159,7 @@ export class TimeTrackerPage {
 
   static checkUnwellEntryAfterUpdate() {
     cy
-      .contains(`6:00 AM – 7:00 AM`)
+      .contains(`Feeling unwell`)
       .click()
 
     cy
