@@ -24,13 +24,13 @@ export type EntryBase = {
   end: Date | null,
 }
 
-export type TaskEntry = EntryBase & {
+export type TaskEntryData = EntryBase & {
   title: string,
   projectId: number,
   taskId: string,
   description: string,
 }
 
-export type UnwellEntry = EntryBase
+export type UnwellEntryData = EntryBase
 
 export type View = 'day' | 'week'
