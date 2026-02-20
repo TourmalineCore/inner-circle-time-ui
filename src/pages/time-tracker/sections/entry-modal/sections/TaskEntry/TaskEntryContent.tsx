@@ -42,24 +42,6 @@ export const TaskEntryContent = observer(({
     <div className='task-entry'>
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-          Task name
-        </span> 
-        <input 
-          type="text" 
-          name="title" 
-          data-cy="title-input"
-          value={title} 
-          onChange={(e) => taskEntryState.setTitle({
-            title: e.target.value,
-          })}
-          className={`${isTitleError
-            ? `error` 
-            : ``}`}
-        />
-      </div>
-    
-      <div className='task-entry__field'>
-        <span className='task-entry__label'>
           Project
         </span> 
         <select 
@@ -87,7 +69,7 @@ export const TaskEntryContent = observer(({
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-          Task id
+          Task ID
         </span> 
         <input 
           type="text" 
@@ -102,10 +84,28 @@ export const TaskEntryContent = observer(({
             : ``}`}
         />
       </div>
+      
+      <div className='task-entry__field'>
+        <span className='task-entry__label'>
+          Task name
+        </span> 
+        <input 
+          type="text" 
+          name="title" 
+          data-cy="title-input"
+          value={title} 
+          onChange={(e) => taskEntryState.setTitle({
+            title: e.target.value,
+          })}
+          className={`${isTitleError
+            ? `error` 
+            : ``}`}
+        />
+      </div>
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-          Description
+          What has been done?
         </span> 
         <textarea 
           name="description" 
@@ -122,7 +122,7 @@ export const TaskEntryContent = observer(({
     
       <div className='task-entry__field'>
         <span className='task-entry__label'>
-          Task completion time
+          Time spent
         </span>
         <div className='task-entry__completion-time-container'>
           <DatePicker

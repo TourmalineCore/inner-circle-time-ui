@@ -1,0 +1,48 @@
+import { TimeTrackerPage } from "./pages/TimeTrackerPage"
+
+describe(`Task Entries Happy Path`, () => {
+  const testDate = new Date(2025, 9, 27)
+
+  beforeEach(`Set Date and Authorize and Cleanup`, () => {
+    // set cypress default date
+    // we use different years for different tests, which does not overlap
+    cy.clock(testDate, [
+      `Date`,
+    ])
+
+    cy.authByApi()
+    cy.removeTaskEntries(testDate)
+  })
+
+  afterEach(`Cleanup`, () => {
+    cy.removeTaskEntries(testDate)
+  })
+
+  it(`
+  GIVEN empty time tracker table
+  WHEN add a new task entry
+  SHOULD see it in the time tracker table
+  THEN click on this task entry
+  AND update data in it 
+  SHOULD see correct data in the time tracker table
+  `, () => {
+    TimeTrackerPage.visit()
+
+    // Waiting for the table to be displayed in the desktop version
+    cy.contains(`October 27 – November 02`)
+      .should(`be.visible`)
+
+    TimeTrackerPage.addTaskEntry()
+
+    cy.intercept(
+      `GET`, 
+      `/api/time/tracking/work-entries?startDate=2025-10-27&endDate=2025-11-02`)
+      .as(`getEntries`)
+
+    TimeTrackerPage.updateTaskEntry()
+
+    cy.wait(`@getEntries`)
+
+    TimeTrackerPage.checkTaskEntryAfterUpdate()
+  })
+})

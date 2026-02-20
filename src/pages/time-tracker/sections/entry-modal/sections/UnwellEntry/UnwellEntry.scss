@@ -1,0 +1,39 @@
+@use "../../../../../../styles/variables" as *;
+
+.unwell-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__time-spent-container {
+    display: flex;
+  }
+
+  &__time-range {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__label {
+    font-size: 12px;
+  }
+
+  &__date-field {
+    margin-right: 16px;
+  }
+
+  &__error {
+    text-align: center;
+    color: $color-error;
+  }
+
+  &__date-field,
+  &__time-field {
+    width: 60px;
+  }
+}

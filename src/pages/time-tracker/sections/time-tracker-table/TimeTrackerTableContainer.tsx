@@ -54,23 +54,42 @@ export const TimeTrackerTableContainer = observer(({
         endDate: viewEndDate!,
       })
 
+      const workEntries = data
+        .workEntries
+        .map((workEntry) => ({
+          id: workEntry.id,
+          taskId: workEntry.taskId,
+          description: workEntry.description,
+          project: projects.find((project) => project.id === workEntry.projectId)!,
+          title: workEntry.title,
+          type: workEntry.type,
+          date: moment(workEntry.startTime)
+            .toDate(),
+          start: moment(workEntry.startTime)
+            .toDate(),
+          end: moment(workEntry.endTime)
+            .toDate(),
+        }))
+
+      const unwellEntries = data
+        .unwellEntries
+        .map((unwellEntry) => ({
+          id: unwellEntry.id,
+          type: unwellEntry.type,
+          date: moment(unwellEntry.startTime)
+            .toDate(),
+          start: moment(unwellEntry.startTime)
+            .toDate(),
+          end: moment(unwellEntry.endTime)
+            .toDate(),
+        })) 
+
       timeTrackerState.initialize({
         loadedData: {
-          entries: data
-            .workEntries
-            .map((workEntry) => ({
-              id: workEntry.id,
-              taskId: workEntry.taskId,
-              description: workEntry.description,
-              project: projects.find((project) => project.id === workEntry.projectId)!,
-              title: workEntry.title,
-              date: moment(workEntry.startTime)
-                .toDate(),
-              start: moment(workEntry.startTime)
-                .toDate(),
-              end: moment(workEntry.endTime)
-                .toDate(),
-            })), 
+          entries: [
+            ...workEntries,
+            ...unwellEntries,
+          ], 
         },
       })
     }

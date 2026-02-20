@@ -37,13 +37,12 @@ function settersTests() {
   WHEN set type 
   SHOULD return updated type
   `, () => {
-    // Todo: change 2 to the value from the enum when new values appear in it
     entryModalState.setType({
-      type: 2 as EntryType,
+      type: EntryType.UNWELL,
     })
 
     expect(entryModalState.type)
       .to
-      .eq( 2 as EntryType)
+      .eq(EntryType.UNWELL)
   })
 }

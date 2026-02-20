@@ -61,10 +61,12 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
-Cypress.Commands.add(`removeEntries`, () => {
+Cypress.Commands.add(`removeTaskEntries`, (date: Date) => {
+  const day = formatDate(date)
+
   cy.request<GetWorkEntriesByPeriodResponse>({
     method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=2025-10-27&endDate=2025-10-27`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=${day}&endDate=${day}`,
     headers: {
       Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
     },
@@ -72,12 +74,8 @@ Cypress.Commands.add(`removeEntries`, () => {
     .then(({
       body,
     }) => {
-      const entriesToDelete = body.workEntries.filter(({
-        title,
-      }) => title.startsWith(`[E2E-SMOKE]`))
-      
-      entriesToDelete.forEach(({
-        id,
+      body.workEntries?.forEach(({
+        id, 
       }) => {
         cy.request({
           method: `DELETE`,
@@ -89,5 +87,42 @@ Cypress.Commands.add(`removeEntries`, () => {
       })
     })
 })
+
+Cypress.Commands.add(`removeUnwellEntries`, (date: Date) => {  
+  const day = formatDate(date)
+
+  cy.request<GetWorkEntriesByPeriodResponse>({
+    method: `GET`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=${day}&endDate=${day}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+    },
+  })
+    .then(({
+      body,
+    }) => {
+      body.unwellEntries?.forEach(({
+        id, 
+      }) => {
+        cy.request({
+          method: `DELETE`,
+          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries/${id}/hard-delete`,
+          headers: {
+            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+          },
+        })
+      })
+    })
+})
+
+function formatDate(date: Date): string {
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1)
+    .padStart(2, `0`)
+  const d = String(date.getDate()) 
+    .padStart(2, `0`)
+
+  return `${y}-${m}-${d}`
+}
 
 compareSnapshotCommand()

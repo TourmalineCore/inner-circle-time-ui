@@ -7,21 +7,30 @@ import moment from "moment"
 import { EMPTY_TASK_ENTRY_DATA } from "./state/TaskEntryState"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
 import { api } from "../../../../../../common/api/api"
-import { TaskEntry } from "../../../../types"
 
 export const TaskEntryContainer = observer(({
-  taskEntryData,
   handleTriggerReloadState,
 }: {
-  taskEntryData: TaskEntry,
   handleTriggerReloadState: () => unknown,
 }) => {
   const taskEntryState = useContext(TaskEntryStateContext)
 
+  const {
+    id,
+    title,
+    taskId,
+    description,
+    projectId,
+    date,
+    start,
+    end,
+  } = taskEntryState.taskEntryData
+
   useEffect(() => {
-    setTaskEntryData(taskEntryData)
     loadProjectsAsync()
-  }, [])
+  }, [
+    start,
+  ])
 
   return (
     <TaskEntryContent
@@ -40,17 +49,6 @@ export const TaskEntryContainer = observer(({
       taskEntryState.resetIsSaving()
       return
     }
-
-    const {
-      id,
-      title,
-      taskId,
-      description,
-      projectId,
-      date,
-      start,
-      end,
-    } = taskEntryState.taskEntryData
 
     const startDateTime = concatDateAndTime({
       date: date!,
@@ -96,9 +94,11 @@ export const TaskEntryContainer = observer(({
   }
  
   async function loadProjectsAsync() {
-    const startDate = moment(taskEntryState.taskEntryData.start)
+    if (start === null) return 
+
+    const startDate = moment(start)
       .format(`YYYY-MM-DD`)
-      
+
     const {
       data: {
         projects,
@@ -112,53 +112,9 @@ export const TaskEntryContainer = observer(({
       projects,
     })
 
-    if (taskEntryState.taskEntryData.projectId === EMPTY_TASK_ENTRY_DATA.projectId) {
+    if (projectId === EMPTY_TASK_ENTRY_DATA.projectId) {
       taskEntryState.setProjectId({
         projectId: projects[0].id,
-      })
-    }
-  }
-  
-  function setTaskEntryData({
-    id,
-    title,
-    taskId,
-    description ,
-    projectId,
-    start,
-    end,
-  }: TaskEntry) {
-    taskEntryState.setDate({
-      date: start!,
-    })
-
-    taskEntryState.setStartTime({
-      startTime: start!,
-    })
-    
-    taskEntryState.setEndTime({
-      endTime: end!,
-    })
-
-    if (id) {
-      taskEntryState.setId({
-        id,
-      })
-
-      taskEntryState.setTitle({
-        title,
-      })
-
-      taskEntryState.setTaskId({
-        taskId,
-      })
-
-      taskEntryState.setDescription({
-        description,
-      })
-
-      taskEntryState.setProjectId({
-        projectId,
       })
     }
   }
