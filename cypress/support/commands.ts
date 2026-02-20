@@ -61,19 +61,9 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
-Cypress.Commands.add(`removeEntries`, (date: Date | string) => {
-  const formatDate = (date: Date | string): string => {
-    if (typeof date === `string`) return date
-
-    const y = date.getFullYear()
-    const m = String(date.getMonth() + 1)
-      .padStart(2, `0`)
-    const d = String(date.getDate())
-
-    return `${y}-${m}-${d}`
-  }
+Cypress.Commands.add(`removeTaskEntries`, (date: Date) => {
   const day = formatDate(date)
-  
+
   cy.request<GetWorkEntriesByPeriodResponse>({
     method: `GET`,
     url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=${day}&endDate=${day}`,
@@ -95,7 +85,22 @@ Cypress.Commands.add(`removeEntries`, (date: Date | string) => {
           },
         })
       })
+    })
+})
 
+Cypress.Commands.add(`removeUnwellEntries`, (date: Date) => {  
+  const day = formatDate(date)
+
+  cy.request<GetWorkEntriesByPeriodResponse>({
+    method: `GET`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=${day}&endDate=${day}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+    },
+  })
+    .then(({
+      body,
+    }) => {
       body.unwellEntries?.forEach(({
         id, 
       }) => {
@@ -109,5 +114,15 @@ Cypress.Commands.add(`removeEntries`, (date: Date | string) => {
       })
     })
 })
+
+function formatDate(date: Date): string {
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1)
+    .padStart(2, `0`)
+  const d = String(date.getDate()) 
+    .padStart(2, `0`)
+
+  return `${y}-${m}-${d}`
+}
 
 compareSnapshotCommand()
