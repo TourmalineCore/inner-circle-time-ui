@@ -4,8 +4,8 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
-      compareSnapshot(name: string, options?: any): Chainable<Element>,
-      removeTaskEntries(date: Date): Chainable<void>,
+      authByApi(): Chainable<any>,
+      removeTaskEntries(date: Date): Chainable<any>, 
       removeUnwellEntries(date: Date): Chainable<any>, 
     }
   }
