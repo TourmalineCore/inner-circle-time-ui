@@ -139,6 +139,10 @@ export class TimeTrackerPage {
 
   static updateUnwellEntry() {
     cy
+      .contains(`Feeling unwell`)
+      .click()
+      
+    cy
       .getByData(`start-time-input`)
       .clear()
       .type(`06:00`)
@@ -154,16 +158,16 @@ export class TimeTrackerPage {
   }
 
   static checkUnwellEntryAfterUpdate() {
-    // cy
-    //   .contains(`[E2E-SMOKE] Task 2`)
-    //   .click()
+    cy
+      .contains(`Feeling unwell`)
+      .click()
 
     cy
       .getByData(`start-time-input`)
-      .should(`have.value`, `05:00`)
+      .should(`have.value`, `06:00`)
     
     cy
       .getByData(`end-time-input`)
-      .should(`have.value`, `06:00`)
+      .should(`have.value`, `07:00`)
   }
 }
