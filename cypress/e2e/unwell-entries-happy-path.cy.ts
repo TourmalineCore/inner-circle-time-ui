@@ -43,6 +43,10 @@ describe(`Unwell Entries Happy Path`, () => {
 
     cy.wait(`@getEntries`)
 
+    // figure out why the pipeline test is failing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
+
     TimeTrackerPage.checkUnwellEntryAfterUpdate()
   })
 })

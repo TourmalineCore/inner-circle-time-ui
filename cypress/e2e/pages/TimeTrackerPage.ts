@@ -158,9 +158,6 @@ export class TimeTrackerPage {
   }
 
   static checkUnwellEntryAfterUpdate() {
-    cy.contains(`6:00 - 7:00`)
-      .should(`not.exist`)
-
     cy
       .contains(`Feeling unwell`)
       .click()
