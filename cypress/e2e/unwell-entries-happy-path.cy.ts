@@ -34,7 +34,14 @@ describe(`Unwell Entries Happy Path`, () => {
 
     TimeTrackerPage.addUnwellEntry()
 
+    cy.intercept(
+      `GET`, 
+      `/api/time/tracking/work-entries?startDate=2026-10-26&endDate=2026-11-01`)
+      .as(`getEntries`)
+
     TimeTrackerPage.updateUnwellEntry()
+
+    cy.wait(`@getEntries`)
 
     TimeTrackerPage.checkUnwellEntryAfterUpdate()
   })
