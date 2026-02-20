@@ -1,24 +1,17 @@
 import { observer } from "mobx-react-lite"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { UnwellEntryStateContext } from "./state/UnwellEntryStateContext"
 import axios from "axios"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
 import { api } from "../../../../../../common/api/api"
-import { UnwellEntry } from "../../../../types"
 import { UnwellEntryContent } from "./UnwellEntryContent"
 
 export const UnwellEntryContainer = observer(({
-  unwellEntry,
   handleTriggerReloadState,
 }: {
-  unwellEntry: UnwellEntry,
   handleTriggerReloadState: () => unknown,
 }) => {
   const unwellEntryState = useContext(UnwellEntryStateContext)
-
-  useEffect(() => {
-    setUnwellEntryData(unwellEntry)
-  }, [])
 
   return (
     <UnwellEntryContent
@@ -66,30 +59,6 @@ export const UnwellEntryContainer = observer(({
           })
         }
       }
-    }
-  }
-  
-  function setUnwellEntryData({
-    id,
-    start,
-    end,
-  }: UnwellEntry) {
-    unwellEntryState.setDate({
-      date: start!,
-    })
-
-    unwellEntryState.setStartTime({
-      startTime: start!,
-    })
-    
-    unwellEntryState.setEndTime({
-      endTime: end!,
-    })
-
-    if (id) {
-      unwellEntryState.setId({
-        id,
-      })
     }
   }
 })

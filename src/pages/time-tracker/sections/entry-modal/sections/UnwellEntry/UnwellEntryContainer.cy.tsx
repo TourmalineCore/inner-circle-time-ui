@@ -1,4 +1,4 @@
-import { EMPTY_UNWELL_ENTRY_DATA, UnwellEntryState } from "./state/UnwellEntryState"
+import { UnwellEntryState } from "./state/UnwellEntryState"
 import { UnwellEntryStateContext } from "./state/UnwellEntryStateContext"
 import { UnwellEntryContainer } from "./UnwellEntryContainer"
 
@@ -104,8 +104,8 @@ function mountComponent({
     .mount(
       <UnwellEntryStateContext.Provider value={unwellEntryState}>
         <UnwellEntryContainer 
-          handleTriggerReloadState={handleTriggerReloadState}
-          unwellEntry={EMPTY_UNWELL_ENTRY_DATA} />
+          handleTriggerReloadState={handleTriggerReloadState}  
+        />
       </UnwellEntryStateContext.Provider>,
     )
 }

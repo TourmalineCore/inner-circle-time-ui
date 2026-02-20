@@ -1,8 +1,8 @@
 import { makeAutoObservable } from 'mobx'
-import { TaskEntry } from '../../../../../types'
+import { TaskEntryData } from '../../../../../types'
 import { ProjectDto } from '../../../../../../../../api'
 
-export const EMPTY_TASK_ENTRY_DATA: TaskEntry = {
+export const EMPTY_TASK_ENTRY_DATA: TaskEntryData = {
   title: ``,
   date: null,
   taskId: ``,
@@ -13,7 +13,7 @@ export const EMPTY_TASK_ENTRY_DATA: TaskEntry = {
 }
 
 export class TaskEntryState {
-  private _taskEntryData: TaskEntry = {
+  private _taskEntryData: TaskEntryData = {
     ...EMPTY_TASK_ENTRY_DATA,
   }
 
