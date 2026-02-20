@@ -61,10 +61,22 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
-Cypress.Commands.add(`removeEntries`, () => {
+Cypress.Commands.add(`removeEntries`, (date: Date | string) => {
+  const formatDate = (date: Date | string): string => {
+    if (typeof date === `string`) return date
+
+    const y = date.getFullYear()
+    const m = String(date.getMonth() + 1)
+      .padStart(2, `0`)
+    const d = String(date.getDate())
+
+    return `${y}-${m}-${d}`
+  }
+  const day = formatDate(date)
+  
   cy.request<GetWorkEntriesByPeriodResponse>({
     method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=2025-10-27&endDate=2025-10-27`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=${day}&endDate=${day}`,
     headers: {
       Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
     },
@@ -72,12 +84,20 @@ Cypress.Commands.add(`removeEntries`, () => {
     .then(({
       body,
     }) => {
-      const entriesToDelete = body.workEntries.filter(({
-        title,
-      }) => title.startsWith(`[E2E-SMOKE]`))
-      
-      entriesToDelete.forEach(({
-        id,
+      body.workEntries?.forEach(({
+        id, 
+      }) => {
+        cy.request({
+          method: `DELETE`,
+          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries/${id}/hard-delete`,
+          headers: {
+            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+          },
+        })
+      })
+
+      body.unwellEntries?.forEach(({
+        id, 
       }) => {
         cy.request({
           method: `DELETE`,

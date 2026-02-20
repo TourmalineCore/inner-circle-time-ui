@@ -5,6 +5,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       compareSnapshot(name: string, options?: any): Chainable<Element>,
+      removeEntries(date: Date | string): Chainable<void>,
     }
   }
 }

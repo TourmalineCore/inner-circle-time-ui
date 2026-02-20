@@ -1,19 +1,21 @@
 import { TimeTrackerPage } from "./pages/TimeTrackerPage"
 
 describe(`Unwell Entries Happy Path`, () => {
+  const testDate = new Date(2026, 9, 26)
+
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
     // we use different years for different tests, which does not overlap
-    cy.clock(new Date(2026, 9, 27), [
+    cy.clock(testDate, [
       `Date`,
     ])
 
     cy.authByApi()
-    cy.removeEntries()
+    cy.removeEntries(testDate)
   })
 
   afterEach(`Cleanup`, () => {
-    cy.removeEntries()
+    cy.removeEntries(testDate)
   })
 
   it(`

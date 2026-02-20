@@ -139,9 +139,9 @@ export class TimeTrackerPage {
 
   static updateUnwellEntry() {
     cy
-      .contains(`Feeling unwell`)
+      .contains(`4:00 AM – 5:00 AM`)
       .click()
-      
+
     cy
       .getByData(`start-time-input`)
       .clear()
@@ -159,7 +159,7 @@ export class TimeTrackerPage {
 
   static checkUnwellEntryAfterUpdate() {
     cy
-      .contains(`Feeling unwell`)
+      .contains(`6:00 AM – 7:00 AM`)
       .click()
 
     cy

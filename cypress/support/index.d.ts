@@ -4,6 +4,6 @@ declare namespace Cypress {
   interface Chainable {
     getByData(dataTestAttribute: string): Chainable<JQuery<HTMLElement>>,
     authByApi(): Chainable<any>,
-    removeEntries(): Chainable<any>, 
+    removeEntries(date: Date | string): Chainable<any>, 
   }
 }
