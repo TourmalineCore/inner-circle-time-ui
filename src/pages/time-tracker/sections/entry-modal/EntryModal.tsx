@@ -57,17 +57,18 @@ export const EntryModal = observer(({
             />
           )
         }
-        {type == EntryType.UNWELL && (
-          <UnwellEntry 
-            unwellEntry={{
-              id: currentEntry?.id,
-              date: currentEntry.date,
-              start: currentEntry.start,
-              end: currentEntry.end,
-            }}
-            handleTriggerReloadState={handleTriggerReloadState}
-          />
-        )
+        {
+          type == EntryType.UNWELL && (
+            <UnwellEntry 
+              unwellEntry={{
+                id: currentEntry?.id,
+                date: currentEntry.date,
+                start: currentEntry.start,
+                end: currentEntry.end,
+              }}
+              handleTriggerReloadState={handleTriggerReloadState}
+            />
+          )
         }
       </EntryModalContent>
     </EntryModalStateContext.Provider>
