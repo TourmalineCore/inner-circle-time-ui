@@ -97,6 +97,10 @@ export const TimeTrackerTableContent = observer(({
         view: currentView,
       })}
       selectable
+      scrollToTime={moment()
+        .hour(8)
+        .minute(0)
+        .toDate()}
       min={moment()
         .hour(0)
         .minute(0)
