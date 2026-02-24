@@ -38,31 +38,36 @@ export const EntryModal = observer(({
     <EntryModalStateContext.Provider value={entryModalState}>
       <EntryModalContent
         onClose={onClose}
-        isExistingEntry={currentEntry.type !== undefined}
+        isExistingEntry={!!currentEntry.id}
       >        
-        {type == EntryType.TASK && <TaskEntry 
-          taskEntry={{
-            id: currentEntry?.id,
-            date: currentEntry.date,
-            start: currentEntry.start,
-            end: currentEntry.end,
-            title: currentEntry.title || ``,
-            projectId: currentEntry.project?.id || 0,
-            taskId: currentEntry.taskId || ``,
-            description: currentEntry.description || ``,
-          }}
-          handleTriggerReloadState={handleTriggerReloadState}
-        />
+        {
+          type == EntryType.TASK && (
+            <TaskEntry 
+              taskEntry={{
+                id: currentEntry?.id,
+                date: currentEntry.date,
+                start: currentEntry.start,
+                end: currentEntry.end,
+                title: currentEntry.title || ``,
+                projectId: currentEntry.project?.id || 0,
+                taskId: currentEntry.taskId || ``,
+                description: currentEntry.description || ``,
+              }}
+              handleTriggerReloadState={handleTriggerReloadState}
+            />
+          )
         }
-        {type == EntryType.UNWELL && <UnwellEntry 
-          unwellEntry={{
-            id: currentEntry?.id,
-            date: currentEntry.date,
-            start: currentEntry.start,
-            end: currentEntry.end,
-          }}
-          handleTriggerReloadState={handleTriggerReloadState}
-        />
+        {type == EntryType.UNWELL && (
+          <UnwellEntry 
+            unwellEntry={{
+              id: currentEntry?.id,
+              date: currentEntry.date,
+              start: currentEntry.start,
+              end: currentEntry.end,
+            }}
+            handleTriggerReloadState={handleTriggerReloadState}
+          />
+        )
         }
       </EntryModalContent>
     </EntryModalStateContext.Provider>

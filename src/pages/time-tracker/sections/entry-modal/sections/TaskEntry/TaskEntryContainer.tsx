@@ -94,7 +94,9 @@ export const TaskEntryContainer = observer(({
   }
  
   async function loadProjectsAsync() {
-    if (start === null) return 
+    if (start === null) {
+      return  
+    } 
 
     const startDate = moment(start)
       .format(`YYYY-MM-DD`)
