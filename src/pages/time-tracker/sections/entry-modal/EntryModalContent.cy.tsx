@@ -10,7 +10,7 @@ describe(`EntryModalContainer`, () => {
 
 function onCloseModalTests() {
   it(`
-  GIVEN opened  entry modal
+  GIVEN opened entry modal
   WHEN click on close button
   SHOULD trigger onClose function once 
   `, () => {
@@ -24,9 +24,37 @@ function onCloseModalTests() {
       .get(`@onClose`)
       .should(`be.calledOnce`)
   })
+
+  it(`
+  GIVEN opened entry modal
+  WHEN isExistingEntry = false
+  SHOULD type select not be disabled 
+  `, () => {
+    mountComponent()
+    
+    cy.getByData(`type-select`)
+      .should(`not.be.disabled`)
+  })
+
+  it(`
+  GIVEN opened entry modal
+  WHEN isExistingEntry = true
+  SHOULD type select be disabled
+  `, () => {
+    mountComponent({
+      isExistingEntry: true,
+    })
+    
+    cy.getByData(`type-select`)
+      .should(`be.disabled`)
+  })
 }
 
-function mountComponent() {
+function mountComponent({
+  isExistingEntry = false,
+}: {
+  isExistingEntry?: boolean,
+} = {}) {
   const entryModalState = new EntryModalState()
   const taskEntryState = new TaskEntryState()
   const onClose = cy
@@ -38,6 +66,7 @@ function mountComponent() {
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContent 
+            isExistingEntry={isExistingEntry}
             onClose={onClose}
           />
         </TaskEntryStateContext.Provider>
