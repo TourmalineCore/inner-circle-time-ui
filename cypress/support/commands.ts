@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
-import { GetWorkEntriesByPeriodResponse } from '../../api'
+import { GetEntriesByPeriodResponse } from '../../api'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -64,9 +64,9 @@ Cypress.Commands.add(`authByApi`, () => {
 Cypress.Commands.add(`removeTaskEntries`, (date: Date) => {
   const day = formatDate(date)
 
-  cy.request<GetWorkEntriesByPeriodResponse>({
+  cy.request<GetEntriesByPeriodResponse>({
     method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=${day}&endDate=${day}`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
     headers: {
       Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
     },
@@ -74,12 +74,12 @@ Cypress.Commands.add(`removeTaskEntries`, (date: Date) => {
     .then(({
       body,
     }) => {
-      body.workEntries?.forEach(({
+      body.taskEntries?.forEach(({
         id, 
       }) => {
         cy.request({
           method: `DELETE`,
-          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries/${id}/hard-delete`,
+          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
           headers: {
             Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
           },
@@ -91,9 +91,9 @@ Cypress.Commands.add(`removeTaskEntries`, (date: Date) => {
 Cypress.Commands.add(`removeUnwellEntries`, (date: Date) => {  
   const day = formatDate(date)
 
-  cy.request<GetWorkEntriesByPeriodResponse>({
+  cy.request<GetEntriesByPeriodResponse>({
     method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries?startDate=${day}&endDate=${day}`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
     headers: {
       Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
     },
@@ -106,7 +106,7 @@ Cypress.Commands.add(`removeUnwellEntries`, (date: Date) => {
       }) => {
         cy.request({
           method: `DELETE`,
-          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/work-entries/${id}/hard-delete`,
+          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
           headers: {
             Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
           },

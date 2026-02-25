@@ -38,7 +38,7 @@ function RequestTests() {
     cy
       .intercept(
         `POST`,
-        `*/time/tracking/work-entries`,
+        `*/time/tracking/task-entries`,
         {
           statusCode: 200,
         },
@@ -98,7 +98,7 @@ function setErrorTests() {
     cy
       .intercept(
         `POST`,
-        `*/time/tracking/work-entries`,
+        `*/time/tracking/task-entries`,
         {
           statusCode: 400,
           body: {

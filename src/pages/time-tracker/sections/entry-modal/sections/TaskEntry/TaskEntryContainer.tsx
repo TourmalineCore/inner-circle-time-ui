@@ -71,8 +71,8 @@ export const TaskEntryContainer = observer(({
 
     try {
       id 
-        ? await api.trackingUpdateWorkEntry(id, taskEntryData)
-        : await api.trackingCreateWorkEntry(taskEntryData)
+        ? await api.trackingUpdateTaskEntry(id, taskEntryData)
+        : await api.trackingCreateTaskEntry(taskEntryData)
 
       handleTriggerReloadState()
 

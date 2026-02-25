@@ -40,7 +40,7 @@ export const TimeTrackerTableContainer = observer(({
     async function loadedEntries() {
       const {
         data,
-      } = await api.trackingGetWorkEntriesByPeriod({
+      } = await api.trackingGetEntriesByPeriod({
         startDate: viewStartDate as string,
         endDate: viewEndDate as string,
       })
@@ -54,20 +54,20 @@ export const TimeTrackerTableContainer = observer(({
         endDate: viewEndDate!,
       })
 
-      const workEntries = data
-        .workEntries
-        .map((workEntry) => ({
-          id: workEntry.id,
-          taskId: workEntry.taskId,
-          description: workEntry.description,
-          project: projects.find((project) => project.id === workEntry.projectId)!,
-          title: workEntry.title,
-          type: workEntry.type,
-          date: moment(workEntry.startTime)
+      const taskEntries = data
+        .taskEntries
+        .map((taskEntry) => ({
+          id: taskEntry.id,
+          taskId: taskEntry.taskId,
+          description: taskEntry.description,
+          project: projects.find((project) => project.id === taskEntry.projectId)!,
+          title: taskEntry.title,
+          type: taskEntry.type,
+          date: moment(taskEntry.startTime)
             .toDate(),
-          start: moment(workEntry.startTime)
+          start: moment(taskEntry.startTime)
             .toDate(),
-          end: moment(workEntry.endTime)
+          end: moment(taskEntry.endTime)
             .toDate(),
         }))
 
@@ -87,7 +87,7 @@ export const TimeTrackerTableContainer = observer(({
       timeTrackerState.initialize({
         loadedData: {
           entries: [
-            ...workEntries,
+            ...taskEntries,
             ...unwellEntries,
           ], 
         },
