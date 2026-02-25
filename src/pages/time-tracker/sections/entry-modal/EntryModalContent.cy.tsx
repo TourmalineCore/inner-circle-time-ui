@@ -39,7 +39,7 @@ function onCloseModalTests() {
   it(`
   GIVEN opened entry modal
   WHEN isExistingEntry = true
-  SHOULD disabled type select
+  SHOULD disable type select
   `, () => {
     mountComponent({
       isExistingEntry: true,
