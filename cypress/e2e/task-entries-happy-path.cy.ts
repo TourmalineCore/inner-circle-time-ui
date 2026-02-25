@@ -36,7 +36,7 @@ describe(`Task Entries Happy Path`, () => {
 
     cy.intercept(
       `GET`, 
-      `/api/time/tracking/work-entries?startDate=2025-10-27&endDate=2025-11-02`)
+      `/api/time/tracking/entries?startDate=2025-10-27&endDate=2025-11-02`)
       .as(`getEntries`)
 
     TimeTrackerPage.updateTaskEntry()

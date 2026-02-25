@@ -10,6 +10,23 @@
  * ---------------------------------------------------------------
  */
 
+export interface CreateTaskEntryRequest {
+  title: string;
+  /** @format date-time */
+  startTime: string;
+  /** @format date-time */
+  endTime: string;
+  /** @format int64 */
+  projectId: number;
+  taskId: string;
+  description: string;
+}
+
+export interface CreateTaskEntryResponse {
+  /** @format int64 */
+  newTaskEntryId: number;
+}
+
 export interface CreateUnwellEntryRequest {
   /** @format date-time */
   startTime: string;
@@ -22,27 +39,11 @@ export interface CreateUnwellResponse {
   newUnwellEntryId: number;
 }
 
-export interface CreateWorkEntryRequest {
-  title: string;
-  /** @format date-time */
-  startTime: string;
-  /** @format date-time */
-  endTime: string;
-  /** @format int64 */
-  projectId: number;
-  taskId: string;
-  description: string;
-}
-
-export interface CreateWorkEntryResponse {
-  /** @format int64 */
-  newWorkEntryId: number;
-}
-
 export type EntryType = number;
 
-export interface GetWorkEntriesByPeriodResponse {
-  workEntries: WorkEntryDto[];
+export interface GetEntriesByPeriodResponse {
+  workEntries: TaskEntryDto[];
+  taskEntries: any[];
   unwellEntries: UnwellEntryDto[];
 }
 
@@ -56,6 +57,21 @@ export interface ProjectsResponse {
   projects: ProjectDto[];
 }
 
+export interface TaskEntryDto {
+  /** @format int64 */
+  id: number;
+  title: string;
+  /** @format date-time */
+  startTime: string;
+  /** @format date-time */
+  endTime: string;
+  type: EntryType;
+  /** @format int64 */
+  projectId: number;
+  taskId: string;
+  description: string;
+}
+
 export interface UnwellEntryDto {
   /** @format int64 */
   id: number;
@@ -66,38 +82,23 @@ export interface UnwellEntryDto {
   type: EntryType;
 }
 
+export interface UpdateTaskEntryRequest {
+  title: string;
+  /** @format date-time */
+  startTime: string;
+  /** @format date-time */
+  endTime: string;
+  /** @format int64 */
+  projectId: number;
+  taskId: string;
+  description: string;
+}
+
 export interface UpdateUnwellEntryRequest {
   /** @format date-time */
   startTime: string;
   /** @format date-time */
   endTime: string;
-}
-
-export interface UpdateWorkEntryRequest {
-  title: string;
-  /** @format date-time */
-  startTime: string;
-  /** @format date-time */
-  endTime: string;
-  /** @format int64 */
-  projectId: number;
-  taskId: string;
-  description: string;
-}
-
-export interface WorkEntryDto {
-  /** @format int64 */
-  id: number;
-  title: string;
-  /** @format date-time */
-  startTime: string;
-  /** @format date-time */
-  endTime: string;
-  type: EntryType;
-  /** @format int64 */
-  projectId: number;
-  taskId: string;
-  description: string;
 }
 
 import type {
@@ -301,7 +302,7 @@ export class Api<
       },
       params: RequestParams = {},
     ) =>
-      this.request<GetWorkEntriesByPeriodResponse, any>({
+      this.request<GetEntriesByPeriodResponse, any>({
         path: `/api/time/tracking/work-entries`,
         method: "GET",
         query: query,
@@ -318,11 +319,57 @@ export class Api<
      * @request POST:/api/time/tracking/work-entries
      */
     trackingCreateWorkEntry: (
-      data: CreateWorkEntryRequest,
+      data: CreateTaskEntryRequest,
       params: RequestParams = {},
     ) =>
-      this.request<CreateWorkEntryResponse, any>({
+      this.request<CreateTaskEntryResponse, any>({
         path: `/api/time/tracking/work-entries`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Tracking
+     * @name TrackingGetEntriesByPeriod
+     * @summary Get entries by period
+     * @request GET:/api/time/tracking/entries
+     */
+    trackingGetEntriesByPeriod: (
+      query: {
+        /** @format date */
+        startDate: string;
+        /** @format date */
+        endDate: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<GetEntriesByPeriodResponse, any>({
+        path: `/api/time/tracking/entries`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Tracking
+     * @name TrackingCreateTaskEntry
+     * @summary Create a task entry
+     * @request POST:/api/time/tracking/task-entries
+     */
+    trackingCreateTaskEntry: (
+      data: CreateTaskEntryRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<CreateTaskEntryResponse, any>({
+        path: `/api/time/tracking/task-entries`,
         method: "POST",
         body: data,
         type: ContentType.Json,
@@ -361,11 +408,32 @@ export class Api<
      */
     trackingUpdateWorkEntry: (
       workEntryId: number,
-      data: UpdateWorkEntryRequest,
+      data: UpdateTaskEntryRequest,
       params: RequestParams = {},
     ) =>
       this.request<void, any>({
         path: `/api/time/tracking/work-entries/${workEntryId}`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Tracking
+     * @name TrackingUpdateTaskEntry
+     * @summary Update a task entry
+     * @request POST:/api/time/tracking/task-entries/{taskEntryId}
+     */
+    trackingUpdateTaskEntry: (
+      taskEntryId: number,
+      data: UpdateTaskEntryRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/api/time/tracking/task-entries/${taskEntryId}`,
         method: "POST",
         body: data,
         type: ContentType.Json,
@@ -397,11 +465,11 @@ export class Api<
      * No description
      *
      * @tags Tracking
-     * @name TrackingGetEmployeeProjectsByPeriod
+     * @name TrackingGetEmployeeProjectsByPeriodForWorkEntries
      * @summary Get employee projects by period
      * @request GET:/api/time/tracking/work-entries/projects
      */
-    trackingGetEmployeeProjectsByPeriod: (
+    trackingGetEmployeeProjectsByPeriodForWorkEntries: (
       query: {
         /** @format date */
         startDate: string;
@@ -422,6 +490,31 @@ export class Api<
      * No description
      *
      * @tags Tracking
+     * @name TrackingGetEmployeeProjectsByPeriod
+     * @summary Get employee projects by period
+     * @request GET:/api/time/tracking/task-entries/projects
+     */
+    trackingGetEmployeeProjectsByPeriod: (
+      query: {
+        /** @format date */
+        startDate: string;
+        /** @format date */
+        endDate: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<ProjectsResponse, any>({
+        path: `/api/time/tracking/task-entries/projects`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Tracking
      * @name TrackingHardDeleteWorkEntry
      * @summary Deletes specific work entry
      * @request DELETE:/api/time/tracking/work-entries/{workEntryId}/hard-delete
@@ -432,6 +525,21 @@ export class Api<
     ) =>
       this.request<void, any>({
         path: `/api/time/tracking/work-entries/${workEntryId}/hard-delete`,
+        method: "DELETE",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Tracking
+     * @name TrackingHardDeleteEntry
+     * @summary Deletes specific entry
+     * @request DELETE:/api/time/tracking/entries/{entryId}/hard-delete
+     */
+    trackingHardDeleteEntry: (entryId: number, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/time/tracking/entries/${entryId}/hard-delete`,
         method: "DELETE",
         ...params,
       }),

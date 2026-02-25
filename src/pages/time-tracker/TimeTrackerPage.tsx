@@ -36,7 +36,7 @@ export function TimeTrackerPage() {
     </>
   )
 
-  // Trigger to reload the workEntry state after adding or updating a work entry
+  // Trigger to reload the entries state after adding or updating a work entry
   function handleTriggerReloadState() {
     setIsOpenModal(false)
     setTriggerReloadState(!triggerReloadState)
