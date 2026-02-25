@@ -28,7 +28,7 @@ function onCloseModalTests() {
   it(`
   GIVEN opened entry modal
   WHEN isExistingEntry = false
-  SHOULD type select not be disabled 
+  SHOULD not disabled type select
   `, () => {
     mountComponent()
     
@@ -39,7 +39,7 @@ function onCloseModalTests() {
   it(`
   GIVEN opened entry modal
   WHEN isExistingEntry = true
-  SHOULD type select be disabled
+  SHOULD disabled type select
   `, () => {
     mountComponent({
       isExistingEntry: true,
