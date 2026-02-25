@@ -42,8 +42,7 @@ export interface CreateUnwellResponse {
 export type EntryType = number;
 
 export interface GetEntriesByPeriodResponse {
-  workEntries: TaskEntryDto[];
-  taskEntries: any[];
+  taskEntries: TaskEntryDto[];
   unwellEntries: UnwellEntryDto[];
 }
 
@@ -289,52 +288,6 @@ export class Api<
      * No description
      *
      * @tags Tracking
-     * @name TrackingGetWorkEntriesByPeriod
-     * @summary Get work entries by period
-     * @request GET:/api/time/tracking/work-entries
-     */
-    trackingGetWorkEntriesByPeriod: (
-      query: {
-        /** @format date */
-        startDate: string;
-        /** @format date */
-        endDate: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<GetEntriesByPeriodResponse, any>({
-        path: `/api/time/tracking/work-entries`,
-        method: "GET",
-        query: query,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Tracking
-     * @name TrackingCreateWorkEntry
-     * @summary Create a work entry
-     * @request POST:/api/time/tracking/work-entries
-     */
-    trackingCreateWorkEntry: (
-      data: CreateTaskEntryRequest,
-      params: RequestParams = {},
-    ) =>
-      this.request<CreateTaskEntryResponse, any>({
-        path: `/api/time/tracking/work-entries`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Tracking
      * @name TrackingGetEntriesByPeriod
      * @summary Get entries by period
      * @request GET:/api/time/tracking/entries
@@ -402,27 +355,6 @@ export class Api<
      * No description
      *
      * @tags Tracking
-     * @name TrackingUpdateWorkEntry
-     * @summary Update a work entry
-     * @request POST:/api/time/tracking/work-entries/{workEntryId}
-     */
-    trackingUpdateWorkEntry: (
-      workEntryId: number,
-      data: UpdateTaskEntryRequest,
-      params: RequestParams = {},
-    ) =>
-      this.request<void, any>({
-        path: `/api/time/tracking/work-entries/${workEntryId}`,
-        method: "POST",
-        body: data,
-        type: ContentType.Json,
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Tracking
      * @name TrackingUpdateTaskEntry
      * @summary Update a task entry
      * @request POST:/api/time/tracking/task-entries/{taskEntryId}
@@ -465,31 +397,6 @@ export class Api<
      * No description
      *
      * @tags Tracking
-     * @name TrackingGetEmployeeProjectsByPeriodForWorkEntries
-     * @summary Get employee projects by period
-     * @request GET:/api/time/tracking/work-entries/projects
-     */
-    trackingGetEmployeeProjectsByPeriodForWorkEntries: (
-      query: {
-        /** @format date */
-        startDate: string;
-        /** @format date */
-        endDate: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<ProjectsResponse, any>({
-        path: `/api/time/tracking/work-entries/projects`,
-        method: "GET",
-        query: query,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Tracking
      * @name TrackingGetEmployeeProjectsByPeriod
      * @summary Get employee projects by period
      * @request GET:/api/time/tracking/task-entries/projects
@@ -508,24 +415,6 @@ export class Api<
         method: "GET",
         query: query,
         format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags Tracking
-     * @name TrackingHardDeleteWorkEntry
-     * @summary Deletes specific work entry
-     * @request DELETE:/api/time/tracking/work-entries/{workEntryId}/hard-delete
-     */
-    trackingHardDeleteWorkEntry: (
-      workEntryId: number,
-      params: RequestParams = {},
-    ) =>
-      this.request<void, any>({
-        path: `/api/time/tracking/work-entries/${workEntryId}/hard-delete`,
-        method: "DELETE",
         ...params,
       }),
 
