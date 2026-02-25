@@ -9,6 +9,7 @@ export class TimeTrackerPage {
       .first()
       .find(`.rbc-time-slot`)
       .first()
+      .scrollIntoView()
       .click({
         force: true, 
       })
@@ -114,6 +115,7 @@ export class TimeTrackerPage {
       .first()
       .find(`.rbc-time-slot`)
       .first()
+      .scrollIntoView()
       .click({
         force: true, 
       })
