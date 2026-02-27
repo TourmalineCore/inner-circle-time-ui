@@ -1,6 +1,6 @@
-import { TaskEntryState } from "./state/TaskEntryState"
-import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
-import { TaskEntryContainer } from "./TaskEntryContainer"
+import { EntryType } from "../../../../../../common/constants/entryType"
+import { TaskEntryData } from "../../../../types"
+import { EntryModal } from "../../EntryModal"
 
 describe(`TaskEntryContainer`, () => {   
   describe(`Request Tests`, RequestTests)
@@ -8,28 +8,6 @@ describe(`TaskEntryContainer`, () => {
 })
 
 function RequestTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-
-    taskEntryState.setTitle({
-      title: `Title`,
-    })
-
-    taskEntryState.setTaskId({
-      taskId: `TaskId`,
-    })
-
-    taskEntryState.setDescription({
-      description: `Description`,
-    })
-
-    setDateAndTime({
-      taskEntryState,
-    })
-  })
-
   it(`
   GIVEN opened task entry 
   WHEN click on submit button
@@ -46,7 +24,9 @@ function RequestTests() {
       .as(`addTaskEntry`)
 
     mountComponent({
-      taskEntryState,
+      title: `Test title`,
+      taskId: `Test taskId`,
+      description: `Test description`,
     })
     
     cy
@@ -62,25 +42,13 @@ function RequestTests() {
 }
 
 function setErrorTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-
-    setDateAndTime({
-      taskEntryState,
-    })
-  })
-
   it(`
   GIVEN opened task entry 
   WHEN click on submit button
   AND there are invalid fields
   SHOULD display error message
   `, () => {
-    mountComponent({
-      taskEntryState,
-    })
+    mountComponent()
 
     cy
       .contains(`Add Task`)
@@ -106,21 +74,11 @@ function setErrorTests() {
           },
         },
       )
-      
-    taskEntryState.setTitle({
-      title: `Task name`,
-    })
-
-    taskEntryState.setTaskId({
-      taskId: `1`,
-    })
-    
-    taskEntryState.setDescription({
-      description: `Task description`,
-    })
     
     mountComponent({
-      taskEntryState,
+      title: `Test title`,
+      taskId: `Test taskId`,
+      description: `Test description`,
     })
 
     cy
@@ -132,37 +90,30 @@ function setErrorTests() {
 }
 
 function mountComponent({
-  taskEntryState,
-}: {
-  taskEntryState: TaskEntryState,
-}) {
-
+  title,
+  taskId,
+  description,
+}: Partial<TaskEntryData> = {}) {
   const handleTriggerReloadState = cy
     .spy()
     .as(`handleTriggerReloadState`)
 
   cy
     .mount(
-      <TaskEntryStateContext.Provider value={taskEntryState}>
-        <TaskEntryContainer 
-          handleTriggerReloadState={handleTriggerReloadState}
-        />
-      </TaskEntryStateContext.Provider>,
+      <EntryModal 
+        currentEntry={{
+          id: undefined,
+          title,
+          taskId,
+          project: undefined,
+          description,
+          type: EntryType.TASK,
+          date: new Date(`2025-11-27T09:00:00`),
+          start: new Date(`2025-11-27T09:00:00`),
+          end: new Date(`2025-11-27T11:30:00`),
+        }}
+        onClose={() => {}}
+        handleTriggerReloadState={handleTriggerReloadState}
+      />,
     )
-}
-
-function setDateAndTime({
-  taskEntryState,
-}: {
-  taskEntryState: TaskEntryState,
-}) {
-  taskEntryState.setDate({
-    date: new Date(`2025-11-27T09:00:00`),
-  })
-  taskEntryState.setStartTime({
-    startTime: new Date(`2025-11-27T09:00:00`),
-  })
-  taskEntryState.setEndTime({
-    endTime: new Date(`2025-11-27T11:30:00`),
-  })
 }

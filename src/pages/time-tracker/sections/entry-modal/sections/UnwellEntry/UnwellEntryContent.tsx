@@ -9,16 +9,11 @@ import DatePicker from 'react-datepicker'
 import InputMask from 'react-input-mask'
 import { formatTime, parseTimeString } from '../../../../utils/date-and-time'
 
-export const UnwellEntryContent = observer(({
-  onSubmitUnwellEntryAsync,
-}: {
-  onSubmitUnwellEntryAsync: () => unknown,
-}) => {
+export const UnwellEntryContent = observer(() => {
   const unwellEntryState = useContext(UnwellEntryStateContext)
 
   const {
     unwellEntryData,
-    error, 
   } = unwellEntryState
 
   const {
@@ -39,8 +34,10 @@ export const UnwellEntryContent = observer(({
             className='unwell-entry__date-field'
             selected={date}
             dateFormat="dd.MM"
-            onChange={(date) => unwellEntryState.setDate({
-              date: date as Date,
+            onChange={(date) => unwellEntryState.updateUnwellEntryData({
+              unwellEntryData: {
+                date,
+              },
             })}
             onKeyDown={(e) => e.preventDefault()}
           />
@@ -54,11 +51,13 @@ export const UnwellEntryContent = observer(({
               value={formatTime({
                 time: start!,
               })}
-              onChange={(e) => unwellEntryState.setStartTime({
-                startTime: parseTimeString({
-                  timeString: e.target.value,
-                  originalDate: start!,
-                }),
+              onChange={(e) => unwellEntryState.updateUnwellEntryData({
+                unwellEntryData: {
+                  start: parseTimeString({
+                    timeString: e.target.value,
+                    originalDate: start!,
+                  }),
+                },
               })}
             />
             {`-`}
@@ -70,34 +69,18 @@ export const UnwellEntryContent = observer(({
               value={formatTime({
                 time: end!,
               })}
-              onChange={(e) => unwellEntryState.setEndTime({
-                endTime: parseTimeString({
-                  timeString: e.target.value,
-                  originalDate: end!,
-                }),
+              onChange={(e) => unwellEntryState.updateUnwellEntryData({
+                unwellEntryData: {
+                  end: parseTimeString({
+                    timeString: e.target.value,
+                    originalDate: end!,
+                  }),
+                },
               })}
             />
           </div>
         </div>
       </div>
-      { 
-        error && (
-          <span className='unwell-entry__error'>
-            {error}
-          </span>
-        )
-      }
-      <button
-        data-cy="submit-button"
-        className='unwell-entry__submit'
-        type='submit'
-        onClick={() => onSubmitUnwellEntryAsync()}
-      >
-        {unwellEntryData.id
-          ? `Update`
-          : `Add`
-        }
-      </button>
     </div>
   )
 },

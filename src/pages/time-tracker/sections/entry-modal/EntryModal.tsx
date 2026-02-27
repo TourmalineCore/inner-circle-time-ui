@@ -1,12 +1,67 @@
-import { useEffect, useMemo} from "react"
+import { ReactNode, useEffect, useMemo } from "react"
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 import { EntryModalState } from "./state/EntryModalState"
 import { TrackedEntry } from "../../types"
 import { EntryType } from "../../../../common/constants/entryType"
 import { observer } from "mobx-react-lite"
-import { TaskEntry } from "./sections/TaskEntry/TaskEntry"
-import { UnwellEntry } from "./sections/UnwellEntry/UnwellEntry"
+import axios from "axios"
+import { TASK_ENTRY_STRATEGY } from "./sections/TaskEntry/strategy"
+import { UNWELL_ENTRY_STRATEGY } from "./sections/UnwellEntry/strategy"
+
+export type EntryStrategy = {
+  state: any,
+  StateContext: React.Context<any>,
+  setEntryData: ({
+    entryData,
+    state,
+  }: {
+    entryData: TrackedEntry,
+    state: any,
+  }) => unknown,
+  EntryContent: ReactNode,
+  clientValidation: ({
+    state,
+  }: {
+    state: any,
+  }) => boolean,
+  getRequestData: ({
+    state,
+  }: {
+    state: any,
+  }) => unknown,
+  createEntryAsync: ({
+    requestData,
+  }: {
+    requestData: any,
+  }) => Promise<unknown>,
+  updateEntryAsync: ({
+    id,
+    requestData,
+  }: {
+    id: number,
+    requestData: any,
+  }) => Promise<unknown>,
+  loadProjectsAsync?: ({
+    state,
+  }: {
+    state: any,
+  }) => unknown,
+  finally?: ({
+    state,
+  }: {
+    state: any,
+  }) => unknown,
+  buttonLabels: {
+    create: string,
+    update: string,
+  },
+}
+
+const ENTRY_TYPES: Record<EntryType, EntryStrategy> = {
+  [EntryType.TASK]: TASK_ENTRY_STRATEGY,
+  [EntryType.UNWELL]: UNWELL_ENTRY_STRATEGY,
+}
 
 export const EntryModal = observer(({
   currentEntry,
@@ -32,45 +87,111 @@ export const EntryModal = observer(({
         type: currentEntry.type,
       })
     }
-  }, [])
+  }, [
+    currentEntry.type,
+  ])
+
+  const entry = ENTRY_TYPES[currentEntry?.type || type]
+
+  const entryState = useMemo(() => {
+    const state = new entry.state()
+
+    entry.setEntryData({
+      entryData: currentEntry,
+      state: state,
+    })
+  
+    return state
+  }, [
+    type,
+  ])
+
+  useEffect(() => {
+    entry.loadProjectsAsync?.({
+      state: entryState,
+    })
+  }, [
+    type,
+  ])
+
+  const StateContext = entry.StateContext
+
+  const isExistingEntry = !!currentEntry.id
   
   return (
     <EntryModalStateContext.Provider value={entryModalState}>
-      <EntryModalContent
-        onClose={onClose}
-        isExistingEntry={!!currentEntry.id}
-      >        
-        {
-          type == EntryType.TASK && (
-            <TaskEntry 
-              taskEntry={{
-                id: currentEntry?.id,
-                date: currentEntry.date,
-                start: currentEntry.start,
-                end: currentEntry.end,
-                title: currentEntry.title || ``,
-                projectId: currentEntry.project?.id || 0,
-                taskId: currentEntry.taskId || ``,
-                description: currentEntry.description || ``,
-              }}
-              handleTriggerReloadState={handleTriggerReloadState}
-            />
-          )
-        }
-        {
-          type == EntryType.UNWELL && (
-            <UnwellEntry 
-              unwellEntry={{
-                id: currentEntry?.id,
-                date: currentEntry.date,
-                start: currentEntry.start,
-                end: currentEntry.end,
-              }}
-              handleTriggerReloadState={handleTriggerReloadState}
-            />
-          )
-        }
-      </EntryModalContent>
+      <StateContext.Provider value={entryState}>
+        <EntryModalContent
+          onClose={onClose}
+          isExistingEntry={isExistingEntry}
+        >        
+          {entry.EntryContent}
+          { 
+            entryState.error && (
+              <span className='entry-modal__error'>
+                {entryState.error}
+              </span>
+            )
+          }
+          <button
+            data-cy="submit-button"
+            className='entry-modal__submit'
+            type='submit'
+            onClick={() => onSubmitEntry()}
+          >
+            {isExistingEntry
+              ? entry.buttonLabels.update
+              : entry.buttonLabels.create
+            }
+          </button>
+        </EntryModalContent>
+      </StateContext.Provider>
     </EntryModalStateContext.Provider>
   )
+
+  async function onSubmitEntry() {
+    const isValid = entry.clientValidation({
+      state: entryState,
+    })
+
+    if (!isValid) {
+      return
+    }
+    
+    try {
+      const requestData = entry.getRequestData({
+        state: entryState,
+      })
+
+      if (currentEntry.id) {
+        await entry.updateEntryAsync({
+          id: currentEntry.id,
+          requestData,
+        })
+      }
+      else {
+        await entry.createEntryAsync({
+          requestData,
+        })
+      }
+
+      handleTriggerReloadState()
+
+      entryState.resetError()
+    }
+    catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          entryState.setError({
+            error: error.response.data.detail,
+          })
+        }
+      }
+    }
+    finally {
+      entry.finally?.({
+        state: entryState,
+      })
+    }
+  }
 })

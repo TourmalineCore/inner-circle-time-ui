@@ -9,17 +9,12 @@ import DatePicker from 'react-datepicker'
 import InputMask from 'react-input-mask'
 import { formatTime, parseTimeString } from '../../../../utils/date-and-time'
 
-export const TaskEntryContent = observer(({
-  onSubmitTaskEntryAsync,
-}: {
-  onSubmitTaskEntryAsync: () => unknown,
-}) => {
+export const TaskEntryContent = observer(() => {
   const taskEntryState = useContext(TaskEntryStateContext)
 
   const {
     taskEntryData,
     errors,
-    error, 
   } = taskEntryState
 
   const {
@@ -27,7 +22,8 @@ export const TaskEntryContent = observer(({
     isTaskIdError,
     isDescriptionError,
   } = errors
- 
+  // eslint-disable-next-line no-console
+  console.log(errors)
   const {
     title,
     projectId,
@@ -48,8 +44,10 @@ export const TaskEntryContent = observer(({
           name='project'
           data-cy="project-select"
           value={projectId}
-          onChange={(e) => taskEntryState.setProjectId({
-            projectId: Number(e.target.value),
+          onChange={(e) => taskEntryState.updateUnwellEntryData({
+            taskEntryData: {
+              projectId: Number(e.target.value),
+            },
           })}
         >
           {taskEntryState.projects.map(({
@@ -76,8 +74,10 @@ export const TaskEntryContent = observer(({
           name="taskId" 
           data-cy="task-id-input"
           value={taskId} 
-          onChange={(e) => taskEntryState.setTaskId({
-            taskId: e.target.value,
+          onChange={(e) => taskEntryState.updateUnwellEntryData({
+            taskEntryData: {
+              taskId: e.target.value,
+            },
           })}
           className={`${isTaskIdError
             ? `error` 
@@ -94,8 +94,10 @@ export const TaskEntryContent = observer(({
           name="title" 
           data-cy="title-input"
           value={title} 
-          onChange={(e) => taskEntryState.setTitle({
-            title: e.target.value,
+          onChange={(e) => taskEntryState.updateUnwellEntryData({
+            taskEntryData: {
+              title: e.target.value,
+            },
           })}
           className={`${isTitleError
             ? `error` 
@@ -111,8 +113,10 @@ export const TaskEntryContent = observer(({
           name="description" 
           data-cy="description-input"
           value={description} 
-          onChange={(e) => taskEntryState.setDescription({
-            description: e.target.value,
+          onChange={(e) => taskEntryState.updateUnwellEntryData({
+            taskEntryData: {
+              description: e.target.value,
+            },
           })}
           className={`task-entry__description ${isDescriptionError
             ? `error` 
@@ -130,8 +134,10 @@ export const TaskEntryContent = observer(({
             className='task-entry__date-field'
             selected={date}
             dateFormat="dd.MM"
-            onChange={(date) => taskEntryState.setDate({
-              date: date as Date,
+            onChange={(date) => taskEntryState.updateUnwellEntryData({
+              taskEntryData: {
+                date,
+              },
             })}
             onKeyDown={(e) => e.preventDefault()}
           />
@@ -145,11 +151,13 @@ export const TaskEntryContent = observer(({
               value={formatTime({
                 time: start!,
               })}
-              onChange={(e) => taskEntryState.setStartTime({
-                startTime: parseTimeString({
-                  timeString: e.target.value,
-                  originalDate: start!,
-                }),
+              onChange={(e) => taskEntryState.updateUnwellEntryData({
+                taskEntryData: {
+                  start: parseTimeString({
+                    timeString: e.target.value,
+                    originalDate: start!,
+                  }),
+                },
               })}
             />
             {`-`}
@@ -161,34 +169,18 @@ export const TaskEntryContent = observer(({
               value={formatTime({
                 time: end!,
               })}
-              onChange={(e) => taskEntryState.setEndTime({
-                endTime: parseTimeString({
-                  timeString: e.target.value,
-                  originalDate: end!,
-                }),
+              onChange={(e) => taskEntryState.updateUnwellEntryData({
+                taskEntryData: {
+                  end: parseTimeString({
+                    timeString: e.target.value,
+                    originalDate: end!,
+                  }),
+                },
               })}
             />
           </div>
         </div>
       </div>
-      { 
-        error && (
-          <span className='task-entry__error'>
-            {error}
-          </span>
-        )
-      }
-      <button
-        data-cy="submit-button"
-        className='task-entry__submit'
-        type='submit'
-        onClick={() => onSubmitTaskEntryAsync()}
-      >
-        {taskEntryData.id
-          ? `Update Task`
-          : `Add Task`
-        }
-      </button>
     </div>
   )
 },
