@@ -117,8 +117,10 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
     })
   
     if (projectId === EMPTY_TASK_ENTRY_DATA.projectId) {
-      state.setProjectId({
-        projectId: projects[0].id,
+      state.updateUnwellEntryData({
+        taskEntryData: {
+          projectId: projects[0].id,
+        },
       })
     }
   },
@@ -143,37 +145,16 @@ function setTaskEntryData({
   entryData: TrackedEntry,
   state: TaskEntryState,
 }) {
-  state.setDate({
-    date: entryData.start,
+  state.updateUnwellEntryData({
+    taskEntryData: {
+      id: entryData?.id,
+      title: entryData.title || ``,
+      taskId: entryData.taskId || ``,
+      description: entryData.description || ``,
+      projectId: entryData.project?.id || 0,
+      date: entryData.start,
+      start: entryData.start,
+      end:entryData.end,
+    },
   })
-
-  state.setStartTime({
-    startTime: entryData.start,
-  })
-    
-  state.setEndTime({
-    endTime: entryData.end,
-  })
-
-  if (entryData.id) {
-    state.setId({
-      id: entryData.id,
-    })
-
-    state.setTitle({
-      title: entryData.title!,
-    })
-
-    state.setTaskId({
-      taskId: entryData.taskId!,
-    })
-
-    state.setDescription({
-      description: entryData.description!,
-    })
-
-    state.setProjectId({
-      projectId: entryData.project!.id!,
-    })
-  }
 }

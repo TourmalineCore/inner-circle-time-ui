@@ -115,13 +115,15 @@ export const EntryModal = observer(({
   ])
 
   const StateContext = entry.StateContext
+
+  const isExistingEntry = !!currentEntry.id
   
   return (
     <EntryModalStateContext.Provider value={entryModalState}>
       <StateContext.Provider value={entryState}>
         <EntryModalContent
           onClose={onClose}
-          isExistingEntry={!!currentEntry.id}
+          isExistingEntry={isExistingEntry}
         >        
           {entry.EntryContent}
           { 
@@ -137,7 +139,7 @@ export const EntryModal = observer(({
             type='submit'
             onClick={() => onSubmitEntry()}
           >
-            {currentEntry.id
+            {isExistingEntry
               ? entry.buttonLabels.update
               : entry.buttonLabels.create
             }

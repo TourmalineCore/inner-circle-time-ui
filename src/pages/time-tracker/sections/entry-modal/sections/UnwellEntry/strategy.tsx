@@ -17,23 +17,14 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
     entryData: TrackedEntry,
     state: UnwellEntryState,
   }) => {
-    state.setDate({
-      date: entryData.start,
+    state.updateUnwellEntryData({
+      unwellEntryData: {
+        id: entryData?.id,
+        date: entryData.start,
+        start: entryData.start,
+        end: entryData.end,
+      },
     })
-
-    state.setStartTime({
-      startTime: entryData.start,
-    })
-    
-    state.setEndTime({
-      endTime: entryData.end,
-    })
-    
-    if (entryData.id) {
-      state.setId({
-        id: entryData.id, 
-      })
-    }
   }, 
   EntryContent: <UnwellEntryContent />,
   clientValidation: () => true,
