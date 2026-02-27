@@ -1,7 +1,6 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
 import { TaskEntryData } from "../../../../types"
 import { EntryModal } from "../../EntryModal"
-import { TaskEntryState } from "./state/TaskEntryState"
 
 describe(`TaskEntryContainer`, () => {   
   describe(`Request Tests`, RequestTests)
