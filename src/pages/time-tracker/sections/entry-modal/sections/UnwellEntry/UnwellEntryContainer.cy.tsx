@@ -1,6 +1,5 @@
-import { UnwellEntryState } from "./state/UnwellEntryState"
-import { UnwellEntryStateContext } from "./state/UnwellEntryStateContext"
-import { UnwellEntryContainer } from "./UnwellEntryContainer"
+import { EntryType } from "../../../../../../common/constants/entryType"
+import { EntryModal } from "../../EntryModal"
 
 describe(`UnwellEntryContainer`, () => {   
   describe(`Request Tests`, RequestTests)
@@ -8,16 +7,6 @@ describe(`UnwellEntryContainer`, () => {
 })
 
 function RequestTests() {
-  let unwellEntryState: UnwellEntryState
-
-  beforeEach(() => {
-    unwellEntryState = new UnwellEntryState()
-
-    setDateAndTime({
-      unwellEntryState,
-    })
-  })
-
   it(`
   GIVEN opened unwell entry 
   WHEN click on submit button
@@ -33,9 +22,7 @@ function RequestTests() {
       )
       .as(`addUnwellEntry`)
 
-    mountComponent({
-      unwellEntryState,
-    })
+    mountComponent()
     
     cy
       .contains(`Add`)
@@ -50,16 +37,6 @@ function RequestTests() {
 }
 
 function setErrorTests() {
-  let unwellEntryState: UnwellEntryState
-
-  beforeEach(() => {
-    unwellEntryState = new UnwellEntryState()
-
-    setDateAndTime({
-      unwellEntryState,
-    })
-  })
-
   it(`
   GIVEN opened unwell entry 
   WHEN click on submit button
@@ -78,9 +55,7 @@ function setErrorTests() {
         },
       )
     
-    mountComponent({
-      unwellEntryState,
-    })
+    mountComponent()
 
     cy
       .contains(`Add`)
@@ -90,11 +65,7 @@ function setErrorTests() {
   })
 }
 
-function mountComponent({
-  unwellEntryState,
-}: {
-  unwellEntryState: UnwellEntryState,
-}) {
+function mountComponent() {
 
   const handleTriggerReloadState = cy
     .spy()
@@ -102,24 +73,20 @@ function mountComponent({
 
   cy
     .mount(
-      <UnwellEntryStateContext.Provider value={unwellEntryState}>
-        <UnwellEntryContainer 
-          handleTriggerReloadState={handleTriggerReloadState}  
-        />
-      </UnwellEntryStateContext.Provider>,
+      <EntryModal 
+        currentEntry={{
+          id: undefined,
+          title: undefined,
+          taskId: undefined,
+          project: undefined,
+          description: undefined,
+          type: EntryType.UNWELL,
+          date: new Date(`2025-11-27T09:00:00`),
+          start: new Date(`2025-11-27T09:00:00`),
+          end: new Date(`2025-11-27T11:30:00`),
+        }}
+        onClose={() => {}}
+        handleTriggerReloadState={handleTriggerReloadState}
+      />,
     )
-}
-
-function setDateAndTime({
-  unwellEntryState,
-}: {
-  unwellEntryState: UnwellEntryState,
-}) {
-  unwellEntryState.updateUnwellEntryData({
-    unwellEntryData: {
-      date: new Date(`2025-11-27T09:00:00`),
-      start: new Date(`2025-11-27T09:00:00`),
-      end: new Date(`2025-11-27T11:30:00`),
-    },
-  })
 }

@@ -1,4 +1,5 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
+import { TaskEntryData } from "../../../../types"
 import { EntryModal } from "../../EntryModal"
 import { TaskEntryState } from "./state/TaskEntryState"
 
@@ -8,28 +9,6 @@ describe(`TaskEntryContainer`, () => {
 })
 
 function RequestTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-
-    taskEntryState.setTitle({
-      title: `Title`,
-    })
-
-    taskEntryState.setTaskId({
-      taskId: `TaskId`,
-    })
-
-    taskEntryState.setDescription({
-      description: `Description`,
-    })
-
-    setDateAndTime({
-      taskEntryState,
-    })
-  })
-
   it(`
   GIVEN opened task entry 
   WHEN click on submit button
@@ -45,7 +24,11 @@ function RequestTests() {
       )
       .as(`addTaskEntry`)
 
-    mountComponent()
+    mountComponent({
+      title: `Test title`,
+      taskId: `Test taskId`,
+      description: `Test description`,
+    })
     
     cy
       .contains(`Add Task`)
@@ -60,16 +43,6 @@ function RequestTests() {
 }
 
 function setErrorTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-
-    setDateAndTime({
-      taskEntryState,
-    })
-  })
-
   it(`
   GIVEN opened task entry 
   WHEN click on submit button
@@ -102,20 +75,12 @@ function setErrorTests() {
           },
         },
       )
-      
-    taskEntryState.setTitle({
-      title: `Task name`,
-    })
-
-    taskEntryState.setTaskId({
-      taskId: `1`,
-    })
     
-    taskEntryState.setDescription({
-      description: `Task description`,
+    mountComponent({
+      title: `Test title`,
+      taskId: `Test taskId`,
+      description: `Test description`,
     })
-    
-    mountComponent()
 
     cy
       .contains(`Add Task`)
@@ -125,7 +90,11 @@ function setErrorTests() {
   })
 }
 
-function mountComponent() {
+function mountComponent({
+  title,
+  taskId,
+  description,
+}: Partial<TaskEntryData> = {}) {
   const handleTriggerReloadState = cy
     .spy()
     .as(`handleTriggerReloadState`)
@@ -135,10 +104,10 @@ function mountComponent() {
       <EntryModal 
         currentEntry={{
           id: undefined,
-          title: undefined,
-          taskId: undefined,
+          title,
+          taskId,
           project: undefined,
-          description: undefined,
+          description,
           type: EntryType.TASK,
           date: new Date(`2025-11-27T09:00:00`),
           start: new Date(`2025-11-27T09:00:00`),
@@ -148,20 +117,4 @@ function mountComponent() {
         handleTriggerReloadState={handleTriggerReloadState}
       />,
     )
-}
-
-function setDateAndTime({
-  taskEntryState,
-}: {
-  taskEntryState: TaskEntryState,
-}) {
-  taskEntryState.setDate({
-    date: new Date(`2025-11-27T09:00:00`),
-  })
-  taskEntryState.setStartTime({
-    startTime: new Date(`2025-11-27T09:00:00`),
-  })
-  taskEntryState.setEndTime({
-    endTime: new Date(`2025-11-27T11:30:00`),
-  })
 }
