@@ -41,30 +41,52 @@ function settersTests() {
   SHOULD return updated id
   `, () => {
     const id = 1
+    const projectId = 1
+    const title = `Task 1`
+    const taskId = `#1fre33`
+    const description = `Task description`
+    const testDate = new Date(`2025-11-24`)
 
-    taskEntryState.setId({
-      id,
+    taskEntryState.updateUnwellEntryData({
+      taskEntryData: {
+        id,
+        projectId,
+        title,
+        taskId,
+        description,
+        date: testDate,
+        start: testDate,
+        end: testDate,
+      },
     })
 
     expect(taskEntryState.taskEntryData.id)
       .to
       .eq(id)
-  })
-
-  it(`
-  GIVEN a state with default projectId
-  WHEN set projectId 
-  SHOULD return updated projectId
-  `, () => {
-    const projectId = 1
-
-    taskEntryState.setProjectId({
-      projectId,
-    })
 
     expect(taskEntryState.taskEntryData.projectId)
       .to
       .eq(projectId)
+
+    expect(taskEntryState.taskEntryData.title)
+      .to
+      .eq(title)
+
+    expect(taskEntryState.taskEntryData.taskId)
+      .to
+      .eq(taskId)
+
+    expect(taskEntryState.taskEntryData.description)
+      .to
+      .eq(description)
+
+    expect(taskEntryState.taskEntryData.start)
+      .to
+      .eq(testDate)
+
+    expect(taskEntryState.taskEntryData.end)
+      .to
+      .eq(testDate)
   })
 
   it(`
@@ -88,102 +110,6 @@ function settersTests() {
       .deep
       .eq(projects)
   })
-
-  it(`
-  GIVEN a state with default title
-  WHEN set title 
-  SHOULD return updated title
-  `, () => {
-    const title = `Task 1`
-
-    taskEntryState.setTitle({
-      title,
-    })
-
-    expect(taskEntryState.taskEntryData.title)
-      .to
-      .eq(title)
-  })
-
-  it(`
-  GIVEN a state with default taskId
-  WHEN set taskId 
-  SHOULD return updated taskId
-  `, () => {
-    const taskId = `#1fre33`
-
-    taskEntryState.setTaskId({
-      taskId,
-    })
-    
-    expect(taskEntryState.taskEntryData.taskId)
-      .to
-      .eq(taskId)
-  })
-
-  it(`
-  GIVEN a state with default description
-  WHEN set description 
-  SHOULD return updated description
-  `, () => {
-    const description = `Task description`
-
-    taskEntryState.setDescription({
-      description,
-    })
-    
-    expect(taskEntryState.taskEntryData.description)
-      .to
-      .eq(description)
-  })
-
-  it(`
-  GIVEN a state with default date
-  WHEN set date 
-  SHOULD return updated date
-  `, () => {
-    const date = new Date(`2025-11-24`)
-
-    taskEntryState.setDate({
-      date,
-    })
-    
-    expect(taskEntryState.taskEntryData.date)
-      .to
-      .eq(date)
-  })
-
-  it(`
-  GIVEN a state with default startTime
-  WHEN set startTime 
-  SHOULD return updated startTime
-  `, () => {
-    const startTime = new Date(`2025-11-24`)
-
-    taskEntryState.setStartTime({
-      startTime: startTime,
-    }) 
-    
-    expect(taskEntryState.taskEntryData.start)
-      .to
-      .eq(startTime)
-  })
-
-  it(`
-  GIVEN a state with default endTime
-  WHEN set endTime 
-  SHOULD return updated endTime
-  `, () => {
-    const endTime = new Date(`2025-11-24`)
-    
-    taskEntryState.setEndTime({
-      endTime,
-    })
-
-    expect(taskEntryState.taskEntryData.end)
-      .to
-      .eq(endTime)
-  })
 }
 
 function resetTests() {
@@ -191,33 +117,19 @@ function resetTests() {
 
   beforeEach(() => {
     taskEntryState = new TaskEntryState()
+    const testDate = new Date(`2025-11-24`)
 
-    taskEntryState.setId({
-      id: 1,
-    })
-
-    taskEntryState.setTitle({
-      title: `Title`,
-    })
-
-    taskEntryState.setTaskId({
-      taskId: `1`,
-    })
-
-    taskEntryState.setDescription({
-      description: `Task description`,
-    })
-
-    taskEntryState.setDate({
-      date: new Date(`2025-11-27T09:00:00`),
-    })
-
-    taskEntryState.setStartTime({
-      startTime: new Date(`2025-11-27T09:00:00`),
-    })
-
-    taskEntryState.setEndTime({
-      endTime: new Date(`2025-11-27T11:30:00`),
+    taskEntryState.updateUnwellEntryData({
+      taskEntryData: {
+        id: 1,
+        projectId: 1,
+        title: `Task 1`,
+        taskId: `#1fre33`,
+        description: `Task description`,
+        date: testDate,
+        start: testDate,
+        end: testDate,
+      },
     })
   })
 }
@@ -240,6 +152,7 @@ function validationTests() {
       .to
       .be
       .false
+
     expect(taskEntryState.errors.isTitleError)
       .to
       .be
@@ -285,14 +198,21 @@ function validationTests() {
   WHEN isValid is activated
   SHOULD return true and all errors should be false
   `, () => {
-    taskEntryState.setTitle({
-      title: `Title`,
-    })
-    taskEntryState.setTaskId({
-      taskId: `TaskId`,
-    })
-    taskEntryState.setDescription({
-      description: `Description`,
+    const id = 1
+    const projectId = 1
+    const date = new Date(`2025-11-24`)
+
+    taskEntryState.updateUnwellEntryData({
+      taskEntryData: {
+        id,
+        projectId,
+        title: `Title`,
+        taskId: `TaskId`,
+        description: `Description`,
+        date,
+        start: date,
+        end: date,
+      },
     })
     
     taskEntryState.setIsTriedToSubmit()

@@ -17,7 +17,18 @@ export function TaskEntry({
   )
 
   useEffect(() => {
-    setTaskEntryData(taskEntry)
+    taskEntryState.updateUnwellEntryData({
+      taskEntryData: {
+        id: taskEntry?.id,
+        title: taskEntry?.title,
+        taskId: taskEntry?.taskId,
+        description: taskEntry?.description,
+        projectId: taskEntry?.projectId,
+        date: taskEntry.date,
+        start: taskEntry.start,
+        end: taskEntry.end,
+      },
+    })
   }, [])
 
   return (
@@ -27,48 +38,4 @@ export function TaskEntry({
       />
     </TaskEntryStateContext.Provider>
   )
-
-  function setTaskEntryData({
-    id,
-    title,
-    taskId,
-    description ,
-    projectId,
-    start,
-    end,
-  }: TaskEntryData) {
-    taskEntryState.setDate({
-      date: start!,
-    })
-
-    taskEntryState.setStartTime({
-      startTime: start!,
-    })
-    
-    taskEntryState.setEndTime({
-      endTime: end!,
-    })
-
-    if (id) {
-      taskEntryState.setId({
-        id,
-      })
-
-      taskEntryState.setTitle({
-        title,
-      })
-
-      taskEntryState.setTaskId({
-        taskId,
-      })
-
-      taskEntryState.setDescription({
-        description,
-      })
-
-      taskEntryState.setProjectId({
-        projectId,
-      })
-    }
-  }
 }
