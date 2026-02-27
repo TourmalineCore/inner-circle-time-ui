@@ -19,11 +19,11 @@ export function TaskEntry({
   useEffect(() => {
     taskEntryState.updateUnwellEntryData({
       taskEntryData: {
-        id: taskEntry?.id,
-        title: taskEntry?.title,
-        taskId: taskEntry?.taskId,
-        description: taskEntry?.description,
-        projectId: taskEntry?.projectId,
+        id: taskEntry.id,
+        title: taskEntry.title,
+        taskId: taskEntry.taskId,
+        description: taskEntry.description,
+        projectId: taskEntry.projectId,
         date: taskEntry.date,
         start: taskEntry.start,
         end: taskEntry.end,
