@@ -9,17 +9,12 @@ import DatePicker from 'react-datepicker'
 import InputMask from 'react-input-mask'
 import { formatTime, parseTimeString } from '../../../../utils/date-and-time'
 
-export const TaskEntryContent = observer(({
-  onSubmitTaskEntryAsync,
-}: {
-  onSubmitTaskEntryAsync: () => unknown,
-}) => {
+export const TaskEntryContent = observer(() => {
   const taskEntryState = useContext(TaskEntryStateContext)
 
   const {
     taskEntryData,
     errors,
-    error, 
   } = taskEntryState
 
   const {
@@ -27,7 +22,8 @@ export const TaskEntryContent = observer(({
     isTaskIdError,
     isDescriptionError,
   } = errors
- 
+  // eslint-disable-next-line no-console
+  console.log(errors)
   const {
     title,
     projectId,
@@ -171,24 +167,6 @@ export const TaskEntryContent = observer(({
           </div>
         </div>
       </div>
-      { 
-        error && (
-          <span className='task-entry__error'>
-            {error}
-          </span>
-        )
-      }
-      <button
-        data-cy="submit-button"
-        className='task-entry__submit'
-        type='submit'
-        onClick={() => onSubmitTaskEntryAsync()}
-      >
-        {taskEntryData.id
-          ? `Update Task`
-          : `Add Task`
-        }
-      </button>
     </div>
   )
 },

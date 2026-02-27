@@ -1,6 +1,6 @@
+import { EntryType } from "../../../../../../common/constants/entryType"
+import { EntryModal } from "../../EntryModal"
 import { TaskEntryState } from "./state/TaskEntryState"
-import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
-import { TaskEntryContainer } from "./TaskEntryContainer"
 
 describe(`TaskEntryContainer`, () => {   
   describe(`Request Tests`, RequestTests)
@@ -45,9 +45,7 @@ function RequestTests() {
       )
       .as(`addTaskEntry`)
 
-    mountComponent({
-      taskEntryState,
-    })
+    mountComponent()
     
     cy
       .contains(`Add Task`)
@@ -78,9 +76,7 @@ function setErrorTests() {
   AND there are invalid fields
   SHOULD display error message
   `, () => {
-    mountComponent({
-      taskEntryState,
-    })
+    mountComponent()
 
     cy
       .contains(`Add Task`)
@@ -119,9 +115,7 @@ function setErrorTests() {
       description: `Task description`,
     })
     
-    mountComponent({
-      taskEntryState,
-    })
+    mountComponent()
 
     cy
       .contains(`Add Task`)
@@ -131,23 +125,28 @@ function setErrorTests() {
   })
 }
 
-function mountComponent({
-  taskEntryState,
-}: {
-  taskEntryState: TaskEntryState,
-}) {
-
+function mountComponent() {
   const handleTriggerReloadState = cy
     .spy()
     .as(`handleTriggerReloadState`)
 
   cy
     .mount(
-      <TaskEntryStateContext.Provider value={taskEntryState}>
-        <TaskEntryContainer 
-          handleTriggerReloadState={handleTriggerReloadState}
-        />
-      </TaskEntryStateContext.Provider>,
+      <EntryModal 
+        currentEntry={{
+          id: undefined,
+          title: undefined,
+          taskId: undefined,
+          project: undefined,
+          description: undefined,
+          type: EntryType.TASK,
+          date: new Date(`2025-11-27T09:00:00`),
+          start: new Date(`2025-11-27T09:00:00`),
+          end: new Date(`2025-11-27T11:30:00`),
+        }}
+        onClose={() => {}}
+        handleTriggerReloadState={handleTriggerReloadState}
+      />,
     )
 }
 

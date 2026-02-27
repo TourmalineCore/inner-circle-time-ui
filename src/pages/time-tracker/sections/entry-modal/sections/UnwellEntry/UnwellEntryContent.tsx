@@ -9,16 +9,11 @@ import DatePicker from 'react-datepicker'
 import InputMask from 'react-input-mask'
 import { formatTime, parseTimeString } from '../../../../utils/date-and-time'
 
-export const UnwellEntryContent = observer(({
-  onSubmitUnwellEntryAsync,
-}: {
-  onSubmitUnwellEntryAsync: () => unknown,
-}) => {
+export const UnwellEntryContent = observer(() => {
   const unwellEntryState = useContext(UnwellEntryStateContext)
 
   const {
     unwellEntryData,
-    error, 
   } = unwellEntryState
 
   const {
@@ -80,24 +75,6 @@ export const UnwellEntryContent = observer(({
           </div>
         </div>
       </div>
-      { 
-        error && (
-          <span className='unwell-entry__error'>
-            {error}
-          </span>
-        )
-      }
-      <button
-        data-cy="submit-button"
-        className='unwell-entry__submit'
-        type='submit'
-        onClick={() => onSubmitUnwellEntryAsync()}
-      >
-        {unwellEntryData.id
-          ? `Update`
-          : `Add`
-        }
-      </button>
     </div>
   )
 },
