@@ -74,21 +74,16 @@ export class TaskEntryState {
   get error() {
     return this._error
   }
-  
-  setId({
-    id,
-  }: {
-    id: number,
-  }) {
-    this._taskEntryData.id = id
-  }
 
-  setProjectId({
-    projectId,
+  updateUnwellEntryData({
+    taskEntryData,
   }: {
-    projectId: number,
+    taskEntryData: Partial<TaskEntryData>,
   }) {
-    this._taskEntryData.projectId = projectId
+    this._taskEntryData = {
+      ...this.taskEntryData,
+      ...taskEntryData, 
+    }
   }
 
   setProjects({
@@ -97,54 +92,6 @@ export class TaskEntryState {
     projects: ProjectDto[],
   }) {
     this._projects = projects
-  }
-
-  setTitle({
-    title,
-  }: {
-    title: string,
-  }) {
-    this._taskEntryData.title = title
-  }
-
-  setTaskId({
-    taskId,
-  }: {
-    taskId: string,
-  }) {
-    this._taskEntryData.taskId = taskId
-  }
-
-  setDescription({
-    description,
-  }: {
-    description: string,
-  }) {
-    this._taskEntryData.description = description
-  }
-
-  setDate({
-    date,
-  }: {
-    date: Date,
-  }) {
-    this._taskEntryData.date = date
-  }
-
-  setStartTime({
-    startTime,
-  }: {
-    startTime: Date,
-  }) {
-    this._taskEntryData.start = startTime
-  }
-
-  setEndTime({
-    endTime,
-  }: {
-    endTime: Date,
-  }) {
-    this._taskEntryData.end = endTime
   }
 
   setIsSaving() {

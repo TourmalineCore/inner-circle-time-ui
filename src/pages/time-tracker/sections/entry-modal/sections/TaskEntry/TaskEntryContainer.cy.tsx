@@ -13,17 +13,13 @@ function RequestTests() {
   beforeEach(() => {
     taskEntryState = new TaskEntryState()
 
-    taskEntryState.setTitle({
-      title: `Title`,
-    })
-
-    taskEntryState.setTaskId({
-      taskId: `TaskId`,
-    })
-
-    taskEntryState.setDescription({
-      description: `Description`,
-    })
+    taskEntryState.updateUnwellEntryData({
+      taskEntryData: {
+        title: `Task name`,
+        taskId: `1`,
+        description: `Task description`,
+      },
+    })  
 
     setDateAndTime({
       taskEntryState,
@@ -107,18 +103,14 @@ function setErrorTests() {
         },
       )
       
-    taskEntryState.setTitle({
-      title: `Task name`,
+    taskEntryState.updateUnwellEntryData({
+      taskEntryData: {
+        title: `Task name`,
+        taskId: `1`,
+        description: `Task description`,
+      },
     })
 
-    taskEntryState.setTaskId({
-      taskId: `1`,
-    })
-    
-    taskEntryState.setDescription({
-      description: `Task description`,
-    })
-    
     mountComponent({
       taskEntryState,
     })
@@ -156,13 +148,11 @@ function setDateAndTime({
 }: {
   taskEntryState: TaskEntryState,
 }) {
-  taskEntryState.setDate({
-    date: new Date(`2025-11-27T09:00:00`),
-  })
-  taskEntryState.setStartTime({
-    startTime: new Date(`2025-11-27T09:00:00`),
-  })
-  taskEntryState.setEndTime({
-    endTime: new Date(`2025-11-27T11:30:00`),
+  taskEntryState.updateUnwellEntryData({
+    taskEntryData: {
+      date: new Date(`2025-11-27T09:00:00`),
+      start: new Date(`2025-11-27T09:00:00`),
+      end: new Date(`2025-11-27T11:30:00`),
+    },
   })
 }

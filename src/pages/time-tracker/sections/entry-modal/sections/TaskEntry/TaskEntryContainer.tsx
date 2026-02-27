@@ -115,8 +115,10 @@ export const TaskEntryContainer = observer(({
     })
 
     if (projectId === EMPTY_TASK_ENTRY_DATA.projectId) {
-      taskEntryState.setProjectId({
-        projectId: projects[0].id,
+      taskEntryState.updateUnwellEntryData({
+        taskEntryData : {
+          projectId: projects[0].id,
+        },
       })
     }
   }
