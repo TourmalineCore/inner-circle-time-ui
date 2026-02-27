@@ -36,9 +36,9 @@ function settersTests() {
   })
 
   it(`
-  GIVEN a state with default id
-  WHEN set id 
-  SHOULD return updated id
+  GIVEN a state with default data
+  WHEN update unwell entry data 
+  SHOULD return updated data
   `, () => {
     const id = 1
     const projectId = 1
