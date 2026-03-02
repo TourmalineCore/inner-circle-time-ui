@@ -21,7 +21,6 @@ export class TaskEntryState {
 
   private _isSaving = false    
   private _isTriedToSubmit = false  
-  private _error = ``  
 
   constructor() {
     makeAutoObservable(this)
@@ -71,11 +70,7 @@ export class TaskEntryState {
     }
   }
 
-  get error() {
-    return this._error
-  }
-
-  updateUnwellEntryData({
+  updateTaskEntryData({
     taskEntryData,
   }: {
     taskEntryData: Partial<TaskEntryData>,
@@ -108,17 +103,5 @@ export class TaskEntryState {
 
   resetIsTriedToSubmit() {
     this._isTriedToSubmit = false
-  }
-
-  setError({
-    error,
-  }: {
-    error: string,
-  }) {
-    this._error = error
-  }
-
-  resetError() {
-    this._error = ``
   }
 }

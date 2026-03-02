@@ -12,18 +12,12 @@ export class UnwellEntryState {
     ...EMPTY_UNWELL_ENTRY_DATA,
   }
 
-  private _error = ``  
-
   constructor() {
     makeAutoObservable(this)
   }
 
   get unwellEntryData() {
     return this._unwellEntryData
-  }
-
-  get error() {
-    return this._error
   }
 
   updateUnwellEntryData({
@@ -35,17 +29,5 @@ export class UnwellEntryState {
       ...this.unwellEntryData,
       ...unwellEntryData, 
     }
-  }
-  
-  setError({
-    error,
-  }: {
-    error: string,
-  }) {
-    this._error = error
-  }
-
-  resetError() {
-    this._error = ``
   }
 }

@@ -4,6 +4,7 @@ import { EntryModalState } from "./EntryModalState"
 describe(`EntryModalState`, () => {
   describe(`Initial Data`, initialTests)
   describe(`Setters Data`, settersTests)
+  describe(`Set Error`, setErrorTests)
 })
 
 function initialTests() {
@@ -22,6 +23,10 @@ function initialTests() {
       .to
       .deep
       .eq(EntryType.TASK) 
+    
+    expect(entryModalState.error)
+      .to
+      .eq(``)
   })
 }
 
@@ -44,5 +49,35 @@ function settersTests() {
     expect(entryModalState.type)
       .to
       .eq(EntryType.UNWELL)
+  })
+}
+
+function setErrorTests() {
+  let entryModalState: EntryModalState
+
+  beforeEach(() => {
+    entryModalState = new EntryModalState()
+  })
+  
+  it(`
+  GIVEN initial error is empty
+  WHEN call setError() with error message
+  SHOULD set this error message
+  WHEN trigger resetError()
+  SHOULD reset to initial value
+  `, () => {
+    entryModalState.setError({
+      error: `Fill in all the fields`,
+    })
+
+    expect(entryModalState.error)
+      .to
+      .eq(`Fill in all the fields`)
+
+    entryModalState.resetError()
+
+    expect(entryModalState.error)
+      .to
+      .eq(``)
   })
 }

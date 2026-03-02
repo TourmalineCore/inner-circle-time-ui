@@ -9,17 +9,12 @@ import DatePicker from 'react-datepicker'
 import InputMask from 'react-input-mask'
 import { formatTime, parseTimeString } from '../../../../utils/date-and-time'
 
-export const TaskEntryContent = observer(({
-  onSubmitTaskEntryAsync,
-}: {
-  onSubmitTaskEntryAsync: () => unknown,
-}) => {
+export const TaskEntryContent = observer(() => {
   const taskEntryState = useContext(TaskEntryStateContext)
 
   const {
     taskEntryData,
     errors,
-    error, 
   } = taskEntryState
 
   const {
@@ -27,7 +22,7 @@ export const TaskEntryContent = observer(({
     isTaskIdError,
     isDescriptionError,
   } = errors
- 
+  
   const {
     title,
     projectId,
@@ -48,7 +43,7 @@ export const TaskEntryContent = observer(({
           name='project'
           data-cy="project-select"
           value={projectId}
-          onChange={(e) => taskEntryState.updateUnwellEntryData({
+          onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
               projectId: Number(e.target.value),
             },
@@ -78,7 +73,7 @@ export const TaskEntryContent = observer(({
           name="taskId" 
           data-cy="task-id-input"
           value={taskId} 
-          onChange={(e) => taskEntryState.updateUnwellEntryData({
+          onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
               taskId: e.target.value,
             },
@@ -98,7 +93,7 @@ export const TaskEntryContent = observer(({
           name="title" 
           data-cy="title-input"
           value={title} 
-          onChange={(e) => taskEntryState.updateUnwellEntryData({
+          onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
               title: e.target.value,
             },
@@ -117,7 +112,7 @@ export const TaskEntryContent = observer(({
           name="description" 
           data-cy="description-input"
           value={description} 
-          onChange={(e) => taskEntryState.updateUnwellEntryData({
+          onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
               description: e.target.value,
             },
@@ -138,7 +133,7 @@ export const TaskEntryContent = observer(({
             className='task-entry__date-field'
             selected={date}
             dateFormat="dd.MM"
-            onChange={(date) => taskEntryState.updateUnwellEntryData({
+            onChange={(date) => taskEntryState.updateTaskEntryData({
               taskEntryData: {
                 date,
               },
@@ -155,7 +150,7 @@ export const TaskEntryContent = observer(({
               value={formatTime({
                 time: start!,
               })}
-              onChange={(e) => taskEntryState.updateUnwellEntryData({
+              onChange={(e) => taskEntryState.updateTaskEntryData({
                 taskEntryData: {
                   start: parseTimeString({
                     timeString: e.target.value,
@@ -173,7 +168,7 @@ export const TaskEntryContent = observer(({
               value={formatTime({
                 time: end!,
               })}
-              onChange={(e) => taskEntryState.updateUnwellEntryData({
+              onChange={(e) => taskEntryState.updateTaskEntryData({
                 taskEntryData: {
                   end: parseTimeString({
                     timeString: e.target.value,
@@ -185,24 +180,6 @@ export const TaskEntryContent = observer(({
           </div>
         </div>
       </div>
-      { 
-        error && (
-          <span className='task-entry__error'>
-            {error}
-          </span>
-        )
-      }
-      <button
-        data-cy="submit-button"
-        className='task-entry__submit'
-        type='submit'
-        onClick={() => onSubmitTaskEntryAsync()}
-      >
-        {taskEntryData.id
-          ? `Update Task`
-          : `Add Task`
-        }
-      </button>
     </div>
   )
 },
