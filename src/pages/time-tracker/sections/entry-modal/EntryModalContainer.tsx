@@ -32,7 +32,7 @@ export const EntryModalContainer = observer(({
   } = entryModalState
 
   useEffect(() => {
-    entryStrategy.loadProjectsAsync?.({
+    entryStrategy.loadProjectsAsync({
       entryState,
     })
   }, [
@@ -109,7 +109,7 @@ export const EntryModalContainer = observer(({
       }
     }
     finally {
-      entryStrategy.finally?.({
+      entryStrategy.finally({
         entryState,
       })
     }

@@ -37,7 +37,7 @@ export const EntryModal = observer(({
   const entryStrategy = ENTRY_TYPES_STRATEGY[currentEntry?.type || type]
 
   const entryState = useMemo(() => {
-    const state = new entryStrategy.entryState()
+    const state = new entryStrategy.entryStateConstructor()
 
     entryStrategy.setEntryData({
       entryData: currentEntry,

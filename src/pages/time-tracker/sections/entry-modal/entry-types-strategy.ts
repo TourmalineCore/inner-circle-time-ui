@@ -4,8 +4,13 @@ import { TASK_ENTRY_STRATEGY } from "./sections/TaskEntry/strategy"
 import { UNWELL_ENTRY_STRATEGY } from "./sections/UnwellEntry/strategy"
 import { EntryType } from "../../../../common/constants/entryType"
 
+export const ENTRY_TYPES_STRATEGY: Record<EntryType, EntryStrategy> = {
+  [EntryType.TASK]: TASK_ENTRY_STRATEGY,
+  [EntryType.UNWELL]: UNWELL_ENTRY_STRATEGY,
+}
+
 export type EntryStrategy = { 
-  entryState: any,
+  entryStateConstructor: any,
   StateContext: React.Context<any>,
   setEntryData: ({
     entryData,
@@ -37,12 +42,12 @@ export type EntryStrategy = {
     id: number,
     requestData: any,
   }) => Promise<unknown>,
-  loadProjectsAsync?: ({
+  loadProjectsAsync: ({
     entryState,
   }: {
     entryState: any,
   }) => Promise<unknown>,
-  finally?: ({
+  finally: ({
     entryState,
   }: {
     entryState: any,
@@ -51,9 +56,4 @@ export type EntryStrategy = {
     create: string,
     update: string,
   },
-}
-
-export const ENTRY_TYPES_STRATEGY: Record<EntryType, EntryStrategy> = {
-  [EntryType.TASK]: TASK_ENTRY_STRATEGY,
-  [EntryType.UNWELL]: UNWELL_ENTRY_STRATEGY,
 }

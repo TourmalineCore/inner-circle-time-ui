@@ -9,7 +9,7 @@ import { TaskEntryContent } from "./TaskEntryContent"
 import { EntryStrategy } from "../../entry-types-strategy"
 
 export const TASK_ENTRY_STRATEGY: EntryStrategy = {
-  entryState: TaskEntryState,
+  entryStateConstructor: TaskEntryState,
   StateContext: TaskEntryStateContext,
   setEntryData: ({
     entryData,

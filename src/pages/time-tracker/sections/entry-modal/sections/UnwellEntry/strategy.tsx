@@ -8,7 +8,7 @@ import { UnwellEntryStateContext } from "./state/UnwellEntryStateContext"
 import { UnwellEntryContent } from "./UnwellEntryContent"
 
 export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
-  entryState: UnwellEntryState,
+  entryStateConstructor: UnwellEntryState,
   StateContext: UnwellEntryStateContext,
   setEntryData: ({
     entryData,
@@ -41,6 +41,8 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
     id: number,
     requestData: UpdateUnwellEntryRequest,
   }) => api.trackingUpdateUnwellEntry(id, requestData),
+  loadProjectsAsync: async () => {},
+  finally: () => {},
   buttonLabels: {
     create: `Add`,
     update: `Update`,
