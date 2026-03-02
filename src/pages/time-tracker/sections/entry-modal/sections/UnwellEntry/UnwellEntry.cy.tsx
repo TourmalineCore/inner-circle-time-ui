@@ -75,11 +75,6 @@ function mountComponent() {
     .mount(
       <EntryModal 
         currentEntry={{
-          id: undefined,
-          title: undefined,
-          taskId: undefined,
-          project: undefined,
-          description: undefined,
           type: EntryType.UNWELL,
           date: new Date(`2025-11-27T09:00:00`),
           start: new Date(`2025-11-27T09:00:00`),
