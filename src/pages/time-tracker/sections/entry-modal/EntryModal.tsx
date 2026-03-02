@@ -49,6 +49,13 @@ export const EntryModal = observer(({
     type,
   ])
 
+  useEffect(() => {
+    // reset error when type changes
+    entryModalState.resetError()
+  }, [
+    type,
+  ])
+
   const StateContext = entryStrategy.StateContext
   
   return (

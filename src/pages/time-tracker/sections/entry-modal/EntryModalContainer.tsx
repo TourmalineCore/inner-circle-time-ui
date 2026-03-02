@@ -29,9 +29,6 @@ export const EntryModalContainer = observer(({
   } = entryModalState
 
   useEffect(() => {
-    // reset error when type changes
-    entryModalState.resetError()
-
     entryStrategy.loadProjectsAsync({
       entryState,
     })
