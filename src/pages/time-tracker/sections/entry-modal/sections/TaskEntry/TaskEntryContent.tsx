@@ -22,8 +22,7 @@ export const TaskEntryContent = observer(() => {
     isTaskIdError,
     isDescriptionError,
   } = errors
-  // eslint-disable-next-line no-console
-  console.log(errors)
+  
   const {
     title,
     projectId,
