@@ -114,5 +114,4 @@ export const EntryModalContainer = observer(({
       })
     }
   }
-  
 })

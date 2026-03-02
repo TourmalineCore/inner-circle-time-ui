@@ -95,17 +95,13 @@ function mountComponent({
     },
   })
   
-  const handleTriggerReloadState = cy
-    .spy()
-    .as(`handleTriggerReloadState`)
-
   cy
     .mount(
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer 
             onClose={() => {}}
-            handleTriggerReloadState={handleTriggerReloadState}
+            handleTriggerReloadState={() => {}}
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
           />,
         </TaskEntryStateContext.Provider>

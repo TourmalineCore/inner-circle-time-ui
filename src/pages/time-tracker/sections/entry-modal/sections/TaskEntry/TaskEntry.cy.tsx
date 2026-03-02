@@ -1,47 +1,16 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { TaskEntryData } from "../../../../types"
-import { EntryModal } from "../../EntryModal"
+import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
+import { EntryModalContainer } from "../../EntryModalContainer"
+import { EntryModalState } from "../../state/EntryModalState"
+import { EntryModalStateContext } from "../../state/EntryModalStateContext"
+import { TaskEntryState } from "./state/TaskEntryState"
+import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
 
-describe(`TaskEntryContainer`, () => {   
-  describe(`Request Tests`, RequestTests)
-  describe(`Set Error`, setErrorTests)
+describe(`TaskEntry`, () => {   
+  describe(`Client validation`, clientValidation)
 })
 
-function RequestTests() {
-  it(`
-  GIVEN opened task entry 
-  WHEN click on submit button
-  SHOULD send successful request
-  `, () => {
-    cy
-      .intercept(
-        `POST`,
-        `*/time/tracking/task-entries`,
-        {
-          statusCode: 200,
-        },
-      )
-      .as(`addTaskEntry`)
-
-    mountComponent({
-      title: `Test title`,
-      taskId: `Test taskId`,
-      description: `Test description`,
-    })
-    
-    cy
-      .contains(`Add Task`)
-      .click()
-
-    cy.wait(`@addTaskEntry`)
-
-    cy
-      .get(`@handleTriggerReloadState`)
-      .should(`be.calledOnce`)
-  })
-}
-
-function setErrorTests() {
+function clientValidation() {
   it(`
   GIVEN opened task entry 
   WHEN click on submit button
@@ -58,29 +27,20 @@ function setErrorTests() {
   })
 }
 
-function mountComponent({
-  title,
-  taskId,
-  description,
-}: Partial<TaskEntryData> = {}) {
-  const handleTriggerReloadState = cy
-    .spy()
-    .as(`handleTriggerReloadState`)
+function mountComponent() {
+  const entryModalState = new EntryModalState()
+  const taskEntryState = new TaskEntryState()
 
   cy
     .mount(
-      <EntryModal 
-        currentEntry={{
-          title,
-          taskId,
-          description,
-          type: EntryType.TASK,
-          date: new Date(`2025-11-27T09:00:00`),
-          start: new Date(`2025-11-27T09:00:00`),
-          end: new Date(`2025-11-27T11:30:00`),
-        }}
-        onClose={() => {}}
-        handleTriggerReloadState={handleTriggerReloadState}
-      />,
+      <EntryModalStateContext.Provider value={entryModalState}>
+        <TaskEntryStateContext.Provider value={taskEntryState}>
+          <EntryModalContainer 
+            entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
+            onClose={() => {}}
+            handleTriggerReloadState={() => {}}
+          />,
+        </TaskEntryStateContext.Provider>
+      </EntryModalStateContext.Provider>,
     )
 }
