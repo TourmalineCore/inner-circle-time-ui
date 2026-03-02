@@ -171,7 +171,7 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
     id: number,
     requestData: UpdateTaskEntryRequest,
   }) => api.trackingUpdateTaskEntry(id, requestData),
-  loadProjectsAsync: async ({
+  loadProjectsAsync: ({
     entryState,
   }: {
     entryState: TaskEntryState,
