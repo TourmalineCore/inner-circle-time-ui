@@ -22,23 +22,25 @@ export const EntryModalContainer = observer(({
   handleTriggerReloadState: () => unknown,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
-
   const entryState = useContext(entryStrategy.StateContext)
-
-  const isExistingEntry = !!id
 
   const {
     type,
   } = entryModalState
 
   useEffect(() => {
+    // reset error when type changes
+    entryModalState.resetError()
+
     entryStrategy.loadProjectsAsync({
       entryState,
     })
   }, [
     type,
   ])
-  
+
+  const isExistingEntry = !!id
+
   return (
     <EntryModalContent 
       onClose={onClose} 
