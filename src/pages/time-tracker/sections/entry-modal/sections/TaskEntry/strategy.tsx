@@ -3,77 +3,162 @@ import { CreateTaskEntryRequest, UpdateTaskEntryRequest } from "../../../../../.
 import { api } from "../../../../../../common/api/api"
 import { TrackedEntry } from "../../../../types"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
-import { EntryStrategy } from "../../EntryModal"
 import { EMPTY_TASK_ENTRY_DATA, TaskEntryState } from "./state/TaskEntryState"
 import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
 import { TaskEntryContent } from "./TaskEntryContent"
+import { EntryStrategy } from "../../entry-types-strategy"
+
+function validateTaskEntry({
+  entryState,
+}: {
+  entryState: TaskEntryState,
+}) {
+  entryState.setIsSaving()
+  entryState.setIsTriedToSubmit()
+
+  if (!entryState.isValid) {
+    entryState.setError({
+      error: `Fill in all the fields`,
+    })
+    entryState.resetIsSaving()
+    return false
+  }
+  
+  return true
+}
+
+function buildTaskEntryRequest({
+  entryState,
+}: {
+  entryState: TaskEntryState,
+}) {
+  const {
+    title,
+    taskId,
+    description,
+    projectId,
+    date,
+    start,
+    end,
+  } = entryState.taskEntryData
+    
+  const startDateTime = concatDateAndTime({
+    date: date!,
+    time: start!,
+  })
+    
+  const endDateTime = concatDateAndTime({
+    date: date!,
+    time: end!,
+  })
+    
+  return {
+    title,
+    taskId,
+    description,
+    projectId,
+    startTime: startDateTime,
+    endTime: endDateTime,
+  }
+}
+
+async function loadProjectsAsync({
+  entryState,
+}: {
+  entryState: TaskEntryState,
+}) {
+  const {
+    projectId,
+    start,
+  } = entryState.taskEntryData
+
+  if (start === null) {
+    return  
+  } 
+  
+  const startDate = moment(start)
+    .format(`YYYY-MM-DD`)
+
+  const {
+    data: {
+      projects,
+    },
+  } = await api.trackingGetEmployeeProjectsByPeriod({
+    startDate,
+    endDate: startDate,
+  })
+
+  entryState.setProjects({
+    projects,
+  })
+
+  if (projectId === EMPTY_TASK_ENTRY_DATA.projectId) {
+    entryState.updateUnwellEntryData({
+      taskEntryData: {
+        projectId: projects[0].id,
+      },
+    })
+  }
+}
+
+function resetTaskEntrySavingState({
+  entryState,
+}: {
+  entryState: TaskEntryState,
+}) {
+  entryState.resetIsSaving()
+  entryState.resetIsTriedToSubmit()
+}
+
+function setTaskEntryData({
+  entryData,
+  entryState,
+}: {
+  entryData: TrackedEntry,
+  entryState: TaskEntryState,
+}) {
+  entryState.updateUnwellEntryData({
+    taskEntryData: {
+      id: entryData?.id,
+      title: entryData.title || ``,
+      taskId: entryData.taskId || ``,
+      description: entryData.description || ``,
+      projectId: entryData.project?.id || 0,
+      date: entryData.start,
+      start: entryData.start,
+      end:entryData.end,
+    },
+  })
+}
 
 export const TASK_ENTRY_STRATEGY: EntryStrategy = {
-  state: TaskEntryState,
+  entryState: TaskEntryState,
   StateContext: TaskEntryStateContext,
   setEntryData: ({
     entryData,
-    state,
+    entryState,
   }: {
     entryData: TrackedEntry,
-    state: TaskEntryState,
+    entryState: TaskEntryState,
   }) => setTaskEntryData({
-    state,
+    entryState,
     entryData,
   }), 
   EntryContent: <TaskEntryContent />,
   clientValidation: ({
-    state,
+    entryState,
   }: {
-    state: TaskEntryState,
-  }) => {
-    state.setIsSaving()
-    state.setIsTriedToSubmit()
-
-    if (!state.isValid) {
-      state.setError({
-        error: `Fill in all the fields`,
-      })
-      state.resetIsSaving()
-      return false
-    }
-    
-    return true
-  },
-  getRequestData: ({
-    state,
+    entryState: TaskEntryState,
+  }) => validateTaskEntry({
+    entryState, 
+  }),
+  buildRequestData: ({
+    entryState,
   }: {
-    state: TaskEntryState,
-  }) => {
-    const {
-      title,
-      taskId,
-      description,
-      projectId,
-      date,
-      start,
-      end,
-    } = state.taskEntryData
-      
-    const startDateTime = concatDateAndTime({
-      date: date!,
-      time: start!,
-    })
-      
-    const endDateTime = concatDateAndTime({
-      date: date!,
-      time: end!,
-    })
-      
-    return {
-      title,
-      taskId,
-      description,
-      projectId,
-      startTime: startDateTime,
-      endTime: endDateTime,
-    } 
-  },  
+    entryState: TaskEntryState,
+  }) => buildTaskEntryRequest({
+    entryState, 
+  }),
   createEntryAsync: ({
     requestData,
   }: {
@@ -87,74 +172,21 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
     requestData: UpdateTaskEntryRequest,
   }) => api.trackingUpdateTaskEntry(id, requestData),
   loadProjectsAsync: async ({
-    state,
+    entryState,
   }: {
-    state: TaskEntryState,
-  }) => {
-    const {
-      projectId,
-      start,
-    } = state.taskEntryData
-
-    if (start === null) {
-      return  
-    } 
-    
-    const startDate = moment(start)
-      .format(`YYYY-MM-DD`)
-  
-    const {
-      data: {
-        projects,
-      },
-    } = await api.trackingGetEmployeeProjectsByPeriod({
-      startDate,
-      endDate: startDate,
-    })
-  
-    state.setProjects({
-      projects,
-    })
-  
-    if (projectId === EMPTY_TASK_ENTRY_DATA.projectId) {
-      state.updateUnwellEntryData({
-        taskEntryData: {
-          projectId: projects[0].id,
-        },
-      })
-    }
-  },
-  finally: ({
-    state,
+    entryState: TaskEntryState,
+  }) => loadProjectsAsync({
+    entryState, 
+  }),
+  finally: ({ 
+    entryState,
   }: {
-    state: TaskEntryState,
-  }) => {
-    state.resetIsSaving()
-    state.resetIsTriedToSubmit()
-  },
+    entryState: TaskEntryState,
+  }) => resetTaskEntrySavingState({
+    entryState, 
+  }),
   buttonLabels: {
     create: `Add Task`,
     update: `Update Task`,
   },
-}  
-
-function setTaskEntryData({
-  entryData,
-  state,
-}: {
-  entryData: TrackedEntry,
-  state: TaskEntryState,
-}) {
-  state.updateUnwellEntryData({
-    taskEntryData: {
-      id: entryData?.id,
-      title: entryData.title || ``,
-      taskId: entryData.taskId || ``,
-      description: entryData.description || ``,
-      projectId: entryData.project?.id || 0,
-      date: entryData.start,
-      start: entryData.start,
-      end:entryData.end,
-    },
-  })
 }

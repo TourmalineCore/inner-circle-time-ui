@@ -1,67 +1,11 @@
-import { ReactNode, useEffect, useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 import { EntryModalState } from "./state/EntryModalState"
 import { TrackedEntry } from "../../types"
-import { EntryType } from "../../../../common/constants/entryType"
 import { observer } from "mobx-react-lite"
 import axios from "axios"
-import { TASK_ENTRY_STRATEGY } from "./sections/TaskEntry/strategy"
-import { UNWELL_ENTRY_STRATEGY } from "./sections/UnwellEntry/strategy"
-
-export type EntryStrategy = {
-  state: any,
-  StateContext: React.Context<any>,
-  setEntryData: ({
-    entryData,
-    state,
-  }: {
-    entryData: TrackedEntry,
-    state: any,
-  }) => unknown,
-  EntryContent: ReactNode,
-  clientValidation: ({
-    state,
-  }: {
-    state: any,
-  }) => boolean,
-  getRequestData: ({
-    state,
-  }: {
-    state: any,
-  }) => unknown,
-  createEntryAsync: ({
-    requestData,
-  }: {
-    requestData: any,
-  }) => Promise<unknown>,
-  updateEntryAsync: ({
-    id,
-    requestData,
-  }: {
-    id: number,
-    requestData: any,
-  }) => Promise<unknown>,
-  loadProjectsAsync?: ({
-    state,
-  }: {
-    state: any,
-  }) => unknown,
-  finally?: ({
-    state,
-  }: {
-    state: any,
-  }) => unknown,
-  buttonLabels: {
-    create: string,
-    update: string,
-  },
-}
-
-const ENTRY_TYPES: Record<EntryType, EntryStrategy> = {
-  [EntryType.TASK]: TASK_ENTRY_STRATEGY,
-  [EntryType.UNWELL]: UNWELL_ENTRY_STRATEGY,
-}
+import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 
 export const EntryModal = observer(({
   currentEntry,
@@ -91,14 +35,14 @@ export const EntryModal = observer(({
     currentEntry.type,
   ])
 
-  const entry = ENTRY_TYPES[currentEntry?.type || type]
+  const entryStrategy = ENTRY_TYPES_STRATEGY[currentEntry?.type || type]
 
   const entryState = useMemo(() => {
-    const state = new entry.state()
+    const state = new entryStrategy.entryState()
 
-    entry.setEntryData({
+    entryStrategy.setEntryData({
       entryData: currentEntry,
-      state: state,
+      entryState: state,
     })
   
     return state
@@ -107,14 +51,14 @@ export const EntryModal = observer(({
   ])
 
   useEffect(() => {
-    entry.loadProjectsAsync?.({
-      state: entryState,
+    entryStrategy.loadProjectsAsync?.({
+      entryState,
     })
   }, [
     type,
   ])
 
-  const StateContext = entry.StateContext
+  const StateContext = entryStrategy.StateContext
 
   const isExistingEntry = !!currentEntry.id
   
@@ -125,7 +69,7 @@ export const EntryModal = observer(({
           onClose={onClose}
           isExistingEntry={isExistingEntry}
         >        
-          {entry.EntryContent}
+          {entryStrategy.EntryContent}
           { 
             entryState.error && (
               <span className='entry-modal__error'>
@@ -140,8 +84,8 @@ export const EntryModal = observer(({
             onClick={() => onSubmitEntry()}
           >
             {isExistingEntry
-              ? entry.buttonLabels.update
-              : entry.buttonLabels.create
+              ? entryStrategy.buttonLabels.update
+              : entryStrategy.buttonLabels.create
             }
           </button>
         </EntryModalContent>
@@ -150,8 +94,8 @@ export const EntryModal = observer(({
   )
 
   async function onSubmitEntry() {
-    const isValid = entry.clientValidation({
-      state: entryState,
+    const isValid = entryStrategy.clientValidation({
+      entryState,
     })
 
     if (!isValid) {
@@ -159,18 +103,18 @@ export const EntryModal = observer(({
     }
     
     try {
-      const requestData = entry.getRequestData({
-        state: entryState,
+      const requestData = entryStrategy.buildRequestData({
+        entryState,
       })
 
       if (currentEntry.id) {
-        await entry.updateEntryAsync({
+        await entryStrategy.updateEntryAsync({
           id: currentEntry.id,
           requestData,
         })
       }
       else {
-        await entry.createEntryAsync({
+        await entryStrategy.createEntryAsync({
           requestData,
         })
       }
@@ -189,8 +133,8 @@ export const EntryModal = observer(({
       }
     }
     finally {
-      entry.finally?.({
-        state: entryState,
+      entryStrategy.finally?.({
+        entryState,
       })
     }
   }

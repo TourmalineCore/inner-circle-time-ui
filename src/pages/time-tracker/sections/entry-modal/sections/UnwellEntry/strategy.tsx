@@ -2,58 +2,81 @@ import { CreateUnwellEntryRequest, UpdateUnwellEntryRequest } from "../../../../
 import { api } from "../../../../../../common/api/api"
 import { TrackedEntry } from "../../../../types"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
-import { EntryStrategy } from "../../EntryModal"
+import { EntryStrategy } from "../../entry-types-strategy"
 import { UnwellEntryState } from "./state/UnwellEntryState"
 import { UnwellEntryStateContext } from "./state/UnwellEntryStateContext"
 import { UnwellEntryContent } from "./UnwellEntryContent"
 
+function setUnwellEntryData({
+  entryData,
+  entryState,
+}: {
+  entryData: TrackedEntry,
+  entryState: UnwellEntryState,
+}) {
+  entryState.updateUnwellEntryData({
+    unwellEntryData: {
+      id: entryData?.id,
+      date: entryData.start,
+      start: entryData.start,
+      end: entryData.end,
+    },
+  })
+}
+
+function buildUnwellEntryRequest({
+  entryState,
+}: {
+  entryState: UnwellEntryState,
+}) {
+  const {
+    date,
+    start,
+    end,
+  } = entryState.unwellEntryData
+    
+  const startDateTime = concatDateAndTime({
+    date: date!,
+    time: start!,
+  })
+
+  const endDateTime = concatDateAndTime({
+    date: date!,
+    time: end!,
+  })
+
+  return {
+    startTime: startDateTime,
+    endTime: endDateTime,
+  }
+}
+
+function validateUnwellEntry() {
+  return true
+}
+
 export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
-  state: UnwellEntryState,
+  entryState: UnwellEntryState,
   StateContext: UnwellEntryStateContext,
   setEntryData: ({
     entryData,
-    state,
+    entryState,
   }: {
     entryData: TrackedEntry,
-    state: UnwellEntryState,
-  }) => {
-    state.updateUnwellEntryData({
-      unwellEntryData: {
-        id: entryData?.id,
-        date: entryData.start,
-        start: entryData.start,
-        end: entryData.end,
-      },
-    })
-  }, 
+    entryState: UnwellEntryState,
+  }) => setUnwellEntryData({
+    entryState,
+    entryData,
+  }), 
   EntryContent: <UnwellEntryContent />,
-  clientValidation: () => true,
-  getRequestData: ({
-    state,
+  clientValidation: () => validateUnwellEntry(),
+  buildRequestData: ({
+    entryState,
   }: {
-    state: UnwellEntryState,
-  }) => {
-    const {
-      date,
-      start,
-      end,
-    } = state.unwellEntryData
-      
-    const startDateTime = concatDateAndTime({
-      date: date!,
-      time: start!,
-    })
-
-    const endDateTime = concatDateAndTime({
-      date: date!,
-      time: end!,
-    })
-
-    return {
-      startTime: startDateTime,
-      endTime: endDateTime,
-    }
-  },
+    entryState: UnwellEntryState,
+  }) => buildUnwellEntryRequest({
+    entryState, 
+  }),
   createEntryAsync: ({
     requestData,
   }: {

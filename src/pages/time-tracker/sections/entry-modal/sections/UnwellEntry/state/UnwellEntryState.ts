@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { UnwellEntryData } from '../../../../../types'
+import { IBaseEntryState } from '../../../../../interfaces/IBaseEntryState'
 
 export const EMPTY_UNWELL_ENTRY_DATA: UnwellEntryData = {
   date: null,
@@ -7,7 +8,7 @@ export const EMPTY_UNWELL_ENTRY_DATA: UnwellEntryData = {
   end: null,
 }
 
-export class UnwellEntryState {
+export class UnwellEntryState implements IBaseEntryState {
   private _unwellEntryData: UnwellEntryData = {
     ...EMPTY_UNWELL_ENTRY_DATA,
   }
