@@ -1,6 +1,5 @@
 import { makeAutoObservable } from 'mobx'
 import { UnwellEntryData } from '../../../../../types'
-import { IBaseEntryState } from '../../../../../interfaces/IBaseEntryState'
 
 export const EMPTY_UNWELL_ENTRY_DATA: UnwellEntryData = {
   date: null,
@@ -8,12 +7,10 @@ export const EMPTY_UNWELL_ENTRY_DATA: UnwellEntryData = {
   end: null,
 }
 
-export class UnwellEntryState implements IBaseEntryState {
+export class UnwellEntryState {
   private _unwellEntryData: UnwellEntryData = {
     ...EMPTY_UNWELL_ENTRY_DATA,
   }
-
-  private _error = ``  
 
   constructor() {
     makeAutoObservable(this)
@@ -21,10 +18,6 @@ export class UnwellEntryState implements IBaseEntryState {
 
   get unwellEntryData() {
     return this._unwellEntryData
-  }
-
-  get error() {
-    return this._error
   }
 
   updateUnwellEntryData({
@@ -36,17 +29,5 @@ export class UnwellEntryState implements IBaseEntryState {
       ...this.unwellEntryData,
       ...unwellEntryData, 
     }
-  }
-  
-  setError({
-    error,
-  }: {
-    error: string,
-  }) {
-    this._error = error
-  }
-
-  resetError() {
-    this._error = ``
   }
 }

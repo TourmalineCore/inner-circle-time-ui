@@ -43,7 +43,7 @@ export const TaskEntryContent = observer(() => {
           name='project'
           data-cy="project-select"
           value={projectId}
-          onChange={(e) => taskEntryState.updateUnwellEntryData({
+          onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
               projectId: Number(e.target.value),
             },
@@ -73,7 +73,7 @@ export const TaskEntryContent = observer(() => {
           name="taskId" 
           data-cy="task-id-input"
           value={taskId} 
-          onChange={(e) => taskEntryState.updateUnwellEntryData({
+          onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
               taskId: e.target.value,
             },
@@ -93,7 +93,7 @@ export const TaskEntryContent = observer(() => {
           name="title" 
           data-cy="title-input"
           value={title} 
-          onChange={(e) => taskEntryState.updateUnwellEntryData({
+          onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
               title: e.target.value,
             },
@@ -112,7 +112,7 @@ export const TaskEntryContent = observer(() => {
           name="description" 
           data-cy="description-input"
           value={description} 
-          onChange={(e) => taskEntryState.updateUnwellEntryData({
+          onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
               description: e.target.value,
             },
@@ -133,7 +133,7 @@ export const TaskEntryContent = observer(() => {
             className='task-entry__date-field'
             selected={date}
             dateFormat="dd.MM"
-            onChange={(date) => taskEntryState.updateUnwellEntryData({
+            onChange={(date) => taskEntryState.updateTaskEntryData({
               taskEntryData: {
                 date,
               },
@@ -150,7 +150,7 @@ export const TaskEntryContent = observer(() => {
               value={formatTime({
                 time: start!,
               })}
-              onChange={(e) => taskEntryState.updateUnwellEntryData({
+              onChange={(e) => taskEntryState.updateTaskEntryData({
                 taskEntryData: {
                   start: parseTimeString({
                     timeString: e.target.value,
@@ -168,7 +168,7 @@ export const TaskEntryContent = observer(() => {
               value={formatTime({
                 time: end!,
               })}
-              onChange={(e) => taskEntryState.updateUnwellEntryData({
+              onChange={(e) => taskEntryState.updateTaskEntryData({
                 taskEntryData: {
                   end: parseTimeString({
                     timeString: e.target.value,

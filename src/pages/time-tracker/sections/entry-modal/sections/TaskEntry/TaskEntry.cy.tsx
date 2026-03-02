@@ -56,37 +56,6 @@ function setErrorTests() {
 
     cy.contains(`Fill in all the fields`)
   })
-
-  it(`
-  GIVEN opened task entry 
-  WHEN click on submit button
-  AND server validation error will be returned
-  SHOULD display error message
-  `, () => {
-    cy
-      .intercept(
-        `POST`,
-        `*/time/tracking/task-entries`,
-        {
-          statusCode: 400,
-          body: {
-            detail: `Error message`,
-          },
-        },
-      )
-    
-    mountComponent({
-      title: `Test title`,
-      taskId: `Test taskId`,
-      description: `Test description`,
-    })
-
-    cy
-      .contains(`Add Task`)
-      .click()
-
-    cy.contains(`Error message`)
-  })
 }
 
 function mountComponent({

@@ -6,7 +6,6 @@ describe(`TaskEntryState`, () => {
   describe(`Reset Data`, resetTests)
   describe(`Validation`, validationTests)
   describe(`Save And Try To Submit`, saveAndTryToSubmitTests)
-  describe(`Set Error`, setErrorTests)
 })
 
 function initialTests() {
@@ -47,7 +46,7 @@ function settersTests() {
     const description = `Task description`
     const testDate = new Date(`2025-11-24`)
 
-    taskEntryState.updateUnwellEntryData({
+    taskEntryState.updateTaskEntryData({
       taskEntryData: {
         id,
         projectId,
@@ -119,7 +118,7 @@ function resetTests() {
     taskEntryState = new TaskEntryState()
     const testDate = new Date(`2025-11-24`)
 
-    taskEntryState.updateUnwellEntryData({
+    taskEntryState.updateTaskEntryData({
       taskEntryData: {
         id: 1,
         projectId: 1,
@@ -202,7 +201,7 @@ function validationTests() {
     const projectId = 1
     const date = new Date(`2025-11-24`)
 
-    taskEntryState.updateUnwellEntryData({
+    taskEntryState.updateTaskEntryData({
       taskEntryData: {
         id,
         projectId,
@@ -287,39 +286,5 @@ function saveAndTryToSubmitTests() {
       .to
       .be
       .false
-  })
-}
-
-function setErrorTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-  })
-  
-  it(`
-  GIVEN initial error is empty
-  WHEN call setError() with error message
-  SHOULD set this error message
-  WHEN trigger resetError()
-  SHOULD reset to initial value
-  `, () => {
-    expect(taskEntryState.error)
-      .to
-      .eq(``)
-
-    taskEntryState.setError({
-      error: `Fill in all the fields`,
-    })
-
-    expect(taskEntryState.error)
-      .to
-      .eq(`Fill in all the fields`)
-
-    taskEntryState.resetError()
-
-    expect(taskEntryState.error)
-      .to
-      .eq(``)
   })
 }

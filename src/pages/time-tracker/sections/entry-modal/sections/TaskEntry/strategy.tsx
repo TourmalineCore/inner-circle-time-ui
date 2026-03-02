@@ -77,9 +77,6 @@ function validateTaskEntry({
   entryState.setIsTriedToSubmit()
 
   if (!entryState.isValid) {
-    entryState.setError({
-      error: `Fill in all the fields`,
-    })
     entryState.resetIsSaving()
     return false
   }
@@ -153,7 +150,7 @@ async function loadProjectsAsync({
   })
 
   if (projectId === EMPTY_TASK_ENTRY_DATA.projectId) {
-    entryState.updateUnwellEntryData({
+    entryState.updateTaskEntryData({
       taskEntryData: {
         projectId: projects[0].id,
       },
@@ -177,7 +174,7 @@ function setTaskEntryData({
   entryData: TrackedEntry,
   entryState: TaskEntryState,
 }) {
-  entryState.updateUnwellEntryData({
+  entryState.updateTaskEntryData({
     taskEntryData: {
       id: entryData?.id,
       title: entryData.title || ``,

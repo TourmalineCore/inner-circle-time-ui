@@ -3,7 +3,6 @@ import { EntryModal } from "../../EntryModal"
 
 describe(`UnwellEntryContainer`, () => {   
   describe(`Request Tests`, RequestTests)
-  describe(`Set Error`, setErrorTests)
 })
 
 function RequestTests() {
@@ -33,35 +32,6 @@ function RequestTests() {
     cy
       .get(`@handleTriggerReloadState`)
       .should(`be.calledOnce`)
-  })
-}
-
-function setErrorTests() {
-  it(`
-  GIVEN opened unwell entry 
-  WHEN click on submit button
-  AND server validation error will be returned
-  SHOULD display error message
-  `, () => {
-    cy
-      .intercept(
-        `POST`,
-        `*/time/tracking/unwell-entries`,
-        {
-          statusCode: 400,
-          body: {
-            detail: `Error message`,
-          },
-        },
-      )
-    
-    mountComponent()
-
-    cy
-      .contains(`Add`)
-      .click()
-
-    cy.contains(`Error message`)
   })
 }
 

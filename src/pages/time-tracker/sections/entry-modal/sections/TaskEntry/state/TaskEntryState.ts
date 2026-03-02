@@ -1,7 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { TaskEntryData } from '../../../../../types'
 import { ProjectDto } from '../../../../../../../../api'
-import { IBaseEntryState } from '../../../../../interfaces/IBaseEntryState'
 
 export const EMPTY_TASK_ENTRY_DATA: TaskEntryData = {
   title: ``,
@@ -13,7 +12,7 @@ export const EMPTY_TASK_ENTRY_DATA: TaskEntryData = {
   end: null,
 }
 
-export class TaskEntryState implements IBaseEntryState {
+export class TaskEntryState {
   private _taskEntryData: TaskEntryData = {
     ...EMPTY_TASK_ENTRY_DATA,
   }
@@ -22,7 +21,6 @@ export class TaskEntryState implements IBaseEntryState {
 
   private _isSaving = false    
   private _isTriedToSubmit = false  
-  private _error = ``  
 
   constructor() {
     makeAutoObservable(this)
@@ -72,11 +70,7 @@ export class TaskEntryState implements IBaseEntryState {
     }
   }
 
-  get error() {
-    return this._error
-  }
-
-  updateUnwellEntryData({
+  updateTaskEntryData({
     taskEntryData,
   }: {
     taskEntryData: Partial<TaskEntryData>,
@@ -109,17 +103,5 @@ export class TaskEntryState implements IBaseEntryState {
 
   resetIsTriedToSubmit() {
     this._isTriedToSubmit = false
-  }
-
-  setError({
-    error,
-  }: {
-    error: string,
-  }) {
-    this._error = error
-  }
-
-  resetError() {
-    this._error = ``
   }
 }
