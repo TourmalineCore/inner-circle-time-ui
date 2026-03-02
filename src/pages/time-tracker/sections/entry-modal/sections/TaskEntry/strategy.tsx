@@ -8,6 +8,66 @@ import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
 import { TaskEntryContent } from "./TaskEntryContent"
 import { EntryStrategy } from "../../entry-types-strategy"
 
+export const TASK_ENTRY_STRATEGY: EntryStrategy = {
+  entryState: TaskEntryState,
+  StateContext: TaskEntryStateContext,
+  setEntryData: ({
+    entryData,
+    entryState,
+  }: {
+    entryData: TrackedEntry,
+    entryState: TaskEntryState,
+  }) => setTaskEntryData({
+    entryState,
+    entryData,
+  }), 
+  EntryContent: <TaskEntryContent />,
+  validateOnClient: ({
+    entryState,
+  }: {
+    entryState: TaskEntryState,
+  }) => validateTaskEntry({
+    entryState, 
+  }),
+  buildRequestData: ({
+    entryState,
+  }: {
+    entryState: TaskEntryState,
+  }) => buildTaskEntryRequest({
+    entryState, 
+  }),
+  createEntryAsync: ({
+    requestData,
+  }: {
+    requestData: CreateTaskEntryRequest,
+  }) => api.trackingCreateTaskEntry(requestData),
+  updateEntryAsync: ({
+    id,
+    requestData,
+  }: {
+    id: number,
+    requestData: UpdateTaskEntryRequest,
+  }) => api.trackingUpdateTaskEntry(id, requestData),
+  loadProjectsAsync: ({
+    entryState,
+  }: {
+    entryState: TaskEntryState,
+  }) => loadProjectsAsync({
+    entryState, 
+  }),
+  finally: ({ 
+    entryState,
+  }: {
+    entryState: TaskEntryState,
+  }) => resetTaskEntrySavingState({
+    entryState, 
+  }),
+  buttonLabels: {
+    create: `Add Task`,
+    update: `Update Task`,
+  },
+}
+
 function validateTaskEntry({
   entryState,
 }: {
@@ -129,64 +189,4 @@ function setTaskEntryData({
       end:entryData.end,
     },
   })
-}
-
-export const TASK_ENTRY_STRATEGY: EntryStrategy = {
-  entryState: TaskEntryState,
-  StateContext: TaskEntryStateContext,
-  setEntryData: ({
-    entryData,
-    entryState,
-  }: {
-    entryData: TrackedEntry,
-    entryState: TaskEntryState,
-  }) => setTaskEntryData({
-    entryState,
-    entryData,
-  }), 
-  EntryContent: <TaskEntryContent />,
-  clientValidation: ({
-    entryState,
-  }: {
-    entryState: TaskEntryState,
-  }) => validateTaskEntry({
-    entryState, 
-  }),
-  buildRequestData: ({
-    entryState,
-  }: {
-    entryState: TaskEntryState,
-  }) => buildTaskEntryRequest({
-    entryState, 
-  }),
-  createEntryAsync: ({
-    requestData,
-  }: {
-    requestData: CreateTaskEntryRequest,
-  }) => api.trackingCreateTaskEntry(requestData),
-  updateEntryAsync: ({
-    id,
-    requestData,
-  }: {
-    id: number,
-    requestData: UpdateTaskEntryRequest,
-  }) => api.trackingUpdateTaskEntry(id, requestData),
-  loadProjectsAsync: ({
-    entryState,
-  }: {
-    entryState: TaskEntryState,
-  }) => loadProjectsAsync({
-    entryState, 
-  }),
-  finally: ({ 
-    entryState,
-  }: {
-    entryState: TaskEntryState,
-  }) => resetTaskEntrySavingState({
-    entryState, 
-  }),
-  buttonLabels: {
-    create: `Add Task`,
-    update: `Update Task`,
-  },
 }

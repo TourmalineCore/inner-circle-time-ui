@@ -7,6 +7,46 @@ import { UnwellEntryState } from "./state/UnwellEntryState"
 import { UnwellEntryStateContext } from "./state/UnwellEntryStateContext"
 import { UnwellEntryContent } from "./UnwellEntryContent"
 
+export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
+  entryState: UnwellEntryState,
+  StateContext: UnwellEntryStateContext,
+  setEntryData: ({
+    entryData,
+    entryState,
+  }: {
+    entryData: TrackedEntry,
+    entryState: UnwellEntryState,
+  }) => setUnwellEntryData({
+    entryState,
+    entryData,
+  }), 
+  EntryContent: <UnwellEntryContent />,
+  validateOnClient: () => validateUnwellEntry(),
+  buildRequestData: ({
+    entryState,
+  }: {
+    entryState: UnwellEntryState,
+  }) => buildUnwellEntryRequest({
+    entryState, 
+  }),
+  createEntryAsync: ({
+    requestData,
+  }: {
+    requestData: CreateUnwellEntryRequest,
+  }) => api.trackingCreateUnwellEntry(requestData),
+  updateEntryAsync: ({
+    id,
+    requestData,
+  }: {
+    id: number,
+    requestData: UpdateUnwellEntryRequest,
+  }) => api.trackingUpdateUnwellEntry(id, requestData),
+  buttonLabels: {
+    create: `Add`,
+    update: `Update`,
+  },
+}
+
 function setUnwellEntryData({
   entryData,
   entryState,
@@ -53,44 +93,4 @@ function buildUnwellEntryRequest({
 
 function validateUnwellEntry() {
   return true
-}
-
-export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
-  entryState: UnwellEntryState,
-  StateContext: UnwellEntryStateContext,
-  setEntryData: ({
-    entryData,
-    entryState,
-  }: {
-    entryData: TrackedEntry,
-    entryState: UnwellEntryState,
-  }) => setUnwellEntryData({
-    entryState,
-    entryData,
-  }), 
-  EntryContent: <UnwellEntryContent />,
-  clientValidation: () => validateUnwellEntry(),
-  buildRequestData: ({
-    entryState,
-  }: {
-    entryState: UnwellEntryState,
-  }) => buildUnwellEntryRequest({
-    entryState, 
-  }),
-  createEntryAsync: ({
-    requestData,
-  }: {
-    requestData: CreateUnwellEntryRequest,
-  }) => api.trackingCreateUnwellEntry(requestData),
-  updateEntryAsync: ({
-    id,
-    requestData,
-  }: {
-    id: number,
-    requestData: UpdateUnwellEntryRequest,
-  }) => api.trackingUpdateUnwellEntry(id, requestData),
-  buttonLabels: {
-    create: `Add`,
-    update: `Update`,
-  },
 }

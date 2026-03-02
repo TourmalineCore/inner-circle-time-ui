@@ -15,7 +15,7 @@ export type EntryStrategy = {
     entryState: any,
   }) => unknown,
   EntryContent: ReactNode,
-  clientValidation: ({
+  validateOnClient: ({
     entryState,
   }: {
     entryState: any,

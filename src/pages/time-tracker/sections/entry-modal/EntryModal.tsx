@@ -94,7 +94,7 @@ export const EntryModal = observer(({
   )
 
   async function onSubmitEntry() {
-    const isValid = entryStrategy.clientValidation({
+    const isValid = entryStrategy.validateOnClient({
       entryState,
     })
 
