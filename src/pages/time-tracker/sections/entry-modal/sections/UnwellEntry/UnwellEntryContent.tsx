@@ -39,8 +39,10 @@ export const UnwellEntryContent = observer(({
             className='unwell-entry__date-field'
             selected={date}
             dateFormat="dd.MM"
-            onChange={(date) => unwellEntryState.setDate({
-              date: date as Date,
+            onChange={(date) => unwellEntryState.updateUnwellEntryData({
+              unwellEntryData: {
+                date,
+              },
             })}
             onKeyDown={(e) => e.preventDefault()}
           />
@@ -54,11 +56,13 @@ export const UnwellEntryContent = observer(({
               value={formatTime({
                 time: start!,
               })}
-              onChange={(e) => unwellEntryState.setStartTime({
-                startTime: parseTimeString({
-                  timeString: e.target.value,
-                  originalDate: start!,
-                }),
+              onChange={(e) => unwellEntryState.updateUnwellEntryData({
+                unwellEntryData: {
+                  start: parseTimeString({
+                    timeString: e.target.value,
+                    originalDate: start!,
+                  }),
+                },
               })}
             />
             {`-`}
@@ -70,11 +74,13 @@ export const UnwellEntryContent = observer(({
               value={formatTime({
                 time: end!,
               })}
-              onChange={(e) => unwellEntryState.setEndTime({
-                endTime: parseTimeString({
-                  timeString: e.target.value,
-                  originalDate: end!,
-                }),
+              onChange={(e) => unwellEntryState.updateUnwellEntryData({
+                unwellEntryData: {
+                  end: parseTimeString({
+                    timeString: e.target.value,
+                    originalDate: end!,
+                  }),
+                },
               })}
             />
           </div>

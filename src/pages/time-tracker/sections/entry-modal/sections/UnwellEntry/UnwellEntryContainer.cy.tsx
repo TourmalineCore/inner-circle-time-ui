@@ -115,13 +115,11 @@ function setDateAndTime({
 }: {
   unwellEntryState: UnwellEntryState,
 }) {
-  unwellEntryState.setDate({
-    date: new Date(`2025-11-27T09:00:00`),
-  })
-  unwellEntryState.setStartTime({
-    startTime: new Date(`2025-11-27T09:00:00`),
-  })
-  unwellEntryState.setEndTime({
-    endTime: new Date(`2025-11-27T11:30:00`),
+  unwellEntryState.updateUnwellEntryData({
+    unwellEntryData: {
+      date: new Date(`2025-11-27T09:00:00`),
+      start: new Date(`2025-11-27T09:00:00`),
+      end: new Date(`2025-11-27T11:30:00`),
+    },
   })
 }

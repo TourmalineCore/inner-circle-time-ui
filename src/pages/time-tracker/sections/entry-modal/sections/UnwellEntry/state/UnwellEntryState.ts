@@ -25,39 +25,18 @@ export class UnwellEntryState {
   get error() {
     return this._error
   }
+
+  updateUnwellEntryData({
+    unwellEntryData,
+  }: {
+    unwellEntryData: Partial<UnwellEntryData>,
+  }) {
+    this._unwellEntryData = {
+      ...this.unwellEntryData,
+      ...unwellEntryData, 
+    }
+  }
   
-  setId({
-    id,
-  }: {
-    id: number,
-  }) {
-    this._unwellEntryData.id = id
-  }
-
-  setDate({
-    date,
-  }: {
-    date: Date,
-  }) {
-    this._unwellEntryData.date = date
-  }
-
-  setStartTime({
-    startTime,
-  }: {
-    startTime: Date,
-  }) {
-    this._unwellEntryData.start = startTime
-  }
-
-  setEndTime({
-    endTime,
-  }: {
-    endTime: Date,
-  }) {
-    this._unwellEntryData.end = endTime
-  }
-
   setError({
     error,
   }: {

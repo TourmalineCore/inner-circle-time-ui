@@ -35,7 +35,9 @@ export const TimeTrackerTableContainer = observer(({
   ])
   
   useEffect(() => {
-    if (viewStartDate === null && viewEndDate === null) return
+    if (viewStartDate === null && viewEndDate === null) {
+      return
+    }
 
     async function loadedEntries() {
       const {

@@ -17,7 +17,14 @@ export function UnwellEntry({
   )
 
   useEffect(() => {
-    setUnwellEntryData(unwellEntry)
+    unwellEntryState.updateUnwellEntryData({
+      unwellEntryData: {
+        id: unwellEntry?.id,
+        date: unwellEntry.start,
+        start: unwellEntry.start,
+        end: unwellEntry.end,
+      },
+    })
   }, [])
 
   return (
@@ -28,27 +35,4 @@ export function UnwellEntry({
     </UnwellEntryStateContext.Provider>
   )
   
-  function setUnwellEntryData({
-    id,
-    start,
-    end,
-  }: UnwellEntryData) {
-    unwellEntryState.setDate({
-      date: start!,
-    })
-
-    unwellEntryState.setStartTime({
-      startTime: start!,
-    })
-    
-    unwellEntryState.setEndTime({
-      endTime: end!,
-    })
-
-    if (id) {
-      unwellEntryState.setId({
-        id,
-      })
-    }
-  }
 }
