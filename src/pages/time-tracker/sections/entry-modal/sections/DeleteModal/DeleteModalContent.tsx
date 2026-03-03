@@ -1,3 +1,5 @@
+import '@tourmalinecore/react-tc-modal/es/index.css'
+
 import { useContext } from "react"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 
@@ -37,6 +39,7 @@ export const DeleteModalContent = observer(({
             className="delete-modal__button"
             type="button"
             onClick={onSubmitDeletionReason}
+            data-cy="delete-entry-button"
           >
             Delete
           </button>
