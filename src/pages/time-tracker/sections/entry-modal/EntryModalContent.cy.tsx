@@ -4,7 +4,7 @@ import { TaskEntryStateContext } from "./sections/TaskEntry/state/TaskEntryState
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 
-describe(`EntryModalContainer`, () => {   
+describe(`EntryModalContent`, () => {   
   describe(`On Close Modal`, onCloseModalTests)
 })
 
