@@ -65,6 +65,10 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
   buttonLabels: {
     create: `Add Task`,
     update: `Update Task`,
+    delete: `Delete Task`,
+  },
+  titleLabels: {
+    delete: `Delete Task`,
   },
 }
 

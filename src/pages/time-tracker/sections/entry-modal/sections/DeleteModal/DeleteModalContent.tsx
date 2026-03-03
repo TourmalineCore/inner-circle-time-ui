@@ -7,11 +7,14 @@ import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { Modal } from '@tourmalinecore/react-tc-modal'
 import { observer } from "mobx-react-lite"
 import clsx from 'clsx'
+import { EntryStrategy } from '../../entry-types-strategy'
 
 export const DeleteModalContent = observer(({
+  entryStrategy,
   onClose,
   onSubmitDeletionReason,
 }: {
+  entryStrategy: EntryStrategy,
   onClose: () => unknown,
   onSubmitDeletionReason: () => unknown,
 }) => {
@@ -32,6 +35,9 @@ export const DeleteModalContent = observer(({
       noPaddingBody
       content={(
         <div className="delete-modal">
+          <h3 className="delete-modal__title">
+            {entryStrategy.titleLabels.delete}
+          </h3>
           <div className="delete-modal__inner">
             <label 
               htmlFor="delete-reason"
@@ -64,7 +70,7 @@ export const DeleteModalContent = observer(({
             onClick={onSubmitDeletionReason}
             data-cy="delete-entry-button"
           >
-            Delete
+            {entryStrategy.buttonLabels.delete}
           </button>
         </div>
       )}

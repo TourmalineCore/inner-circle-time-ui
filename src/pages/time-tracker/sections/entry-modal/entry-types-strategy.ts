@@ -55,5 +55,9 @@ export type EntryStrategy = {
   buttonLabels: {
     create: string,
     update: string,
+    delete: string,
+  },
+  titleLabels: {
+    delete: string,
   },
 }

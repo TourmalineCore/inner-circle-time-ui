@@ -1,3 +1,5 @@
+import { EntryType } from "../../../../../../common/constants/entryType"
+import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
 import { DeleteModalContainer } from "./DeleteModalContainer"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
@@ -87,6 +89,7 @@ function mountComponent({
       <DeleteModalStateContext.Provider value={deleteModalState}>
         <DeleteModalContainer 
           id={1}
+          entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
           onCloseDeleteModal={() => {}}
           onCloseAllModals={onCloseAllModals}
         />,

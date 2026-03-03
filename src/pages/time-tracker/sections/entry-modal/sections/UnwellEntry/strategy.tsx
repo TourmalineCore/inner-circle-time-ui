@@ -46,6 +46,10 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
   buttonLabels: {
     create: `Add`,
     update: `Update`,
+    delete: `Delete`,
+  },
+  titleLabels: {
+    delete: `Delete Unwell Entry`,
   },
 }
 

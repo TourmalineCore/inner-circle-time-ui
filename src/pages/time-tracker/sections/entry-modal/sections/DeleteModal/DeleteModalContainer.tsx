@@ -3,13 +3,16 @@ import { api } from "../../../../../../common/api/api"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { observer } from "mobx-react-lite"
+import { EntryStrategy } from "../../entry-types-strategy"
 
 export const DeleteModalContainer = observer(({
   id,
+  entryStrategy,
   onCloseDeleteModal,
   onCloseAllModals,
 }: {
   id: number,
+  entryStrategy: EntryStrategy,
   onCloseDeleteModal: () => unknown,
   onCloseAllModals: () => unknown,
 }) => {
@@ -22,6 +25,7 @@ export const DeleteModalContainer = observer(({
     
   return (
     <DeleteModalContent 
+      entryStrategy={entryStrategy}
       onSubmitDeletionReason={onSubmitDeletionReason}
       onClose={onCloseDeleteModal}
     />        
