@@ -31,9 +31,6 @@ export const DeleteModalContainer = observer(({
     deleteModalState.setIsTriedToSubmit()
     
     if (!isDeletionReasonValid) {
-      deleteModalState.setError({
-        error: `Fill in the reason`,
-      })
       return
     }
 

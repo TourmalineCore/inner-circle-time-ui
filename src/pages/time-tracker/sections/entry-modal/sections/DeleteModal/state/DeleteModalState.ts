@@ -26,17 +26,6 @@ export class DeleteModalState {
       isDeletionReasonError: !this.isDeletionReasonValid && this._isTriedToSubmit,
     }
   }
-  get error() {
-    return this._error
-  }
-
-  setError({
-    error,
-  }: {
-    error: string,
-  }) {
-    this._error = error
-  }
 
   setDeletionReason({
     deletionReason,

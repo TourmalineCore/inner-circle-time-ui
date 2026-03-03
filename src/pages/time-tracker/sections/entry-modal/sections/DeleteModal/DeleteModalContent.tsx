@@ -46,9 +46,9 @@ export const DeleteModalContent = observer(({
             />
           </div>
           { 
-            deleteModalState.error && (
+            isDeletionReasonError && (
               <span className='delete-modal__error'>
-                {deleteModalState.error}
+                Fill in the reason
               </span>
             )
           }
