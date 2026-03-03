@@ -9,6 +9,7 @@ import { EntryModalStateContext } from "./state/EntryModalStateContext"
 describe(`EntryModalContainer`, () => {   
   describe(`Set Error`, setErrorTests)
   describe(`Reset Error`, resetErrorTests)
+  describe(`Delete Button Display`, deleteButtonTests)
 })
 
 function setErrorTests() {
@@ -80,10 +81,40 @@ function resetErrorTests() {
   })
 }
 
+function deleteButtonTests() {
+  it(`
+  GIVEN opened task entry 
+  WHEN it is not submitted
+  SHOULD not display delete button
+  `, () => {
+    mountComponent()
+
+    cy
+      .getByData(`delete-button`)
+      .should(`not.exist`)
+  })
+
+  it(`
+  GIVEN opened task entry 
+  WHEN was already submitted
+  SHOULD display delete button
+  `, () => {
+    mountComponent({
+      id: 1,
+    })
+
+    cy
+      .getByData(`delete-button`)
+      .should(`exist`)
+  })
+}
+
 function mountComponent({
   entryModalState = new EntryModalState(),
+  id,
 }: {
   entryModalState?: EntryModalState,
+  id?: number,
 } = {}) {
   const taskEntryState = new TaskEntryState()
 
@@ -100,9 +131,11 @@ function mountComponent({
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer 
-            onClose={() => {}}
+            onCloseEntryModal={() => {}}
             handleTriggerReloadState={() => {}}
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
+            onOpenDeleteModal={() => {}}
+            id={id}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,
