@@ -93,5 +93,6 @@ export const EntryModal = observer(({
   function onCloseAllModals() {
     setIsDeleteModalOpen(false)
     onCloseEntryModal()
+    handleTriggerReloadState()
   }
 })
