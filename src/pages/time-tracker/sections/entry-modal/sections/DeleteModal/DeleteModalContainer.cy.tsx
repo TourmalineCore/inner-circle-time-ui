@@ -10,7 +10,7 @@ function deleteEntryTests() {
   it(`
   GIVEN opened submitted task entry 
   WHEN click delete button
-  SHOULD sent delete request 
+  SHOULD send delete request 
   `, () => {
     const softDeleteRequest = {
       deletionReason: `Wrong date`,
