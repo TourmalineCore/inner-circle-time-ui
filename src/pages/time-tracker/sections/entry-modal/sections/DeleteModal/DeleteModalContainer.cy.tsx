@@ -4,6 +4,7 @@ import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 
 describe(`DeleteModalContainer`, () => {   
   describe(`Delete Entry`, deleteEntryTests)
+  describe(`Validate on Client`, validateOnClientTests)
 })
 
 function deleteEntryTests() {
@@ -27,7 +28,9 @@ function deleteEntryTests() {
       )
       .as(`softDeleteEntry`)
      
-    mountComponent()
+    mountComponent({
+      deletionReason: softDeleteRequest.deletionReason,
+    })
 
     cy
       .getByData(`delete-entry-button`)
@@ -44,10 +47,35 @@ function deleteEntryTests() {
   })
 }
 
-function mountComponent() {
+function validateOnClientTests() {
+  it(`
+  GIVEN opened submitted task entry 
+  WHEN deletion reason is not specified
+  AND WHEN delete button is clicked
+  SHOULD show error message
+  `, () => {
+    mountComponent()
+
+    cy
+      .getByData(`delete-entry-button`)
+      .click()
+
+    cy
+      .getByData(`delete-reason`)
+      .should(`have.class`, `error`)
+
+    cy.contains(`Fill in the reason`)
+  })
+}
+
+function mountComponent({
+  deletionReason = ``,
+}:{
+  deletionReason?: string,
+} = {} ){
   const deleteModalState = new DeleteModalState()
   deleteModalState.setDeletionReason({
-    deletionReason: `Wrong date`,
+    deletionReason,
   })
 
   const onCloseAllModals = cy

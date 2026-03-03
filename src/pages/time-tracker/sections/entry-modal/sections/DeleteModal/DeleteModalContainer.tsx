@@ -17,6 +17,7 @@ export const DeleteModalContainer = observer(({
       
   const {
     deletionReason,
+    isDeletionReasonValid,
   } = deleteModalState
     
   return (
@@ -27,6 +28,15 @@ export const DeleteModalContainer = observer(({
   )
 
   async function onSubmitDeletionReason(){
+    deleteModalState.setIsTriedToSubmit()
+    
+    if (!isDeletionReasonValid) {
+      deleteModalState.setError({
+        error: `Fill in the reason`,
+      })
+      return
+    }
+
     await api.trackingSoftDeleteEntry(
       id,
       {
