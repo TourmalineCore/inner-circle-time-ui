@@ -1,7 +1,10 @@
 import '@tourmalinecore/react-tc-modal/es/index.css'
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import "react-datepicker/dist/react-datepicker.css"
+
 import './EntryModal.scss'
+
+import DeleteIcon from "../../../../assets/icons/trash.svg?react"
 
 import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { useContext, useEffect } from 'react'
@@ -53,29 +56,31 @@ export const EntryModalContainer = observer(({
           </span>
         )
       }
-      <button
-        data-cy="submit-button"
-        className='entry-modal__submit'
-        type='submit'
-        onClick={() => onSubmitEntry()}
-      >
-        {isExistingEntry
-          ? entryStrategy.buttonLabels.update
-          : entryStrategy.buttonLabels.create
+      <div className="entry-modal__buttons">
+        <button
+          data-cy="submit-button"
+          className='entry-modal__submit-button'
+          type='submit'
+          onClick={() => onSubmitEntry()}
+        >
+          {isExistingEntry
+            ? entryStrategy.buttonLabels.update
+            : entryStrategy.buttonLabels.create
+          }
+        </button>
+        {
+          isExistingEntry && (
+            <button
+              data-cy="delete-button"
+              className='entry-modal__delete-button'
+              type='button'
+              onClick={onOpenDeleteModal}
+            >
+              <DeleteIcon />
+            </button>
+          )
         }
-      </button>
-      {
-        isExistingEntry && (
-          <button
-            data-cy="delete-button"
-            className='entry-modal__delete-button'
-            type='button'
-            onClick={onOpenDeleteModal}
-          >
-            Delete
-          </button>
-        )
-      }
+      </div>
     </EntryModalContent>
   )
 

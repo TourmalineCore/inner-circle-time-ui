@@ -33,10 +33,17 @@ export const DeleteModalContent = observer(({
       content={(
         <div className="delete-modal">
           <div className="delete-modal__inner">
+            <label 
+              htmlFor="delete-reason"
+            >
+              Reason to delete: 
+            </label>
             <textarea 
               className={clsx(`delete-modal__input`, {
                 'error': isDeletionReasonError,
               })}
+              id="delete-reason" 
+              name="delete-reason" 
               value={deletionReason}
               data-cy="delete-reason"
               onChange={(e) => deleteModalState.setDeletionReason({
