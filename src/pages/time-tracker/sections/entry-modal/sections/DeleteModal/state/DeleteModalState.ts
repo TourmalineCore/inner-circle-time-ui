@@ -3,7 +3,6 @@ import { makeAutoObservable } from 'mobx'
 export class DeleteModalState {
   private _deletionReason = ``  
   private _isTriedToSubmit = false  
-  private _error = ``  
 
   constructor() {
     makeAutoObservable(this)

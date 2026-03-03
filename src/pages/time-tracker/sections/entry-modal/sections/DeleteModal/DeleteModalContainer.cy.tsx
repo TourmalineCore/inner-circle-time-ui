@@ -3,11 +3,11 @@ import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 
 describe(`DeleteModalContainer`, () => {   
-  describe(`Delete Entry`, deleteEntryTests)
+  describe(`Delete Entry`, requestTests)
   describe(`Validate on Client`, validateOnClientTests)
 })
 
-function deleteEntryTests() {
+function requestTests() {
   it(`
   GIVEN opened submitted task entry 
   WHEN click delete button
@@ -72,7 +72,7 @@ function mountComponent({
   deletionReason = ``,
 }:{
   deletionReason?: string,
-} = {} ){
+} = {}){
   const deleteModalState = new DeleteModalState()
   deleteModalState.setDeletionReason({
     deletionReason,
@@ -86,9 +86,9 @@ function mountComponent({
     .mount(
       <DeleteModalStateContext.Provider value={deleteModalState}>
         <DeleteModalContainer 
+          id={1}
           onCloseDeleteModal={() => {}}
           onCloseAllModals={onCloseAllModals}
-          id={1}
         />,
       </DeleteModalStateContext.Provider>,
     )

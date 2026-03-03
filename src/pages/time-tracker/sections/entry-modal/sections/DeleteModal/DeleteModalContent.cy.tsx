@@ -35,9 +35,9 @@ function mountComponent() {
     .mount(
       <DeleteModalStateContext.Provider value={deleteModalState}>
         <DeleteModalContainer 
+          id={1}
           onCloseDeleteModal={onCloseDeleteModal}
           onCloseAllModals={() => {}}
-          id={1}
         />,
       </DeleteModalStateContext.Provider>,
     )

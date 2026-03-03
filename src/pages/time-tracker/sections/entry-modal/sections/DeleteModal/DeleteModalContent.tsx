@@ -1,4 +1,5 @@
 import '@tourmalinecore/react-tc-modal/es/index.css'
+import './DeleteModal.scss'
 
 import { useContext } from "react"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
@@ -6,8 +7,6 @@ import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { Modal } from '@tourmalinecore/react-tc-modal'
 import { observer } from "mobx-react-lite"
 import clsx from 'clsx'
-
-import './DeleteModal.scss'
 
 export const DeleteModalContent = observer(({
   onClose,
