@@ -7,14 +7,13 @@ import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { Modal } from '@tourmalinecore/react-tc-modal'
 import { observer } from "mobx-react-lite"
 import clsx from 'clsx'
-import { EntryStrategy } from '../../entry-types-strategy'
 
 export const DeleteModalContent = observer(({
-  entryStrategy,
+  label,
   onClose,
   onSubmitDeletionReason,
 }: {
-  entryStrategy: EntryStrategy,
+  label: string,
   onClose: () => unknown,
   onSubmitDeletionReason: () => unknown,
 }) => {
@@ -36,13 +35,13 @@ export const DeleteModalContent = observer(({
       content={(
         <div className="delete-modal">
           <h3 className="delete-modal__title">
-            {entryStrategy.titleLabels.delete}
+            {`Delete ${label}`}
           </h3>
           <div className="delete-modal__inner">
             <label 
               htmlFor="delete-reason"
             >
-              Reason to delete: 
+              Reason to delete
             </label>
             <textarea 
               className={clsx(`delete-modal__input`, {
@@ -70,7 +69,7 @@ export const DeleteModalContent = observer(({
             onClick={onSubmitDeletionReason}
             data-cy="delete-entry-button"
           >
-            {entryStrategy.buttonLabels.delete}
+            {`Delete ${label}`}
           </button>
         </div>
       )}

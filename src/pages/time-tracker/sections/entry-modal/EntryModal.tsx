@@ -82,7 +82,7 @@ export const EntryModal = observer(({
         isDeleteModalOpen && (
           <DeleteModal
             id={currentEntry.id!}
-            entryStrategy={entryStrategy}
+            label={entryStrategy.label}
             onCloseDeleteModal={() => setIsDeleteModalOpen(false)}
             onCloseAllModals={onCloseAllModals}
           />

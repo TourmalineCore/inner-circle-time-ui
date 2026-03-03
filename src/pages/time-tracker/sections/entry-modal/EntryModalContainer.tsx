@@ -64,8 +64,8 @@ export const EntryModalContainer = observer(({
           onClick={() => onSubmitEntry()}
         >
           {isExistingEntry
-            ? entryStrategy.buttonLabels.update
-            : entryStrategy.buttonLabels.create
+            ? `Update ${entryStrategy.label}`
+            : `Add ${entryStrategy.label}`
           }
         </button>
         {

@@ -62,14 +62,7 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
   }) => resetTaskEntrySavingState({
     entryState, 
   }),
-  buttonLabels: {
-    create: `Add Task`,
-    update: `Update Task`,
-    delete: `Delete Task`,
-  },
-  titleLabels: {
-    delete: `Delete Task`,
-  },
+  label: `Task`,
 }
 
 function validateTaskEntry({

@@ -89,7 +89,7 @@ function mountComponent({
       <DeleteModalStateContext.Provider value={deleteModalState}>
         <DeleteModalContainer 
           id={1}
-          entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
+          label={ENTRY_TYPES_STRATEGY[EntryType.TASK].label}
           onCloseDeleteModal={() => {}}
           onCloseAllModals={onCloseAllModals}
         />,

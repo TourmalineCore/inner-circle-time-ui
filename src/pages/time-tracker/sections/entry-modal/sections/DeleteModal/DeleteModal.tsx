@@ -2,16 +2,15 @@ import { useMemo } from "react"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { DeleteModalContainer } from "./DeleteModalContainer"
-import { EntryStrategy } from "../../entry-types-strategy"
 
 export function DeleteModal({
   id,
-  entryStrategy,
+  label,
   onCloseDeleteModal,
   onCloseAllModals,
 }: {
   id: number,
-  entryStrategy: EntryStrategy,
+  label: string,
   onCloseDeleteModal: () => unknown,
   onCloseAllModals: () => unknown,
 }) {
@@ -24,7 +23,7 @@ export function DeleteModal({
     <DeleteModalStateContext.Provider value={deleteModalState}>
       <DeleteModalContainer 
         id={id}
-        entryStrategy={entryStrategy}
+        label={label}
         onCloseDeleteModal={onCloseDeleteModal}
         onCloseAllModals={onCloseAllModals}
       />        

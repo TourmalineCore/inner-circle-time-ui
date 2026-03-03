@@ -52,12 +52,5 @@ export type EntryStrategy = {
   }: {
     entryState: any,
   }) => unknown,
-  buttonLabels: {
-    create: string,
-    update: string,
-    delete: string,
-  },
-  titleLabels: {
-    delete: string,
-  },
+  label: string,
 }
