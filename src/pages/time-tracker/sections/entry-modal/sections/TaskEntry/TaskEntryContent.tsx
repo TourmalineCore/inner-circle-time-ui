@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite'
 import DatePicker from 'react-datepicker'
 import InputMask from 'react-input-mask'
 import { formatTime, parseTimeString } from '../../../../utils/date-and-time'
+import clsx from 'clsx'
 
 export const TaskEntryContent = observer(() => {
   const taskEntryState = useContext(TaskEntryStateContext)
@@ -78,9 +79,9 @@ export const TaskEntryContent = observer(() => {
               taskId: e.target.value,
             },
           })}
-          className={`${isTaskIdError
-            ? `error` 
-            : ``}`}
+          className={clsx({
+            'error': isTaskIdError,
+          })}
         />
       </div>
       
@@ -98,9 +99,9 @@ export const TaskEntryContent = observer(() => {
               title: e.target.value,
             },
           })}
-          className={`${isTitleError
-            ? `error` 
-            : ``}`}
+          className={clsx({
+            'error': isTitleError,
+          })}
         />
       </div>
     
@@ -117,9 +118,9 @@ export const TaskEntryContent = observer(() => {
               description: e.target.value,
             },
           })}
-          className={`task-entry__description ${isDescriptionError
-            ? `error` 
-            : ``}`}
+          className={clsx(`task-entry__description`, {
+            'error': isDescriptionError,
+          })}
         />
       </div>
     

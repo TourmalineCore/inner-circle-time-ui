@@ -1,7 +1,10 @@
 import '@tourmalinecore/react-tc-modal/es/index.css'
 import '@tourmalinecore/react-tc-ui-kit/es/index.css'
 import "react-datepicker/dist/react-datepicker.css"
+
 import './EntryModal.scss'
+
+import DeleteIcon from "../../../../assets/icons/trash.svg?react"
 
 import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { useContext, useEffect } from 'react'
@@ -11,15 +14,17 @@ import { EntryStrategy } from './entry-types-strategy'
 import axios from 'axios'
 
 export const EntryModalContainer = observer(({
-  onClose,
+  onCloseEntryModal,
   entryStrategy,
   id,
   handleTriggerReloadState,
+  onOpenDeleteModal,
 }: {
-  onClose: () => unknown,
+  onCloseEntryModal: () => unknown,
   entryStrategy: EntryStrategy,
   id?: number,
   handleTriggerReloadState: () => unknown,
+  onOpenDeleteModal: () => unknown,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
   const entryState = useContext(entryStrategy.StateContext)
@@ -40,7 +45,7 @@ export const EntryModalContainer = observer(({
 
   return (
     <EntryModalContent 
-      onClose={onClose} 
+      onClose={onCloseEntryModal} 
       isExistingEntry={isExistingEntry}
     >
       {entryStrategy.EntryContent}
@@ -51,17 +56,31 @@ export const EntryModalContainer = observer(({
           </span>
         )
       }
-      <button
-        data-cy="submit-button"
-        className='entry-modal__submit'
-        type='submit'
-        onClick={() => onSubmitEntry()}
-      >
-        {isExistingEntry
-          ? entryStrategy.buttonLabels.update
-          : entryStrategy.buttonLabels.create
+      <div className="entry-modal__buttons">
+        <button
+          data-cy="submit-button"
+          className='entry-modal__submit-button'
+          type='submit'
+          onClick={() => onSubmitEntry()}
+        >
+          {isExistingEntry
+            ? `Update ${entryStrategy.label}`
+            : `Add ${entryStrategy.label}`
+          }
+        </button>
+        {
+          isExistingEntry && (
+            <button
+              data-cy="delete-button"
+              className='entry-modal__delete-button'
+              type='button'
+              onClick={onOpenDeleteModal}
+            >
+              <DeleteIcon />
+            </button>
+          )
         }
-      </button>
+      </div>
     </EntryModalContent>
   )
 

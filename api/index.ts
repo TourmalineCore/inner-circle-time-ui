@@ -56,6 +56,12 @@ export interface ProjectsResponse {
   projects: ProjectDto[];
 }
 
+export interface SoftDeleteEntryRequest {
+  /** @format int64 */
+  id?: number;
+  deletionReason: string;
+}
+
 export interface TaskEntryDto {
   /** @format int64 */
   id: number;
@@ -82,6 +88,8 @@ export interface UnwellEntryDto {
 }
 
 export interface UpdateTaskEntryRequest {
+  /** @format int64 */
+  id?: number;
   title: string;
   /** @format date-time */
   startTime: string;
@@ -94,6 +102,8 @@ export interface UpdateTaskEntryRequest {
 }
 
 export interface UpdateUnwellEntryRequest {
+  /** @format int64 */
+  id?: number;
   /** @format date-time */
   startTime: string;
   /** @format date-time */
@@ -430,6 +440,27 @@ export class Api<
       this.request<void, any>({
         path: `/api/time/tracking/entries/${entryId}/hard-delete`,
         method: "DELETE",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Tracking
+     * @name TrackingSoftDeleteEntry
+     * @summary Soft deletes specific entry
+     * @request DELETE:/api/time/tracking/entries/{entryId}/soft-delete
+     */
+    trackingSoftDeleteEntry: (
+      entryId: number,
+      data: SoftDeleteEntryRequest,
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/api/time/tracking/entries/${entryId}/soft-delete`,
+        method: "DELETE",
+        body: data,
+        type: ContentType.Json,
         ...params,
       }),
   };

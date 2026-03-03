@@ -62,10 +62,7 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
   }) => resetTaskEntrySavingState({
     entryState, 
   }),
-  buttonLabels: {
-    create: `Add Task`,
-    update: `Update Task`,
-  },
+  label: `Task`,
 }
 
 function validateTaskEntry({

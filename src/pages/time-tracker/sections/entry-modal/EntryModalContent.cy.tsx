@@ -4,8 +4,9 @@ import { TaskEntryStateContext } from "./sections/TaskEntry/state/TaskEntryState
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 
-describe(`EntryModalContainer`, () => {   
+describe(`EntryModalContent`, () => {   
   describe(`On Close Modal`, onCloseModalTests)
+  describe(`Is Existing Modal Entry`, isExistingModalEntryTests)
 })
 
 function onCloseModalTests() {
@@ -24,7 +25,9 @@ function onCloseModalTests() {
       .get(`@onClose`)
       .should(`be.calledOnce`)
   })
+}
 
+function isExistingModalEntryTests() {
   it(`
   GIVEN opened entry modal
   WHEN isExistingEntry = false

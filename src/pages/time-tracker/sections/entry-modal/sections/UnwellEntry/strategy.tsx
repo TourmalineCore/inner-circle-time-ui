@@ -43,10 +43,7 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
   }) => api.trackingUpdateUnwellEntry(id, requestData),
   loadProjectsAsync: async () => {},
   finally: () => {},
-  buttonLabels: {
-    create: `Add`,
-    update: `Update`,
-  },
+  label: ``,
 }
 
 function setUnwellEntryData({

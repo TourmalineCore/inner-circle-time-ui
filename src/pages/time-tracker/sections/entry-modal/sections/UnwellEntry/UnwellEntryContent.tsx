@@ -26,7 +26,7 @@ export const UnwellEntryContent = observer(() => {
     <div className='unwell-entry'>
       <div className='unwell-entry__field'>
         <span className='unwell-entry__label'>
-          Absent:
+          Absent
         </span>
         <div className='unwell-entry__time-spent-container'>
           <DatePicker

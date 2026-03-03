@@ -1,0 +1,21 @@
+@use "../../../../../../styles/variables" as *;
+
+.delete-modal {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+
+  &__input {
+    width: 100%;
+    min-height: 40px;
+    max-height: 80px;
+    resize: none;
+    field-sizing: content;
+  }
+
+  &__error {
+    text-align: center;
+    color: $color-error;
+  }
+}
