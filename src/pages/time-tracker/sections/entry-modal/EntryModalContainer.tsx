@@ -11,15 +11,17 @@ import { EntryStrategy } from './entry-types-strategy'
 import axios from 'axios'
 
 export const EntryModalContainer = observer(({
-  onClose,
+  onCloseEntryModal,
   entryStrategy,
   id,
   handleTriggerReloadState,
+  onOpenDeleteModal,
 }: {
-  onClose: () => unknown,
+  onCloseEntryModal: () => unknown,
   entryStrategy: EntryStrategy,
   id?: number,
   handleTriggerReloadState: () => unknown,
+  onOpenDeleteModal: () => unknown,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
   const entryState = useContext(entryStrategy.StateContext)
@@ -40,7 +42,7 @@ export const EntryModalContainer = observer(({
 
   return (
     <EntryModalContent 
-      onClose={onClose} 
+      onClose={onCloseEntryModal} 
       isExistingEntry={isExistingEntry}
     >
       {entryStrategy.EntryContent}
@@ -62,6 +64,18 @@ export const EntryModalContainer = observer(({
           : entryStrategy.buttonLabels.create
         }
       </button>
+      {
+        isExistingEntry && (
+          <button
+            data-cy="delete-button"
+            className='entry-modal__delete-button'
+            type='button'
+            onClick={onOpenDeleteModal}
+          >
+            Delete
+          </button>
+        )
+      }
     </EntryModalContent>
   )
 

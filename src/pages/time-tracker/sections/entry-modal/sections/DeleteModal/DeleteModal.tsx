@@ -3,7 +3,15 @@ import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { DeleteModalContainer } from "./DeleteModalContainer"
 
-export function DeleteModal() {
+export function DeleteModal({
+  onCloseDeleteModal,
+  onCloseAllModals,
+  id,
+}: {
+  onCloseDeleteModal: () => unknown,
+  onCloseAllModals: () => unknown,
+  id: number,
+}) {
   const deleteModalState = useMemo(
     () => new DeleteModalState(),
     [],
@@ -11,7 +19,11 @@ export function DeleteModal() {
   
   return (
     <DeleteModalStateContext.Provider value={deleteModalState}>
-      <DeleteModalContainer/>        
+      <DeleteModalContainer 
+        id={id}
+        onCloseDeleteModal={onCloseDeleteModal}
+        onCloseAllModals={onCloseAllModals}
+      />        
     </DeleteModalStateContext.Provider>
   )
 }
