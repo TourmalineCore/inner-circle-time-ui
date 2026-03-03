@@ -37,6 +37,10 @@ function deleteEntryTests() {
       .wait(`@softDeleteEntry`)
       .its(`request.body`)
       .should(`deep.equal`, softDeleteRequest)
+
+    cy
+      .get(`@onCloseAllModals`)
+      .should(`be.calledOnce`)
   })
 }
 
@@ -45,13 +49,17 @@ function mountComponent() {
   deleteModalState.setDeletionReason({
     deletionReason: `Wrong date`,
   })
-  
+
+  const onCloseAllModals = cy
+    .spy()
+    .as(`onCloseAllModals`)
+
   cy
     .mount(
       <DeleteModalStateContext.Provider value={deleteModalState}>
         <DeleteModalContainer 
           onCloseDeleteModal={() => {}}
-          onCloseAllModals={() => {}}
+          onCloseAllModals={onCloseAllModals}
           id={1}
         />,
       </DeleteModalStateContext.Provider>,
