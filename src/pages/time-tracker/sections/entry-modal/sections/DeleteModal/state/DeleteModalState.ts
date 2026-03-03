@@ -37,8 +37,4 @@ export class DeleteModalState {
   setIsTriedToSubmit() {
     this._isTriedToSubmit = true
   }
-
-  resetIsTriedToSubmit() {
-    this._isTriedToSubmit = false
-  }
 }

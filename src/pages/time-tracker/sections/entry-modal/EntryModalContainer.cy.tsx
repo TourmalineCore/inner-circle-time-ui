@@ -110,11 +110,11 @@ function deleteButtonTests() {
 }
 
 function mountComponent({
-  entryModalState = new EntryModalState(),
   id,
+  entryModalState = new EntryModalState(),
 }: {
-  entryModalState?: EntryModalState,
   id?: number,
+  entryModalState?: EntryModalState,
 } = {}) {
   const taskEntryState = new TaskEntryState()
 
