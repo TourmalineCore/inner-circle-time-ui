@@ -32,7 +32,8 @@ describe(`Unwell Entries Happy Path`, () => {
     TimeTrackerPage.clickOnTimeSlot()
 
     // Waiting for the table to be displayed in the desktop version
-    cy.contains(`October 26 – November 01`)
+    cy
+      .contains(`October 26 – November 01`)
       .should(`be.visible`)
 
     UnwellEntry.fill()

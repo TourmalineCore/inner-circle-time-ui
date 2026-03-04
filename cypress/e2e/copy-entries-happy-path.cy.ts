@@ -33,7 +33,8 @@ describe(`Copy Entries Happy Path`, () => {
     TimeTrackerPage.clickOnTimeSlot()
 
     // Waiting for the table to be displayed in the desktop version
-    cy.contains(`October 25 – 31`)
+    cy
+      .contains(`October 25 – 31`)
       .should(`be.visible`)
 
     TaskEntry.fill()

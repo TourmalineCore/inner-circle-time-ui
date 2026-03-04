@@ -85,7 +85,6 @@ export class TaskEntry {
     cy
       .getByData(`copy-button`)
       .click()
-
   }
 
   static checkAfterCopy() { 
