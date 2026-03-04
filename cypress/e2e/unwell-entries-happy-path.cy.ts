@@ -1,3 +1,4 @@
+import { UnwellEntry } from "./features/UnwellEntry"
 import { TimeTrackerPage } from "./pages/TimeTrackerPage"
 
 describe(`Unwell Entries Happy Path`, () => {
@@ -28,18 +29,21 @@ describe(`Unwell Entries Happy Path`, () => {
   `, () => {
     TimeTrackerPage.visit()
 
+    TimeTrackerPage.clickOnTimeSlot()
+
     // Waiting for the table to be displayed in the desktop version
-    cy.contains(`October 26 – November 01`)
+    cy
+      .contains(`October 26 – November 01`)
       .should(`be.visible`)
 
-    TimeTrackerPage.addUnwellEntry()
+    UnwellEntry.fill()
 
     cy.intercept(
       `GET`, 
       `/api/time/tracking/entries?startDate=2026-10-26&endDate=2026-11-01`)
       .as(`getEntries`)
 
-    TimeTrackerPage.updateUnwellEntry()
+    UnwellEntry.update()
 
     cy.wait(`@getEntries`)
 
@@ -47,6 +51,6 @@ describe(`Unwell Entries Happy Path`, () => {
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(2000)
 
-    TimeTrackerPage.checkUnwellEntryAfterUpdate()
+    UnwellEntry.checkAfterUpdate()
   })
 })

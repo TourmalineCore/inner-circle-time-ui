@@ -1,14 +1,13 @@
 import { makeAutoObservable } from 'mobx'
-import { TimeTrackerTable, TrackedEntry, View } from '../../../types'
+import { CurrentEntry, TimeTrackerTable, View } from '../../../types'
 import moment from 'moment'
 import { Views } from 'react-big-calendar'
-
 export class TimeTrackerTableState {
   private _tableData: TimeTrackerTable = {
     entries: [],
   }
 
-  private _currentEntry: TrackedEntry | null = null
+  private _currentEntry: CurrentEntry | null = null
 
   private _viewStartDate: string | null = null
 
@@ -62,8 +61,12 @@ export class TimeTrackerTableState {
   setCurrentEntry({
     entry,
   }: {
-    entry: TrackedEntry,
+    entry: CurrentEntry,
   }) {
     this._currentEntry = entry
+  }
+
+  resetCurrentEntry() {
+    this._currentEntry = null
   }
 }

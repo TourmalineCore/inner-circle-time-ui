@@ -18,7 +18,11 @@ export function TimeTrackerPage() {
   const [
     isOpenModal,
     setIsOpenModal,
-  ] = useState(false) 
+  ] = useState(false)
+  
+  const {
+    currentEntry,
+  } = timeTrackerTableState
   
   return (
     <>
@@ -29,16 +33,34 @@ export function TimeTrackerPage() {
         />
       </TimeTrackerStateContext.Provider>
       {isOpenModal && <EntryModal
-        currentEntry={timeTrackerTableState.currentEntry!}
-        onCloseEntryModal={() => setIsOpenModal(false)}
+        currentEntry={currentEntry!}
+        onCloseEntryModal={onCloseEntryModal}
         handleTriggerReloadState={handleTriggerReloadState}
+        handleCopyEntry={handleCopyEntry}
       />}
     </>
   )
+
+  function onCloseEntryModal() {
+    setIsOpenModal(false)
+    timeTrackerTableState.resetCurrentEntry()
+  }
+
+  function handleCopyEntry() {
+    timeTrackerTableState.setCurrentEntry({
+      entry: {
+        ...currentEntry!,
+        id: undefined,
+        isCopy: true,
+      },
+    })
+    setIsOpenModal(false)
+  }
 
   // Trigger to reload the entries state after adding or updating a work entry
   function handleTriggerReloadState() {
     setIsOpenModal(false)
     setTriggerReloadState(!triggerReloadState)
+    timeTrackerTableState.resetCurrentEntry()
   }
 }

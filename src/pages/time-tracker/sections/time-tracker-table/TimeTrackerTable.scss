@@ -1,3 +1,16 @@
+@use "../../../../styles/variables" as *;
+
+.time-tracker-table {
+  &__copy-alert {
+    position: absolute;
+    right: 60px;
+    top: 10px;
+    padding: 10px;
+    color: $color-purple;
+    background-color: $color-pink;
+  }
+}
+
 // remove background for current day
 .rbc-today {
   background: unset;

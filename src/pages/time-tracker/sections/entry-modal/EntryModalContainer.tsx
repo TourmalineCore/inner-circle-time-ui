@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css"
 import './EntryModal.scss'
 
 import DeleteIcon from "../../../../assets/icons/trash.svg?react"
+import CopyIcon from "../../../../assets/icons/copy.svg?react"
 
 import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { useContext, useEffect } from 'react'
@@ -14,17 +15,21 @@ import { EntryStrategy } from './entry-types-strategy'
 import axios from 'axios'
 
 export const EntryModalContainer = observer(({
+  id,
+  isCopy,
   onCloseEntryModal,
   entryStrategy,
-  id,
   handleTriggerReloadState,
   onOpenDeleteModal,
+  handleCopyEntry,
 }: {
+  id?: number,
+  isCopy: boolean,
   onCloseEntryModal: () => unknown,
   entryStrategy: EntryStrategy,
-  id?: number,
   handleTriggerReloadState: () => unknown,
   onOpenDeleteModal: () => unknown,
+  handleCopyEntry: () => unknown,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
   const entryState = useContext(entryStrategy.StateContext)
@@ -42,11 +47,12 @@ export const EntryModalContainer = observer(({
   ])
 
   const isExistingEntry = !!id
+  const isDisabledTypesSelect = !!id || isCopy
 
   return (
     <EntryModalContent 
       onClose={onCloseEntryModal} 
-      isExistingEntry={isExistingEntry}
+      isDisabledTypesSelect={isDisabledTypesSelect}
     >
       {entryStrategy.EntryContent}
       { 
@@ -70,14 +76,24 @@ export const EntryModalContainer = observer(({
         </button>
         {
           isExistingEntry && (
-            <button
-              data-cy="delete-button"
-              className='entry-modal__delete-button'
-              type='button'
-              onClick={onOpenDeleteModal}
-            >
-              <DeleteIcon />
-            </button>
+            <>
+              <button
+                data-cy="delete-button"
+                className='entry-modal__delete-button'
+                type='button'
+                onClick={onOpenDeleteModal}
+              >
+                <DeleteIcon />
+              </button>
+              <button
+                data-cy="copy-button"
+                className='entry-modal__copy-button'
+                type='button'
+                onClick={handleCopyEntry}
+              >
+                <CopyIcon />
+              </button>
+            </>
           )
         }
       </div>
