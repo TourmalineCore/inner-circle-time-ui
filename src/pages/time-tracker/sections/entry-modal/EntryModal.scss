@@ -21,16 +21,21 @@
     flex-grow: 1;
   }
 
+  &__error {
+    margin-top: 10px;
+    text-align: center;
+    color: $color-error;
+  }
+
+  &__delete-button {
+    margin-right: 2px;
+  }
+
+  &__copy-button,
   &__delete-button {
     margin-left: 5px;
     padding: 0;
     width: 30px;
     height: 30px;
-  }
-
-  &__error {
-    margin-top: 10px;
-    text-align: center;
-    color: $color-error;
   }
 }

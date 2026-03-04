@@ -45,7 +45,7 @@ function isExistingModalEntryTests() {
   SHOULD disable type select
   `, () => {
     mountComponent({
-      isExistingEntry: true,
+      isDisabledTypesSelect: true,
     })
     
     cy.getByData(`type-select`)
@@ -54,9 +54,9 @@ function isExistingModalEntryTests() {
 }
 
 function mountComponent({
-  isExistingEntry = false,
+  isDisabledTypesSelect = false,
 }: {
-  isExistingEntry?: boolean,
+  isDisabledTypesSelect?: boolean,
 } = {}) {
   const entryModalState = new EntryModalState()
   const taskEntryState = new TaskEntryState()
@@ -69,7 +69,7 @@ function mountComponent({
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContent 
-            isExistingEntry={isExistingEntry}
+            isDisabledTypesSelect={isDisabledTypesSelect}
             onClose={onClose}
           />
         </TaskEntryStateContext.Provider>

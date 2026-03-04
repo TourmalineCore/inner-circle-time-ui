@@ -13,6 +13,10 @@ export type TrackedEntry = {
   end: Date,
 }
 
+export type CurrentEntry = TrackedEntry & {
+  isCopy: boolean,
+}
+
 export type TimeTrackerTable = {
   entries: TrackedEntry[],
 }

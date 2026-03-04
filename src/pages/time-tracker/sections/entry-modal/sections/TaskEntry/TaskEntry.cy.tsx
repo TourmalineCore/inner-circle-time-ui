@@ -40,6 +40,8 @@ function mountComponent() {
             onCloseEntryModal={() => {}}
             onOpenDeleteModal={() => {}}
             handleTriggerReloadState={() => {}}
+            handleCopyEntry={() => {}}
+            isCopy={false}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,

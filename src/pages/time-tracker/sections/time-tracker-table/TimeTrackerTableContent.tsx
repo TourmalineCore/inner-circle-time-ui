@@ -31,6 +31,7 @@ export const TimeTrackerTableContent = observer(({
   } = useDeviceSize()
 
   const {
+    currentEntry,
     tableData,
   } = timeTrackerState
 
@@ -46,12 +47,18 @@ export const TimeTrackerTableContent = observer(({
     // Todo: remove select checking after added button to add event for mobile version
     const accessAction: SlotInfo['action'] = isMobile ? `select` : `click`
       
+    const isCopy = currentEntry?.isCopy || false
+
     if (action == accessAction) {
       timeTrackerState.setCurrentEntry({
         entry: {
+          ...(isCopy && {
+            ...currentEntry,
+          }),
           date: start,
           start,
           end,
+          isCopy,
         },
       })
 
@@ -61,7 +68,10 @@ export const TimeTrackerTableContent = observer(({
 
   const handleSelectEntry = (entry: TrackedEntry) => {
     timeTrackerState.setCurrentEntry({
-      entry,
+      entry: {
+        ...entry,
+        isCopy: false,
+      },
     })
 
     onOpenEntryModal()
@@ -70,48 +80,58 @@ export const TimeTrackerTableContent = observer(({
   const currentView = isMobile ? Views.DAY : Views.WEEK
 
   return (
-    <Calendar
-      dayLayoutAlgorithm="no-overlap"
-      view={currentView}
-      views={[
-        currentView,
-      ]}
-      formats={{
-        timeGutterFormat: `HH:mm`,
-        eventTimeRangeFormat: ({
-          start,
-          end, 
-        }) => 
-          `${moment(start)
-            .format(`HH:mm`)} - ${moment(end)
-            .format(`HH:mm`)}`,
-      }}
-      events={entries}
-      timeslots={4}
-      step={15}
-      localizer={localizer}
-      onSelectSlot={handleSelectSlot}
-      onSelectEvent={handleSelectEntry}
-      onNavigate={(date) => timeTrackerState.setViewPeriod({
-        date: date,
-        view: currentView,
-      })}
-      selectable
-      scrollToTime={moment()
-        .hour(8)
-        .minute(0)
-        .toDate()}
-      min={moment()
-        .hour(0)
-        .minute(0)
-        .toDate()}
-      max={moment()
-        .hour(23)
-        .minute(59)
-        .toDate()}
-      components={{
-        event: EntryContent, 
-      }}
-    />
+    <>
+      {currentEntry?.isCopy && (
+        <div 
+          className="time-tracker-table__copy-alert"
+          data-cy="copy-alert"
+        >
+          Choose free time slot
+        </div>
+      )}
+      <Calendar
+        dayLayoutAlgorithm="no-overlap"
+        view={currentView}
+        views={[
+          currentView,
+        ]}
+        formats={{
+          timeGutterFormat: `HH:mm`,
+          eventTimeRangeFormat: ({
+            start,
+            end, 
+          }) => 
+            `${moment(start)
+              .format(`HH:mm`)} - ${moment(end)
+              .format(`HH:mm`)}`,
+        }}
+        events={entries}
+        timeslots={4}
+        step={15}
+        localizer={localizer}
+        onSelectSlot={handleSelectSlot}
+        onSelectEvent={handleSelectEntry}
+        onNavigate={(date) => timeTrackerState.setViewPeriod({
+          date: date,
+          view: currentView,
+        })}
+        selectable
+        scrollToTime={moment()
+          .hour(8)
+          .minute(0)
+          .toDate()}
+        min={moment()
+          .hour(0)
+          .minute(0)
+          .toDate()}
+        max={moment()
+          .hour(23)
+          .minute(59)
+          .toDate()}
+        components={{
+          event: EntryContent,
+        }}
+      />
+    </>
   )
 })

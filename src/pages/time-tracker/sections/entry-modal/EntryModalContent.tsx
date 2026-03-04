@@ -11,11 +11,11 @@ import { TYPES } from '../../../../common/constants/entryType'
 
 export const EntryModalContent = observer(({
   onClose,
-  isExistingEntry,
+  isDisabledTypesSelect,
   children,
 }: {
   onClose: () => unknown,
-  isExistingEntry?: boolean,
+  isDisabledTypesSelect: boolean,
   children?: ReactNode,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
@@ -36,7 +36,7 @@ export const EntryModalContent = observer(({
             name='type'
             data-cy="type-select"
             value={type}
-            disabled={isExistingEntry}
+            disabled={isDisabledTypesSelect}
             onChange={(e) => entryModalState.setType({
               type: Number(e.target.value),
             })}

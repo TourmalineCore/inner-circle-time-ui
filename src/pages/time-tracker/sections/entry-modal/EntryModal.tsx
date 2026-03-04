@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 import { EntryModalState } from "./state/EntryModalState"
-import { TrackedEntry } from "../../types"
+import { CurrentEntry } from "../../types"
 import { observer } from "mobx-react-lite"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
@@ -11,10 +11,12 @@ export const EntryModal = observer(({
   currentEntry,
   onCloseEntryModal,
   handleTriggerReloadState,
+  handleCopyEntry,
 }: {
-  currentEntry: TrackedEntry,
+  currentEntry: CurrentEntry,
   onCloseEntryModal: () => unknown,
   handleTriggerReloadState: () => unknown,
+  handleCopyEntry: () => unknown,
 }) => {
   const entryModalState = useMemo(
     () => new EntryModalState(),
@@ -74,6 +76,8 @@ export const EntryModal = observer(({
             onCloseEntryModal={onCloseEntryModal}
             handleTriggerReloadState={handleTriggerReloadState}
             onOpenDeleteModal={() => setIsDeleteModalOpen(true)}
+            handleCopyEntry={handleCopyEntry}
+            isCopy={currentEntry.isCopy}
           >        
           </EntryModalContainer>
         </StateContext.Provider>

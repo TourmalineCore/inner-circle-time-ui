@@ -130,12 +130,14 @@ function mountComponent({
     .mount(
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
-          <EntryModalContainer 
+          <EntryModalContainer
+            id={id} 
             onCloseEntryModal={() => {}}
             handleTriggerReloadState={() => {}}
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
             onOpenDeleteModal={() => {}}
-            id={id}
+            handleCopyEntry={() => {}}
+            isCopy={false}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,
