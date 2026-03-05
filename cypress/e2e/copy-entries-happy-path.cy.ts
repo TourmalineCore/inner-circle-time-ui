@@ -2,7 +2,7 @@ import { TaskEntry } from "./features/TaskEntry"
 import { TimeTrackerPage } from "./pages/TimeTrackerPage"
 
 describe(`Copy Entries Happy Path`, () => {
-  const testDate = new Date(2027, 9, 27)
+  const testDate = new Date(2027, 9, 25)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
