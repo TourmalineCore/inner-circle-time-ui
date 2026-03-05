@@ -1,13 +1,23 @@
 @use "../../../../styles/variables" as *;
+@use "../../../../styles/media" as *;
 
 .time-tracker-table {
   &__copy-alert {
     position: absolute;
-    right: 60px;
-    top: 10px;
+    right: 5px;
+    top: 5px;
     padding: 10px;
     color: $color-purple;
     background-color: $color-pink;
+
+    @include tablet {
+      right: 25px;
+      top: 10px;
+    }
+
+    @include tablet-xl {
+      right: 60px;
+    }
   }
 }
 
