@@ -8,14 +8,21 @@ import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { ReactNode, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { TYPES } from '../../../../common/constants/entryType'
+import { closeEntryModalEvent, copyEntryEvent, openDeleteModalEvent, resetEntryEvent } from '../../event-bus'
+import DeleteIcon from "../../../../assets/icons/trash.svg?react"
+import CopyIcon from "../../../../assets/icons/copy.svg?react"
 
 export const EntryModalContent = observer(({
-  onClose,
+  isExistingEntry,
   isDisabledTypesSelect,
+  onSubmitEntry,
+  buttonLabel,
   children,
 }: {
-  onClose: () => unknown,
+  isExistingEntry: boolean,
   isDisabledTypesSelect: boolean,
+  onSubmitEntry: () => unknown,
+  buttonLabel: string,
   children?: ReactNode,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
@@ -55,9 +62,54 @@ export const EntryModalContent = observer(({
             ))}
           </select>
           {children}
+          { 
+            entryModalState.error && (
+              <span className='entry-modal__error'>
+                {entryModalState.error}
+              </span>
+            )
+          }
+          <div className="entry-modal__buttons">
+            <button
+              data-cy="submit-button"
+              className='entry-modal__submit-button'
+              type='submit'
+              onClick={() => onSubmitEntry()}
+            >
+              {isExistingEntry
+                ? `Update ${buttonLabel}`
+                : `Add ${buttonLabel}`
+              }
+            </button>
+            {
+              isExistingEntry && (
+                <>
+                  <button
+                    data-cy="delete-button"
+                    className='entry-modal__delete-button'
+                    type='button'
+                    onClick={openDeleteModalEvent}
+                  >
+                    <DeleteIcon />
+                  </button>
+                  <button
+                    data-cy="copy-button"
+                    className='entry-modal__copy-button'
+                    type='button'
+                    onClick={copyEntryEvent}
+                  >
+                    <CopyIcon />
+                  </button>
+                </>
+              )
+            }
+          </div>
         </div>
       )}
-      onClose={onClose}
+      onClose={() => {
+        closeEntryModalEvent()
+        resetEntryEvent()
+      }}
     />
   )
 })
