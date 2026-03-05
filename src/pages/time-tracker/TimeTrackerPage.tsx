@@ -16,6 +16,10 @@ export function TimeTrackerPage() {
     setIsOpenModal,
   ] = useState(false) 
 
+  const {
+    currentEntry,
+  } = timeTrackerTableState
+
   useEffect(() => {
     const unsubscribeEntryModalOpen = eventBus.subscribe(`ENTRY_MODAL:OPEN`, () => {
       setIsOpenModal(true)
@@ -41,18 +45,16 @@ export function TimeTrackerPage() {
     })
     
     return () => {
-      unsubscribeEntryModalOpen(),
-      unsubscribeEntryModalClose(),
-      unsubscribeResetEntry(),
+      unsubscribeEntryModalOpen()
+      unsubscribeEntryModalClose()
+      unsubscribeResetEntry()
       unsubscribeCopyEntry()
     }
   }, [
+    timeTrackerTableState,
+    currentEntry, 
     isOpenModal,
   ])
-  
-  const {
-    currentEntry,
-  } = timeTrackerTableState
   
   return (
     <>
