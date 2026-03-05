@@ -1,11 +1,12 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
+import { eventBus } from "../../../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
 import { DeleteModalContainer } from "./DeleteModalContainer"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 
 describe(`DeleteModalContainer`, () => {   
-  describe(`Delete Entry`, requestTests)
+  describe(`Request`, requestTests)
   describe(`Validate on Client`, validateOnClientTests)
 })
 
@@ -43,9 +44,14 @@ function requestTests() {
       .its(`request.body`)
       .should(`deep.equal`, softDeleteRequest)
 
-    cy
-      .get(`@onCloseAllModals`)
-      .should(`be.calledOnce`)
+    getEventBus()
+      .should(`be.calledWith`, `DELETE_MODAL:CLOSE`)
+
+    getEventBus()
+      .should(`be.calledWith`, `ENTRY_MODAL:CLOSE`) 
+
+    getEventBus()
+      .should(`be.calledWith`, `TABLE:RELOAD_ENTRIES`)
   })
 }
 
@@ -76,13 +82,13 @@ function mountComponent({
   deletionReason?: string,
 } = {}){
   const deleteModalState = new DeleteModalState()
+  
   deleteModalState.setDeletionReason({
     deletionReason,
   })
 
-  const onCloseAllModals = cy
-    .spy()
-    .as(`onCloseAllModals`)
+  cy.spy(eventBus, `trigger`)
+    .as(`eventBusTrigger`)
 
   cy
     .mount(
@@ -90,9 +96,11 @@ function mountComponent({
         <DeleteModalContainer 
           id={1}
           label={ENTRY_TYPES_STRATEGY[EntryType.TASK].label}
-          onCloseDeleteModal={() => {}}
-          onCloseAllModals={onCloseAllModals}
         />,
       </DeleteModalStateContext.Provider>,
     )
+}
+
+function getEventBus() {
+  return cy.get(`@eventBusTrigger`)
 }

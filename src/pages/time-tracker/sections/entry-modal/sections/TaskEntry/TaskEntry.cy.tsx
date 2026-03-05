@@ -37,10 +37,6 @@ function mountComponent() {
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer 
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
-            onCloseEntryModal={() => {}}
-            onOpenDeleteModal={() => {}}
-            handleTriggerReloadState={() => {}}
-            handleCopyEntry={() => {}}
             isCopy={false}
           />,
         </TaskEntryStateContext.Provider>

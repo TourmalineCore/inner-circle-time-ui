@@ -6,17 +6,12 @@ import { observer } from "mobx-react-lite"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { DeleteModal } from "./sections/DeleteModal/DeleteModal"
+import { eventBus } from "../../event-bus"
 
 export const EntryModal = observer(({
   currentEntry,
-  onCloseEntryModal,
-  handleTriggerReloadState,
-  handleCopyEntry,
 }: {
   currentEntry: CurrentEntry,
-  onCloseEntryModal: () => unknown,
-  handleTriggerReloadState: () => unknown,
-  handleCopyEntry: () => unknown,
 }) => {
   const entryModalState = useMemo(
     () => new EntryModalState(),
@@ -65,6 +60,23 @@ export const EntryModal = observer(({
     isDeleteModalOpen,
     setIsDeleteModalOpen,
   ] = useState(false)
+
+  useEffect(() => {
+    const unsubscribeEntryModalOpen = eventBus.subscribe(`DELETE_MODAL:OPEN`, () => {
+      setIsDeleteModalOpen(true)
+    })
+  
+    const unsubscribeEntryModalClose = eventBus.subscribe(`DELETE_MODAL:CLOSE`, () => {
+      setIsDeleteModalOpen(false)
+    }) 
+      
+    return () => {
+      unsubscribeEntryModalOpen(),
+      unsubscribeEntryModalClose()
+    } 
+  }, [
+    isDeleteModalOpen,
+  ])
   
   return (
     <>
@@ -73,10 +85,6 @@ export const EntryModal = observer(({
           <EntryModalContainer
             id={currentEntry.id}
             entryStrategy={entryStrategy}
-            onCloseEntryModal={onCloseEntryModal}
-            handleTriggerReloadState={handleTriggerReloadState}
-            onOpenDeleteModal={() => setIsDeleteModalOpen(true)}
-            handleCopyEntry={handleCopyEntry}
             isCopy={currentEntry.isCopy}
           >        
           </EntryModalContainer>
@@ -87,17 +95,9 @@ export const EntryModal = observer(({
           <DeleteModal
             id={currentEntry.id!}
             label={entryStrategy.label}
-            onCloseDeleteModal={() => setIsDeleteModalOpen(false)}
-            onCloseAllModals={onCloseAllModals}
           />
         )
       }
     </>
   )
-
-  function onCloseAllModals() {
-    setIsDeleteModalOpen(false)
-    onCloseEntryModal()
-    handleTriggerReloadState()
-  }
 })

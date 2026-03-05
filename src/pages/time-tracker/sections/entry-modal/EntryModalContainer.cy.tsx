@@ -1,4 +1,5 @@
 import { EntryType } from "../../../../common/constants/entryType"
+import { eventBus } from "../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { TaskEntryState } from "./sections/TaskEntry/state/TaskEntryState"
@@ -6,11 +7,43 @@ import { TaskEntryStateContext } from "./sections/TaskEntry/state/TaskEntryState
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 
-describe(`EntryModalContainer`, () => {   
+describe(`EntryModalContainer`, () => {
+  describe(`Event Call`, eventCallTests)   
   describe(`Set Error`, setErrorTests)
   describe(`Reset Error`, resetErrorTests)
-  describe(`Delete Button Display`, deleteButtonTests)
 })
+
+function eventCallTests() {
+  it(`
+  GIVEN opened task entry 
+  WHEN click on submit button
+  SHOULD trigger close entry modal and reload table events
+  `, () => {
+    cy
+      .intercept(
+        `POST`,
+        `*/time/tracking/task-entries`,
+        {
+          statusCode: 200,
+        },
+      )
+    
+    mountComponent()
+
+    cy
+      .contains(`Add`)
+      .click()
+
+    getEventBus()
+      .should(`be.calledWith`, `ENTRY_MODAL:CLOSE`)
+
+    getEventBus()
+      .should(`be.calledWith`, `TABLE:RELOAD_ENTRIES`)
+      
+    getEventBus()
+      .should(`be.calledWith`, `TABLE:RESET_ENTRY`)
+  })
+}
 
 function setErrorTests() {
   it(`
@@ -81,34 +114,6 @@ function resetErrorTests() {
   })
 }
 
-function deleteButtonTests() {
-  it(`
-  GIVEN opened task entry 
-  WHEN it is not submitted
-  SHOULD not display delete button
-  `, () => {
-    mountComponent()
-
-    cy
-      .getByData(`delete-button`)
-      .should(`not.exist`)
-  })
-
-  it(`
-  GIVEN opened task entry 
-  WHEN was already submitted
-  SHOULD display delete button
-  `, () => {
-    mountComponent({
-      id: 1,
-    })
-
-    cy
-      .getByData(`delete-button`)
-      .should(`exist`)
-  })
-}
-
 function mountComponent({
   id,
   entryModalState = new EntryModalState(),
@@ -126,20 +131,23 @@ function mountComponent({
     },
   })
   
+  cy.spy(eventBus, `trigger`)
+    .as(`eventBusTrigger`)
+
   cy
     .mount(
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer
             id={id} 
-            onCloseEntryModal={() => {}}
-            handleTriggerReloadState={() => {}}
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
-            onOpenDeleteModal={() => {}}
-            handleCopyEntry={() => {}}
             isCopy={false}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,
     )
+}
+
+function getEventBus() {
+  return cy.get(`@eventBusTrigger`)
 }

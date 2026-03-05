@@ -1,46 +1,43 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
+import { eventBus } from "../../../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
-import { DeleteModalContainer } from "./DeleteModalContainer"
+import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 
 describe(`DeleteModalContent`, () => {   
-  describe(`Close Delete Modal`, closeDeleteModalTests)
+  describe(`Event Call`, eventCallTests)
 })
 
-function closeDeleteModalTests() {
+function eventCallTests() {
   it(`
-  GIVEN opened delete entry modal
+  GIVEN opened entry modal
   WHEN click on close button
-  SHOULD trigger onCloseDeleteModal function once 
+  SHOULD trigger close and reset entry events 
   `, () => {
     mountComponent()
-
+    
     cy
       .get(`.tc-modal__close-button`)
       .click()
-
-    cy
-      .get(`@onCloseDeleteModal`)
-      .should(`be.calledOnce`)
+    
+    cy.get(`@eventBusTrigger`)
+      .should(`be.calledWith`, `DELETE_MODAL:CLOSE`)
   })
 }
 
 function mountComponent() {
   const deleteModalState = new DeleteModalState()
 
-  const onCloseDeleteModal = cy
-    .spy()
-    .as(`onCloseDeleteModal`)
-
+  cy.spy(eventBus, `trigger`)
+    .as(`eventBusTrigger`)
+      
   cy
     .mount(
       <DeleteModalStateContext.Provider value={deleteModalState}>
-        <DeleteModalContainer 
-          id={1}
+        <DeleteModalContent 
           label={ENTRY_TYPES_STRATEGY[EntryType.TASK].label}
-          onCloseDeleteModal={onCloseDeleteModal}
-          onCloseAllModals={() => {}}
+          onSubmitDeletionReason={() => {}}
         />,
       </DeleteModalStateContext.Provider>,
     )

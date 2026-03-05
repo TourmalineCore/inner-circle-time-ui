@@ -1,25 +1,25 @@
 import { observer } from "mobx-react-lite"
 import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import moment from "moment"
 import { api } from "../../../../common/api/api"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
+import { eventBus } from "../../event-bus"
 
-export const TimeTrackerTableContainer = observer(({
-  onOpenEntryModal,
-  triggerReloadState, 
-}: {
-  onOpenEntryModal: () => unknown,
-  triggerReloadState: boolean,
-}) => {
+export const TimeTrackerTableContainer = observer(() => {
   const timeTrackerState = useContext(TimeTrackerStateContext)
   
   const {
     viewStartDate,
     viewEndDate,
   } = timeTrackerState
+
+  const [
+    triggerReload,
+    setTriggerReload,
+  ] = useState(false)
 
   const {
     isDesktop,
@@ -32,6 +32,18 @@ export const TimeTrackerTableContainer = observer(({
     })
   }, [
     isDesktop,
+  ])
+
+  useEffect(() => {
+    const unsubscribeReloadEntries = eventBus.subscribe(`TABLE:RELOAD_ENTRIES`, () => {
+      setTriggerReload(!triggerReload)
+    })
+  
+    return () => {
+      unsubscribeReloadEntries()
+    }
+  }, [
+    triggerReload,
   ])
   
   useEffect(() => {
@@ -100,12 +112,10 @@ export const TimeTrackerTableContainer = observer(({
   }, [
     viewStartDate,
     viewEndDate,
-    triggerReloadState,
+    triggerReload,
   ])
 
   return (
-    <TimeTrackerTableContent 
-      onOpenEntryModal={onOpenEntryModal}
-    />
+    <TimeTrackerTableContent />
   )
 })
