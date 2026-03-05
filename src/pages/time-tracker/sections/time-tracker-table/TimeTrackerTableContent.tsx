@@ -10,7 +10,7 @@ import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryContent } from './components/EntryContent/EntryContent'
-import { eventBus } from '../../event-bus'
+import { openEntryModalEvent } from '../../event-bus'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -59,7 +59,7 @@ export const TimeTrackerTableContent = observer(() => {
         },
       })
 
-      eventBus.trigger(`ENTRY_MODAL:OPEN`)
+      openEntryModalEvent()
     }
   }
 
@@ -71,7 +71,7 @@ export const TimeTrackerTableContent = observer(() => {
       },
     })
 
-    eventBus.trigger(`ENTRY_MODAL:OPEN`)
+    openEntryModalEvent()
   }
 
   const currentView = isMobile ? Views.DAY : Views.WEEK

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { EntryModalContent } from './EntryModalContent'
 import { EntryStrategy } from './entry-types-strategy'
 import axios from 'axios'
-import { eventBus } from '../../event-bus'
+import { closeEntryModalEvent, reloadEntriesEvent, resetEntryEvent } from '../../event-bus'
 
 export const EntryModalContainer = observer(({
   id,
@@ -73,9 +73,9 @@ export const EntryModalContainer = observer(({
         })
       }
 
-      eventBus.trigger(`TABLE:RELOAD_ENTRIES`)
-      eventBus.trigger(`ENTRY_MODAL:CLOSE`)
-      eventBus.trigger(`TABLE:RESET_ENTRY`)
+      closeEntryModalEvent()
+      reloadEntriesEvent()
+      resetEntryEvent()
 
       entryState.resetError()
     }

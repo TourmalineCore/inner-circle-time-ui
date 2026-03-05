@@ -3,7 +3,7 @@ import { api } from "../../../../../../common/api/api"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { observer } from "mobx-react-lite"
-import { eventBus } from "../../../../event-bus"
+import { closeDeleteModalEvent, closeEntryModalEvent, reloadEntriesEvent } from "../../../../event-bus"
 
 export const DeleteModalContainer = observer(({
   id,
@@ -40,8 +40,8 @@ export const DeleteModalContainer = observer(({
       },
     )
 
-    eventBus.trigger(`DELETE_MODAL:CLOSE`)
-    eventBus.trigger(`ENTRY_MODAL:CLOSE`)
-    eventBus.trigger(`TABLE:RELOAD_ENTRIES`)
+    closeDeleteModalEvent()
+    closeEntryModalEvent()
+    reloadEntriesEvent()
   }
 })

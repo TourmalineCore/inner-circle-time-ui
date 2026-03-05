@@ -7,7 +7,7 @@ import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { Modal } from '@tourmalinecore/react-tc-modal'
 import { observer } from "mobx-react-lite"
 import clsx from 'clsx'
-import { eventBus } from '../../../../event-bus'
+import { closeDeleteModalEvent } from '../../../../event-bus'
 
 export const DeleteModalContent = observer(({
   label,
@@ -72,7 +72,7 @@ export const DeleteModalContent = observer(({
           </button>
         </div>
       )}
-      onClose={() => eventBus.trigger(`DELETE_MODAL:CLOSE`)}
+      onClose={closeDeleteModalEvent}
     />
   )
 })

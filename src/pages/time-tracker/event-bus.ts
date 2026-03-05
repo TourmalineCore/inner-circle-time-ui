@@ -28,3 +28,11 @@ class EventBus {
 }
 
 export const eventBus = new EventBus()
+
+export const openEntryModalEvent = () => eventBus.trigger(`ENTRY_MODAL:OPEN`)
+export const closeEntryModalEvent = () => eventBus.trigger(`ENTRY_MODAL:CLOSE`)
+export const openDeleteModalEvent = () => eventBus.trigger(`DELETE_MODAL:OPEN`)
+export const closeDeleteModalEvent = () => eventBus.trigger(`DELETE_MODAL:CLOSE`)
+export const reloadEntriesEvent = () => eventBus.trigger(`TABLE:RELOAD_ENTRIES`)
+export const resetEntryEvent = () => eventBus.trigger(`TABLE:RESET_ENTRY`)
+export const copyEntryEvent = () => eventBus.trigger(`TABLE:COPY_ENTRY`)
