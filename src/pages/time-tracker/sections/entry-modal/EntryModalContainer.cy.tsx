@@ -1,5 +1,5 @@
 import { EntryType } from "../../../../common/constants/entryType"
-import { eventBus } from "../../event-bus"
+import { eventBus, EventBusType } from "../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { TaskEntryState } from "./sections/TaskEntry/state/TaskEntryState"
@@ -35,13 +35,13 @@ function eventCallTests() {
       .click()
 
     getEventBus()
-      .should(`be.calledWith`, `ENTRY_MODAL:CLOSE`)
+      .should(`be.calledWith`, EventBusType.ENTRY_MODAL_CLOSE)
 
     getEventBus()
-      .should(`be.calledWith`, `TABLE:RELOAD_ENTRIES`)
+      .should(`be.calledWith`, EventBusType.TABLE_RELOAD_ENTRIES)
       
     getEventBus()
-      .should(`be.calledWith`, `TABLE:RESET_ENTRY`)
+      .should(`be.calledWith`, EventBusType.TABLE_RESET_ENTRY)
   })
 }
 

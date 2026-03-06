@@ -1,5 +1,5 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { eventBus } from "../../../../event-bus"
+import { eventBus, EventBusType } from "../../../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
 import { DeleteModalContainer } from "./DeleteModalContainer"
 import { DeleteModalState } from "./state/DeleteModalState"
@@ -45,13 +45,13 @@ function requestTests() {
       .should(`deep.equal`, softDeleteRequest)
 
     getEventBus()
-      .should(`be.calledWith`, `DELETE_MODAL:CLOSE`)
+      .should(`be.calledWith`, EventBusType.DELETE_MODAL_CLOSE)
 
     getEventBus()
-      .should(`be.calledWith`, `ENTRY_MODAL:CLOSE`) 
+      .should(`be.calledWith`, EventBusType.ENTRY_MODAL_CLOSE) 
 
     getEventBus()
-      .should(`be.calledWith`, `TABLE:RELOAD_ENTRIES`)
+      .should(`be.calledWith`, EventBusType.TABLE_RELOAD_ENTRIES)
   })
 }
 

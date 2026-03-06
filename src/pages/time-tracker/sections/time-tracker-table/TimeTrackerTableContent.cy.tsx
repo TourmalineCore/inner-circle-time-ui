@@ -1,4 +1,4 @@
-import { eventBus } from "../../event-bus"
+import { eventBus, EventBusType } from "../../event-bus"
 import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContainer } from "./TimeTrackerTableContainer"
@@ -40,7 +40,7 @@ function eventCallTests() {
       })
 
     cy.get(`@eventBusTrigger`)
-      .should(`be.calledWith`, `ENTRY_MODAL:OPEN`)
+      .should(`be.calledWith`, EventBusType.ENTRY_MODAL_OPEN)
   }) 
 }
 

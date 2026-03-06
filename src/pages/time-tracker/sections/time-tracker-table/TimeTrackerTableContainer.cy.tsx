@@ -1,4 +1,3 @@
-import { eventBus } from "../../event-bus"
 import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContainer } from "./TimeTrackerTableContainer"
@@ -122,9 +121,6 @@ function switchPeriodsTests() {
 function mountComponent() {
   const timeTrackerState = new TimeTrackerTableState()
   
-  cy.spy(eventBus, `trigger`)
-    .as(`eventBusTrigger`)
-    
   cy
     .mount(
       <TimeTrackerStateContext.Provider value={timeTrackerState}>

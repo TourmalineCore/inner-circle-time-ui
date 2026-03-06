@@ -1,4 +1,4 @@
-import { eventBus } from "../../event-bus"
+import { eventBus, EventBusType } from "../../event-bus"
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
@@ -22,10 +22,10 @@ function eventCallTests() {
       .click()
     
     getEventBus()
-      .should(`be.calledWith`, `ENTRY_MODAL:CLOSE`)
+      .should(`be.calledWith`, EventBusType.ENTRY_MODAL_CLOSE)
 
     getEventBus()
-      .should(`be.calledWith`, `TABLE:RESET_ENTRY`)
+      .should(`be.calledWith`, EventBusType.TABLE_RESET_ENTRY)
   })
 
   it(`
@@ -42,7 +42,7 @@ function eventCallTests() {
       .click()
     
     getEventBus()
-      .should(`be.calledWith`, `DELETE_MODAL:OPEN`)
+      .should(`be.calledWith`, EventBusType.DELETE_MODAL_OPEN)
   })
 
   it(`
@@ -59,7 +59,7 @@ function eventCallTests() {
       .click()
     
     getEventBus()
-      .should(`be.calledWith`, `TABLE:COPY_ENTRY`)
+      .should(`be.calledWith`, EventBusType.TABLE_COPY_ENTRY)
   })
 }
 
