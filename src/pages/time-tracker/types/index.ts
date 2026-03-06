@@ -30,7 +30,7 @@ export type EntryBase = {
 
 export type TaskEntryData = EntryBase & {
   title: string,
-  projectId: number,
+  projectId: number | '',
   taskId: string,
   description: string,
 }

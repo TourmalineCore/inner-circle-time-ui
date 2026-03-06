@@ -22,6 +22,7 @@ export const TaskEntryContent = observer(() => {
     isTitleError,
     isTaskIdError,
     isDescriptionError,
+    isProjectIdError,
   } = errors
   
   const {
@@ -40,7 +41,10 @@ export const TaskEntryContent = observer(() => {
         <span className='task-entry__label'>
           Project
         </span> 
-        <select 
+        <select
+          className={clsx({
+            'error': isProjectIdError,
+          })} 
           name='project'
           data-cy="project-select"
           value={projectId}
@@ -50,6 +54,12 @@ export const TaskEntryContent = observer(() => {
             },
           })}
         >
+          <option
+            className='task-entry__empty-project-option'
+            value=""
+          >
+            Choose project
+          </option>
           {taskEntryState.projects.map(({
             id,
             name,
@@ -183,5 +193,4 @@ export const TaskEntryContent = observer(() => {
       </div>
     </div>
   )
-},
-)
+})
