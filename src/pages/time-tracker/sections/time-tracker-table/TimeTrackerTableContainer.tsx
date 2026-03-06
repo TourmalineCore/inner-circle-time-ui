@@ -6,7 +6,7 @@ import moment from "moment"
 import { api } from "../../../../common/api/api"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
-import { eventBus } from "../../event-bus"
+import { eventBus, EventBusType } from "../../event-bus"
 
 export const TimeTrackerTableContainer = observer(() => {
   const timeTrackerState = useContext(TimeTrackerStateContext)
@@ -35,7 +35,7 @@ export const TimeTrackerTableContainer = observer(() => {
   ])
 
   useEffect(() => {
-    const unsubscribeReloadEntries = eventBus.subscribe(`TABLE:RELOAD_ENTRIES`, () => {
+    const unsubscribeReloadEntries = eventBus.subscribe(EventBusType.TABLE_RELOAD_ENTRIES, () => {
       setTriggerReload(!triggerReload)
     })
   

@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { DeleteModal } from "./sections/DeleteModal/DeleteModal"
-import { eventBus } from "../../event-bus"
+import { eventBus, EventBusType } from "../../event-bus"
 
 export const EntryModal = observer(({
   currentEntry,
@@ -62,11 +62,11 @@ export const EntryModal = observer(({
   ] = useState(false)
 
   useEffect(() => {
-    const unsubscribeEntryModalOpen = eventBus.subscribe(`DELETE_MODAL:OPEN`, () => {
+    const unsubscribeEntryModalOpen = eventBus.subscribe(EventBusType.DELETE_MODAL_OPEN, () => {
       setIsDeleteModalOpen(true)
     })
   
-    const unsubscribeEntryModalClose = eventBus.subscribe(`DELETE_MODAL:CLOSE`, () => {
+    const unsubscribeEntryModalClose = eventBus.subscribe(EventBusType.DELETE_MODAL_CLOSE, () => {
       setIsDeleteModalOpen(false)
     }) 
       

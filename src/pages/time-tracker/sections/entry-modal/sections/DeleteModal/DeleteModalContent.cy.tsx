@@ -1,5 +1,5 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { eventBus } from "../../../../event-bus"
+import { eventBus, EventBusType } from "../../../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalState } from "./state/DeleteModalState"
@@ -22,7 +22,7 @@ function eventCallTests() {
       .click()
     
     cy.get(`@eventBusTrigger`)
-      .should(`be.calledWith`, `DELETE_MODAL:CLOSE`)
+      .should(`be.calledWith`, EventBusType.DELETE_MODAL_CLOSE)
   })
 }
 
