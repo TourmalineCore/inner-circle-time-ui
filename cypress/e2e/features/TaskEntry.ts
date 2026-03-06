@@ -97,7 +97,7 @@ export class TaskEntry {
 
     cy
       .getByData(`project-select`)
-      .should(`have.value`, 2)
+      .should(`have.value`, 1)
 
     cy
       .getByData(`task-id-input`)

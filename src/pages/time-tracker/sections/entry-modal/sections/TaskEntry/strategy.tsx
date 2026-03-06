@@ -3,7 +3,7 @@ import { CreateTaskEntryRequest, UpdateTaskEntryRequest } from "../../../../../.
 import { api } from "../../../../../../common/api/api"
 import { TrackedEntry } from "../../../../types"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
-import { EMPTY_TASK_ENTRY_DATA, TaskEntryState } from "./state/TaskEntryState"
+import { TaskEntryState } from "./state/TaskEntryState"
 import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
 import { TaskEntryContent } from "./TaskEntryContent"
 import { EntryStrategy } from "../../entry-types-strategy"
@@ -122,7 +122,6 @@ async function loadProjectsAsync({
   entryState: TaskEntryState,
 }) {
   const {
-    projectId,
     start,
   } = entryState.taskEntryData
 
@@ -145,14 +144,6 @@ async function loadProjectsAsync({
   entryState.setProjects({
     projects,
   })
-
-  if (projectId === EMPTY_TASK_ENTRY_DATA.projectId) {
-    entryState.updateTaskEntryData({
-      taskEntryData: {
-        projectId: projects[0].id,
-      },
-    })
-  }
 }
 
 function resetTaskEntrySavingState({
@@ -177,7 +168,7 @@ function setTaskEntryData({
       title: entryData.title || ``,
       taskId: entryData.taskId || ``,
       description: entryData.description || ``,
-      projectId: entryData.project?.id || 0,
+      projectId: entryData.project?.id || ``,
       date: entryData.start,
       start: entryData.start,
       end:entryData.end,
