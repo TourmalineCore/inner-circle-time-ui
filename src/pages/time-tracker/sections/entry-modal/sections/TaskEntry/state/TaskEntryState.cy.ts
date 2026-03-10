@@ -220,6 +220,7 @@ function validationTests() {
       .to
       .be
       .true
+
     expect(taskEntryState.errors)
       .to
       .deep
@@ -227,6 +228,7 @@ function validationTests() {
         isTitleError: false,
         isTaskIdError: false,
         isDescriptionError: false,
+        isProjectIdError: false,
       })
   })
 }

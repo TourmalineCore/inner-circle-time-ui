@@ -7,7 +7,7 @@ export const EMPTY_TASK_ENTRY_DATA: TaskEntryData = {
   date: null,
   taskId: ``,
   description: ``,
-  projectId: 0,
+  projectId: ``,
   start: null,
   end: null,
 }
@@ -54,11 +54,16 @@ export class TaskEntryState {
     return this._taskEntryData.description !== ``
   }
   
+  get isProjectIdValid() {
+    return this._taskEntryData.projectId !== ``
+  }
+  
   get isValid() {
     return (
       this.isTitleValid &&
       this.isTaskIdValid &&
-      this.isDescriptionValid
+      this.isDescriptionValid &&
+      this.isProjectIdValid 
     )
   }
 
@@ -67,6 +72,7 @@ export class TaskEntryState {
       isTitleError: !this.isTitleValid && this._isTriedToSubmit,
       isTaskIdError: !this.isTaskIdValid && this._isTriedToSubmit,
       isDescriptionError: !this.isDescriptionValid && this._isTriedToSubmit,
+      isProjectIdError: !this.isProjectIdValid && this._isTriedToSubmit,
     }
   }
 
