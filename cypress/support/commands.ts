@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
+import { GetEntriesByPeriodResponse } from '@tourmalinecore/inner-circle-time-api-js-client'
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
-import { GetEntriesByPeriodResponse } from '../../api'
 
 Cypress.on(`uncaught:exception`, () => false)
 
