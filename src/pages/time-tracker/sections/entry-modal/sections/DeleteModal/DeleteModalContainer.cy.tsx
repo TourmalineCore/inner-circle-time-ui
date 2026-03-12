@@ -23,7 +23,7 @@ function requestTests() {
     cy
       .intercept(
         `DELETE`,
-        `*/tracking/entries/1/soft-delete`,
+        `*/time/tracking/entries/1/soft-delete`,
         {
           statusCode: 200,
           body: softDeleteRequest,
