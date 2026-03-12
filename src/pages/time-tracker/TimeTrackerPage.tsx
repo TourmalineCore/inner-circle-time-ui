@@ -19,6 +19,15 @@ export function TimeTrackerPage() {
   const {
     currentEntry,
   } = timeTrackerTableState
+  
+  // past events, maybe change semantics, e.g. ENTRY_MODAL_OPEN to empty slot clicked
+  // entry modal state lift up to page
+  // isModalOpen to EntryModal, maybe get rid of ENTRY_MODAL_CLOSE or move inside from global page
+  // experiment to move current entry to entry of modal state
+  // null object pattern form empty currentEntry
+  // get rid of functions from event-bus, call directly by event name
+  // trigger to publish
+  // expressive state methods names, not setCurrentEntry but e.g. createNewEntry, more methods, but more explicit and clear
 
   useEffect(() => {
     const unsubscribeEntryModalOpen = eventBus.subscribe(EventBusType.ENTRY_MODAL_OPEN, () => {
