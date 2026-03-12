@@ -1,10 +1,9 @@
-import { Api } from "../../../api"
 import { API_ROOT_URL } from "../config/config"
 import { initApiInterceptors } from "./initApiInterceptors"
+import { Api } from '@tourmalinecore/inner-circle-time-api-js-client'
 
 const apiClient = new Api({
-  // The generated API already contains /api/time, so it must be deleted in API_ROOT_URL
-  baseURL: API_ROOT_URL.replace(`/api/time`, ``),
+  baseURL: API_ROOT_URL,
 })
 
 initApiInterceptors(apiClient.instance)
