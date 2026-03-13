@@ -11,6 +11,7 @@ import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryContent } from './components/EntryContent/EntryContent'
 import { openEntryModalEvent } from '../../event-bus'
+import { EntryType } from '../../../../common/constants/entryType'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -74,6 +75,19 @@ export const TimeTrackerTableContent = observer(() => {
     openEntryModalEvent()
   }
 
+  const eventPropGetter = ({
+    type, 
+  }: TrackedEntry) => {
+    const typesClassName = {
+      [EntryType.TASK]: `task`,
+      [EntryType.UNWELL]: `unwell`,
+    }
+
+    return {
+      className: `time-tracker-table__entry time-tracker-table__entry--${typesClassName[type!]}`,
+    } 
+  }
+
   const currentView = isMobile ? Views.DAY : Views.WEEK
 
   return (
@@ -112,6 +126,7 @@ export const TimeTrackerTableContent = observer(() => {
           date: date,
           view: currentView,
         })}
+        eventPropGetter={eventPropGetter}
         selectable
         scrollToTime={moment()
           .hour(8)

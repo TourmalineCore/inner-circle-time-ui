@@ -19,6 +19,13 @@
       right: 60px;
     }
   }
+
+  &__entry {
+    &--unwell {
+      border: 1px solid $color-grey !important;
+      background-color: $color-grey !important;
+    }
+  }
 }
 
 // remove background for current day
