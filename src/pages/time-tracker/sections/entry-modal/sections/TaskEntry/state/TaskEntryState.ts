@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { TaskEntryData } from '../../../../../types'
-import { ProjectDto } from '../../../../../../../../api'
+import { ProjectDto } from '@tourmalinecore/inner-circle-time-api-js-client'
 
 export const EMPTY_TASK_ENTRY_DATA: TaskEntryData = {
   title: ``,

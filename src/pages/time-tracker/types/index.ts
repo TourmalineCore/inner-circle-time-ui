@@ -1,4 +1,4 @@
-import { ProjectDto } from "../../../../api"
+import { ProjectDto } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { EntryType } from "../../../common/constants/entryType"
 
 export type TrackedEntry = {

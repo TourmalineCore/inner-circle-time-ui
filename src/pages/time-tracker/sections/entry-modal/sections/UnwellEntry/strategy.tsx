@@ -1,4 +1,4 @@
-import { CreateUnwellEntryRequest, UpdateUnwellEntryRequest } from "../../../../../../../api"
+import { CreateUnwellEntryRequest, UpdateUnwellEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
 import { TrackedEntry } from "../../../../types"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
