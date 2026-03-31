@@ -37,7 +37,6 @@ function mountComponent() {
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer 
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
-            isCopyMode={false}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,

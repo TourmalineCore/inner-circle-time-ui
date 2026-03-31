@@ -28,8 +28,10 @@ export const EntryModalContainer = observer(({
     type,
   ])
 
-  const isExistingEntry = !!currentEntry?.id
-  const isDisabledTypesSelect = !!currentEntry?.id || isCopyMode
+  const id = currentEntry?.id
+
+  const isExistingEntry = !!id
+  const isDisabledTypesSelect = !!id || isCopyMode
 
   return (
     <EntryModalContent
@@ -59,9 +61,9 @@ export const EntryModalContainer = observer(({
         entryState,
       })
 
-      if (currentEntry?.id) {
+      if (id) {
         await entryStrategy.updateEntryAsync({
-          id: currentEntry.id,
+          id,
           requestData,
         })
       }
