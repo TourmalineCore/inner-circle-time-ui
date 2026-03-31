@@ -142,7 +142,7 @@ function mountComponent({
           <EntryModalContainer
             id={id} 
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
-            isCopy={false}
+            isCopyMode={false}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,

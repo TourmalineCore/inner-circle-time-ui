@@ -4,8 +4,10 @@ import { TimeTrackerTableState } from "./TimeTrackerTableState"
 
 describe(`TimeTrackerTableState`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`Work Entries Management`, entriesTests)
+  describe(`Entries Management`, entriesTests)
   describe(`View Configuration`, viewTests)
+  describe(`Copy Current Entry`, copyCurrentEntryTests)
+  describe(`Reset Is Copy Mode`, resetIsCopyModeTests)
 })
 
 const ENTRIES_FOR_INITIALIZATION: TimeTrackerTable = {
@@ -117,5 +119,69 @@ function viewTests() {
     expect(timeTrackerTableState.viewEndDate)
       .to
       .eq(`2025-12-25`)
+  })
+}
+
+function copyCurrentEntryTests() {
+  let timeTrackerTableState: TimeTrackerTableState
+
+  const testCurrentEntry = {
+    id: 1,
+    title: `Test Entry`,
+    taskId: `Test TaskId`,
+    date: new Date(2026, 3, 11),
+    start: new Date(2026, 3, 11),
+    end: new Date(2026, 3, 11),
+  }
+
+  beforeEach(() => {
+    timeTrackerTableState = new TimeTrackerTableState()
+
+    timeTrackerTableState.openEntry({
+      entry: testCurrentEntry,
+    })
+  })
+
+  it(`
+  GIVEN a state with filled current entry
+  WHEN copy current entry
+  SHOULD copy current entry without Id
+  AND SHOULD set isCopyMode to true
+  `, () => {
+    expect(timeTrackerTableState.isCopyMode).false
+
+    timeTrackerTableState.copyCurrentEntry()
+
+    expect(timeTrackerTableState.currentEntry)
+      .to
+      .deep
+      .eq({
+        ...testCurrentEntry,
+        id: undefined,
+      })
+
+    expect(timeTrackerTableState.isCopyMode).true
+  })
+}
+
+function resetIsCopyModeTests() {
+  let timeTrackerTableState: TimeTrackerTableState
+
+  beforeEach(() => {
+    timeTrackerTableState = new TimeTrackerTableState()
+
+    timeTrackerTableState.copyCurrentEntry()
+  })
+
+  it(`
+  GIVEN a state with isCopyMode equal true
+  WHEN reset isCopyMode
+  SHOULD return isCopyMode equal to false
+  `, () => {
+    expect(timeTrackerTableState.isCopyMode).true
+
+    timeTrackerTableState.resetIsCopyMode()
+
+    expect(timeTrackerTableState.isCopyMode).false
   })
 }

@@ -29,6 +29,7 @@ export const TimeTrackerTableContent = observer(() => {
   } = useDeviceSize()
 
   const {
+    isCopyMode,
     currentEntry,
     tableData,
   } = timeTrackerState
@@ -41,35 +42,38 @@ export const TimeTrackerTableContent = observer(() => {
     start,
     end,
     action, 
-  }: SlotInfo) => {
+  }: SlotInfo) => {    
     // Todo: remove select checking after added button to add event for mobile version
     const accessAction: SlotInfo['action'] = isMobile ? `select` : `click`
-      
-    const isCopy = currentEntry?.isCopy || false
 
     if (action == accessAction) {
-      timeTrackerState.setCurrentEntry({
-        entry: {
-          ...(isCopy && {
-            ...currentEntry,
-          }),
-          date: start,
+      if (isCopyMode) {
+        timeTrackerState.resetIsCopyMode()
+            
+        timeTrackerState.createCopyEntry({
+          entry: currentEntry!,
           start,
           end,
-          isCopy,
-        },
-      })
+        })
+      }
+      else {
+        timeTrackerState.createNewEntry({
+          start,
+          end,
+        })
+      }
 
       openEntryModalEvent()
     }
   }
 
   const handleSelectEntry = (entry: TrackedEntry) => {
-    timeTrackerState.setCurrentEntry({
-      entry: {
-        ...entry,
-        isCopy: false,
-      },
+    if (isCopyMode) {
+      timeTrackerState.resetIsCopyMode()
+    }
+    
+    timeTrackerState.openEntry({
+      entry,
     })
 
     openEntryModalEvent()
@@ -92,7 +96,7 @@ export const TimeTrackerTableContent = observer(() => {
 
   return (
     <>
-      {currentEntry?.isCopy && (
+      {isCopyMode && (
         <div 
           className="time-tracker-table__copy-alert"
           data-cy="copy-alert"
