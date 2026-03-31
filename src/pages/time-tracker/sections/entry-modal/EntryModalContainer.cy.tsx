@@ -8,12 +8,12 @@ import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 
 describe(`EntryModalContainer`, () => {
-  describe(`Event Call`, eventCallTests)   
+  describe(`Function Call`, functionCallTests)   
   describe(`Set Error`, setErrorTests)
   describe(`Reset Error`, resetErrorTests)
 })
 
-function eventCallTests() {
+function functionCallTests() {
   it(`
   GIVEN opened task entry 
   WHEN click on submit button
@@ -34,14 +34,16 @@ function eventCallTests() {
       .contains(`Add`)
       .click()
 
-    getEventBus()
-      .should(`be.calledWith`, EventBusType.ENTRY_MODAL_CLOSE)
+    cy
+      .get(`@closeEntryModal`)
+      .should(`have.been.calledOnce`)
 
-    getEventBus()
+    cy.get(`@eventBusTrigger`)
       .should(`be.calledWith`, EventBusType.TABLE_RELOAD_ENTRIES)
       
-    getEventBus()
-      .should(`be.calledWith`, EventBusType.TABLE_RESET_ENTRY)
+    cy
+      .get(`@resetCurrentEntry`)
+      .should(`have.been.calledOnce`)
   })
 }
 
@@ -115,10 +117,8 @@ function resetErrorTests() {
 }
 
 function mountComponent({
-  id,
   entryModalState = new EntryModalState(),
 }: {
-  id?: number,
   entryModalState?: EntryModalState,
 } = {}) {
   const taskEntryState = new TaskEntryState()
@@ -135,20 +135,20 @@ function mountComponent({
   cy.spy(eventBus, `trigger`)
     .as(`eventBusTrigger`)
 
+  cy.spy(entryModalState, `resetCurrentEntry`)
+    .as(`resetCurrentEntry`)
+
+  cy.spy(entryModalState, `closeEntryModal`)
+    .as(`closeEntryModal`)
+
   cy
     .mount(
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer
-            id={id} 
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
-            isCopyMode={false}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,
     )
-}
-
-function getEventBus() {
-  return cy.get(`@eventBusTrigger`)
 }

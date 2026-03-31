@@ -3,14 +3,16 @@ import { api } from "../../../../../../common/api/api"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { observer } from "mobx-react-lite"
-import { closeDeleteModalEvent, closeEntryModalEvent, reloadEntriesEvent } from "../../../../event-bus"
+import { closeDeleteModalEvent, reloadEntriesEvent } from "../../../../event-bus"
 
 export const DeleteModalContainer = observer(({
   id,
   label,
+  closeEntryModal,
 }: {
   id: number,
   label: string,
+  closeEntryModal: () => unknown,
 }) => {
   const deleteModalState = useContext(DeleteModalStateContext)
       
@@ -41,7 +43,7 @@ export const DeleteModalContainer = observer(({
     )
 
     closeDeleteModalEvent()
-    closeEntryModalEvent()
+    closeEntryModal()
     reloadEntriesEvent()
   }
 })

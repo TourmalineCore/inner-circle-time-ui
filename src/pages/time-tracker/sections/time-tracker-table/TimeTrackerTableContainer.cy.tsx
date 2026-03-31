@@ -124,7 +124,13 @@ function mountComponent() {
   cy
     .mount(
       <TimeTrackerStateContext.Provider value={timeTrackerState}>
-        <TimeTrackerTableContainer />
+        <TimeTrackerTableContainer
+          isCopyMode={false}
+          createCopyEntry={() => {}}
+          createNewEntry={() => {}}
+          openEntry={() => {}}
+          resetIsCopyMode={() => {}}
+        />
       </TimeTrackerStateContext.Provider>,
     )
 }

@@ -1,37 +1,27 @@
-import { useEffect, useMemo, useState } from "react"
-import { EntryModalStateContext } from "./state/EntryModalStateContext"
-import { EntryModalState } from "./state/EntryModalState"
-import { TrackedEntry } from "../../types"
+import { useContext, useEffect, useMemo, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { DeleteModal } from "./sections/DeleteModal/DeleteModal"
 import { eventBus, EventBusType } from "../../event-bus"
+import { EntryModalStateContext } from "./state/EntryModalStateContext"
 
-export const EntryModal = observer(({
-  currentEntry,
-  isCopyMode,
-}: {
-  currentEntry: TrackedEntry,
-  isCopyMode: boolean,
-}) => {
-  const entryModalState = useMemo(
-    () => new EntryModalState(),
-    [],
-  )
+export const EntryModal = observer(() => {
+  const entryModalState = useContext(EntryModalStateContext)
 
   const {
+    currentEntry,
     type,
   } = entryModalState
 
   useEffect(() => {
-    if (currentEntry.type) {
+    if (currentEntry?.type) {
       entryModalState.setType({
         type: currentEntry.type,
       })
     }
   }, [
-    currentEntry.type,
+    currentEntry?.type,
   ])
 
   const entryStrategy = ENTRY_TYPES_STRATEGY[currentEntry?.type || type]
@@ -40,7 +30,7 @@ export const EntryModal = observer(({
     const state = new entryStrategy.entryStateConstructor()
 
     entryStrategy.setEntryData({
-      entryData: currentEntry,
+      entryData: currentEntry!,
       entryState: state,
     })
   
@@ -82,21 +72,18 @@ export const EntryModal = observer(({
   
   return (
     <>
-      <EntryModalStateContext.Provider value={entryModalState}>
-        <StateContext.Provider value={entryState}>
-          <EntryModalContainer
-            id={currentEntry.id}
-            entryStrategy={entryStrategy}
-            isCopyMode={isCopyMode}
-          >        
-          </EntryModalContainer>
-        </StateContext.Provider>
-      </EntryModalStateContext.Provider>
+      <StateContext.Provider value={entryState}>
+        <EntryModalContainer
+          entryStrategy={entryStrategy}
+        >        
+        </EntryModalContainer>
+      </StateContext.Provider>
       {
         isDeleteModalOpen && (
           <DeleteModal
-            id={currentEntry.id!}
+            id={currentEntry!.id!}
             label={entryStrategy.label}
+            closeEntryModal={entryModalState.closeEntryModal}
           />
         )
       }

@@ -4,21 +4,19 @@ import { observer } from 'mobx-react-lite'
 import { EntryModalContent } from './EntryModalContent'
 import { EntryStrategy } from './entry-types-strategy'
 import axios from 'axios'
-import { closeEntryModalEvent, reloadEntriesEvent, resetEntryEvent } from '../../event-bus'
+import { reloadEntriesEvent } from '../../event-bus'
 
 export const EntryModalContainer = observer(({
-  id,
-  isCopyMode,
   entryStrategy,
 }: {
-  id?: number,
-  isCopyMode: boolean,
   entryStrategy: EntryStrategy,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
   const entryState = useContext(entryStrategy.StateContext)
 
   const {
+    currentEntry,
+    isCopyMode,
     type,
   } = entryModalState
 
@@ -30,8 +28,8 @@ export const EntryModalContainer = observer(({
     type,
   ])
 
-  const isExistingEntry = !!id
-  const isDisabledTypesSelect = !!id || isCopyMode
+  const isExistingEntry = !!currentEntry?.id
+  const isDisabledTypesSelect = !!currentEntry?.id || isCopyMode
 
   return (
     <EntryModalContent
@@ -61,9 +59,9 @@ export const EntryModalContainer = observer(({
         entryState,
       })
 
-      if (id) {
+      if (currentEntry?.id) {
         await entryStrategy.updateEntryAsync({
-          id,
+          id: currentEntry.id,
           requestData,
         })
       }
@@ -73,9 +71,9 @@ export const EntryModalContainer = observer(({
         })
       }
 
-      closeEntryModalEvent()
+      entryModalState.closeEntryModal()
       reloadEntriesEvent()
-      resetEntryEvent()
+      entryModalState.resetCurrentEntry()
 
       entryState.resetError()
     }

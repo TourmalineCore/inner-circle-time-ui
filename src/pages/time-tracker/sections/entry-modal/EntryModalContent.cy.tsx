@@ -4,28 +4,30 @@ import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 
 describe(`EntryModalContent`, () => {   
-  describe(`Event Call`, eventCallTests)
+  describe(`Function Call`, functionCallTests)
   describe(`Is Existing Modal Entry`, isExistingModalEntryTests)
   describe(`Is Disabled Types Select`, isDisabledTypesSelectTests)
 })
 
-function eventCallTests() {
+function functionCallTests() {
   it(`
   GIVEN opened entry modal
   WHEN click on close button
-  SHOULD trigger close and reset entry events 
+  SHOULD trigger close entry modal and reset current entry methods 
   `, () => {
     mountComponent()
     
     cy
       .get(`.tc-modal__close-button`)
       .click()
-    
-    getEventBus()
-      .should(`be.calledWith`, EventBusType.ENTRY_MODAL_CLOSE)
+      
+    cy
+      .get(`@resetCurrentEntry`)
+      .should(`have.been.calledOnce`)
 
-    getEventBus()
-      .should(`be.calledWith`, EventBusType.TABLE_RESET_ENTRY)
+    cy
+      .get(`@closeEntryModal`)
+      .should(`have.been.calledOnce`)
   })
 
   it(`
@@ -48,7 +50,7 @@ function eventCallTests() {
   it(`
   GIVEN opened entry modal
   WHEN click on copy button
-  SHOULD trigger copy entry event 
+  SHOULD trigger copy current entry method 
   `, () => {
     mountComponent({
       isExistingEntry: true,
@@ -58,8 +60,9 @@ function eventCallTests() {
       .getByData(`copy-button`)
       .click()
     
-    getEventBus()
-      .should(`be.calledWith`, EventBusType.TABLE_COPY_ENTRY)
+    cy
+      .get(`@copyCurrentEntry`)
+      .should(`have.been.calledOnce`)
   })
 }
 
@@ -133,6 +136,15 @@ function mountComponent({
   isExistingEntry?: boolean,
 } = {}) {
   const entryModalState = new EntryModalState()
+
+  cy.spy(entryModalState, `resetCurrentEntry`)
+    .as(`resetCurrentEntry`)
+
+  cy.spy(entryModalState, `closeEntryModal`)
+    .as(`closeEntryModal`)
+
+  cy.spy(entryModalState, `copyCurrentEntry`)
+    .as(`copyCurrentEntry`)
 
   cy.spy(eventBus, `trigger`)
     .as(`eventBusTrigger`)

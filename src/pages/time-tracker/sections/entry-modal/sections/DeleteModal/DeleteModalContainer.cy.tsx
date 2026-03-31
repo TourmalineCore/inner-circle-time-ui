@@ -47,8 +47,9 @@ function requestTests() {
     getEventBus()
       .should(`be.calledWith`, EventBusType.DELETE_MODAL_CLOSE)
 
-    getEventBus()
-      .should(`be.calledWith`, EventBusType.ENTRY_MODAL_CLOSE) 
+    cy
+      .get(`@closeEntryModal`)
+      .should(`have.been.calledOnce`)
 
     getEventBus()
       .should(`be.calledWith`, EventBusType.TABLE_RELOAD_ENTRIES)
@@ -87,6 +88,9 @@ function mountComponent({
     deletionReason,
   })
 
+  const closeEntryModal = cy.spy()
+    .as(`closeEntryModal`)
+
   cy.spy(eventBus, `trigger`)
     .as(`eventBusTrigger`)
 
@@ -96,6 +100,7 @@ function mountComponent({
         <DeleteModalContainer 
           id={1}
           label={ENTRY_TYPES_STRATEGY[EntryType.TASK].label}
+          closeEntryModal={closeEntryModal}
         />,
       </DeleteModalStateContext.Provider>,
     )
