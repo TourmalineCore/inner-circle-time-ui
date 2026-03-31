@@ -17,6 +17,7 @@ export function TimeTrackerPage() {
   ] = useState(false) 
 
   const {
+    isCopyMode,
     currentEntry,
   } = timeTrackerTableState
 
@@ -34,13 +35,8 @@ export function TimeTrackerPage() {
     })
 
     const unsubscribeCopyEntry = eventBus.subscribe(EventBusType.TABLE_COPY_ENTRY, () => {
-      timeTrackerTableState.setCurrentEntry({
-        entry: {
-          ...currentEntry!,
-          id: undefined,
-          isCopy: true,
-        },
-      })
+      timeTrackerTableState.copyCurrentEntry()
+
       setIsOpenModal(false)
     })
     
@@ -62,7 +58,10 @@ export function TimeTrackerPage() {
         <TimeTrackerTableContainer />
       </TimeTrackerStateContext.Provider>
       {isOpenModal && (
-        <EntryModal currentEntry={currentEntry!} />
+        <EntryModal 
+          currentEntry={currentEntry!}
+          isCopyMode={isCopyMode}
+        />
       )}
     </>
   )

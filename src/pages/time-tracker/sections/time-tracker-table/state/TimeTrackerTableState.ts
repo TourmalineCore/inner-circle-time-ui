@@ -1,13 +1,16 @@
 import { makeAutoObservable } from 'mobx'
-import { CurrentEntry, TimeTrackerTable, View } from '../../../types'
+import { TimeTrackerTable, TrackedEntry, View } from '../../../types'
 import moment from 'moment'
 import { Views } from 'react-big-calendar'
+
 export class TimeTrackerTableState {
   private _tableData: TimeTrackerTable = {
     entries: [],
   }
 
-  private _currentEntry: CurrentEntry | null = null
+  private _currentEntry: TrackedEntry | null = null
+
+  private _isCopyMode = false
 
   private _viewStartDate: string | null = null
 
@@ -41,6 +44,10 @@ export class TimeTrackerTableState {
     return this._viewEndDate
   }
 
+  get isCopyMode() {
+    return this._isCopyMode
+  }
+
   setViewPeriod({
     date,
     view,
@@ -58,15 +65,59 @@ export class TimeTrackerTableState {
       .format(`YYYY-MM-DD`)
   }
 
-  setCurrentEntry({
+  createEntry({
+    start,
+    end,
+  }: {
+    start: Date,
+    end: Date,
+  }) {
+    this._currentEntry = {
+      date: start,
+      start,
+      end,
+    }
+  }
+
+  createCopyEntry({
+    entry,
+    start,
+    end,
+  }: {
+    entry: TrackedEntry,
+    start: Date,
+    end: Date,
+  }) {
+    this._currentEntry = {
+      ...entry,
+      date: start,
+      start,
+      end,
+    }
+  }
+
+  openEntry({
     entry,
   }: {
-    entry: CurrentEntry,
+    entry: TrackedEntry,
   }) {
     this._currentEntry = entry
   }
 
+  copyCurrentEntry() {
+    this._currentEntry = {
+      ...this._currentEntry!,
+      id: undefined,
+    }
+
+    this._isCopyMode = true
+  }
+
   resetCurrentEntry() {
     this._currentEntry = null
+  }
+
+  resetIsCopyMode() {
+    this._isCopyMode = false
   }
 }

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 import { EntryModalState } from "./state/EntryModalState"
-import { CurrentEntry } from "../../types"
+import { TrackedEntry } from "../../types"
 import { observer } from "mobx-react-lite"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
@@ -10,8 +10,10 @@ import { eventBus, EventBusType } from "../../event-bus"
 
 export const EntryModal = observer(({
   currentEntry,
+  isCopyMode,
 }: {
-  currentEntry: CurrentEntry,
+  currentEntry: TrackedEntry,
+  isCopyMode: boolean,
 }) => {
   const entryModalState = useMemo(
     () => new EntryModalState(),
@@ -85,7 +87,7 @@ export const EntryModal = observer(({
           <EntryModalContainer
             id={currentEntry.id}
             entryStrategy={entryStrategy}
-            isCopy={currentEntry.isCopy}
+            isCopyMode={isCopyMode}
           >        
           </EntryModalContainer>
         </StateContext.Provider>

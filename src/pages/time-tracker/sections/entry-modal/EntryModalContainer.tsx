@@ -8,11 +8,11 @@ import { closeEntryModalEvent, reloadEntriesEvent, resetEntryEvent } from '../..
 
 export const EntryModalContainer = observer(({
   id,
-  isCopy,
+  isCopyMode,
   entryStrategy,
 }: {
   id?: number,
-  isCopy: boolean,
+  isCopyMode: boolean,
   entryStrategy: EntryStrategy,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
@@ -31,7 +31,7 @@ export const EntryModalContainer = observer(({
   ])
 
   const isExistingEntry = !!id
-  const isDisabledTypesSelect = !!id || isCopy
+  const isDisabledTypesSelect = !!id || isCopyMode
 
   return (
     <EntryModalContent

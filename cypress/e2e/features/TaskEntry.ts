@@ -85,12 +85,12 @@ export class TaskEntry {
     cy
       .getByData(`copy-button`)
       .click()
-  }
 
-  static checkAfterCopy() { 
     cy.getByData(`copy-alert`)
       .should(`exist`)
-     
+  }
+
+  static checkAfterCopy() {      
     cy
       .getByData(`title-input`)
       .should(`have.value`, TITLE)
