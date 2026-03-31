@@ -4,9 +4,10 @@ import { EntryModalState } from "./EntryModalState"
 describe(`EntryModalState`, () => {
   describe(`Initial Data`, initialTests)
   describe(`Setters Data`, settersTests)
-  describe(`Set Error`, setErrorTests)
+  describe(`Error`, errorTests)
   describe(`Copy Current Entry`, copyCurrentEntryTests)
-  describe(`Reset Is Copy Mode`, resetIsCopyModeTests)
+  describe(`Is Copy Mode`, isCopyModeTests)
+  describe(`Is Open Modal`, isOpenModalTests)
 })
 
 function initialTests() {
@@ -66,7 +67,7 @@ function settersTests() {
   })
 }
 
-function setErrorTests() {
+function errorTests() {
   let entryModalState: EntryModalState
 
   beforeEach(() => {
@@ -118,7 +119,7 @@ function copyCurrentEntryTests() {
 
   it(`
   GIVEN a state with filled current entry
-  WHEN copy current entry
+  WHEN call copyCurrentEntry()
   SHOULD copy current entry without Id
   AND SHOULD set isCopyMode to true
   `, () => {
@@ -138,7 +139,7 @@ function copyCurrentEntryTests() {
   })
 }
 
-function resetIsCopyModeTests() {
+function isCopyModeTests() {
   let entryModalState: EntryModalState
 
   beforeEach(() => {
@@ -149,7 +150,7 @@ function resetIsCopyModeTests() {
 
   it(`
   GIVEN a state with isCopyMode equal true
-  WHEN reset isCopyMode
+  WHEN call resetIsCopyMode()
   SHOULD return isCopyMode equal to false
   `, () => {
     expect(entryModalState.isCopyMode).true
@@ -157,5 +158,31 @@ function resetIsCopyModeTests() {
     entryModalState.resetIsCopyMode()
 
     expect(entryModalState.isCopyMode).false
+  })
+}
+
+function isOpenModalTests() {
+  let entryModalState: EntryModalState
+
+  beforeEach(() => {
+    entryModalState = new EntryModalState()
+  })
+
+  it(`
+  GIVEN a state with isOpenModal equal false
+  WHEN call openEntryModal()
+  SHOULD return isOpenModal equal to true
+  AND WHEN call closeEntryModal()
+  SHOULD return isOpenModal equal to false
+  `, () => {
+    expect(entryModalState.isOpenModal).false
+
+    entryModalState.openEntryModal()
+
+    expect(entryModalState.isOpenModal).true
+
+    entryModalState.closeEntryModal()
+
+    expect(entryModalState.isOpenModal).false
   })
 }
