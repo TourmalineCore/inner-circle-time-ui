@@ -57,7 +57,7 @@ export const TimeTrackerTableContent = observer(() => {
         })
       }
       else {
-        timeTrackerState.createEntry({
+        timeTrackerState.createNewEntry({
           start,
           end,
         })

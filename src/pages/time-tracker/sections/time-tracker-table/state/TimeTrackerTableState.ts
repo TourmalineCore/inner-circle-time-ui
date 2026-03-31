@@ -65,7 +65,7 @@ export class TimeTrackerTableState {
       .format(`YYYY-MM-DD`)
   }
 
-  createEntry({
+  createNewEntry({
     start,
     end,
   }: {
