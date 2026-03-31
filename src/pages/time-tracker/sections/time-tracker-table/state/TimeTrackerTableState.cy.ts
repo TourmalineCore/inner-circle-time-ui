@@ -143,9 +143,10 @@ function copyCurrentEntryTests() {
   })
 
   it(`
-  GIVEN a state filled current entry
+  GIVEN a state with filled current entry
   WHEN copy current entry
-  SHOULD copy current entry without Id and isCopyMode will have the value true
+  SHOULD copy current entry without Id
+  AND SHOULD set isCopyMode to true
   `, () => {
     expect(timeTrackerTableState.isCopyMode).false
 

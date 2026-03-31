@@ -42,14 +42,14 @@ export const TimeTrackerTableContent = observer(() => {
     start,
     end,
     action, 
-  }: SlotInfo) => {
-    timeTrackerState.resetIsCopyMode()
-    
+  }: SlotInfo) => {    
     // Todo: remove select checking after added button to add event for mobile version
     const accessAction: SlotInfo['action'] = isMobile ? `select` : `click`
 
     if (action == accessAction) {
       if (isCopyMode) {
+        timeTrackerState.resetIsCopyMode()
+            
         timeTrackerState.createCopyEntry({
           entry: currentEntry!,
           start,
@@ -68,7 +68,9 @@ export const TimeTrackerTableContent = observer(() => {
   }
 
   const handleSelectEntry = (entry: TrackedEntry) => {
-    timeTrackerState.resetIsCopyMode()
+    if (isCopyMode) {
+      timeTrackerState.resetIsCopyMode()
+    }
     
     timeTrackerState.openEntry({
       entry,
