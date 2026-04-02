@@ -10,7 +10,6 @@ import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryContent } from './components/EntryContent/EntryContent'
-import { openEntryModalEvent } from '../../event-bus'
 import { EntryType } from '../../../../common/constants/entryType'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
@@ -22,15 +21,41 @@ moment.locale(`ru`, {
 
 const localizer = momentLocalizer(moment)
 
-export const TimeTrackerTableContent = observer(() => {
+export const TimeTrackerTableContent = observer(({
+  isCopyMode,
+  openEntry,
+  createNewEntry,
+  createCopyEntry,
+  resetIsCopyMode,
+}: {
+  isCopyMode: boolean,
+  createCopyEntry: ({
+    start,
+    end,
+  }: {
+    start: Date,
+    end: Date,
+  }) => unknown,
+  createNewEntry: ({
+    start,
+    end,
+  }: {
+    start: Date,
+    end: Date,
+  }) => unknown,
+  openEntry: ({
+    entry,
+  }: {
+    entry: TrackedEntry,
+  }) => unknown,
+  resetIsCopyMode: () => unknown,
+}) => {
   const timeTrackerState = useContext(TimeTrackerStateContext)
   const {
     isMobile,
   } = useDeviceSize()
 
   const {
-    isCopyMode,
-    currentEntry,
     tableData,
   } = timeTrackerState
 
@@ -48,35 +73,30 @@ export const TimeTrackerTableContent = observer(() => {
 
     if (action == accessAction) {
       if (isCopyMode) {
-        timeTrackerState.resetIsCopyMode()
+        resetIsCopyMode()
             
-        timeTrackerState.createCopyEntry({
-          entry: currentEntry!,
+        createCopyEntry({
           start,
           end,
         })
       }
       else {
-        timeTrackerState.createNewEntry({
+        createNewEntry({
           start,
           end,
         })
       }
-
-      openEntryModalEvent()
     }
   }
 
   const handleSelectEntry = (entry: TrackedEntry) => {
     if (isCopyMode) {
-      timeTrackerState.resetIsCopyMode()
+      resetIsCopyMode()
     }
     
-    timeTrackerState.openEntry({
+    openEntry({
       entry,
     })
-
-    openEntryModalEvent()
   }
 
   const eventPropGetter = ({

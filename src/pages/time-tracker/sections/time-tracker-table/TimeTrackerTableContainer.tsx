@@ -1,5 +1,4 @@
 import { observer } from "mobx-react-lite"
-import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
 import { useContext, useEffect, useState } from "react"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import moment from "moment"
@@ -7,8 +6,38 @@ import { api } from "../../../../common/api/api"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { eventBus, EventBusType } from "../../event-bus"
+import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
+import { TrackedEntry } from "../../types"
 
-export const TimeTrackerTableContainer = observer(() => {
+export const TimeTrackerTableContainer = observer(({
+  isCopyMode,
+  openEntry,
+  createNewEntry,
+  createCopyEntry,
+  resetIsCopyMode,
+}: {
+  isCopyMode: boolean,
+  createCopyEntry: ({
+    start,
+    end,
+  }: {
+    start: Date,
+    end: Date,
+  }) => unknown,
+  createNewEntry: ({
+    start,
+    end,
+  }: {
+    start: Date,
+    end: Date,
+  }) => unknown,
+  openEntry: ({
+    entry,
+  }: {
+    entry: TrackedEntry,
+  }) => unknown,
+  resetIsCopyMode: () => unknown,
+}) => {
   const timeTrackerState = useContext(TimeTrackerStateContext)
   
   const {
@@ -116,6 +145,12 @@ export const TimeTrackerTableContainer = observer(() => {
   ])
 
   return (
-    <TimeTrackerTableContent />
+    <TimeTrackerTableContent
+      isCopyMode={isCopyMode}
+      createCopyEntry={createCopyEntry}
+      createNewEntry={createNewEntry}
+      openEntry={openEntry}
+      resetIsCopyMode={resetIsCopyMode}
+    />
   )
 })

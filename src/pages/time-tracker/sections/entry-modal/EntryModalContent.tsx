@@ -8,7 +8,7 @@ import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { ReactNode, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { TYPES } from '../../../../common/constants/entryType'
-import { closeEntryModalEvent, copyEntryEvent, openDeleteModalEvent, resetEntryEvent } from '../../event-bus'
+import { openDeleteModalEvent } from '../../event-bus'
 import DeleteIcon from "../../../../assets/icons/trash.svg?react"
 import CopyIcon from "../../../../assets/icons/copy.svg?react"
 
@@ -96,7 +96,10 @@ export const EntryModalContent = observer(({
                     data-cy="copy-button"
                     className='entry-modal__copy-button'
                     type='button'
-                    onClick={copyEntryEvent}
+                    onClick={() => {
+                      entryModalState.copyCurrentEntry()
+                      entryModalState.closeEntryModal()
+                    }}
                   >
                     <CopyIcon />
                   </button>
@@ -107,8 +110,8 @@ export const EntryModalContent = observer(({
         </div>
       )}
       onClose={() => {
-        closeEntryModalEvent()
-        resetEntryEvent()
+        entryModalState.closeEntryModal()
+        entryModalState.resetCurrentEntry()
       }}
     />
   )

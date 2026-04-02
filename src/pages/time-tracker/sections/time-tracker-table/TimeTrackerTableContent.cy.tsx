@@ -1,7 +1,6 @@
-import { eventBus, EventBusType } from "../../event-bus"
 import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
-import { TimeTrackerTableContainer } from "./TimeTrackerTableContainer"
+import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
 
 describe(`TimeTrackerTableContent`, () => {
   beforeEach(() => {
@@ -11,49 +10,54 @@ describe(`TimeTrackerTableContent`, () => {
     ])
   })
 
-  describe(`Event Call`, eventCallTests)
+  describe(`Copy Mode`, copyModeTests)
 })
 
-function eventCallTests() {
+function copyModeTests() {
   it(`
   GIVEN time tracker table
-  WHEN click on free time slot
-  SHOULD trigger open modal entry
+  WHEN isCopyMode equal false
+  SHOULD not see copy alert
   `, () => {
-    cy.viewport(1366, 768)
-
     mountComponent()
 
-    // Waiting for the table to be displayed in the desktop version
-    cy
-      .contains(`November 24 – 30`)
-      .should(`be.visible`)
+    cy.getByData(`copy-alert`)
+      .should(`not.exist`)
+  })
+  
+  it(`
+  GIVEN time tracker table
+  WHEN isCopyMode equal true
+  SHOULD see copy alert
+  `, () => {
+    mountComponent({
+      isCopyMode: true,
+    })
 
-    cy.get(`.rbc-day-slot`)
-      .find(`.rbc-timeslot-group`)
-      .first()
-      .find(`.rbc-time-slot`)
-      .first()
-      .scrollIntoView()
-      .click({
-        force: true, 
-      })
-
-    cy.get(`@eventBusTrigger`)
-      .should(`be.calledWith`, EventBusType.ENTRY_MODAL_OPEN)
+    cy.getByData(`copy-alert`)
+      .should(`exist`)
   }) 
 }
 
-function mountComponent() {
+function mountComponent({
+  isCopyMode = false,
+}: {
+  isCopyMode?: boolean,
+} = {}) {
+  cy.viewport(1366, 768)
+      
   const timeTrackerState = new TimeTrackerTableState()
-  
-  cy.spy(eventBus, `trigger`)
-    .as(`eventBusTrigger`)
     
   cy
     .mount(
       <TimeTrackerStateContext.Provider value={timeTrackerState}>
-        <TimeTrackerTableContainer />
+        <TimeTrackerTableContent
+          isCopyMode={isCopyMode}
+          createCopyEntry={() => {}}
+          createNewEntry={() => {}}
+          openEntry={() => {}}
+          resetIsCopyMode={() => {}}
+        />
       </TimeTrackerStateContext.Provider>,
     )
 }
