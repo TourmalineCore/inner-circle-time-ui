@@ -1,5 +1,5 @@
 import { EntryType } from "../../../../common/constants/entryType"
-import { EventBusType } from "../../event-bus"
+import { eventBus, EventBusType } from "../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { TaskEntryState } from "./sections/TaskEntry/state/TaskEntryState"
@@ -138,6 +138,9 @@ function mountComponent({
   cy.spy(entryModalState, `closeEntryModal`)
     .as(`closeEntryModal`)
 
+  cy.spy(eventBus, `publish`)
+    .as(`eventBusTrigger`)
+        
   cy
     .mount(
       <EntryModalStateContext.Provider value={entryModalState}>
