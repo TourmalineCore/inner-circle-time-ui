@@ -9,7 +9,7 @@ type EventBusMap = {
 class EventBus {
   private _events = new Map<string, Set<() => unknown>>()
   
-  trigger<T extends keyof EventBusMap>(event: T) {
+  publish<T extends keyof EventBusMap>(event: T) {
     this._events.get(event)
       ?.forEach((callback) => callback())
   }
@@ -28,4 +28,4 @@ class EventBus {
 
 export const eventBus = new EventBus()
 
-export const reloadEntriesEvent = () => eventBus.trigger(EventBusType.TABLE_RELOAD_ENTRIES)
+export const reloadEntriesEvent = () => eventBus.publish(EventBusType.TABLE_RELOAD_ENTRIES)
