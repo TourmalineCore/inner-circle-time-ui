@@ -37,6 +37,7 @@ function mountComponent() {
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer 
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
+            openDeleteModal={() => {}}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,
