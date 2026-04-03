@@ -131,9 +131,6 @@ function mountComponent({
       projectId: 1,
     },
   })
-  
-  cy.spy(eventBus, `trigger`)
-    .as(`eventBusTrigger`)
 
   cy.spy(entryModalState, `resetCurrentEntry`)
     .as(`resetCurrentEntry`)
@@ -141,12 +138,16 @@ function mountComponent({
   cy.spy(entryModalState, `closeEntryModal`)
     .as(`closeEntryModal`)
 
+  cy.spy(eventBus, `publish`)
+    .as(`eventBusTrigger`)
+        
   cy
     .mount(
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
+            openDeleteModal={() => {}}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,

@@ -1,4 +1,3 @@
-import { eventBus, EventBusType } from "../../event-bus"
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
@@ -33,7 +32,7 @@ function functionCallTests() {
   it(`
   GIVEN opened entry modal
   WHEN click on delete button
-  SHOULD trigger open delete modal event
+  SHOULD trigger open delete modal function
   `, () => {
     mountComponent({
       isExistingEntry: true,
@@ -43,8 +42,9 @@ function functionCallTests() {
       .getByData(`delete-button`)
       .click()
     
-    getEventBus()
-      .should(`be.calledWith`, EventBusType.DELETE_MODAL_OPEN)
+    cy
+      .get(`@openDeleteModal`)
+      .should(`have.been.calledOnce`)
   })
 
   it(`
@@ -137,6 +137,10 @@ function mountComponent({
 } = {}) {
   const entryModalState = new EntryModalState()
 
+  const openDeleteModal = cy
+    .spy()
+    .as(`openDeleteModal`)
+
   cy.spy(entryModalState, `resetCurrentEntry`)
     .as(`resetCurrentEntry`)
 
@@ -146,9 +150,6 @@ function mountComponent({
   cy.spy(entryModalState, `copyCurrentEntry`)
     .as(`copyCurrentEntry`)
 
-  cy.spy(eventBus, `trigger`)
-    .as(`eventBusTrigger`)
-
   cy
     .mount(
       <EntryModalStateContext.Provider value={entryModalState}>
@@ -156,11 +157,9 @@ function mountComponent({
           isDisabledTypesSelect={isDisabledTypesSelect}
           isExistingEntry={isExistingEntry}
           onSubmitEntry={() => {}}
-          buttonLabel={``} />
+          buttonLabel={``}
+          openDeleteModal={openDeleteModal}
+        />
       </EntryModalStateContext.Provider>,
     )
-}
-
-function getEventBus() {
-  return cy.get(`@eventBusTrigger`)
 }
