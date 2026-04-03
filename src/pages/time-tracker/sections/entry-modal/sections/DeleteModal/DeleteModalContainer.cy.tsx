@@ -1,5 +1,5 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { EventBusType } from "../../../../event-bus"
+import { eventBus, EventBusType } from "../../../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
 import { DeleteModalContainer } from "./DeleteModalContainer"
 import { DeleteModalState } from "./state/DeleteModalState"
@@ -97,6 +97,9 @@ function mountComponent({
   const closeDeleteModal = cy
     .spy()
     .as(`closeDeleteModal`)
+
+  cy.spy(eventBus, `publish`)
+    .as(`eventBusTrigger`)
 
   cy
     .mount(
