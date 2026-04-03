@@ -1,5 +1,5 @@
 import { EntryType } from "../../../../common/constants/entryType"
-import { eventBus, EventBusType } from "../../event-bus"
+import { EventBusType } from "../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { TaskEntryState } from "./sections/TaskEntry/state/TaskEntryState"
@@ -131,9 +131,6 @@ function mountComponent({
       projectId: 1,
     },
   })
-  
-  cy.spy(eventBus, `trigger`)
-    .as(`eventBusTrigger`)
 
   cy.spy(entryModalState, `resetCurrentEntry`)
     .as(`resetCurrentEntry`)
@@ -147,6 +144,7 @@ function mountComponent({
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer
             entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
+            openDeleteModal={() => {}}
           />,
         </TaskEntryStateContext.Provider>
       </EntryModalStateContext.Provider>,

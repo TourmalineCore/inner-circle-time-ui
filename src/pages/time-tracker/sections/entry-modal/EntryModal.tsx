@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { DeleteModal } from "./sections/DeleteModal/DeleteModal"
-import { eventBus, EventBusType } from "../../event-bus"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 
 export const EntryModal = observer(() => {
@@ -53,28 +52,12 @@ export const EntryModal = observer(() => {
     setIsDeleteModalOpen,
   ] = useState(false)
 
-  useEffect(() => {
-    const unsubscribeEntryModalOpen = eventBus.subscribe(EventBusType.DELETE_MODAL_OPEN, () => {
-      setIsDeleteModalOpen(true)
-    })
-  
-    const unsubscribeEntryModalClose = eventBus.subscribe(EventBusType.DELETE_MODAL_CLOSE, () => {
-      setIsDeleteModalOpen(false)
-    }) 
-      
-    return () => {
-      unsubscribeEntryModalOpen(),
-      unsubscribeEntryModalClose()
-    } 
-  }, [
-    isDeleteModalOpen,
-  ])
-  
   return (
     <>
       <StateContext.Provider value={entryState}>
         <EntryModalContainer
           entryStrategy={entryStrategy}
+          openDeleteModal={() => setIsDeleteModalOpen(true)}
         >        
         </EntryModalContainer>
       </StateContext.Provider>
@@ -83,7 +66,8 @@ export const EntryModal = observer(() => {
           <DeleteModal
             id={currentEntry!.id!}
             label={entryStrategy.label}
-            closeEntryModal={entryModalState.closeEntryModal}
+            closeEntryModal={() => entryModalState.closeEntryModal()}
+            closeDeleteModal={() => setIsDeleteModalOpen(false)}
           />
         )
       }

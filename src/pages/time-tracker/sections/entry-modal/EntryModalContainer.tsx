@@ -8,8 +8,10 @@ import { reloadEntriesEvent } from '../../event-bus'
 
 export const EntryModalContainer = observer(({
   entryStrategy,
+  openDeleteModal,
 }: {
   entryStrategy: EntryStrategy,
+  openDeleteModal: () => unknown,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
   const entryState = useContext(entryStrategy.StateContext)
@@ -39,6 +41,7 @@ export const EntryModalContainer = observer(({
       isDisabledTypesSelect={isDisabledTypesSelect}
       onSubmitEntry={onSubmitEntry}
       buttonLabel={entryStrategy.label}
+      openDeleteModal={openDeleteModal}
     >
       {entryStrategy.EntryContent}
     </EntryModalContent> 

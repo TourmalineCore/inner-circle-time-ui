@@ -8,7 +8,6 @@ import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { ReactNode, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { TYPES } from '../../../../common/constants/entryType'
-import { openDeleteModalEvent } from '../../event-bus'
 import DeleteIcon from "../../../../assets/icons/trash.svg?react"
 import CopyIcon from "../../../../assets/icons/copy.svg?react"
 
@@ -17,12 +16,14 @@ export const EntryModalContent = observer(({
   isDisabledTypesSelect,
   onSubmitEntry,
   buttonLabel,
+  openDeleteModal,
   children,
 }: {
   isExistingEntry: boolean,
   isDisabledTypesSelect: boolean,
   onSubmitEntry: () => unknown,
   buttonLabel: string,
+  openDeleteModal: () => unknown,
   children?: ReactNode,
 }) => {
   const entryModalState = useContext(EntryModalStateContext)
@@ -88,7 +89,7 @@ export const EntryModalContent = observer(({
                     data-cy="delete-button"
                     className='entry-modal__delete-button'
                     type='button'
-                    onClick={openDeleteModalEvent}
+                    onClick={openDeleteModal}
                   >
                     <DeleteIcon />
                   </button>

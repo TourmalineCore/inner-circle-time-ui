@@ -3,16 +3,18 @@ import { api } from "../../../../../../common/api/api"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { observer } from "mobx-react-lite"
-import { closeDeleteModalEvent, reloadEntriesEvent } from "../../../../event-bus"
+import { reloadEntriesEvent } from "../../../../event-bus"
 
 export const DeleteModalContainer = observer(({
   id,
   label,
   closeEntryModal,
+  closeDeleteModal,
 }: {
   id: number,
   label: string,
   closeEntryModal: () => unknown,
+  closeDeleteModal: () => unknown,
 }) => {
   const deleteModalState = useContext(DeleteModalStateContext)
       
@@ -25,6 +27,7 @@ export const DeleteModalContainer = observer(({
     <DeleteModalContent 
       label={label}
       onSubmitDeletionReason={onSubmitDeletionReason}
+      closeDeleteModal={closeDeleteModal}
     />        
   )
 
@@ -42,7 +45,7 @@ export const DeleteModalContainer = observer(({
       },
     )
 
-    closeDeleteModalEvent()
+    closeDeleteModal()
     closeEntryModal()
     reloadEntriesEvent()
   }

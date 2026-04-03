@@ -7,10 +7,12 @@ export function DeleteModal({
   id,
   label,
   closeEntryModal,
+  closeDeleteModal,
 }: {
   id: number,
   label: string,
   closeEntryModal: () => unknown,
+  closeDeleteModal: () => unknown,
 }) {
   const deleteModalState = useMemo(
     () => new DeleteModalState(),
@@ -23,6 +25,7 @@ export function DeleteModal({
         id={id}
         label={label}
         closeEntryModal={closeEntryModal}
+        closeDeleteModal={closeDeleteModal}
       />        
     </DeleteModalStateContext.Provider>
   )

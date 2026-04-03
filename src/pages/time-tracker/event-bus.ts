@@ -1,12 +1,8 @@
 export enum EventBusType {
-  DELETE_MODAL_OPEN = `DELETE_MODAL:OPEN`,
-  DELETE_MODAL_CLOSE = `DELETE_MODAL:CLOSE`,
   TABLE_RELOAD_ENTRIES = `TABLE:RELOAD_ENTRIES`,
 }
 
 type EventBusMap = {
-  [EventBusType.DELETE_MODAL_OPEN]: unknown,
-  [EventBusType.DELETE_MODAL_CLOSE]: unknown,
   [EventBusType.TABLE_RELOAD_ENTRIES]: unknown,
 }
 
@@ -32,6 +28,4 @@ class EventBus {
 
 export const eventBus = new EventBus()
 
-export const openDeleteModalEvent = () => eventBus.trigger(EventBusType.DELETE_MODAL_OPEN)
-export const closeDeleteModalEvent = () => eventBus.trigger(EventBusType.DELETE_MODAL_CLOSE)
 export const reloadEntriesEvent = () => eventBus.trigger(EventBusType.TABLE_RELOAD_ENTRIES)

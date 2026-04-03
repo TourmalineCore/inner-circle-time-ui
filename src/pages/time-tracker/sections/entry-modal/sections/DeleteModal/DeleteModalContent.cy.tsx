@@ -1,5 +1,4 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { eventBus, EventBusType } from "../../../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalState } from "./state/DeleteModalState"
@@ -21,16 +20,18 @@ function eventCallTests() {
       .get(`.tc-modal__close-button`)
       .click()
     
-    cy.get(`@eventBusTrigger`)
-      .should(`be.calledWith`, EventBusType.DELETE_MODAL_CLOSE)
+    cy
+      .get(`@closeDeleteModal`)
+      .should(`have.been.calledOnce`)
   })
 }
 
 function mountComponent() {
   const deleteModalState = new DeleteModalState()
 
-  cy.spy(eventBus, `trigger`)
-    .as(`eventBusTrigger`)
+  const closeDeleteModal = cy
+    .spy()
+    .as(`closeDeleteModal`)
       
   cy
     .mount(
@@ -38,6 +39,7 @@ function mountComponent() {
         <DeleteModalContent 
           label={ENTRY_TYPES_STRATEGY[EntryType.TASK].label}
           onSubmitDeletionReason={() => {}}
+          closeDeleteModal={closeDeleteModal}
         />,
       </DeleteModalStateContext.Provider>,
     )
