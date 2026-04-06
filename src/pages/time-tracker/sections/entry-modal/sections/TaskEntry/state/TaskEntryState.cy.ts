@@ -1,4 +1,4 @@
-import { EMPTY_TASK_ENTRY_DATA, TaskEntryState } from "./TaskEntryState"
+import { EMPTY_TASK_ENTRY, TaskEntryState } from "./TaskEntryState"
 
 describe(`TaskEntryState`, () => {
   describe(`Initial Data`, initialTests)
@@ -23,7 +23,7 @@ function initialTests() {
     expect(taskEntryState.taskEntryData)
       .to
       .deep
-      .eq(EMPTY_TASK_ENTRY_DATA) 
+      .eq(EMPTY_TASK_ENTRY) 
   })
 }
 

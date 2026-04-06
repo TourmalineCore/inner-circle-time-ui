@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx'
 import { TaskEntryData } from '../../../../../types'
 import { ProjectDto } from '@tourmalinecore/inner-circle-time-api-js-client'
 
-export const EMPTY_TASK_ENTRY_DATA: TaskEntryData = {
+export const EMPTY_TASK_ENTRY: TaskEntryData = {
   title: ``,
   date: undefined,
   taskId: ``,
@@ -13,7 +13,7 @@ export const EMPTY_TASK_ENTRY_DATA: TaskEntryData = {
 }
 
 export class TaskEntryState {
-  private _taskEntryData: TaskEntryData = EMPTY_TASK_ENTRY_DATA
+  private _taskEntryData: TaskEntryData = EMPTY_TASK_ENTRY
 
   private _projects: ProjectDto[] = []
 
