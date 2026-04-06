@@ -1,9 +1,9 @@
 export enum EventBusType {
-  TABLE_RELOAD_ENTRIES = `TABLE:RELOAD_ENTRIES`,
+  ENTRIES_CHANGED = `ENTRIES_CHANGED`,
 }
 
 type EventBusMap = {
-  [EventBusType.TABLE_RELOAD_ENTRIES]: unknown,
+  [EventBusType.ENTRIES_CHANGED]: unknown,
 }
 
 class EventBus {
@@ -27,5 +27,3 @@ class EventBus {
 }
 
 export const eventBus = new EventBus()
-
-export const reloadEntriesEvent = () => eventBus.publish(EventBusType.TABLE_RELOAD_ENTRIES)
