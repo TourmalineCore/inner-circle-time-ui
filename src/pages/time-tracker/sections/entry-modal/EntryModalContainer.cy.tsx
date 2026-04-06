@@ -39,7 +39,7 @@ function functionCallTests() {
       .should(`have.been.calledOnce`)
 
     cy.get(`@eventBusTrigger`)
-      .should(`be.calledWith`, EventBusType.TABLE_RELOAD_ENTRIES)
+      .should(`be.calledWith`, EventBusType.ENTRIES_CHANGED)
       
     cy
       .get(`@resetCurrentEntry`)

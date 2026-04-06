@@ -46,8 +46,8 @@ export const TimeTrackerTableContainer = observer(({
   } = timeTrackerState
 
   const [
-    triggerReload,
-    setTriggerReload,
+    needToReloadEntries,
+    setNeedToReloadEntries,
   ] = useState(false)
 
   const {
@@ -64,15 +64,15 @@ export const TimeTrackerTableContainer = observer(({
   ])
 
   useEffect(() => {
-    const unsubscribeReloadEntries = eventBus.subscribe(EventBusType.TABLE_RELOAD_ENTRIES, () => {
-      setTriggerReload(!triggerReload)
+    const unsubscribeEntriesChanged = eventBus.subscribe(EventBusType.ENTRIES_CHANGED, () => {
+      setNeedToReloadEntries(!needToReloadEntries)
     })
   
     return () => {
-      unsubscribeReloadEntries()
+      unsubscribeEntriesChanged()
     }
   }, [
-    triggerReload,
+    needToReloadEntries,
   ])
   
   useEffect(() => {
@@ -141,7 +141,7 @@ export const TimeTrackerTableContainer = observer(({
   }, [
     viewStartDate,
     viewEndDate,
-    triggerReload,
+    needToReloadEntries,
   ])
 
   return (

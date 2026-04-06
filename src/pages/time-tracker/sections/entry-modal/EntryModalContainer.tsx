@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { EntryModalContent } from './EntryModalContent'
 import { EntryStrategy } from './entry-types-strategy'
 import axios from 'axios'
-import { reloadEntriesEvent } from '../../event-bus'
+import { eventBus, EventBusType } from '../../event-bus'
 
 export const EntryModalContainer = observer(({
   entryStrategy,
@@ -77,7 +77,7 @@ export const EntryModalContainer = observer(({
       }
 
       entryModalState.closeEntryModal()
-      reloadEntriesEvent()
+      eventBus.publish(EventBusType.ENTRIES_CHANGED)
       entryModalState.resetCurrentEntry()
 
       entryState.resetError()

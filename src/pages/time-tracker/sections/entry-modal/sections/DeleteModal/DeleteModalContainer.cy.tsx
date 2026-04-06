@@ -54,7 +54,7 @@ function requestTests() {
 
     cy
       .get(`@eventBusTrigger`)
-      .should(`be.calledWith`, EventBusType.TABLE_RELOAD_ENTRIES)
+      .should(`be.calledWith`, EventBusType.ENTRIES_CHANGED)
   })
 }
 
