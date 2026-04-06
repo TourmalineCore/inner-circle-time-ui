@@ -30,7 +30,7 @@ export const EntryModalContainer = observer(({
     type,
   ])
 
-  const id = currentEntry?.id
+  const id = currentEntry.id
 
   const isExistingEntry = !!id
   const isDisabledTypesSelect = !!id || isCopyMode
