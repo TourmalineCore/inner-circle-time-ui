@@ -8,9 +8,9 @@ export type TrackedEntry = {
   project?: ProjectDto,
   description?: string,
   type?: EntryType,
-  date: Date | null,
-  start: Date,
-  end: Date,
+  date?: Date,
+  start?: Date,
+  end?: Date,
 }
 
 export type TimeTrackerTable = {
@@ -19,9 +19,9 @@ export type TimeTrackerTable = {
 
 export type EntryBase = {
   id?: number,
-  date: Date | null,
-  start: Date | null,
-  end: Date | null,
+  date?: Date,
+  start?: Date,
+  end?: Date,
 }
 
 export type TaskEntryData = EntryBase & {

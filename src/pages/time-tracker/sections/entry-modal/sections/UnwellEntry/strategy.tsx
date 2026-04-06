@@ -55,7 +55,7 @@ function setUnwellEntryData({
 }) {
   entryState.updateUnwellEntryData({
     unwellEntryData: {
-      id: entryData?.id,
+      id: entryData.id,
       date: entryData.start,
       start: entryData.start,
       end: entryData.end,

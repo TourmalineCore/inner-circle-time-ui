@@ -36,7 +36,7 @@ export const UnwellEntryContent = observer(() => {
             dateFormat="dd.MM"
             onChange={(date) => unwellEntryState.updateUnwellEntryData({
               unwellEntryData: {
-                date,
+                date: date!,
               },
             })}
             onKeyDown={(e) => e.preventDefault()}

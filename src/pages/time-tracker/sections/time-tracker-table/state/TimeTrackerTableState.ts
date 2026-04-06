@@ -8,9 +8,14 @@ export class TimeTrackerTableState {
     entries: [],
   }
 
-  private _viewStartDate: string | null = null
+  // isoWeek is necessary so that moment returns the date starting from Monday, not Sunday.
+  private _viewStartDate = moment(new Date())
+    .startOf(`isoWeek`) 
+    .format(`YYYY-MM-DD`)
 
-  private _viewEndDate: string | null = null
+  private _viewEndDate = moment(new Date())
+    .endOf(`isoWeek`) 
+    .format(`YYYY-MM-DD`)
 
   constructor() {
     makeAutoObservable(this)

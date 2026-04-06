@@ -1,6 +1,7 @@
 import { Views } from "react-big-calendar"
 import { TimeTrackerTable } from "../../../types"
 import { TimeTrackerTableState } from "./TimeTrackerTableState"
+import moment from "moment"
 
 describe(`TimeTrackerTableState`, () => {
   describe(`Initialization`, initializationTests)
@@ -42,12 +43,16 @@ function initializationTests() {
     expect(timeTrackerTableState.viewStartDate)
       .to
       .be
-      .null
+      .eq(moment(new Date())
+        .startOf(`isoWeek`) 
+        .format(`YYYY-MM-DD`))  
 
     expect(timeTrackerTableState.viewEndDate)
       .to
       .be
-      .null
+      .eq(moment(new Date())
+        .endOf(`isoWeek`) 
+        .format(`YYYY-MM-DD`))
   })
 }
 

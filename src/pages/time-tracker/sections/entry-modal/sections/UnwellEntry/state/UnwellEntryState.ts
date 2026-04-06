@@ -1,16 +1,15 @@
 import { makeAutoObservable } from 'mobx'
 import { UnwellEntryData } from '../../../../../types'
 
-export const EMPTY_UNWELL_ENTRY_DATA: UnwellEntryData = {
-  date: null,
-  start: null,
-  end: null,
+export const EMPTY_UNWELL_ENTRY: UnwellEntryData = {
+  id: undefined,
+  date: undefined,
+  start: undefined,
+  end: undefined,
 }
 
 export class UnwellEntryState {
-  private _unwellEntryData: UnwellEntryData = {
-    ...EMPTY_UNWELL_ENTRY_DATA,
-  }
+  private _unwellEntryData: UnwellEntryData = EMPTY_UNWELL_ENTRY
 
   constructor() {
     makeAutoObservable(this)
@@ -23,7 +22,7 @@ export class UnwellEntryState {
   updateUnwellEntryData({
     unwellEntryData,
   }: {
-    unwellEntryData: Partial<UnwellEntryData>,
+    unwellEntryData: UnwellEntryData,
   }) {
     this._unwellEntryData = {
       ...this.unwellEntryData,

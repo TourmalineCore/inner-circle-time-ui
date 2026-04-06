@@ -2,8 +2,20 @@ import { makeAutoObservable } from 'mobx'
 import { EntryType } from '../../../../../common/constants/entryType'
 import { TrackedEntry } from '../../../types'
 
+export const EMPTY_ENTRY: TrackedEntry = {
+  id: undefined,
+  title: ``,
+  taskId: ``,
+  project: undefined,
+  description: ``,
+  type: EntryType.TASK,
+  date: undefined,
+  start: undefined,
+  end: undefined,
+}
+
 export class EntryModalState {
-  private _currentEntry: TrackedEntry | null = null
+  private _currentEntry: TrackedEntry = EMPTY_ENTRY
   
   private _isCopyMode = false
   private _isOpenModal = false
@@ -85,7 +97,7 @@ export class EntryModalState {
   }
 
   resetCurrentEntry() {
-    this._currentEntry = null
+    this._currentEntry = EMPTY_ENTRY
   }
 
   resetIsCopyMode() {

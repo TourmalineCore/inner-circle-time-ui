@@ -76,16 +76,12 @@ export const TimeTrackerTableContainer = observer(({
   ])
   
   useEffect(() => {
-    if (viewStartDate === null && viewEndDate === null) {
-      return
-    }
-
     async function loadedEntries() {
       const {
         data,
       } = await api.trackingGetEntriesByPeriod({
-        startDate: viewStartDate as string,
-        endDate: viewEndDate as string,
+        startDate: viewStartDate,
+        endDate: viewEndDate,
       })
 
       const {
@@ -93,8 +89,8 @@ export const TimeTrackerTableContainer = observer(({
           projects,
         },
       } = await api.trackingGetEmployeeProjectsByPeriod({
-        startDate: viewStartDate!,
-        endDate: viewEndDate!,
+        startDate: viewStartDate,
+        endDate: viewEndDate,
       })
 
       const taskEntries = data

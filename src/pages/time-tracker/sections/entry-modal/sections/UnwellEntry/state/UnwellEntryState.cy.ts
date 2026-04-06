@@ -1,4 +1,4 @@
-import { EMPTY_UNWELL_ENTRY_DATA, UnwellEntryState } from "./UnwellEntryState"
+import { EMPTY_UNWELL_ENTRY, UnwellEntryState } from "./UnwellEntryState"
 
 describe(`UnwellEntryState`, () => {
   describe(`Initial Data`, initialTests)
@@ -19,6 +19,6 @@ function initialTests() {
     expect(unwellEntryState.unwellEntryData)
       .to
       .deep
-      .eq(EMPTY_UNWELL_ENTRY_DATA) 
+      .eq(EMPTY_UNWELL_ENTRY) 
   })
 }

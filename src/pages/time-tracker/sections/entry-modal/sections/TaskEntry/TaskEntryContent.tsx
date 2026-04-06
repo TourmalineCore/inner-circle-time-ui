@@ -146,7 +146,7 @@ export const TaskEntryContent = observer(() => {
             dateFormat="dd.MM"
             onChange={(date) => taskEntryState.updateTaskEntryData({
               taskEntryData: {
-                date,
+                date: date!,
               },
             })}
             onKeyDown={(e) => e.preventDefault()}
