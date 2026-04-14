@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "@originjs/vite-plugin-federation": "^1.3.9",
-    "@tourmalinecore/inner-circle-time-api-js-client": "^1.0.0",
+    "@tourmalinecore/inner-circle-time-api-js-client": "^1.4.0-049d88969eff5bcb816aa4b102a69758c6f72ce2",
+    "@tourmalinecore/react-table-responsive": "^1.0.3",
     "@tourmalinecore/react-tc-auth": "^2.0.1",
     "@tourmalinecore/react-tc-modal": "^0.4.0",
     "axios": ">=1.8.2",

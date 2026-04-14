@@ -3,7 +3,7 @@ export enum EntryType {
   UNWELL = 2,
 }
 
-export const TYPE_LABELS: Record<EntryType, string> = {
+export const TYPE_LABELS: Record<string, string> = {
   [EntryType.TASK]: `Task`,
   [EntryType.UNWELL]: `Unwell`,
 }

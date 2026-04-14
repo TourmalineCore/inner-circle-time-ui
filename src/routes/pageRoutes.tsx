@@ -1,5 +1,5 @@
 import { BreadcrumbComponentProps } from 'use-react-router-breadcrumbs'
-import { timeTrackerRoutes } from '../pages/routes'
+import { timePersonalReportRoutes, timeTrackerRoutes } from '../pages/routes'
 
 export function getPageRoutes(accessPermissions: Map<any, boolean>) {
   const routes: {
@@ -10,6 +10,10 @@ export function getPageRoutes(accessPermissions: Map<any, boolean>) {
 
   if (accessPermissions.get(`CanManagePersonalTimeTracker`)) {
     routes.push(timeTrackerRoutes)
+  }
+
+  if (accessPermissions.get(`CanViewPersonalReport`)) {
+    routes.push(timePersonalReportRoutes)
   }
 
   return routes

@@ -1,0 +1,39 @@
+@use "../../styles/media" as *;
+
+.personal-report {
+  display: flex;
+  flex-direction: column;
+
+  &__head {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20px;
+  }
+
+  &__footer {
+    margin-top: 20px;
+  }
+
+  &__total-per-period {
+    margin-bottom: 20px;
+  }
+
+  &__employee-select {
+    margin-right: 10px;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+
+  &__empty-employee-option {
+    display: none;
+  }
+
+  &__text-wrapper {
+    overflow-y: auto;
+    max-height: 150px;
+  }
+}
