@@ -16,7 +16,7 @@ const EMPLOYEES = {
   ],
 }
 
-const TRACKED_ENTRIES = {
+const PERSONAL_REPORT = {
   trackedEntries: [
     {
       id: 1,
@@ -90,16 +90,16 @@ function changeEmployeesTests() {
       `**/reporting/personal-report?employeeId=1&year=2026&month=4`,
       {
         statusCode: 200,
-        body: TRACKED_ENTRIES, 
+        body: PERSONAL_REPORT, 
       },
     ) 
-      .as(`getTrackedEntries`)
+      .as(`getPersonalReport`)
 
     cy
       .getByData(`employee-select`)
       .select(`1`)
 
-    cy.wait(`@getTrackedEntries`)
+    cy.wait(`@getPersonalReport`)
 
     cy.contains(`Ivanov Ivan Ivanovich`)
 
@@ -118,10 +118,10 @@ function monthChangeTests() {
       `**/reporting/personal-report?employeeId=1&year=2026&month=2`,
       {
         statusCode: 200,
-        body: TRACKED_ENTRIES, 
+        body: PERSONAL_REPORT, 
       },
     ) 
-      .as(`getTrackedEntries`)
+      .as(`getPersonalReport`)
 
     cy
       .getByData(`employee-select`)
@@ -135,7 +135,7 @@ function monthChangeTests() {
       .contains(`Feb`)
       .click()
 
-    cy.wait(`@getTrackedEntries`)
+    cy.wait(`@getPersonalReport`)
   })
 }
 
