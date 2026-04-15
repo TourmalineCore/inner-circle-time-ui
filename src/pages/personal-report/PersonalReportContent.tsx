@@ -91,7 +91,7 @@ export const PersonalReportContent = observer(() => {
               id: `Tracked hours per day `,
               header: () => <span>Tracked hours<br/> per day</span>,
               accessorFn: (row) => row.trackedHoursPerDay,
-              maxSize: 105,
+              maxSize: 140,
             },
             {
               id: `Time`,
@@ -103,7 +103,7 @@ export const PersonalReportContent = observer(() => {
               id: `Hours`,
               header: `Hours`,
               accessorFn: (row) => row.hours,
-              maxSize: 60,
+              maxSize: 80,
             },
             {
               id: `Type`,
@@ -120,7 +120,7 @@ export const PersonalReportContent = observer(() => {
               id: `Task ID`,
               header: `Task ID`,
               accessorFn: (row) => row.taskId,
-              maxSize: 80,
+              maxSize: 100,
             }, 
             {
               id: `Task title`,
@@ -128,7 +128,7 @@ export const PersonalReportContent = observer(() => {
               cell: ({
                 row,
               }) => <div className='personal-report__text-wrapper'>{row.original.taskTitle}</div>,
-              minSize: 210,
+              minSize: 200,
             },
             {
               id: `Description`,
@@ -136,7 +136,7 @@ export const PersonalReportContent = observer(() => {
               cell: ({
                 row,
               }) => <div className='personal-report__text-wrapper'>{row.original.description}</div>,
-              minSize: 210,
+              minSize: 200,
             },
           ]}
           tcOrder={{
