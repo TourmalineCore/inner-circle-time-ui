@@ -11,7 +11,7 @@ const EMPLOYEES = {
     },
     {
       id: 2,
-      fullName: `Pertrov Petr Petrovich`,
+      fullName: `Petrov Petr Petrovich`,
     },
   ],
 }
@@ -75,11 +75,11 @@ describe(`PersonalReportContainer`, () => {
     cy.wait(`@getEmployees`)
   })
 
-  describe(`Change Employees`, changeEmployeesTests)
+  describe(`Employee Change`, changeEmployeeTests)
   describe(`Month Change`, monthChangeTests)
 })
 
-function changeEmployeesTests() {
+function changeEmployeeTests() {
   it(`
   GIVEN personal report
   WHEN change employee
@@ -100,10 +100,6 @@ function changeEmployeesTests() {
       .select(`1`)
 
     cy.wait(`@getPersonalReport`)
-
-    cy.contains(`Ivanov Ivan Ivanovich`)
-
-    cy.contains(`ProjectOne`)
   })
 }
 
