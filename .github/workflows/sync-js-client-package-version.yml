@@ -1,4 +1,4 @@
-name: Sync js-client package version
+name: Sync js-client package version with API
 on:
   repository_dispatch:
       # this workflow is triggered by an external script that calls the GitHub API
@@ -34,9 +34,9 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git config --global user.name github-actions[bot]
-          # 41898282 is id of GitHub Actions Bot that was taken from GitHub API: https://api.github.com/users/github-actions[bot]
-          git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git config user.email "contact@tourmalinecore.com"
+          
+          git config user.name "Workflow Action"
 
           git checkout -b $BRANCH_NAME master
 
