@@ -19,7 +19,7 @@ jobs:
 
       - name: Set branch name
         run: 
-          echo "BRANCH_NAME=feature/sync-js-client-package-version-to-${{ github.event.client_payload.client-version }}-$(date +'%FT%H-%M')" >> $GITHUB_ENV
+          echo "BRANCH_NAME=feature/sync-js-client-package-version-to-${{ github.event.client_payload.client_version }}-$(date +'%FT%H-%M')" >> $GITHUB_ENV
 
       # double quotes and new lines in multiline commit message breaks the sync workflow
       # using json to file trick that replaces double quotes and new lines with \" and \n
@@ -30,7 +30,7 @@ jobs:
 
       - name: Write new api js-client package version to package.json
         run: |
-          sed -i "0,/\"@tourmalinecore\/inner-circle-time-api-js-client\": .*/s//\"@tourmalinecore\/inner-circle-time-api-js-client\": \"^${{ github.event.client_payload.client-version }}\",/" package.json
+          sed -i "0,/\"@tourmalinecore\/inner-circle-time-api-js-client\": .*/s//\"@tourmalinecore\/inner-circle-time-api-js-client\": \"^${{ github.event.client_payload.client_version }}\",/" package.json
 
       - name: Commit and Push Changes
         run: |
@@ -47,7 +47,7 @@ jobs:
           git push origin $BRANCH_NAME
 
       - name: Set PR title
-        run: 'echo "PR_TITLE=infra: update js-client to ${{ github.event.client_payload.client-version }}" >> $GITHUB_ENV' 
+        run: 'echo "PR_TITLE=infra: update js-client to ${{ github.event.client_payload.client_version }}" >> $GITHUB_ENV' 
         
       - name: Create PR
         run: gh pr create -B master -H $BRANCH_NAME --title "${{ env.PR_TITLE }}" -F commit_message.txt
