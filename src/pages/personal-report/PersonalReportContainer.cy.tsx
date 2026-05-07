@@ -51,12 +51,14 @@ const PERSONAL_REPORT = {
   unwellHours: 4,
 }
 
-const currentMonth = new Date()
-  .getMonth() + 1
-
 describe(`PersonalReportContainer`, () => {
   beforeEach(() => {
     cy.viewport(1024, 600)
+
+    // set cypress default date
+    cy.clock(new Date(2026, 3, 26), [
+      `Date`,
+    ])
 
     cy.intercept(
       `GET`,
@@ -85,7 +87,7 @@ function changeEmployeeTests() {
   `, () => { 
     cy.intercept(
       `GET`,
-      `**/reporting/personal-report?employeeId=1&year=2026&month=${currentMonth}`,
+      `**/reporting/personal-report?employeeId=1&year=2026&month=4`,
       {
         statusCode: 200,
         body: PERSONAL_REPORT, 
