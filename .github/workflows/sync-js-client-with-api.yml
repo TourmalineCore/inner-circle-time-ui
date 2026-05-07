@@ -56,9 +56,9 @@ jobs:
       - name: Approve PR
         run: gh pr review $BRANCH_NAME -a
         env:
-          GITHUB_TOKEN: ${{ secrets.INNER_CIRCLE_TIME_UI_TRIGGER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable auto-merge for PR
         run: gh pr merge $BRANCH_NAME --auto --squash --subject "${{ env.PR_TITLE }}" -F commit_message.txt
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.INNER_CIRCLE_TIME_UI_TRIGGER_TOKEN }}
