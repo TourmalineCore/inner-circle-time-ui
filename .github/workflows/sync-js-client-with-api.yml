@@ -15,7 +15,12 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3 
+        uses: actions/checkout@v3
+        with:
+          # we use personal access token to clone the repo and to commit later under the same account
+          # this last pusher has to be different from the account that approves the pr
+          # thus, it is a personal token that commits the change and github bot who approves it
+          token: ${{ secrets.INNER_CIRCLE_TIME_UI_TRIGGER_TOKEN }}
 
       - name: Set branch name
         run: 
@@ -44,8 +49,6 @@ jobs:
           git commit -F commit_message.txt
           
           git push origin $BRANCH_NAME
-        env:
-          GITHUB_TOKEN: ${{ secrets.INNER_CIRCLE_TIME_UI_TRIGGER_TOKEN }}
 
       - name: Set PR title
         run: 'echo "PR_TITLE=infra: update js-client to ${{ github.event.client_payload.new_js_client_version }}" >> $GITHUB_ENV' 
