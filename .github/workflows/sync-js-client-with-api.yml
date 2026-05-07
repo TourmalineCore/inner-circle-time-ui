@@ -44,6 +44,8 @@ jobs:
           git commit -F commit_message.txt
           
           git push origin $BRANCH_NAME
+        env:
+          GITHUB_TOKEN: ${{ secrets.INNER_CIRCLE_TIME_UI_TRIGGER_TOKEN }}
 
       - name: Set PR title
         run: 'echo "PR_TITLE=infra: update js-client to ${{ github.event.client_payload.new_js_client_version }}" >> $GITHUB_ENV' 
