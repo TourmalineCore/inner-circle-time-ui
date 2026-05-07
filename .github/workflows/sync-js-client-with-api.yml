@@ -29,7 +29,7 @@ jobs:
           echo -e ${{ toJson(github.event.client_payload.commit_message) }} > commit_message.txt
 
       - name: Install new js-client version  
-        run: npm install @tourmalinecore/inner-circle-time-api-js-client@${{ github.event.client_payload.new-js-client-version }} --save
+        run: npm install @tourmalinecore/inner-circle-time-api-js-client@${{ github.event.client_payload.new_js_client_version }} --save
 
       - name: Commit and Push Changes
         run: |
