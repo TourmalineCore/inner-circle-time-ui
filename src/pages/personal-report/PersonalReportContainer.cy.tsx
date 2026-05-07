@@ -55,11 +55,6 @@ describe(`PersonalReportContainer`, () => {
   beforeEach(() => {
     cy.viewport(1024, 600)
 
-    // set cypress default date
-    cy.clock(new Date(2026, 3, 26), [
-      `Date`,
-    ])
-
     cy.intercept(
       `GET`,
       `**/reporting/employees`,
@@ -85,9 +80,12 @@ function changeEmployeeTests() {
   WHEN change employee
   SHOULD send request with correct employeeId
   `, () => { 
+    const currentMonth = new Date()
+      .getMonth() + 1
+
     cy.intercept(
       `GET`,
-      `**/reporting/personal-report?employeeId=1&year=2026&month=4`,
+      `**/reporting/personal-report?employeeId=1&year=2026&month=${currentMonth}`,
       {
         statusCode: 200,
         body: PERSONAL_REPORT, 
