@@ -20,4 +20,11 @@ apiClient.instance.interceptors.request.use((config: any) => {
 null,
 )
 
-export const api = apiClient.api
+// previously it contained only api object
+// now it contains an object per api controller, like tracking, reporting, internal
+// to keep things simple for ui we can combine all endpoints into an old single api facade object
+const objectsWithEdnpoints = Object.values(apiClient)
+
+const apiWithAllCombinedEndpoints = objectsWithEdnpoints.reduce((acc, curr) => ({ ...acc, ...curr }), {})
+
+export const api = apiWithAllCombinedEndpoints
