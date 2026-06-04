@@ -2,7 +2,7 @@ import { TaskEntry } from "./features/TaskEntry"
 import { TimeTrackerPage } from "./pages/TimeTrackerPage"
 
 describe(`Task Entries Happy Path`, () => {
-  const testDate = new Date(2025, 9, 27)
+  const testDate = new Date(2024, 9, 21)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
@@ -21,27 +21,23 @@ describe(`Task Entries Happy Path`, () => {
 
   it(`
   GIVEN empty time tracker table
-  WHEN add a new task entry
-  SHOULD see it in the time tracker table
-  THEN click on this task entry
-  AND update data in it 
-  SHOULD see correct data in the time tracker table
+  WHEN user adds a new task entry
+  AND user clicks on this task entry for update
+  THEN user should see the updated task entry in the time tracking table
   `, () => {
+    cy.intercept(
+      `GET`, 
+      `/api/time/tracking/entries?startDate=2024-10-21&endDate=2024-10-27`)
+      .as(`getEntries`)
+      
     TimeTrackerPage.visit()
-
-    TimeTrackerPage.clickOnTimeSlot()
 
     // Waiting for the table to be displayed in the desktop version
     cy
-      .contains(`October 27 – November 02`)
+      .contains(`October 21 – 27`)
       .should(`be.visible`)
 
-    TaskEntry.fill()
-
-    cy.intercept(
-      `GET`, 
-      `/api/time/tracking/entries?startDate=2025-10-27&endDate=2025-11-02`)
-      .as(`getEntries`)
+    TaskEntry.add()
 
     TaskEntry.update()
 

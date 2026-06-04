@@ -2,7 +2,7 @@ import { UnwellEntry } from "./features/UnwellEntry"
 import { TimeTrackerPage } from "./pages/TimeTrackerPage"
 
 describe(`Unwell Entries Happy Path`, () => {
-  const testDate = new Date(2026, 9, 26)
+  const testDate = new Date(2023, 9, 23)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
@@ -21,27 +21,23 @@ describe(`Unwell Entries Happy Path`, () => {
 
   it(`
   GIVEN empty time tracker table
-  WHEN add a new unwell entry
-  SHOULD see it in the time tracker table
-  THEN click on this unwell entry
-  AND update data in it 
-  SHOULD see correct data in the time tracker table
+  WHEN user adds a new unwell entry
+  AND user clicks on this unwell entry for update
+  THEN user should see the updated unwell entry in the time tracking table
   `, () => {
+    cy.intercept(
+      `GET`, 
+      `/api/time/tracking/entries?startDate=2023-10-23&endDate=2023-10-29`)
+      .as(`getEntries`)
+      
     TimeTrackerPage.visit()
-
-    TimeTrackerPage.clickOnTimeSlot()
 
     // Waiting for the table to be displayed in the desktop version
     cy
-      .contains(`October 26 – November 01`)
+      .contains(`October 23 – 29`)
       .should(`be.visible`)
 
-    UnwellEntry.fill()
-
-    cy.intercept(
-      `GET`, 
-      `/api/time/tracking/entries?startDate=2026-10-26&endDate=2026-11-01`)
-      .as(`getEntries`)
+    UnwellEntry.add()
 
     UnwellEntry.update()
 

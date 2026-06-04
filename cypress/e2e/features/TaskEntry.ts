@@ -1,9 +1,13 @@
+import { TimeTrackerPage } from "../pages/TimeTrackerPage"
+
 const TITLE = `[E2E-SMOKE] Task 1`
 const TASK_ID = `#test`
 const DESCRIPTION = `Task description`
 
 export class TaskEntry {
-  static fill() {
+  static add() { 
+    TimeTrackerPage.clickOnFirstTimeSlot()
+    
     cy
       .getByData(`title-input`)
       .clear()

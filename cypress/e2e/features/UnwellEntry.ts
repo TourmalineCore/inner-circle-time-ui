@@ -1,5 +1,9 @@
+import { TimeTrackerPage } from "../pages/TimeTrackerPage"
+
 export class UnwellEntry {
-  static fill() {
+  static add() {
+    TimeTrackerPage.clickOnFirstTimeSlot()
+        
     cy
       .getByData(`type-select`)
       .select(1)

@@ -3,7 +3,7 @@ export class TimeTrackerPage {
     cy.visit(`/time/tracking`)
   }
 
-  static clickOnTimeSlot() {
+  static clickOnFirstTimeSlot() {
     cy.get(`.rbc-day-slot`)
       .find(`.rbc-timeslot-group`)
       .first()
