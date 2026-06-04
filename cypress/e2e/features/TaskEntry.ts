@@ -44,6 +44,12 @@ export class TaskEntry {
       .type(endTime)
 
     TimeTrackerPage.clickBySubmitButton()
+
+    return {
+      taskTitle: TITLE,
+      taskId: TASK_ID,
+      taskDescription: DESCRIPTION,
+    }
   }
 
   static update() {

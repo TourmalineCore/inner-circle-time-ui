@@ -75,7 +75,9 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
 
     TimeTrackerPage.clickBySubmitButton()
 
-    TaskEntry.add({
+    const {
+      taskTitle,
+    } = TaskEntry.add({
       startTime: `17:00`,
       endTime: `18:00`,
     })
@@ -86,6 +88,6 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
 
     cy.contains(`Make-up time`)
 
-    cy.contains(`[E2E-SMOKE] Task 1`)
+    cy.contains(taskTitle)
   })
 })
