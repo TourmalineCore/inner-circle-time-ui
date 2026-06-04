@@ -45,7 +45,7 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
     
     TimeTrackerPage.clickOnFirstTimeSlot()
 
-    // Todo: after implemenation away with make up time feature replace 3 to value from EntryType enum
+    // Todo: after implemenation Away With Make Up Time Entry feature replace 3 to value from EntryType enum
     TimeTrackerPage.selectEntryType({
       entryType: 3 as EntryType,
     })
