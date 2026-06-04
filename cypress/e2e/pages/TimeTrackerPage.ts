@@ -1,3 +1,5 @@
+import { EntryType } from "../../../src/common/constants/entryType"
+
 export class TimeTrackerPage {
   static visit() {
     cy.visit(`/time/tracking`)
@@ -13,5 +15,16 @@ export class TimeTrackerPage {
       .click({
         force: true, 
       })
+  }
+
+  static selectEntryType({
+    entryType,
+  }: {
+    entryType: EntryType,
+  }) {
+    cy
+      .getByData(`type-select`)
+      // -1 because the values in select start from 0 but enum values start from 1
+      .select(entryType - 1)
   }
 }

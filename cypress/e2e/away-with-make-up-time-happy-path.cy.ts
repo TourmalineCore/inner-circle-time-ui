@@ -43,9 +43,10 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
     
     TimeTrackerPage.clickOnFirstTimeSlot()
 
-    cy
-      .getByData(`type-select`)
-      .select(2)
+    // Todo: after implemenation away with make up time feature replace 3 to value from EntryType enum
+    TimeTrackerPage.selectEntryType({
+      entryType: 3 as EntryType,
+    })
 
     cy
       .getByData(`description-input`)

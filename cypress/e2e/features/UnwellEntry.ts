@@ -1,12 +1,13 @@
+import { EntryType } from "../../../src/common/constants/entryType"
 import { TimeTrackerPage } from "../pages/TimeTrackerPage"
 
 export class UnwellEntry {
   static add() {
     TimeTrackerPage.clickOnFirstTimeSlot()
         
-    cy
-      .getByData(`type-select`)
-      .select(1)
+    TimeTrackerPage.selectEntryType({
+      entryType: EntryType.UNWELL,
+    })
 
     cy
       .getByData(`start-time-input`)
