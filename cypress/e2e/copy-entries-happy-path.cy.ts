@@ -2,7 +2,7 @@ import { TaskEntry } from "./features/TaskEntry"
 import { TimeTrackerPage } from "./pages/TimeTrackerPage"
 
 describe(`Copy Entries Happy Path`, () => {
-  const testDate = new Date(2027, 9, 25)
+  const testDate = new Date(2022, 9, 24)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
@@ -21,27 +21,30 @@ describe(`Copy Entries Happy Path`, () => {
 
   it(`
   GIVEN empty time tracker table
-  WHEN add a new task entry
-  SHOULD see it in the time tracker table
-  THEN click on this task entry
-  AND click on copy button
-  AND click on a free time slot 
-  SHOULD see copied card with filled data
+  WHEN user adds a new task entry
+  AND user clicks on this task entry for copy
+  AND user clicks on a free time slot 
+  THEN user should see the copied card with filled data
   `, () => {
+    cy.intercept(
+      `GET`, 
+      `/api/time/tracking/entries?startDate=2022-10-24&endDate=2022-10-30`)
+      .as(`getEntries`)
+      
     TimeTrackerPage.visit()
-
-    TimeTrackerPage.clickOnTimeSlot()
 
     // Waiting for the table to be displayed in the desktop version
     cy
-      .contains(`October 25 – 31`)
+      .contains(`October 24 – 30`)
       .should(`be.visible`)
 
-    TaskEntry.fill()
+    TaskEntry.add()
+
+    cy.wait(`@getEntries`)
 
     TaskEntry.copy()
 
-    TimeTrackerPage.clickOnTimeSlot()
+    TimeTrackerPage.clickOnFirstTimeSlot()
 
     TaskEntry.checkAfterCopy()
   })
