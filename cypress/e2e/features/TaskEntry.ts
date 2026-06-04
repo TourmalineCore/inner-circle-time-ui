@@ -5,7 +5,13 @@ const TASK_ID = `#test`
 const DESCRIPTION = `Task description`
 
 export class TaskEntry {
-  static add() { 
+  static add({
+    startTime = `11:00`,
+    endTime = `15:00`,
+  }: {
+    startTime?: string,
+    endTime?: string,
+  } = {}) {
     TimeTrackerPage.clickOnFirstTimeSlot()
     
     cy
@@ -30,12 +36,12 @@ export class TaskEntry {
     cy
       .getByData(`start-time-input`)
       .clear()
-      .type(`11:00`)
+      .type(startTime)
     
     cy
       .getByData(`end-time-input`)
       .clear()
-      .type(`15:00`)
+      .type(endTime)
 
     cy
       .contains(`Add Task`)

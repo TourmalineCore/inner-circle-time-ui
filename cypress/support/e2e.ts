@@ -7,6 +7,7 @@ declare global {
       authByApi(): Chainable<any>,
       removeTaskEntries(date: Date): Chainable<any>, 
       removeUnwellEntries(date: Date): Chainable<any>, 
+      removeAwayWithMakeUpEntries(date: Date): Chainable<any>, 
     }
   }
 }

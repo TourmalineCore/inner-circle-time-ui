@@ -115,6 +115,34 @@ Cypress.Commands.add(`removeUnwellEntries`, (date: Date) => {
     })
 })
 
+Cypress.Commands.add(`removeAwayWithMakeUpEntries`, (date: Date) => {  
+  const day = formatDate(date)
+
+  // Todo: remove custom awayWithMakeUpEntries type after the endpoint is implemented in the API and included in the GetEntriesByPeriodResponse type.
+  cy.request<GetEntriesByPeriodResponse & { awayWithMakeUpEntries: any[], }>({
+    method: `GET`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+    },
+  })
+    .then(({
+      body,
+    }) => {
+      body.awayWithMakeUpEntries?.forEach(({
+        id, 
+      }) => {
+        cy.request({
+          method: `DELETE`,
+          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
+          headers: {
+            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+          },
+        })
+      })
+    })
+})
+
 function formatDate(date: Date): string {
   const y = date.getFullYear()
   const m = String(date.getMonth() + 1)
