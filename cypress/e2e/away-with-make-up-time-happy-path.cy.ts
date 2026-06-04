@@ -73,9 +73,7 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
       .clear()
       .type(`18:00`)
 
-    cy
-      .contains(`Add`)
-      .click()
+    TimeTrackerPage.clickBySubmitButton()
 
     TaskEntry.add({
       startTime: `17:00`,

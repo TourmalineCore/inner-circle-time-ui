@@ -19,9 +19,7 @@ export class UnwellEntry {
       .clear()
       .type(`05:00`)
 
-    cy
-      .contains(`Add`)
-      .click()
+    TimeTrackerPage.clickBySubmitButton()
   }
 
   static update() {

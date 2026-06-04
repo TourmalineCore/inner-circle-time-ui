@@ -43,9 +43,7 @@ export class TaskEntry {
       .clear()
       .type(endTime)
 
-    cy
-      .contains(`Add Task`)
-      .click()
+    TimeTrackerPage.clickBySubmitButton()
   }
 
   static update() {

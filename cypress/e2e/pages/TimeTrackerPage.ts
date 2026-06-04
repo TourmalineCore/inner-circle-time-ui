@@ -27,4 +27,10 @@ export class TimeTrackerPage {
       // -1 because the values in select start from 0 but enum values start from 1
       .select(entryType - 1)
   }
+
+  static clickBySubmitButton() {
+    cy
+      .getByData(`submit-button`)
+      .click()
+  }
 }
