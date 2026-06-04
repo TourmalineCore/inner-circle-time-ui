@@ -23,10 +23,10 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
   })
 
   it(`
-  GIVEN user was away for one hour from 13:00 to 14:00
-  AND plans to make up this time from 17:00 to 18:00 on the same day
+  GIVEN user was away for one hour
+  AND plans to make up this time on the same day
   WHEN user adds away with make up time entry in the time tracker
-  AND user did it as planned and was working on the task from 17:00 to 18:00
+  AND user did it as planned and was working on the task
   THEN user should see that everything has been successfully tracked in the time tracker
   `, () => {
     cy.intercept(
@@ -40,6 +40,8 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
     cy
       .contains(`October 21 – 27`)
       .should(`be.visible`)
+    
+    cy.log(`Add an Away with Make Up Time Entry`)
     
     TimeTrackerPage.clickOnFirstTimeSlot()
 
@@ -75,6 +77,8 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
 
     TimeTrackerPage.clickBySubmitButton()
 
+    cy.log(`Add a Task Entry at the same time as make up`)
+
     const {
       taskTitle,
     } = TaskEntry.add({
@@ -83,6 +87,8 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
     })
 
     cy.wait(`@getEntries`)
+
+    cy.log(`Сheck that the Away, Make up time and task entries cards exist`)
 
     cy.contains(`Away With Make-up time`)
 
