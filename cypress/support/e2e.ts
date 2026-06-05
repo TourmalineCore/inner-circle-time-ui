@@ -7,12 +7,12 @@ declare global {
       authByApi(): Chainable<any>,
       removeTaskEntries({
         date,
-      } : {
+      }: {
         date: Date,
       }): Chainable<any>, 
       removeUnwellEntries({
         date,
-      } : {
+      }: {
         date: Date,
       }): Chainable<any>, 
     }
