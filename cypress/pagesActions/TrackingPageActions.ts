@@ -1,4 +1,5 @@
 import { EntryType } from "../../src/common/constants/entryType"
+
 export class TrackingPageActions {
   static visit() {
     return cy.visit(`/time/tracking`)
@@ -116,5 +117,4 @@ export class TrackingPageActions {
       taskDescription,
     }
   }
-
 }
