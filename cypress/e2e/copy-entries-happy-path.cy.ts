@@ -55,8 +55,7 @@ describe(`Copy Entries Happy Path`, () => {
       .contains(taskTitle)
       .click()
 
-    cy
-      .getByData(`copy-button`)
+    TrackingPageActions.getEntryModalCopyButton()
       .click()
 
     TrackingPageActions

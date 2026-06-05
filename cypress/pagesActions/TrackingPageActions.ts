@@ -44,6 +44,14 @@ export class TrackingPageActions {
     return cy.getByData(`copy-alert`)
   }
 
+  static getEntryModalCopyButton() {
+    return cy.getByData(`entry-modal-copy-button`)
+  }
+
+  static getEntryModalDeleteButton() {
+    return cy.getByData(`entry-modal-delete-button`)
+  }
+
   static getEntryModalTypeSelect() {
     return cy.getByData(`entry-modal-type-select`)
   }

@@ -37,8 +37,7 @@ function functionCallTests() {
       isExistingEntry: true,
     })
     
-    cy
-      .getByData(`delete-button`)
+    TrackingPageActions.getEntryModalDeleteButton()
       .click()
     
     cy
@@ -55,8 +54,7 @@ function functionCallTests() {
       isExistingEntry: true,
     })
     
-    cy
-      .getByData(`copy-button`)
+    TrackingPageActions.getEntryModalCopyButton()
       .click()
     
     cy
@@ -73,12 +71,10 @@ function isExistingModalEntryTests() {
   `, () => {
     mountComponent()
     
-    cy
-      .getByData(`delete-button`)
+    TrackingPageActions.getEntryModalDeleteButton()
       .should(`not.exist`)
 
-    cy
-      .getByData(`copy-button`)
+    TrackingPageActions.getEntryModalCopyButton()
       .should(`not.exist`)
   })
 
@@ -91,12 +87,10 @@ function isExistingModalEntryTests() {
       isExistingEntry: true,
     })
 
-    cy
-      .getByData(`delete-button`)
+    TrackingPageActions.getEntryModalDeleteButton()
       .should(`exist`)
 
-    cy
-      .getByData(`copy-button`)
+    TrackingPageActions.getEntryModalCopyButton()
       .should(`exist`)
   })
 }

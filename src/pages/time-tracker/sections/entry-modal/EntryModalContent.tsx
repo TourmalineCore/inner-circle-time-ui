@@ -86,7 +86,7 @@ export const EntryModalContent = observer(({
               isExistingEntry && (
                 <>
                   <button
-                    data-cy="delete-button"
+                    data-cy="entry-modal-delete-button"
                     className='entry-modal__delete-button'
                     type='button'
                     onClick={openDeleteModal}
@@ -94,7 +94,7 @@ export const EntryModalContent = observer(({
                     <DeleteIcon />
                   </button>
                   <button
-                    data-cy="copy-button"
+                    data-cy="entry-modal-copy-button"
                     className='entry-modal__copy-button'
                     type='button'
                     onClick={() => {
