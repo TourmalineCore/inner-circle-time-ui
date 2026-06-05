@@ -1,3 +1,4 @@
+import { TrackingPageActions } from "../../../../../cypress/pagesActions/TrackingPageActions"
 import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
@@ -21,7 +22,8 @@ function copyModeTests() {
   `, () => {
     mountComponent()
 
-    cy.getByData(`copy-alert`)
+    TrackingPageActions
+      .getCopyAlert()
       .should(`not.exist`)
   })
   
@@ -34,7 +36,8 @@ function copyModeTests() {
       isCopyMode: true,
     })
 
-    cy.getByData(`copy-alert`)
+    TrackingPageActions
+      .getCopyAlert()
       .should(`exist`)
   }) 
 }

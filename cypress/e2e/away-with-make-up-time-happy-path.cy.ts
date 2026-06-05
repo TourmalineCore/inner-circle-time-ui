@@ -1,6 +1,5 @@
 import { EntryType } from "../../src/common/constants/entryType"
-import { TaskEntry } from "./features/TaskEntry"
-import { TimeTrackerPage } from "./pages/TimeTrackerPage"
+import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
 
 describe(`Away With Make Up Time Entry Happy Path`, () => {
   const testDate = new Date(2024, 9, 21)
@@ -13,13 +12,21 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
     ])
 
     cy.authByApi()
-    cy.removeTaskEntries(testDate)
-    cy.removeAwayWithMakeUpEntries(testDate)
+    cy.removeTaskEntries({
+      date: testDate,
+    })
+    cy.removeAwayWithMakeUpEntries({
+      date: testDate,
+    })
   })
 
   afterEach(`Cleanup`, () => {
-    cy.removeTaskEntries(testDate)
-    cy.removeAwayWithMakeUpEntries(testDate)
+    cy.removeTaskEntries({
+      date: testDate,
+    })
+    cy.removeAwayWithMakeUpEntries({
+      date: testDate,
+    })
   })
 
   it(`
@@ -34,7 +41,7 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
       `/api/time/tracking/entries?startDate=2024-10-21&endDate=2024-10-27`)
       .as(`getEntries`)
       
-    TimeTrackerPage.visit()
+    TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
     cy
@@ -43,45 +50,42 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
     
     cy.log(`Add an Away with Make Up Time Entry`)
     
-    TimeTrackerPage.clickOnFirstTimeSlot()
+    TrackingPageActions.clickOnFirstTimeSlot()
 
     // Todo: after implemenation Away With Make Up Time Entry feature replace 3 to value from EntryType enum
-    TimeTrackerPage.selectEntryType({
+    TrackingPageActions.selectEntryModalType({
       entryType: 3 as EntryType,
     })
 
-    cy
-      .getByData(`description-input`)
+    TrackingPageActions.getEntryModalDescriptionInput()
       .clear()
       .type(`I need to go to the hospital.`)
 
-    cy
-      .getByData(`start-time-input`)
+    TrackingPageActions.getEntryModalStartTimeInput()
       .clear()
       .type(`13:00`)
     
-    cy
-      .getByData(`end-time-input`)
+    TrackingPageActions.getEntryModalEndTimeInput()
       .clear()
       .type(`14:00`)
     
     cy
-      .getByData(`make-up-time-start-time-input`)
+      .getByData(`entry-modal-make-up-start-time-input`)
       .clear()
       .type(`17:00`)
     
     cy
-      .getByData(`make-up-time-end-time-input`)
+      .getByData(`entry-modal-make-up-end-time-input`)
       .clear()
       .type(`18:00`)
 
-    TimeTrackerPage.clickBySubmitButton()
+    TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.log(`Add a Task Entry at the same time as make up`)
 
     const {
       taskTitle,
-    } = TaskEntry.add({
+    } = TrackingPageActions.addTaskEntry({
       startTime: `17:00`,
       endTime: `18:00`,
     })

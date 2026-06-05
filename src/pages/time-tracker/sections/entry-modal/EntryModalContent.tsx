@@ -42,7 +42,7 @@ export const EntryModalContent = observer(({
           <select 
             className="entry-modal__input"
             name='type'
-            data-cy="type-select"
+            data-cy="entry-modal-type-select"
             value={type}
             disabled={isDisabledTypesSelect}
             onChange={(e) => entryModalState.setType({
@@ -72,7 +72,7 @@ export const EntryModalContent = observer(({
           }
           <div className="entry-modal__buttons">
             <button
-              data-cy="submit-button"
+              data-cy="entry-modal-submit-button"
               className='entry-modal__submit-button'
               type='submit'
               onClick={() => onSubmitEntry()}
@@ -86,7 +86,7 @@ export const EntryModalContent = observer(({
               isExistingEntry && (
                 <>
                   <button
-                    data-cy="delete-button"
+                    data-cy="entry-modal-delete-button"
                     className='entry-modal__delete-button'
                     type='button'
                     onClick={openDeleteModal}
@@ -94,7 +94,7 @@ export const EntryModalContent = observer(({
                     <DeleteIcon />
                   </button>
                   <button
-                    data-cy="copy-button"
+                    data-cy="entry-modal-copy-button"
                     className='entry-modal__copy-button'
                     type='button'
                     onClick={() => {
