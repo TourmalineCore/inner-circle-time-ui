@@ -44,7 +44,7 @@ export const UnwellEntryContent = observer(() => {
     
           <div className='unwell-entry__time-range'>
             <InputMask
-              data-cy="start-time-input"
+              data-cy="entry-modal-start-time-input"
               className='unwell-entry__time-field'
               mask="99:99"
               maskChar="0"
@@ -62,7 +62,7 @@ export const UnwellEntryContent = observer(() => {
             />
             {`-`}
             <InputMask
-              data-cy="end-time-input"
+              data-cy="entry-modal-end-time-input"
               className='unwell-entry__time-field'
               mask="99:99"
               maskChar="0"

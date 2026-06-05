@@ -1,3 +1,4 @@
+import { TrackingPageActions } from "../../../../../cypress/pagesActions/TrackingPageActions"
 import { EntryType } from "../../../../common/constants/entryType"
 import { eventBus, EventBusType } from "../../event-bus"
 import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
@@ -30,9 +31,7 @@ function functionCallTests() {
     
     mountComponent()
 
-    cy
-      .contains(`Add`)
-      .click()
+    TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy
       .get(`@closeEntryModal`)
@@ -68,9 +67,7 @@ function setErrorTests() {
     
     mountComponent()
 
-    cy
-      .contains(`Add`)
-      .click()
+    TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.contains(`Error message`)
   })
@@ -107,9 +104,7 @@ function resetErrorTests() {
 
     cy.contains(`Error message`)
 
-    cy
-      .contains(`Add`)
-      .click()
+    TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.
       should(`not.contain`, `Error message`)

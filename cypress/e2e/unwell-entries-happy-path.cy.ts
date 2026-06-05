@@ -1,5 +1,5 @@
-import { UnwellEntry } from "./features/UnwellEntry"
-import { TimeTrackerPage } from "./pages/TimeTrackerPage"
+import { EntryType } from "../../src/common/constants/entryType"
+import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
 
 describe(`Unwell Entries Happy Path`, () => {
   const testDate = new Date(2023, 9, 23)
@@ -12,11 +12,15 @@ describe(`Unwell Entries Happy Path`, () => {
     ])
 
     cy.authByApi()
-    cy.removeUnwellEntries(testDate)
+    cy.removeUnwellEntries({
+      date:testDate,
+    })
   })
 
   afterEach(`Cleanup`, () => {
-    cy.removeUnwellEntries(testDate)
+    cy.removeUnwellEntries({
+      date: testDate,
+    })
   })
 
   it(`
@@ -30,16 +34,45 @@ describe(`Unwell Entries Happy Path`, () => {
       `/api/time/tracking/entries?startDate=2023-10-23&endDate=2023-10-29`)
       .as(`getEntries`)
       
-    TimeTrackerPage.visit()
+    TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
     cy
       .contains(`October 23 – 29`)
       .should(`be.visible`)
 
-    UnwellEntry.add()
+    TrackingPageActions.clickOnFirstTimeSlot()
+        
+    TrackingPageActions
+      .selectEntryModalType({
+        entryType: EntryType.UNWELL,
+      })
 
-    UnwellEntry.update()
+    TrackingPageActions
+      .getEntryModalStartTimeInput()
+      .clear()
+      .type(`04:00`)
+    
+    TrackingPageActions
+      .getEntryModalEndTimeInput() 
+      .clear()
+      .type(`05:00`)
+
+    TrackingPageActions.clickByEntryModalSubmitButton()
+
+    clickByFeelingUnwellCard()
+
+    TrackingPageActions
+      .getEntryModalStartTimeInput()
+      .clear()
+      .type(`06:00`)
+    
+    TrackingPageActions
+      .getEntryModalEndTimeInput()
+      .clear()
+      .type(`07:00`)
+
+    TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.wait(`@getEntries`)
 
@@ -47,6 +80,20 @@ describe(`Unwell Entries Happy Path`, () => {
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(2000)
 
-    UnwellEntry.checkAfterUpdate()
+    clickByFeelingUnwellCard()
+
+    TrackingPageActions
+      .getEntryModalStartTimeInput()
+      .should(`have.value`, `06:00`)
+    
+    TrackingPageActions
+      .getEntryModalEndTimeInput()
+      .should(`have.value`, `07:00`)
   })
 })
+
+function clickByFeelingUnwellCard() {
+  return cy
+    .contains(`Feeling unwell`)
+    .click()
+}
