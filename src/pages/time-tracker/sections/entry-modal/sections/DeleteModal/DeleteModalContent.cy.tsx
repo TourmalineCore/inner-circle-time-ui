@@ -1,3 +1,4 @@
+import { TrackingPageActions } from "../../../../../../../cypress/pagesActions/TrackingPageActions"
 import { EntryType } from "../../../../../../common/constants/entryType"
 import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
 import { DeleteModalContent } from "./DeleteModalContent"
@@ -16,9 +17,7 @@ function eventCallTests() {
   `, () => {
     mountComponent()
     
-    cy
-      .get(`.tc-modal__close-button`)
-      .click()
+    TrackingPageActions.clickByEntryModalCloseButton()
     
     cy
       .get(`@closeDeleteModal`)

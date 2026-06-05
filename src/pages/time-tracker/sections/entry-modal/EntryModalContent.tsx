@@ -42,7 +42,7 @@ export const EntryModalContent = observer(({
           <select 
             className="entry-modal__input"
             name='type'
-            data-cy="type-select"
+            data-cy="entry-modal-type-select"
             value={type}
             disabled={isDisabledTypesSelect}
             onChange={(e) => entryModalState.setType({
@@ -72,7 +72,7 @@ export const EntryModalContent = observer(({
           }
           <div className="entry-modal__buttons">
             <button
-              data-cy="submit-button"
+              data-cy="entry-modal-submit-button"
               className='entry-modal__submit-button'
               type='submit'
               onClick={() => onSubmitEntry()}

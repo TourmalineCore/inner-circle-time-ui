@@ -61,7 +61,11 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
-Cypress.Commands.add(`removeTaskEntries`, (date: Date) => {
+Cypress.Commands.add(`removeTaskEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {
   const day = formatDate(date)
 
   cy.request<GetEntriesByPeriodResponse>({
@@ -88,7 +92,11 @@ Cypress.Commands.add(`removeTaskEntries`, (date: Date) => {
     })
 })
 
-Cypress.Commands.add(`removeUnwellEntries`, (date: Date) => {  
+Cypress.Commands.add(`removeUnwellEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {  
   const day = formatDate(date)
 
   cy.request<GetEntriesByPeriodResponse>({

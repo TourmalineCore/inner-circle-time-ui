@@ -1,3 +1,4 @@
+import { TrackingPageActions } from "../../../../../../../cypress/pagesActions/TrackingPageActions"
 import { EntryType } from "../../../../../../common/constants/entryType"
 import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
 import { EntryModalContainer } from "../../EntryModalContainer"
@@ -19,9 +20,7 @@ function clientValidation() {
   `, () => {
     mountComponent()
 
-    cy
-      .contains(`Add Task`)
-      .click()
+    TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.contains(`Fill in all the fields`)
   })

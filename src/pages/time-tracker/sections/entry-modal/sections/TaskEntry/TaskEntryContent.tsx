@@ -46,7 +46,7 @@ export const TaskEntryContent = observer(() => {
             'error': isProjectIdError,
           })} 
           name='project'
-          data-cy="project-select"
+          data-cy="entry-modal-project-select"
           value={projectId}
           onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
@@ -82,7 +82,7 @@ export const TaskEntryContent = observer(() => {
         <input 
           type="text" 
           name="taskId" 
-          data-cy="task-id-input"
+          data-cy="entry-modal-task-id-input"
           value={taskId} 
           onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
@@ -102,7 +102,7 @@ export const TaskEntryContent = observer(() => {
         <input 
           type="text" 
           name="title" 
-          data-cy="title-input"
+          data-cy="entry-modal-title-input"
           value={title} 
           onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
@@ -121,7 +121,7 @@ export const TaskEntryContent = observer(() => {
         </span> 
         <textarea 
           name="description" 
-          data-cy="description-input"
+          data-cy="entry-modal-description-input"
           value={description} 
           onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
@@ -154,7 +154,7 @@ export const TaskEntryContent = observer(() => {
     
           <div className='task-entry__time-range'>
             <InputMask
-              data-cy="start-time-input"
+              data-cy="entry-modal-start-time-input"
               className='task-entry__time-field'
               mask="99:99"
               maskChar="0"
@@ -172,7 +172,7 @@ export const TaskEntryContent = observer(() => {
             />
             {`-`}
             <InputMask
-              data-cy="end-time-input"
+              data-cy="entry-modal-end-time-input"
               className='task-entry__time-field'
               mask="99:99"
               maskChar="0"

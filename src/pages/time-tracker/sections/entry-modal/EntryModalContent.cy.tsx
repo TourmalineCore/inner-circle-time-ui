@@ -1,3 +1,4 @@
+import { TrackingPageActions } from "../../../../../cypress/pagesActions/TrackingPageActions"
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
@@ -16,9 +17,7 @@ function functionCallTests() {
   `, () => {
     mountComponent()
     
-    cy
-      .get(`.tc-modal__close-button`)
-      .click()
+    TrackingPageActions.clickByEntryModalCloseButton()
       
     cy
       .get(`@resetCurrentEntry`)
@@ -110,7 +109,7 @@ function isDisabledTypesSelectTests() {
   `, () => {
     mountComponent()
 
-    cy.getByData(`type-select`)
+    TrackingPageActions.getEntryModalTypeSelect()
       .should(`not.be.disabled`)
   })
 
@@ -123,7 +122,7 @@ function isDisabledTypesSelectTests() {
       isDisabledTypesSelect: true,
     })
 
-    cy.getByData(`type-select`)
+    TrackingPageActions.getEntryModalTypeSelect()
       .should(`be.disabled`)
   })
 }

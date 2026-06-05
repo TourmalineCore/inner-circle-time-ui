@@ -1,5 +1,4 @@
-import { TaskEntry } from "./features/TaskEntry"
-import { TimeTrackerPage } from "./pages/TimeTrackerPage"
+import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
 
 describe(`Copy Entries Happy Path`, () => {
   const testDate = new Date(2022, 9, 24)
@@ -12,11 +11,15 @@ describe(`Copy Entries Happy Path`, () => {
     ])
 
     cy.authByApi()
-    cy.removeTaskEntries(testDate)
+    cy.removeTaskEntries({
+      date: testDate,
+    })
   })
 
   afterEach(`Cleanup`, () => {
-    cy.removeTaskEntries(testDate)
+    cy.removeTaskEntries({
+      date: testDate,
+    })
   })
 
   it(`
@@ -31,21 +34,59 @@ describe(`Copy Entries Happy Path`, () => {
       `/api/time/tracking/entries?startDate=2022-10-24&endDate=2022-10-30`)
       .as(`getEntries`)
       
-    TimeTrackerPage.visit()
+    TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
     cy
       .contains(`October 24 – 30`)
       .should(`be.visible`)
 
-    TaskEntry.add()
+    const {
+      taskTitle,
+      taskDescription,
+      taskId,
+    } = TrackingPageActions.addTaskEntry()
 
     cy.wait(`@getEntries`)
 
-    TaskEntry.copy()
+    cy.log(`Copying the created task`)
+    
+    cy
+      .contains(taskTitle)
+      .click()
 
-    TimeTrackerPage.clickOnFirstTimeSlot()
+    cy
+      .getByData(`copy-button`)
+      .click()
 
-    TaskEntry.checkAfterCopy()
+    TrackingPageActions
+      .getCopyAlert()
+      .should(`exist`)
+
+    cy.log(`Check that the open entry card contains the copied fields`)
+
+    TrackingPageActions.clickOnFirstTimeSlot()
+
+    TrackingPageActions
+      .getEntryModalTitleInput()
+      .should(`have.value`, taskTitle)
+
+    TrackingPageActions
+      .getEntryModalProjectSelect()
+      .should(`have.value`, 1)
+
+    TrackingPageActions
+      .getEntryModalTaskIdInput()
+      .should(`have.value`, taskId)
+
+    TrackingPageActions
+      .getEntryModalDescriptionInput()
+      .should(`have.value`, taskDescription)
+
+    TrackingPageActions.clickByEntryModalCloseButton()
+
+    TrackingPageActions
+      .getCopyAlert()
+      .should(`not.exist`)
   })
 })
