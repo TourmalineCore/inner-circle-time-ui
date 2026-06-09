@@ -7,9 +7,12 @@ import App from './App'
 import { authService } from './common/authService'
 import { BrowserRouter } from 'react-router-dom'
 import { refreshTokenAndSubscribe } from './common/api/refreshByInterval'
+import { ENABLE_REFRESH_AUTH_TOKEN } from './common/config/config'
 
 async function initApp() {
-  await refreshTokenAndSubscribe()
+  if (ENABLE_REFRESH_AUTH_TOKEN === `true`) {
+    await refreshTokenAndSubscribe()
+  }
 
   ReactDOM
     .createRoot(document.getElementById(`root`)!)

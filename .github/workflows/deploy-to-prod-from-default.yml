@@ -29,7 +29,8 @@ jobs:
             --state-values-set image.tag="sha-${{ github.sha }}" \
             --state-values-set ingress.hostname="${{ secrets.INNER_CIRCLE_PROD_HOSTNAME }}" \
             --state-values-set extraConfigMapEnvVars.API_ROOT_URL="${{ secrets.INNER_CIRCLE_PROD_TIME_API_ROOT_URL }}" \
-            --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL="${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}" > /dev/null 2>&1
+            --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL="${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}" \
+            --state-values-set extraConfigMapEnvVars.ENABLE_REFRESH_AUTH_TOKEN="true" > /dev/null 2>&1
 
   e2e-test-prod:
     runs-on: ubuntu-24.04
