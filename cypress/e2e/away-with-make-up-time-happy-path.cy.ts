@@ -2,7 +2,7 @@ import { EntryType } from "../../src/common/constants/entryType"
 import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
 
 describe(`Away With Make Up Time Entry Happy Path`, () => {
-  const testDate = new Date(2024, 9, 21)
+  const testDate = new Date(2025, 9, 21)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
@@ -38,14 +38,14 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
   `, () => {
     cy.intercept(
       `GET`, 
-      `/api/time/tracking/entries?startDate=2024-10-21&endDate=2024-10-27`)
+      `/api/time/tracking/entries?startDate=2025-10-21&endDate=2025-10-26`)
       .as(`getEntries`)
       
     TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
     cy
-      .contains(`October 21 – 27`)
+      .contains(`October 20 – 26`)
       .should(`be.visible`)
     
     cy.log(`Add an Away with Make Up Time Entry`)
