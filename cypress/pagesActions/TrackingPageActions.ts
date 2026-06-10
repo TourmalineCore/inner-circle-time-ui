@@ -79,7 +79,13 @@ export class TrackingPageActions {
       .click()
   }
 
-  static addTaskEntry() { 
+  static addTaskEntry({
+    startTime = `11:00`,
+    endTime = `15:00`,
+  }: {
+    startTime?: string,
+    endTime?: string,
+  } = {}) { 
     const taskTitle = `[E2E-SMOKE] Task 1`
     const taskId = `#test`
     const taskDescription = `Task description`
@@ -103,11 +109,11 @@ export class TrackingPageActions {
   
     this.getEntryModalStartTimeInput()
       .clear()
-      .type(`11:00`)
+      .type(startTime)
       
     this.getEntryModalEndTimeInput()
       .clear()
-      .type(`15:00`)
+      .type(endTime)
   
     this.clickByEntryModalSubmitButton()
   
