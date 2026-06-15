@@ -130,8 +130,7 @@ Cypress.Commands.add(`removeAwayWithMakeUpEntries`, ({
 }) => {  
   const day = formatDate(date)
 
-  // Todo: remove custom awayWithMakeUpEntries type after the endpoint is implemented in the API and included in the GetEntriesByPeriodResponse type.
-  cy.request<GetEntriesByPeriodResponse & { awayWithMakeUpEntries: any[], }>({
+  cy.request<GetEntriesByPeriodResponse>({
     method: `GET`,
     url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
     headers: {
@@ -141,7 +140,7 @@ Cypress.Commands.add(`removeAwayWithMakeUpEntries`, ({
     .then(({
       body,
     }) => {
-      body.awayWithMakeUpEntries?.forEach(({
+      body.awayWithMakeUpTimeEntries?.forEach(({
         id, 
       }) => {
         cy.request({
