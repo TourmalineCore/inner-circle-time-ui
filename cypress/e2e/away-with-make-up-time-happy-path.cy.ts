@@ -52,9 +52,8 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
     
     TrackingPageActions.clickOnFirstTimeSlot()
 
-    // Todo: after implemenation Away With Make Up Time Entry feature replace 3 to value from EntryType enum
     TrackingPageActions.selectEntryModalType({
-      entryType: 3 as EntryType,
+      entryType: EntryType.AWAY_WITH_MAKE_UP_TIME,
     })
 
     TrackingPageActions.getEntryModalDescriptionInput()
