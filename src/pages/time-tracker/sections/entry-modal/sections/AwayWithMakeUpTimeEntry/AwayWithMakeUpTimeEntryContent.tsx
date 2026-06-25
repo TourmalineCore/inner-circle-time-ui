@@ -120,23 +120,24 @@ export const AwayWithMakeUpTimeEntryContent = observer(() => {
               key={id}
             >
               <div className='away-with-make-up-time-entry__time-spent-container'>
-                <DatePicker
-                  data-cy={`make-up-datepicker-input`}
-                  className={clsx(`away-with-make-up-time-entry__date-field`, {
-                    'error': awayWithMakeUpTimeEntryState.isMakeUpTimeDateError({
-                      makeUpTimeId: id,
-                    }),
-                  })}
-                  selected={date}
-                  dateFormat="dd.MM"
-                  onChange={(date) => awayWithMakeUpTimeEntryState.updateMakeUpTime({
-                    makeUpTime: {
-                      id,  
-                      date: date!,
-                    },
-                  })}
-                  onKeyDown={(e) => e.preventDefault()}
-                />
+                <div data-cy="make-up-date-picker">
+                  <DatePicker
+                    className={clsx(`away-with-make-up-time-entry__date-field`, {
+                      'error': awayWithMakeUpTimeEntryState.isMakeUpTimeDateError({
+                        makeUpTimeId: id,
+                      }),
+                    })}
+                    selected={date}
+                    dateFormat="dd.MM"
+                    onChange={(date) => awayWithMakeUpTimeEntryState.updateMakeUpTime({
+                      makeUpTime: {
+                        id,  
+                        date: date!,
+                      },
+                    })}
+                    onKeyDown={(e) => e.preventDefault()}
+                  />
+                </div>
     
                 <div className='away-with-make-up-time-entry__time-range'>
                   <InputMask

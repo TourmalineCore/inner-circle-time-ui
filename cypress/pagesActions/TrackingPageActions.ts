@@ -12,7 +12,8 @@ export class TrackingPageActions {
       .find(`.rbc-time-slot`)
       .first()
       .scrollIntoView()
-      .click({
+      // Sometimes, for some reason, clicking on a slot does not work with a single click but double click works stably.
+      .dblclick({
         force: true, 
       })
   }
@@ -91,6 +92,10 @@ export class TrackingPageActions {
     const taskDescription = `Task description`
 
     this.clickOnFirstTimeSlot()
+
+    this.selectEntryModalType({
+      entryType: EntryType.TASK,
+    })
       
     this.getEntryModalTitleInput()
       .clear()

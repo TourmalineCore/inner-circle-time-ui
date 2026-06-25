@@ -2,7 +2,7 @@ import { EntryType } from "../../src/common/constants/entryType"
 import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
 
 describe(`Away With Make Up Time Entry Happy Path`, () => {
-  const testDate = new Date(2025, 9, 21)
+  const testDate = new Date(2025, 9, 20)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
@@ -38,7 +38,7 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
   `, () => {
     cy.intercept(
       `GET`, 
-      `/api/time/tracking/entries?startDate=2025-10-21&endDate=2025-10-26`)
+      `/api/time/tracking/entries?startDate=2025-10-20&endDate=2025-10-26`)
       .as(`getEntries`)
       
     TrackingPageActions.visit()
@@ -67,6 +67,14 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
     TrackingPageActions.getEntryModalEndTimeInput()
       .clear()
       .type(`14:00`)
+
+    cy
+      .getByData(`make-up-date-picker`)
+      .click()
+
+    cy
+      .get(`.react-datepicker__day--020`)
+      .click()
     
     cy
       .getByData(`entry-modal-make-up-start-time-input`)
@@ -82,7 +90,7 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
 
     cy.log(`Сheck that the Away and Make up time cards exist`)
 
-    cy.contains(`Away With Make-up time`)
+    cy.contains(`Away with make-up time`)
 
     cy.contains(`Make-up time`)
 
