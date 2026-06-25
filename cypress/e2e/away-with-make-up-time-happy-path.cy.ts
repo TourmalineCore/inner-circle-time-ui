@@ -80,6 +80,12 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
 
     TrackingPageActions.clickByEntryModalSubmitButton()
 
+    cy.log(`Сheck that the Away and Make up time cards exist`)
+
+    cy.contains(`Away With Make-up time`)
+
+    cy.contains(`Make-up time`)
+
     cy.log(`Add a Task Entry at the same time as make up`)
 
     const {
@@ -91,11 +97,7 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
 
     cy.wait(`@getEntries`)
 
-    cy.log(`Сheck that the Away, Make up time and task entries cards exist`)
-
-    cy.contains(`Away With Make-up time`)
-
-    cy.contains(`Make-up time`)
+    cy.log(`Сheck that the Task entry cards exist`)
 
     cy.contains(taskTitle)
   })
