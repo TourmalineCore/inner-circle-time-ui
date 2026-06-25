@@ -24,11 +24,11 @@ function addMakeUpTests() {
     })
 
     cy
-      .getByData(`away-with-make-up-time-entry__make-up`)
+      .getByData(`make-up-time`)
       .should(`have.length`, 1)
       
     cy
-      .getByData(`add-make-up-button`)
+      .getByData(`add-make-up-time-button`)
       .click()
 
     cy
@@ -36,7 +36,7 @@ function addMakeUpTests() {
       .should(`have.been.calledOnce`)
 
     cy
-      .getByData(`away-with-make-up-time-entry__make-up`)
+      .getByData(`make-up-time`)
       .should(`have.length`, 2)
       
     cy
@@ -82,7 +82,7 @@ function removeMakeUpTests() {
       .should(`have.length`, 2)
       
     cy
-      .getByData(`remove-make-up-button`)
+      .getByData(`remove-make-up-time-button`)
       .first()
       .click()
 
@@ -126,7 +126,7 @@ function displayRemoveMakeUpButtonsTests() {
     })
       
     cy
-      .getByData(`remove-make-up-button`)
+      .getByData(`remove-make-up-time-button`)
       .should(`not.exist`)
   })
 
@@ -147,7 +147,7 @@ function displayRemoveMakeUpButtonsTests() {
     })
       
     cy
-      .getByData(`remove-make-up-button`)
+      .getByData(`remove-make-up-time-button`)
       .should(`have.length`, 2)
   })
 }

@@ -69,7 +69,7 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
       .type(`14:00`)
 
     cy
-      .getByData(`make-up-date-picker`)
+      .getByData(`make-up-time-date-picker`)
       .click()
 
     cy

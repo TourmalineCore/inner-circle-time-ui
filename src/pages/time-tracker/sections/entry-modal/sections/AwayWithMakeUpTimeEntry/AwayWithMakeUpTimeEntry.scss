@@ -17,6 +17,12 @@
     field-sizing: content;
   }
 
+  &__make-up {
+    & + & {
+      margin-top: 5px;
+    }
+  }
+
   &__time-spent-container {
     display: flex;
   }
@@ -34,13 +40,13 @@
     margin-right: 16px;
   }
 
-  &__add-make-up-button {
+  &__add-make-up-time-button {
     margin-top: 10px;
     color: $color-blue;
     cursor: pointer;
   }
 
-  &__remove-make-up-button {
+  &__remove-make-up-time-button {
     display: flex;
     align-items: center;
     cursor: pointer;

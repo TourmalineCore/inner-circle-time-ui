@@ -116,11 +116,12 @@ export const AwayWithMakeUpTimeEntryContent = observer(() => {
             endTime,
           }) => (
             <li 
-              data-cy={`away-with-make-up-time-entry__make-up`}
+              className='away-with-make-up-time-entry__make-up'
+              data-cy={`make-up-time`}
               key={id}
             >
               <div className='away-with-make-up-time-entry__time-spent-container'>
-                <div data-cy="make-up-date-picker">
+                <div data-cy="make-up-time-date-picker">
                   <DatePicker
                     className={clsx(`away-with-make-up-time-entry__date-field`, {
                       'error': awayWithMakeUpTimeEntryState.isMakeUpTimeDateError({
@@ -182,8 +183,8 @@ export const AwayWithMakeUpTimeEntryContent = observer(() => {
                 {
                   makeUpTimeList.length > 1 && (
                     <span 
-                      className='away-with-make-up-time-entry__remove-make-up-button'
-                      data-cy={`remove-make-up-button`}
+                      className='away-with-make-up-time-entry__remove-make-up-time-button'
+                      data-cy={`remove-make-up-time-button`}
                       onClick={() => awayWithMakeUpTimeEntryState.removeMakeUpTime({
                         makeUpTimeId: id,
                       })}
@@ -197,8 +198,8 @@ export const AwayWithMakeUpTimeEntryContent = observer(() => {
           ))}
         </ul>
         <div
-          className='away-with-make-up-time-entry__add-make-up-button'
-          data-cy={`add-make-up-button`}
+          className='away-with-make-up-time-entry__add-make-up-time-button'
+          data-cy={`add-make-up-time-button`}
           role='button'
           onClick={() => awayWithMakeUpTimeEntryState.addMakeUpTime()}
         >
