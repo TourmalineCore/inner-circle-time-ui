@@ -49,10 +49,5 @@ export type EntryStrategy = {
   }: {
     entryState: any,
   }) => Promise<unknown>,
-  finally: ({
-    entryState,
-  }: {
-    entryState: any,
-  }) => unknown,
   label: string,
 }

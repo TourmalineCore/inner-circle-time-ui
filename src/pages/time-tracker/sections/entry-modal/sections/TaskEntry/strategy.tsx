@@ -55,13 +55,6 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
   }) => loadProjectsAsync({
     entryState, 
   }),
-  finally: ({ 
-    entryState,
-  }: {
-    entryState: TaskEntryState,
-  }) => resetTaskEntrySavingState({
-    entryState, 
-  }),
   label: `Task`,
 }
 
@@ -70,11 +63,9 @@ function validateTaskEntry({
 }: {
   entryState: TaskEntryState,
 }) {
-  entryState.setIsSaving()
   entryState.setIsTriedToSubmit()
 
   if (!entryState.isValid) {
-    entryState.resetIsSaving()
     return false
   }
   
@@ -144,15 +135,6 @@ async function loadProjectsAsync({
   entryState.setProjects({
     projects,
   })
-}
-
-function resetTaskEntrySavingState({
-  entryState,
-}: {
-  entryState: TaskEntryState,
-}) {
-  entryState.resetIsSaving()
-  entryState.resetIsTriedToSubmit()
 }
 
 function setTaskEntryData({

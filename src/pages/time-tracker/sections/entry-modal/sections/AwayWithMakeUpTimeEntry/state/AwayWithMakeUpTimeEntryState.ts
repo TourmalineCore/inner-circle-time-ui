@@ -13,8 +13,7 @@ export class AwayWithMakeUpTimeEntryState {
   private _awayWithMakeUpTimeEntryData: AwayWithMakeUpTimeEntryData = {
     ...EMPTY_AWAY_WITH_MAKE_UP_TIME_ENTRY_DATA,
   }
-
-  private _isSaving = false    
+ 
   private _isTriedToSubmit = false  
 
   constructor() {
@@ -23,10 +22,6 @@ export class AwayWithMakeUpTimeEntryState {
 
   get awayWithMakeUpTimeEntryData() {
     return this._awayWithMakeUpTimeEntryData
-  }
-
-  get isSaving() {
-    return this._isSaving
   }
 
   get isTriedToSubmit() {
@@ -155,20 +150,8 @@ export class AwayWithMakeUpTimeEntryState {
       )
   }
 
-  setIsSaving() {
-    this._isSaving = true
-  }
-
-  resetIsSaving() {
-    this._isSaving = false
-  }
-
   setIsTriedToSubmit() {
     this._isTriedToSubmit = true
-  }
-
-  resetIsTriedToSubmit() {
-    this._isTriedToSubmit = false
   }
 }
 

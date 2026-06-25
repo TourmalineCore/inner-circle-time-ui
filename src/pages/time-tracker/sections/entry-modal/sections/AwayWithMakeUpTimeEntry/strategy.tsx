@@ -16,7 +16,7 @@ export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
   }: {
     entryData: TrackedEntry,
     entryState: AwayWithMakeUpTimeEntryState,
-  }) => setAwayWithMakeUpTimeEntryData({
+  }) => initializeAwayWithMakeUpTimeEntryData({
     entryState,
     entryData,
   }), 
@@ -48,11 +48,10 @@ export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
     requestData: UpdateAwayWithMakeUpTimeEntryRequest,
   }) => api.trackingUpdateAwayWithMakeUpTimeEntry(id, requestData),
   loadProjectsAsync: async () => {},
-  finally: () => {},
   label: ``,
 }
 
-function setAwayWithMakeUpTimeEntryData({
+function initializeAwayWithMakeUpTimeEntryData({
   entryData,
   entryState,
 }: {
@@ -132,11 +131,9 @@ function validateAwayWithMakeUpTimeEntry({
 }: {
   entryState: AwayWithMakeUpTimeEntryState,
 }) {
-  entryState.setIsSaving()
   entryState.setIsTriedToSubmit()
 
   if (!entryState.isValid) {
-    entryState.resetIsSaving()
     return false
   }
   

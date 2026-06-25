@@ -91,10 +91,5 @@ export const EntryModalContainer = observer(({
         }
       }
     }
-    finally {
-      entryStrategy.finally({
-        entryState,
-      })
-    }
   }
 })

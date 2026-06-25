@@ -4,7 +4,7 @@ import { AwayWithMakeUpTimeEntryData } from "../../../../../types"
 describe(`AwayWithMakeUpTimeEntryState`, () => {
   describe(`Initialization Data`, initializationTests)
   describe(`Validation`, validationTests)
-  describe(`Save And Try To Submit`, saveAndTryToSubmitTests)
+  describe(`Try To Submit`, tryToSubmitTests)
 })
 
 function initializationTests() {
@@ -255,40 +255,15 @@ function validationTests() {
   })
 }
 
-function saveAndTryToSubmitTests() {
+function tryToSubmitTests() {
   const {
     awayWithMakeUpTimeEntryState,
   } = createState()
 
   it(`
-  GIVEN initial state with default isSaving value
-  WHEN trigger setIsSaving()
-  AND trigger resetIsSaving() 
-  SHOULD correctly change isSaving value
-  `, () => {
-    expect(awayWithMakeUpTimeEntryState.isSaving)
-      .to
-      .be
-      .false
-
-    awayWithMakeUpTimeEntryState.setIsSaving()
-    expect(awayWithMakeUpTimeEntryState.isSaving)
-      .to
-      .be
-      .true
-    
-    awayWithMakeUpTimeEntryState.resetIsSaving()
-    expect(awayWithMakeUpTimeEntryState.isSaving)
-      .to
-      .be
-      .false
-  })
-
-  it(`
   GIVEN initial state with default isTriedToSubmit value
   WHEN trigger setIsTriedToSubmit()
-  AND trigger resetIsTriedToSubmit() 
-  SHOULD correctly change isTriedToSubmit value
+  SHOULD change value to true
   `, () => {
     expect(awayWithMakeUpTimeEntryState.isTriedToSubmit)
       .to
@@ -300,12 +275,6 @@ function saveAndTryToSubmitTests() {
       .to
       .be
       .true
-
-    awayWithMakeUpTimeEntryState.resetIsTriedToSubmit()
-    expect(awayWithMakeUpTimeEntryState.isTriedToSubmit)
-      .to
-      .be
-      .false
   })
 }
 

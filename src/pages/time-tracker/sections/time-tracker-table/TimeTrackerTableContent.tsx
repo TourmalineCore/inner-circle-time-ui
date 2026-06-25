@@ -105,7 +105,7 @@ export const TimeTrackerTableContent = observer(({
       }) => id === makeUpTimeEntry.relatedEntryId)
 
       openEntry({
-        entry: relatedEntry,
+        entry: relatedEntry!,
       })
     }
     else {
