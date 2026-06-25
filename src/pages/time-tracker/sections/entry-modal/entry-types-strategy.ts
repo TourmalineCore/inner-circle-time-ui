@@ -3,10 +3,12 @@ import { TrackedEntry } from "../../types"
 import { TASK_ENTRY_STRATEGY } from "./sections/TaskEntry/strategy"
 import { UNWELL_ENTRY_STRATEGY } from "./sections/UnwellEntry/strategy"
 import { EntryType } from "../../../../common/constants/entryType"
+import { AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY } from "./sections/AwayWithMakeUpTimeEntry/strategy"
 
-export const ENTRY_TYPES_STRATEGY: Record<EntryType, EntryStrategy> = {
+export const ENTRY_TYPES_STRATEGY: Record<number, EntryStrategy> = {
   [EntryType.TASK]: TASK_ENTRY_STRATEGY,
   [EntryType.UNWELL]: UNWELL_ENTRY_STRATEGY,
+  [EntryType.AWAY_WITH_MAKE_UP_TIME]: AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY,
 }
 
 export type EntryStrategy = { 

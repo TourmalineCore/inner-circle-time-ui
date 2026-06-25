@@ -125,13 +125,43 @@ export const TimeTrackerTableContainer = observer(({
             .toDate(),
           end: moment(unwellEntry.endTime)
             .toDate(),
-        })) 
+        }))
+        
+      const awayWithMakeUpTimeEntries = data
+        .awayWithMakeUpTimeEntries
+        .map((awayWithMakeUpTimeEntry) => ({
+          id: awayWithMakeUpTimeEntry.id,
+          type: awayWithMakeUpTimeEntry.type,
+          description: awayWithMakeUpTimeEntry.description,
+          date: moment(awayWithMakeUpTimeEntry.startTime)
+            .toDate(),
+          start: moment(awayWithMakeUpTimeEntry.startTime)
+            .toDate(),
+          end: moment(awayWithMakeUpTimeEntry.endTime)
+            .toDate(),
+          makeUpTimeList: awayWithMakeUpTimeEntry.makeUpTimeList,
+        }))
+
+      const makeUpTimeEntries = data
+        .makeUpTimeEntries
+        .map((makeUpTimeEntry) => ({
+          relatedEntryId: makeUpTimeEntry.relatedEntryId,
+          type: 4,
+          date: moment(makeUpTimeEntry.startTime)
+            .toDate(),
+          start: moment(makeUpTimeEntry.startTime)
+            .toDate(),
+          end: moment(makeUpTimeEntry.endTime)
+            .toDate(),
+        }))
 
       timeTrackerState.initialize({
         loadedData: {
           entries: [
             ...taskEntries,
             ...unwellEntries,
+            ...awayWithMakeUpTimeEntries,
+            ...makeUpTimeEntries,
           ], 
         },
       })

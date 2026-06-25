@@ -7,7 +7,9 @@ export function EntryContent({
 }: EventProps<TrackedEntry>) {
   const title = {
     [EntryType.TASK]: event.title,
-    [EntryType.UNWELL]: `Feeling unwell` ,
+    [EntryType.UNWELL]: `Feeling unwell`,
+    [EntryType.AWAY_WITH_MAKE_UP_TIME]: `Away with make-up time`,
+    [EntryType.MAKE_UP_TIME]: `Make-up time`,
   }
 
   return (
