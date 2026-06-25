@@ -1,0 +1,53 @@
+@use "../../../../../../styles/variables" as *;
+
+.away-with-make-up-time-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__description {
+    min-height: 40px;
+    max-height: 80px;
+    resize: none;
+    field-sizing: content;
+  }
+
+  &__time-spent-container {
+    display: flex;
+  }
+
+  &__time-range {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__label {
+    font-size: 12px;
+  }
+
+  &__date-field {
+    margin-right: 16px;
+  }
+
+  &__add-make-up-button {
+    margin-top: 10px;
+    color: $color-blue;
+    cursor: pointer;
+  }
+
+  &__remove-make-up-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__date-field,
+  &__time-field {
+    width: 60px;
+  }
+}
