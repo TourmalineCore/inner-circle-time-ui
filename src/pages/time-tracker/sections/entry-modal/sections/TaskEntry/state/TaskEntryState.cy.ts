@@ -3,7 +3,6 @@ import { EMPTY_TASK_ENTRY_DATA, TaskEntryState } from "./TaskEntryState"
 describe(`TaskEntryState`, () => {
   describe(`Initial Data`, initialTests)
   describe(`Setters Data`, settersTests)
-  describe(`Reset Data`, resetTests)
   describe(`Validation`, validationTests)
   describe(`Save And Try To Submit`, saveAndTryToSubmitTests)
 })
@@ -108,28 +107,6 @@ function settersTests() {
       .to
       .deep
       .eq(projects)
-  })
-}
-
-function resetTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-    const testDate = new Date(`2025-11-24`)
-
-    taskEntryState.updateTaskEntryData({
-      taskEntryData: {
-        id: 1,
-        projectId: 1,
-        title: `Task 1`,
-        taskId: `#1fre33`,
-        description: `Task description`,
-        date: testDate,
-        start: testDate,
-        end: testDate,
-      },
-    })
   })
 }
 
