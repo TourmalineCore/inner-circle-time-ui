@@ -5,17 +5,17 @@ import { AwayWithMakeUpTimeEntryState, getDefaultTimeForMakeUpTime } from "./sta
 import { AwayWithMakeUpTimeEntryStateContext } from './state/AwayWithMakeUpTimeEntryStateContext'
 
 describe(`AwayWithMakeUpTimeEntryContent`, () => {   
-  describe(`Add Make Up`, addMakeUpTests)
-  describe(`Remove Make Up`, removeMakeUpTests)
-  describe(`Display Remove Make Up Buttons`, displayRemoveMakeUpButtonsTests)
-  describe(`Make Up Mode`, makeUpModeTests)
+  describe(`Add Make-up`, addMakeUpTests)
+  describe(`Remove Make-up`, removeMakeUpTests)
+  describe(`Display Remove Make-up Buttons`, displayRemoveMakeUpButtonsTests)
+  describe(`Make-up Mode`, makeUpModeTests)
 })
 
 function addMakeUpTests() {
   it(`
-  GIVEN one make up 
-  WHEN click on the add make up button
-  SHOULD add make up to list
+  GIVEN one make-up 
+  WHEN click on the add make-up button
+  SHOULD add make-up to list
   `, () => {
     mountComponent({
       makeUpTimeList: [
@@ -64,9 +64,9 @@ function addMakeUpTests() {
 
 function removeMakeUpTests() {
   it(`
-  GIVEN two make up 
-  WHEN click on the 1th remove make up button
-  SHOULD remove its make up from list
+  GIVEN two make-up 
+  WHEN click on the 1th remove make-up button
+  SHOULD remove its make-up from list
   `, () => {
     mountComponent({
       makeUpTimeList: [
@@ -115,9 +115,9 @@ function removeMakeUpTests() {
 
 function displayRemoveMakeUpButtonsTests() {
   it(`
-  GIVEN one make up 
+  GIVEN one make-up 
   WHEN render the component
-  SHOULD not render remove make up buttons
+  SHOULD not render remove make-up buttons
   `, () => {
     mountComponent({
       makeUpTimeList: [
@@ -133,9 +133,9 @@ function displayRemoveMakeUpButtonsTests() {
   })
 
   it(`
-  GIVEN more than one make up
+  GIVEN more than one make-up
   WHEN render the component
-  SHOULD render remove make up buttons
+  SHOULD render remove make-up buttons
   `, () => {
     mountComponent({
       makeUpTimeList: [
@@ -156,7 +156,7 @@ function displayRemoveMakeUpButtonsTests() {
 
 function makeUpModeTests() {
   it(`
-  GIVEN make up mode enabled
+  GIVEN make-up mode enabled
   WHEN render the component
   SHOULD disable away fields but the make-up fields not disabled
   `, () => {
@@ -190,7 +190,7 @@ function makeUpModeTests() {
   })
 
   it(`
-  GIVEN make up mode disabled
+  GIVEN make-up mode disabled
   WHEN render the component
   SHOULD not disable away and make-up fields
   `, () => {

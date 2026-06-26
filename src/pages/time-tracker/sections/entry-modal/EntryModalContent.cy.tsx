@@ -8,7 +8,7 @@ describe(`EntryModalContent`, () => {
   describe(`Function Call`, functionCallTests)
   describe(`Is Existing Modal Entry`, isExistingModalEntryTests)
   describe(`Is Disabled Types Select`, isDisabledTypesSelectTests)
-  describe(`Make Up Mode`, makeUpModeTests)
+  describe(`Make-up Mode`, makeUpModeTests)
 })
 
 function functionCallTests() {

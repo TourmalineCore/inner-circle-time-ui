@@ -9,7 +9,7 @@ describe(`EntryModalState`, () => {
   describe(`Copy Current Entry`, copyCurrentEntryTests)
   describe(`Is Copy Mode`, isCopyModeTests)
   describe(`Is Open Modal`, isOpenModalTests)
-  describe(`Is Make Up Mode`, isMakeUpModeTests)
+  describe(`Is Make-up Mode`, isMakeUpModeTests)
 })
 
 function initialTests() {

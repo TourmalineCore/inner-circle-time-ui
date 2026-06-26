@@ -102,7 +102,7 @@ export const TimeTrackerTableContent = observer(({
       resetIsCopyMode()
     }
     
-    // Make up time entry does not have its own card, so it should always open a related Entry card.
+    // Make-up time entry does not have its own card, so it should always open a related Entry card.
     if (entry.type === EntryType.MAKE_UP_TIME) {
       const makeUpTimeEntry = entry as unknown as MakeUpTimeEntryWithRelatedEntryIdDto
       

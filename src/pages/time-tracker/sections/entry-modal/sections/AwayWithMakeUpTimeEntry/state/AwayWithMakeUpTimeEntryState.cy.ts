@@ -10,8 +10,8 @@ describe(`AwayWithMakeUpTimeEntryState`, () => {
 function initializationTests() {
   it(`
   GIVEN a new AwayWithMakeUpTimeEntryState
-  WHEN initialize away make up time entry without make up time list
-  SHOULD return awayWithMakeUpTimeEntryData with default make up time list
+  WHEN initialize away make-up time entry without make-up time list
+  SHOULD return awayWithMakeUpTimeEntryData with default make-up time list
   `, () => {
     const newDate = new Date()
 
@@ -47,8 +47,8 @@ function initializationTests() {
 
   it(`
   GIVEN a new AwayWithMakeUpTimeEntryState
-  WHEN initialize away make up time entry with make up time list
-  SHOULD return awayWithMakeUpTimeEntryData with the transmitted make up time list
+  WHEN initialize away make-up time entry with make-up time list
+  SHOULD return awayWithMakeUpTimeEntryData with the transmitted make-up time list
   `, () => {
     const newDate = new Date()
 
@@ -83,7 +83,7 @@ function initializationTests() {
 function validationTests() {  
   it(`
   GIVEN initial state with empty description
-  AND one make up time with not empty date
+  AND one make-up time with not empty date
   WHEN isValid is activated
   SHOULD return false
   `, () => {
@@ -110,7 +110,7 @@ function validationTests() {
 
   it(`
   GIVEN initial state with not empty description 
-  AND two make up time
+  AND two make-up time
   AND one of them has an empty date. 
   WHEN isValid is activated
   SHOULD return false
@@ -141,7 +141,7 @@ function validationTests() {
 
   it(`
   GIVEN initial state with not empty description
-  AND two make up time with not empty date
+  AND two make-up time with not empty date
   WHEN isValid is activated
   SHOULD return true
   `, () => {
@@ -214,11 +214,11 @@ function validationTests() {
   })
 
   it(`
-  GIVEN initial state with two make up time
+  GIVEN initial state with two make-up time
   AND one of them has an empty date. 
   WHEN trigger isMakeUpTimeDateError()
-  SHOULD return false for make up with not empty date
-  AND return true for make up with empty date
+  SHOULD return false for make-up with not empty date
+  AND return true for make-up with empty date
   `, () => {
     const {
       awayWithMakeUpTimeEntryState,

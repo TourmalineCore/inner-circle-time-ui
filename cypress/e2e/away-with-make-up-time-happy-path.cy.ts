@@ -1,7 +1,7 @@
 import { EntryType } from "../../src/common/constants/entryType"
 import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
 
-describe(`Away With Make Up Time Entry Happy Path`, () => {
+describe(`Away With Make-up Time Entry Happy Path`, () => {
   const testDate = new Date(2025, 9, 20)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
@@ -31,8 +31,8 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
 
   it(`
   GIVEN user was away for one hour
-  AND plans to make up this time on the same day
-  WHEN user adds away with make up time entry in the time tracker
+  AND plans to make-up this time on the same day
+  WHEN user adds away with make-up time entry in the time tracker
   AND user did it as planned and was working on the task
   THEN user should see that everything has been successfully tracked in the time tracker
   `, () => {
@@ -48,7 +48,7 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
       .contains(`October 20 – 26`)
       .should(`be.visible`)
     
-    cy.log(`Add an Away with Make Up Time Entry`)
+    cy.log(`Add an Away with Make-up Time Entry`)
     
     TrackingPageActions.clickOnFirstTimeSlot()
 
@@ -86,13 +86,13 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
 
     TrackingPageActions.clickByEntryModalSubmitButton()
 
-    cy.log(`Сheck that the Away and Make up time cards exist`)
+    cy.log(`Сheck that the Away and make-up time cards exist`)
 
     cy.contains(`Away with make-up time`)
 
     cy.contains(`Make-up time`)
 
-    cy.log(`Add a Task Entry at the same time as make up`)
+    cy.log(`Add a Task Entry at the same time as make-up`)
 
     const {
       taskTitle,
