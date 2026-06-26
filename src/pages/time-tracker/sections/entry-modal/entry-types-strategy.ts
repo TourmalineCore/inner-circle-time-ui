@@ -21,7 +21,11 @@ export type EntryStrategy = {
     entryData: TrackedEntry,
     entryState: any,
   }) => unknown,
-  EntryContent: ReactNode,
+  EntryContent ({
+    isMakeUpMode,
+  }: {
+    isMakeUpMode: boolean,
+  }): ReactNode,
   validateOnClient: ({
     entryState,
   }: {

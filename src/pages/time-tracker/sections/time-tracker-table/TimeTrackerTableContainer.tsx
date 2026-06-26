@@ -12,6 +12,7 @@ import { TrackedEntry } from "../../types"
 export const TimeTrackerTableContainer = observer(({
   isCopyMode,
   openEntry,
+  openMakeUpEntry,
   createNewEntry,
   createCopyEntry,
   resetIsCopyMode,
@@ -32,6 +33,11 @@ export const TimeTrackerTableContainer = observer(({
     end: Date,
   }) => unknown,
   openEntry: ({
+    entry,
+  }: {
+    entry: TrackedEntry,
+  }) => unknown,
+  openMakeUpEntry: ({
     entry,
   }: {
     entry: TrackedEntry,
@@ -146,7 +152,7 @@ export const TimeTrackerTableContainer = observer(({
         .makeUpTimeEntries
         .map((makeUpTimeEntry) => ({
           relatedEntryId: makeUpTimeEntry.relatedEntryId,
-          type: 4,
+          type: makeUpTimeEntry.type,
           date: moment(makeUpTimeEntry.startTime)
             .toDate(),
           start: moment(makeUpTimeEntry.startTime)
@@ -177,9 +183,10 @@ export const TimeTrackerTableContainer = observer(({
   return (
     <TimeTrackerTableContent
       isCopyMode={isCopyMode}
+      openEntry={openEntry}
+      openMakeUpEntry={openMakeUpEntry}
       createCopyEntry={createCopyEntry}
       createNewEntry={createNewEntry}
-      openEntry={openEntry}
       resetIsCopyMode={resetIsCopyMode}
     />
   )

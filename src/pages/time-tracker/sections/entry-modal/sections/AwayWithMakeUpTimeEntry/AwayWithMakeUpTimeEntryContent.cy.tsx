@@ -1,3 +1,4 @@
+import { TrackingPageActions } from "../../../../../../../cypress/pagesActions/TrackingPageActions"
 import { AwayWithMakeUpTimeEntryData } from "../../../../types"
 import { AwayWithMakeUpTimeEntryContent } from "./AwayWithMakeUpTimeEntryContent"
 import { AwayWithMakeUpTimeEntryState, getDefaultTimeForMakeUpTime } from "./state/AwayWithMakeUpTimeEntryState"
@@ -7,6 +8,7 @@ describe(`AwayWithMakeUpTimeEntryContent`, () => {
   describe(`Add Make Up`, addMakeUpTests)
   describe(`Remove Make Up`, removeMakeUpTests)
   describe(`Display Remove Make Up Buttons`, displayRemoveMakeUpButtonsTests)
+  describe(`Make Up Mode`, makeUpModeTests)
 })
 
 function addMakeUpTests() {
@@ -78,7 +80,7 @@ function removeMakeUpTests() {
     })
 
     cy
-      .getByData(`away-with-make-up-time-entry__make-up`)
+      .getByData(`make-up-time`)
       .should(`have.length`, 2)
       
     cy
@@ -93,7 +95,7 @@ function removeMakeUpTests() {
       })
 
     cy
-      .getByData(`away-with-make-up-time-entry__make-up`)
+      .getByData(`make-up-time`)
       .should(`have.length`, 1)
       
     cy
@@ -152,13 +154,76 @@ function displayRemoveMakeUpButtonsTests() {
   })
 }
 
+function makeUpModeTests() {
+  it(`
+  GIVEN make up mode enabled
+  WHEN render the component
+  SHOULD disable away fields but the make-up fields not disabled
+  `, () => {
+    mountComponent({
+      makeUpTimeList: [],
+      isMakeUpMode: true,
+    })
+      
+    TrackingPageActions.getEntryModalDescriptionInput()
+      .should(`be.disabled`)
+    
+    cy.getByData(`away-datepicker`)
+      .find(`input`)
+      .should(`be.disabled`)
+      
+    TrackingPageActions.getEntryModalStartTimeInput()
+      .should(`be.disabled`)
+
+    TrackingPageActions.getEntryModalEndTimeInput()
+      .should(`be.disabled`)
+
+    cy.getByData(`make-up-time-datepicker`)
+      .find(`input`)
+      .should(`not.be.disabled`)
+      
+    TrackingPageActions.getEntryModalMakeUpStartTimeSelect()
+      .should(`not.be.disabled`)  
+
+    TrackingPageActions.getEntryModalMakeUpStartTimeSelect()
+      .should(`not.be.disabled`)
+  })
+
+  it(`
+  GIVEN make up mode disabled
+  WHEN render the component
+  SHOULD not disable away and make-up fields
+  `, () => {
+    mountComponent()
+
+    TrackingPageActions.getEntryModalDescriptionInput()
+      .should(`not.be.disabled`)
+    
+    cy.getByData(`away-datepicker`)
+      .find(`input`)
+      .should(`not.be.disabled`)
+      
+    TrackingPageActions.getEntryModalStartTimeInput()
+      .should(`not.be.disabled`)
+
+    TrackingPageActions.getEntryModalEndTimeInput()
+      .should(`not.be.disabled`)
+
+    TrackingPageActions.getEntryModalMakeUpStartTimeSelect()
+      .should(`not.be.disabled`)
+
+    TrackingPageActions.getEntryModalMakeUpEndTimeSelect()
+      .should(`not.be.disabled`)
+  })
+}
+
 function mountComponent({
-  makeUpTimeList,
+  makeUpTimeList = [],
+  isMakeUpMode = false,
 }: {
-  makeUpTimeList: unknown[],
-} = {
-  makeUpTimeList: [],
-}) {
+  makeUpTimeList?: unknown[],
+  isMakeUpMode?: boolean,
+} = {}) {
   const awayWithMakeUpTimeEntryState = new AwayWithMakeUpTimeEntryState()
 
   cy
@@ -180,7 +245,7 @@ function mountComponent({
   cy
     .mount(
       <AwayWithMakeUpTimeEntryStateContext.Provider value={awayWithMakeUpTimeEntryState}>
-        <AwayWithMakeUpTimeEntryContent />
+        <AwayWithMakeUpTimeEntryContent isMakeUpMode={isMakeUpMode} />
       </AwayWithMakeUpTimeEntryStateContext.Provider>,
     )
 }

@@ -69,20 +69,18 @@ describe(`Away With Make Up Time Entry Happy Path`, () => {
       .type(`14:00`)
 
     cy
-      .getByData(`make-up-time-date-picker`)
+      .getByData(`make-up-time-datepicker`)
       .click()
 
     cy
       .get(`.react-datepicker__day--020`)
       .click()
     
-    cy
-      .getByData(`entry-modal-make-up-start-time-input`)
+    TrackingPageActions.getEntryModalMakeUpStartTimeSelect()
       .clear()
       .type(`17:00`)
     
-    cy
-      .getByData(`entry-modal-make-up-end-time-input`)
+    TrackingPageActions.getEntryModalMakeUpEndTimeSelect()
       .clear()
       .type(`18:00`)
 

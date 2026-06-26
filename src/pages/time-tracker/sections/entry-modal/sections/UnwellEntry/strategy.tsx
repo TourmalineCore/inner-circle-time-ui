@@ -20,7 +20,7 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
     entryState,
     entryData,
   }), 
-  EntryContent: <UnwellEntryContent />,
+  EntryContent: () => <UnwellEntryContent />,
   validateOnClient: () => validateUnwellEntry(),
   buildRequestData: ({
     entryState,

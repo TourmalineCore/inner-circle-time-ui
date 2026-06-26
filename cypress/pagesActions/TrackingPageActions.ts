@@ -57,6 +57,14 @@ export class TrackingPageActions {
   static getEntryModalTypeSelect() {
     return cy.getByData(`entry-modal-type-select`)
   }
+  
+  static getEntryModalMakeUpStartTimeSelect() {
+    return cy.getByData(`entry-modal-make-up-start-time-input`)
+  }
+
+  static getEntryModalMakeUpEndTimeSelect() {
+    return cy.getByData(`entry-modal-make-up-end-time-input`)
+  }
 
   static selectEntryModalType({
     entryType,

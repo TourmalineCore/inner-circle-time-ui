@@ -21,7 +21,7 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
     entryState,
     entryData,
   }), 
-  EntryContent: <TaskEntryContent />,
+  EntryContent: () => <TaskEntryContent />,
   validateOnClient: ({
     entryState,
   }: {

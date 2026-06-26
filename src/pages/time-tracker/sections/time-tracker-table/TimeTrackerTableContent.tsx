@@ -26,6 +26,7 @@ const localizer = momentLocalizer(moment)
 export const TimeTrackerTableContent = observer(({
   isCopyMode,
   openEntry,
+  openMakeUpEntry,
   createNewEntry,
   createCopyEntry,
   resetIsCopyMode,
@@ -46,6 +47,11 @@ export const TimeTrackerTableContent = observer(({
     end: Date,
   }) => unknown,
   openEntry: ({
+    entry,
+  }: {
+    entry: TrackedEntry,
+  }) => unknown,
+  openMakeUpEntry: ({
     entry,
   }: {
     entry: TrackedEntry,
@@ -104,7 +110,7 @@ export const TimeTrackerTableContent = observer(({
         id,
       }) => id === makeUpTimeEntry.relatedEntryId)
 
-      openEntry({
+      openMakeUpEntry({
         entry: relatedEntry!,
       })
     }
