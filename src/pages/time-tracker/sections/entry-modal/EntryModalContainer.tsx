@@ -19,6 +19,7 @@ export const EntryModalContainer = observer(({
   const {
     currentEntry,
     isCopyMode,
+    isMakeUpMode,
     type,
   } = entryModalState
 
@@ -43,7 +44,9 @@ export const EntryModalContainer = observer(({
       buttonLabel={entryStrategy.label}
       openDeleteModal={openDeleteModal}
     >
-      {entryStrategy.EntryContent}
+      {entryStrategy.EntryContent({
+        isMakeUpMode,
+      })}
     </EntryModalContent> 
   )
 
@@ -90,11 +93,6 @@ export const EntryModalContainer = observer(({
           })
         }
       }
-    }
-    finally {
-      entryStrategy.finally({
-        entryState,
-      })
     }
   }
 })

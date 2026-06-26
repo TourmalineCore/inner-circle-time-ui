@@ -1,19 +1,16 @@
 import { EventProps } from "react-big-calendar"
 import { TrackedEntry } from "../../../../types"
-import { EntryType } from "../../../../../../common/constants/entryType"
+import { ENTRY_TYPE_CONFIG } from "../../utils/entry-type-config"
 
 export function EntryContent({
   event, 
 }: EventProps<TrackedEntry>) {
-  const title = {
-    [EntryType.TASK]: event.title,
-    [EntryType.UNWELL]: `Feeling unwell` ,
-  }
+  const title = ENTRY_TYPE_CONFIG [event.type!].title || event.title
 
   return (
     <>
       <div>{event.project?.name}</div>
-      <div>{event.taskId ? event.taskId : ``} {title[event.type!]}</div>
+      <div>{event.taskId ? event.taskId : ``} {title}</div>
     </>
   )
 }

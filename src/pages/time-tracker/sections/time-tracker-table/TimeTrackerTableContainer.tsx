@@ -12,6 +12,7 @@ import { TrackedEntry } from "../../types"
 export const TimeTrackerTableContainer = observer(({
   isCopyMode,
   openEntry,
+  openMakeUpEntry,
   createNewEntry,
   createCopyEntry,
   resetIsCopyMode,
@@ -32,6 +33,11 @@ export const TimeTrackerTableContainer = observer(({
     end: Date,
   }) => unknown,
   openEntry: ({
+    entry,
+  }: {
+    entry: TrackedEntry,
+  }) => unknown,
+  openMakeUpEntry: ({
     entry,
   }: {
     entry: TrackedEntry,
@@ -125,13 +131,43 @@ export const TimeTrackerTableContainer = observer(({
             .toDate(),
           end: moment(unwellEntry.endTime)
             .toDate(),
-        })) 
+        }))
+        
+      const awayWithMakeUpTimeEntries = data
+        .awayWithMakeUpTimeEntries
+        .map((awayWithMakeUpTimeEntry) => ({
+          id: awayWithMakeUpTimeEntry.id,
+          type: awayWithMakeUpTimeEntry.type,
+          description: awayWithMakeUpTimeEntry.description,
+          date: moment(awayWithMakeUpTimeEntry.startTime)
+            .toDate(),
+          start: moment(awayWithMakeUpTimeEntry.startTime)
+            .toDate(),
+          end: moment(awayWithMakeUpTimeEntry.endTime)
+            .toDate(),
+          makeUpTimeList: awayWithMakeUpTimeEntry.makeUpTimeList,
+        }))
+
+      const makeUpTimeEntries = data
+        .makeUpTimeEntries
+        .map((makeUpTimeEntry) => ({
+          relatedEntryId: makeUpTimeEntry.relatedEntryId,
+          type: makeUpTimeEntry.type,
+          date: moment(makeUpTimeEntry.startTime)
+            .toDate(),
+          start: moment(makeUpTimeEntry.startTime)
+            .toDate(),
+          end: moment(makeUpTimeEntry.endTime)
+            .toDate(),
+        }))
 
       timeTrackerState.initialize({
         loadedData: {
           entries: [
             ...taskEntries,
             ...unwellEntries,
+            ...awayWithMakeUpTimeEntries,
+            ...makeUpTimeEntries,
           ], 
         },
       })
@@ -147,9 +183,10 @@ export const TimeTrackerTableContainer = observer(({
   return (
     <TimeTrackerTableContent
       isCopyMode={isCopyMode}
+      openEntry={openEntry}
+      openMakeUpEntry={openMakeUpEntry}
       createCopyEntry={createCopyEntry}
       createNewEntry={createNewEntry}
-      openEntry={openEntry}
       resetIsCopyMode={resetIsCopyMode}
     />
   )

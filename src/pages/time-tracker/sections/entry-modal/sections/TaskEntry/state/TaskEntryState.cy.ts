@@ -3,9 +3,8 @@ import { EMPTY_TASK_ENTRY_DATA, TaskEntryState } from "./TaskEntryState"
 describe(`TaskEntryState`, () => {
   describe(`Initial Data`, initialTests)
   describe(`Setters Data`, settersTests)
-  describe(`Reset Data`, resetTests)
   describe(`Validation`, validationTests)
-  describe(`Save And Try To Submit`, saveAndTryToSubmitTests)
+  describe(`Try To Submit`, tryToSubmitTests)
 })
 
 function initialTests() {
@@ -111,28 +110,6 @@ function settersTests() {
   })
 }
 
-function resetTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-    const testDate = new Date(`2025-11-24`)
-
-    taskEntryState.updateTaskEntryData({
-      taskEntryData: {
-        id: 1,
-        projectId: 1,
-        title: `Task 1`,
-        taskId: `#1fre33`,
-        description: `Task description`,
-        date: testDate,
-        start: testDate,
-        end: testDate,
-      },
-    })
-  })
-}
-
 function validationTests() {
   let taskEntryState: TaskEntryState
 
@@ -233,44 +210,17 @@ function validationTests() {
   })
 }
 
-function saveAndTryToSubmitTests() {
+function tryToSubmitTests() {
   let taskEntryState: TaskEntryState
 
   beforeEach(() => {
     taskEntryState = new TaskEntryState()
-  })
-  
-  it(`
-  GIVEN initial isSaving = false
-  WHEN trigger setIsSaving()
-  SHOULD change value to true
-  WHEN trigger resetIsSaving()
-  SHOULD change value to false
-  `, () => {
-    expect(taskEntryState.isSaving)
-      .to
-      .be
-      .false
-
-    taskEntryState.setIsSaving()
-    expect(taskEntryState.isSaving)
-      .to
-      .be
-      .true
-    
-    taskEntryState.resetIsSaving()
-    expect(taskEntryState.isSaving)
-      .to
-      .be
-      .false
   })
 
   it(`
   GIVEN initial isTriedToSubmit = false
   WHEN trigger setIsTriedToSubmit()
   SHOULD change value to true
-  WHEN trigger resetIsTriedToSubmit()
-  SHOULD change value to false
   `, () => {
     expect(taskEntryState.isTriedToSubmit)
       .to
@@ -282,11 +232,5 @@ function saveAndTryToSubmitTests() {
       .to
       .be
       .true
-
-    taskEntryState.resetIsTriedToSubmit()
-    expect(taskEntryState.isTriedToSubmit)
-      .to
-      .be
-      .false
   })
 }

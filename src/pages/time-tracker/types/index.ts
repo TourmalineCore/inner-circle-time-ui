@@ -11,6 +11,7 @@ export type TrackedEntry = {
   date: Date | null,
   start: Date,
   end: Date,
+  makeUpTimeList?: MakeUpTimeEntry[],
 }
 
 export type TimeTrackerTable = {
@@ -32,5 +33,17 @@ export type TaskEntryData = EntryBase & {
 }
 
 export type UnwellEntryData = EntryBase
+
+export type AwayWithMakeUpTimeEntryData = EntryBase & {
+  description: string,
+  makeUpTimeList: MakeUpTimeEntry[],
+}
+
+export type MakeUpTimeEntry = {
+  id: number,
+  date: Date | null,
+  startTime: Date | null,
+  endTime: Date | null,
+}
 
 export type View = 'day' | 'week'

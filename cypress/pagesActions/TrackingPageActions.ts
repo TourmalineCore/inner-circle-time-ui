@@ -12,7 +12,8 @@ export class TrackingPageActions {
       .find(`.rbc-time-slot`)
       .first()
       .scrollIntoView()
-      .click({
+      // Sometimes, for some reason, clicking on a slot does not work with a single click but double click works stably.
+      .dblclick({
         force: true, 
       })
   }
@@ -56,6 +57,14 @@ export class TrackingPageActions {
   static getEntryModalTypeSelect() {
     return cy.getByData(`entry-modal-type-select`)
   }
+  
+  static getEntryModalMakeUpStartTimeSelect() {
+    return cy.getByData(`entry-modal-make-up-start-time-input`)
+  }
+
+  static getEntryModalMakeUpEndTimeSelect() {
+    return cy.getByData(`entry-modal-make-up-end-time-input`)
+  }
 
   static selectEntryModalType({
     entryType,
@@ -79,12 +88,22 @@ export class TrackingPageActions {
       .click()
   }
 
-  static addTaskEntry() { 
+  static addTaskEntry({
+    startTime = `11:00`,
+    endTime = `15:00`,
+  }: {
+    startTime?: string,
+    endTime?: string,
+  } = {}) { 
     const taskTitle = `[E2E-SMOKE] Task 1`
     const taskId = `#test`
     const taskDescription = `Task description`
 
     this.clickOnFirstTimeSlot()
+
+    this.selectEntryModalType({
+      entryType: EntryType.TASK,
+    })
       
     this.getEntryModalTitleInput()
       .clear()
@@ -103,11 +122,11 @@ export class TrackingPageActions {
   
     this.getEntryModalStartTimeInput()
       .clear()
-      .type(`11:00`)
+      .type(startTime)
       
     this.getEntryModalEndTimeInput()
       .clear()
-      .type(`15:00`)
+      .type(endTime)
   
     this.clickByEntryModalSubmitButton()
   

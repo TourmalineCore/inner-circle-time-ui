@@ -20,7 +20,7 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
     entryState,
     entryData,
   }), 
-  EntryContent: <UnwellEntryContent />,
+  EntryContent: () => <UnwellEntryContent />,
   validateOnClient: () => validateUnwellEntry(),
   buildRequestData: ({
     entryState,
@@ -42,7 +42,6 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
     requestData: UpdateUnwellEntryRequest,
   }) => api.trackingUpdateUnwellEntry(id, requestData),
   loadProjectsAsync: async () => {},
-  finally: () => {},
   label: ``,
 }
 

@@ -2,11 +2,13 @@ import { TrackingPageActions } from "../../../../../cypress/pagesActions/Trackin
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
+import { TrackedEntry } from "../../types"
 
 describe(`EntryModalContent`, () => {   
   describe(`Function Call`, functionCallTests)
   describe(`Is Existing Modal Entry`, isExistingModalEntryTests)
   describe(`Is Disabled Types Select`, isDisabledTypesSelectTests)
+  describe(`Make-up Mode`, makeUpModeTests)
 })
 
 function functionCallTests() {
@@ -121,14 +123,57 @@ function isDisabledTypesSelectTests() {
   })
 }
 
+function makeUpModeTests() {
+  it(`
+  GIVEN opened entry modal
+  WHEN isMakeUpMode = false
+  SHOULD render delete and copy buttons
+  `, () => {
+    mountComponent({
+      isExistingEntry: true,
+    })
+
+    TrackingPageActions.getEntryModalCopyButton()
+      .should(`exist`)
+
+    TrackingPageActions.getEntryModalDeleteButton()
+      .should(`exist`)
+  })
+
+  it(`
+  GIVEN opened entry modal
+  WHEN isMakeUpMode = true
+  SHOULD not render delete and copy buttons
+  `, () => {
+    mountComponent({
+      isMakeUpMode: true,
+      isExistingEntry: true,
+    })
+
+    TrackingPageActions.getEntryModalCopyButton()
+      .should(`not.exist`)
+
+    TrackingPageActions.getEntryModalDeleteButton()
+      .should(`not.exist`)
+  })
+}
+
 function mountComponent({
+  isMakeUpMode = false,
   isDisabledTypesSelect = false,
   isExistingEntry = false,
 }: {
+  isMakeUpMode?: boolean,
   isDisabledTypesSelect?: boolean,
   isExistingEntry?: boolean,
 } = {}) {
   const entryModalState = new EntryModalState()
+
+  if (isMakeUpMode) {
+    entryModalState.openMakeUpEntry({
+      entry: {} as TrackedEntry,
+    })
+  }
 
   const openDeleteModal = cy
     .spy()
