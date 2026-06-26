@@ -4,18 +4,16 @@ import { ProjectDto } from '@tourmalinecore/inner-circle-time-api-js-client'
 
 export const EMPTY_TASK_ENTRY_DATA: TaskEntryData = {
   title: ``,
-  date: null,
   taskId: ``,
   description: ``,
   projectId: ``,
+  date: null,
   start: null,
   end: null,
 }
 
 export class TaskEntryState {
-  private _taskEntryData: TaskEntryData = {
-    ...EMPTY_TASK_ENTRY_DATA,
-  }
+  private _taskEntryData: TaskEntryData = EMPTY_TASK_ENTRY_DATA
 
   private _projects: ProjectDto[] = []
 

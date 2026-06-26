@@ -14,7 +14,7 @@ export const EntryModal = observer(() => {
   } = entryModalState
 
   useEffect(() => {
-    if (currentEntry?.type) {
+    if (currentEntry.type) {
       entryModalState.setType({
         type: currentEntry.type,
       })
@@ -23,13 +23,13 @@ export const EntryModal = observer(() => {
     currentEntry?.type,
   ])
 
-  const entryStrategy = ENTRY_TYPES_STRATEGY[currentEntry?.type || type]
+  const entryStrategy = ENTRY_TYPES_STRATEGY[currentEntry.type || type]
 
   const entryState = useMemo(() => {
     const state = new entryStrategy.entryStateConstructor()
 
     entryStrategy.setEntryData({
-      entryData: currentEntry!,
+      entryData: currentEntry,
       entryState: state,
     })
   
@@ -64,7 +64,7 @@ export const EntryModal = observer(() => {
       {
         isDeleteModalOpen && (
           <DeleteModal
-            id={currentEntry!.id!}
+            id={currentEntry.id!}
             label={entryStrategy.label}
             closeEntryModal={() => entryModalState.closeEntryModal()}
             closeDeleteModal={() => setIsDeleteModalOpen(false)}

@@ -1,5 +1,5 @@
 import { EntryType } from "../../../../../common/constants/entryType"
-import { EntryModalState } from "./EntryModalState"
+import { EMPTY_ENTRY, EntryModalState } from "./EntryModalState"
 
 describe(`EntryModalState`, () => {
   describe(`Initial Data`, initialTests)
@@ -33,7 +33,8 @@ function initialTests() {
 
     expect(entryModalState.currentEntry)
       .to
-      .eq(null)
+      .deep
+      .eq(EMPTY_ENTRY)
 
     expect(entryModalState.isCopyMode)
       .to

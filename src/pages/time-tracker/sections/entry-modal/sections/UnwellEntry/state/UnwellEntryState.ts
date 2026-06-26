@@ -8,9 +8,7 @@ export const EMPTY_UNWELL_ENTRY_DATA: UnwellEntryData = {
 }
 
 export class UnwellEntryState {
-  private _unwellEntryData: UnwellEntryData = {
-    ...EMPTY_UNWELL_ENTRY_DATA,
-  }
+  private _unwellEntryData: UnwellEntryData = EMPTY_UNWELL_ENTRY_DATA
 
   constructor() {
     makeAutoObservable(this)

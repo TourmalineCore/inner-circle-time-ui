@@ -9,8 +9,8 @@ export type TrackedEntry = {
   description?: string,
   type?: EntryType,
   date: Date | null,
-  start: Date,
-  end: Date,
+  start: Date | null,
+  end: Date | null,
 }
 
 export type TimeTrackerTable = {
