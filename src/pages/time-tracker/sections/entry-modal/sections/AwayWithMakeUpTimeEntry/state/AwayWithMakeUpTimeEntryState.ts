@@ -111,11 +111,9 @@ export class AwayWithMakeUpTimeEntryState {
       }) => id === makeUpTime.id,
     )
 
-    if (indexOfMakeUpTimeId != -1) {
-      this._awayWithMakeUpTimeEntryData.makeUpTimeList[indexOfMakeUpTimeId] = {
-        ...this._awayWithMakeUpTimeEntryData.makeUpTimeList[indexOfMakeUpTimeId],
-        ...makeUpTime,
-      }
+    this._awayWithMakeUpTimeEntryData.makeUpTimeList[indexOfMakeUpTimeId] = {
+      ...this._awayWithMakeUpTimeEntryData.makeUpTimeList[indexOfMakeUpTimeId],
+      ...makeUpTime,
     }
   }
 
