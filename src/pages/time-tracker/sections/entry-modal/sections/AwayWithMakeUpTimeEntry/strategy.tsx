@@ -21,10 +21,10 @@ export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
     entryData,
   }), 
   EntryContent: ({
-    isMakeUpMode,
+    isMakeUpTimeEditMode,
   }: {
-    isMakeUpMode: boolean,
-  }) => <AwayWithMakeUpTimeEntryContent isMakeUpMode={isMakeUpMode} />,
+    isMakeUpTimeEditMode: boolean,
+  }) => <AwayWithMakeUpTimeEntryContent isMakeUpTimeEditMode={isMakeUpTimeEditMode} />,
   validateOnClient: ({
     entryState,
   }: {
