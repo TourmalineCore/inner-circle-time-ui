@@ -161,7 +161,6 @@ function makeUpModeTests() {
   SHOULD disable away fields but the make-up fields not disabled
   `, () => {
     mountComponent({
-      makeUpTimeList: [],
       isMakeUpMode: true,
     })
       
