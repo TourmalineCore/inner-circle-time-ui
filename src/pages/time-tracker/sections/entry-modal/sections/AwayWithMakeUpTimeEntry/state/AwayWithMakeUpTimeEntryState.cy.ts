@@ -10,7 +10,7 @@ describe(`AwayWithMakeUpTimeEntryState`, () => {
 function initializationTests() {
   it(`
   GIVEN a new AwayWithMakeUpTimeEntryState
-  WHEN initialize away make-up time entry without make-up time list
+  WHEN initialize away with make-up time entry with empty make-up time list
   SHOULD return awayWithMakeUpTimeEntryData with default make-up time list
   `, () => {
     const newDate = new Date()
@@ -47,8 +47,8 @@ function initializationTests() {
 
   it(`
   GIVEN a new AwayWithMakeUpTimeEntryState
-  WHEN initialize away make-up time entry with make-up time list
-  SHOULD return awayWithMakeUpTimeEntryData with the transmitted make-up time list
+  WHEN initialize away with make-up time entry with make-up time list
+  SHOULD return awayWithMakeUpTimeEntryData with the received make-up time list
   `, () => {
     const newDate = new Date()
 
@@ -99,8 +99,6 @@ function validationTests() {
         ],
       },
     })
-  
-    awayWithMakeUpTimeEntryState.setIsTriedToSubmit()
 
     expect(awayWithMakeUpTimeEntryState.isValid)
       .to
@@ -130,8 +128,6 @@ function validationTests() {
         ],
       },
     })
-  
-    awayWithMakeUpTimeEntryState.setIsTriedToSubmit()
 
     expect(awayWithMakeUpTimeEntryState.isValid)
       .to
@@ -160,8 +156,6 @@ function validationTests() {
         ],
       },
     })
-  
-    awayWithMakeUpTimeEntryState.setIsTriedToSubmit()
 
     expect(awayWithMakeUpTimeEntryState.isValid)
       .to
@@ -171,8 +165,8 @@ function validationTests() {
 
   it(`
   GIVEN initial state with empty description
-  WHEN isDescriptionError is activated
-  SHOULD return true
+  WHEN try to submit
+  SHOULD return isDescriptionError true
   `, () => {
     const {
       awayWithMakeUpTimeEntryState,
@@ -193,8 +187,8 @@ function validationTests() {
 
   it(`
   GIVEN initial state with not empty description
-  WHEN isDescriptionError is activated
-  SHOULD return fasle
+  WHEN try to submit
+  SHOULD return isDescriptionError false
   `, () => {
     const {
       awayWithMakeUpTimeEntryState,
@@ -215,7 +209,7 @@ function validationTests() {
 
   it(`
   GIVEN initial state with two make-up time
-  AND one of them has an empty date. 
+  AND one of them has an empty date
   WHEN trigger isMakeUpTimeDateError()
   SHOULD return false for make-up with not empty date
   AND return true for make-up with empty date
