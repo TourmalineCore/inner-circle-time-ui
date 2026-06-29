@@ -34,10 +34,14 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
   return (
     <div className='away-with-make-up-time-entry'>
       <div className='away-with-make-up-time-entry__field'>
-        <span className='task-entry__label'>
-          Away reason
-        </span> 
+        <label 
+          htmlFor="description"
+          className='away-with-make-up-time-entry__label'
+        >
+          Reason
+        </label> 
         <textarea 
+          id="description"
           name="description" 
           data-cy="entry-modal-description-input"
           value={description} 

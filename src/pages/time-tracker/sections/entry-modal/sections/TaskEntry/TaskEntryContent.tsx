@@ -76,10 +76,14 @@ export const TaskEntryContent = observer(() => {
       </div>
     
       <div className='task-entry__field'>
-        <span className='task-entry__label'>
+        <label 
+          htmlFor="taskId"
+          className='away-with-make-up-time-entry__label'
+        >
           Task ID
-        </span> 
+        </label>
         <input 
+          id="taskId"
           type="text" 
           name="taskId" 
           data-cy="entry-modal-task-id-input"
@@ -96,10 +100,14 @@ export const TaskEntryContent = observer(() => {
       </div>
       
       <div className='task-entry__field'>
-        <span className='task-entry__label'>
+        <label 
+          htmlFor="title"
+          className='away-with-make-up-time-entry__label'
+        >
           Task name
-        </span> 
+        </label>
         <input 
+          id="title"
           type="text" 
           name="title" 
           data-cy="entry-modal-title-input"
@@ -116,10 +124,14 @@ export const TaskEntryContent = observer(() => {
       </div>
     
       <div className='task-entry__field'>
-        <span className='task-entry__label'>
+        <label 
+          htmlFor="description"
+          className='away-with-make-up-time-entry__label'
+        >
           What has been done?
-        </span> 
+        </label>
         <textarea 
+          id="description" 
           name="description" 
           data-cy="entry-modal-description-input"
           value={description} 
