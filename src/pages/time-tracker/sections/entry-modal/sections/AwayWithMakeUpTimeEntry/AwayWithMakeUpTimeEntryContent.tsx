@@ -53,9 +53,9 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
         />
       </div>
       <div className='away-with-make-up-time-entry__field'>
-        {/* <span className='away-with-make-up-time-entry__label'>
+        <span className='away-with-make-up-time-entry__label'>
           Absent
-        </span> */}
+        </span>
         <div className='away-with-make-up-time-entry__time-spent-container'>
           <div data-cy="away-datepicker">
             <DatePicker
