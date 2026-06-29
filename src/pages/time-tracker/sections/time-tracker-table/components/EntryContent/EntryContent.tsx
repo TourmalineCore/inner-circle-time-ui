@@ -1,6 +1,6 @@
 import { EventProps } from "react-big-calendar"
 import { TrackedEntry } from "../../../../types"
-import { ENTRY_TYPE_CONFIG } from "../../utils/entry-type-config"
+import { ENTRY_TYPE_CONFIG } from "../../entry-type-config"
 
 export function EntryContent({
   event, 

@@ -1,4 +1,4 @@
-import { EntryType } from "../../../../../common/constants/entryType"
+import { EntryType } from "../../../../common/constants/entryType"
 
 export const ENTRY_TYPE_CONFIG = {
   [EntryType.TASK]: {

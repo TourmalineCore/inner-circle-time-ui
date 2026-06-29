@@ -12,7 +12,7 @@ import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryContent } from './components/EntryContent/EntryContent'
 import { EntryType } from '../../../../common/constants/entryType'
 import { MakeUpTimeEntryWithRelatedEntryIdDto } from '@tourmalinecore/inner-circle-time-api-js-client'
-import { ENTRY_TYPE_CONFIG } from './utils/entry-type-config'
+import { ENTRY_TYPE_CONFIG } from './entry-type-config'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
