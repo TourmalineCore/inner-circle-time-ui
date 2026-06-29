@@ -35,12 +35,7 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
   WHEN user adds away with make-up time entry in the time tracker
   AND user did it as planned and was working on the task
   THEN user should see that everything has been successfully tracked in the time tracker
-  `, () => {
-    cy.intercept(
-      `GET`, 
-      `/api/time/tracking/entries?startDate=2025-10-20&endDate=2025-10-26`)
-      .as(`getEntries`)
-      
+  `, () => {      
     TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
@@ -57,7 +52,6 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     })
 
     TrackingPageActions.getEntryModalDescriptionInput()
-      .clear()
       .type(`I need to go to the hospital.`)
 
     TrackingPageActions.getEntryModalStartTimeInput()
@@ -76,11 +70,11 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
       .get(`.react-datepicker__day--020`)
       .click()
     
-    TrackingPageActions.getEntryModalMakeUpStartTimeSelect()
+    TrackingPageActions.getEntryModalMakeUpStartTimeInput()
       .clear()
       .type(`17:00`)
     
-    TrackingPageActions.getEntryModalMakeUpEndTimeSelect()
+    TrackingPageActions.getEntryModalMakeUpEndTimeInput()
       .clear()
       .type(`18:00`)
 
@@ -100,8 +94,6 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
       startTime: `17:00`,
       endTime: `18:00`,
     })
-
-    cy.wait(`@getEntries`)
 
     cy.log(`Сheck that the Task entry cards exist`)
 
