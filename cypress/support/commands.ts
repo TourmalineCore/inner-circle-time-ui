@@ -123,7 +123,7 @@ Cypress.Commands.add(`removeUnwellEntries`, ({
     })
 })
 
-Cypress.Commands.add(`removeAwayWithMakeUpEntries`, ({
+Cypress.Commands.add(`removeAwayWithMakeUpTimeEntries`, ({
   date,
 }: {
   date: Date,

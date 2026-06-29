@@ -15,7 +15,7 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     cy.removeTaskEntries({
       date: testDate,
     })
-    cy.removeAwayWithMakeUpEntries({
+    cy.removeAwayWithMakeUpTimeEntries({
       date: testDate,
     })
   })
@@ -24,7 +24,7 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     cy.removeTaskEntries({
       date: testDate,
     })
-    cy.removeAwayWithMakeUpEntries({
+    cy.removeAwayWithMakeUpTimeEntries({
       date: testDate,
     })
   })

@@ -15,7 +15,7 @@ declare global {
       }: {
         date: Date,
       }): Chainable<any>, 
-      removeAwayWithMakeUpEntries({
+      removeAwayWithMakeUpTimeEntries({
         date,
       }: {
         date: Date,
