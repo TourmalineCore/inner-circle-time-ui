@@ -10,7 +10,7 @@ import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryContent } from './components/EntryContent/EntryContent'
-import { ENTRY_TYPE_CONFIG, EntryType } from '../../../../common/constants/entryType'
+import { ENTRY_CARD_CONFIG, EntryType } from '../../../../common/constants/entryType'
 import { MakeUpTimeEntryWithRelatedEntryIdDto } from '@tourmalinecore/inner-circle-time-api-js-client'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
@@ -124,7 +124,7 @@ export const TimeTrackerTableContent = observer(({
     type, 
   }: TrackedEntry) => {
     return {
-      className: `time-tracker-table__entry time-tracker-table__entry--${ENTRY_TYPE_CONFIG[type!].className}`,
+      className: `time-tracker-table__entry time-tracker-table__entry--${ENTRY_CARD_CONFIG[type!].className}`,
     } 
   }
 

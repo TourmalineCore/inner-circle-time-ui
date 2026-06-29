@@ -11,7 +11,7 @@ export const TYPE_LABELS: Record<string, string> = {
   [EntryType.AWAY_WITH_MAKE_UP_TIME]: `Away With Make-Up Time`,
 }
 
-export const ENTRY_TYPE_CONFIG = {
+export const ENTRY_CARD_CONFIG = {
   [EntryType.TASK]: {
     className: `task`,
     cardTitle: null,
