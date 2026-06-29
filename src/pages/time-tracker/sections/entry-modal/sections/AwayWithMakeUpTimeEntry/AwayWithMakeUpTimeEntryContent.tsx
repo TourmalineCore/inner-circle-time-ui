@@ -12,9 +12,9 @@ import IconCross from '../../../../../../assets/icons/cross.svg?react'
 import clsx from 'clsx'
 
 export const AwayWithMakeUpTimeEntryContent = observer(({
-  isMakeUpMode,
+  isMakeUpTimeEditMode,
 }: {
-  isMakeUpMode: boolean,
+  isMakeUpTimeEditMode: boolean,
 }) => {
   const awayWithMakeUpTimeEntryState = useContext(AwayWithMakeUpTimeEntryStateContext)
 
@@ -45,7 +45,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
           name="description" 
           data-cy="entry-modal-description-input"
           value={description} 
-          disabled={isMakeUpMode}
+          disabled={isMakeUpTimeEditMode}
           onChange={(e) => awayWithMakeUpTimeEntryState.updateAwayWithMakeUpTimeEntryData({
             awayWithMakeUpTimeEntryData: {
               description: e.target.value,
@@ -71,7 +71,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
                   date,
                 },
               })}
-              disabled={isMakeUpMode}
+              disabled={isMakeUpTimeEditMode}
               onKeyDown={(e) => e.preventDefault()}
             />
           </div>
@@ -85,7 +85,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
               value={formatTime({
                 time: start!,
               })}
-              disabled={isMakeUpMode}
+              disabled={isMakeUpTimeEditMode}
               onChange={(e) => awayWithMakeUpTimeEntryState.updateAwayWithMakeUpTimeEntryData({
                 awayWithMakeUpTimeEntryData: {
                   start: parseTimeString({
@@ -104,7 +104,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
               value={formatTime({
                 time: end!,
               })}
-              disabled={isMakeUpMode}
+              disabled={isMakeUpTimeEditMode}
               onChange={(e) => awayWithMakeUpTimeEntryState.updateAwayWithMakeUpTimeEntryData({
                 awayWithMakeUpTimeEntryData: {
                   end: parseTimeString({

@@ -9,7 +9,7 @@ describe(`EntryModalState`, () => {
   describe(`Copy Current Entry`, copyCurrentEntryTests)
   describe(`Is Copy Mode`, isCopyModeTests)
   describe(`Is Open Modal`, isOpenModalTests)
-  describe(`Is Make-up Mode`, isMakeUpModeTests)
+  describe(`Is Make-up Time Edit Mode`, isMakeUpTimeEditModeTests)
 })
 
 function initialTests() {
@@ -41,7 +41,7 @@ function initialTests() {
       .to
       .eq(false)
       
-    expect(entryModalState.isMakeUpMode)
+    expect(entryModalState.isMakeUpTimeEditMode)
       .to
       .eq(false)
 
@@ -193,7 +193,7 @@ function isOpenModalTests() {
   })
 }
 
-function isMakeUpModeTests() {
+function isMakeUpTimeEditModeTests() {
   let entryModalState: EntryModalState
 
   beforeEach(() => {
@@ -201,32 +201,32 @@ function isMakeUpModeTests() {
   })
 
   it(`
-  GIVEN a state with isMakeUpMode equal false
+  GIVEN a state with isMakeUpTimeEditMode equal false
   WHEN call openMakeUpEntry()
-  SHOULD return isMakeUpMode equal to true
+  SHOULD return isMakeUpTimeEditMode equal to true
   `, () => {
-    expect(entryModalState.isMakeUpMode).false
+    expect(entryModalState.isMakeUpTimeEditMode).false
 
-    entryModalState.openMakeUpEntry({
+    entryModalState.openMakeUpTimeEntry({
       entry: {} as TrackedEntry,
     })
 
-    expect(entryModalState.isMakeUpMode).true
+    expect(entryModalState.isMakeUpTimeEditMode).true
   })
 
   it(`
-  GIVEN a state with isMakeUpMode equal true
+  GIVEN a state with isMakeUpTimeEditMode equal true
   WHEN call closeEntryModal()
-  SHOULD return isMakeUpMode equal to false
+  SHOULD return isMakeUpTimeEditMode equal to false
   `, () => {
-    entryModalState.openMakeUpEntry({
+    entryModalState.openMakeUpTimeEntry({
       entry: {} as TrackedEntry,
     })
     
-    expect(entryModalState.isMakeUpMode).true
+    expect(entryModalState.isMakeUpTimeEditMode).true
 
     entryModalState.closeEntryModal()
 
-    expect(entryModalState.isMakeUpMode).false
+    expect(entryModalState.isMakeUpTimeEditMode).false
   })
 }

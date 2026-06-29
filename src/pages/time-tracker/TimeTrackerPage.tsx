@@ -49,7 +49,7 @@ export const TimeTrackerPage = observer(() => {
           })}
           openMakeUpEntry={({
             entry,
-          }) => entryModalState.openMakeUpEntry({
+          }) => entryModalState.openMakeUpTimeEntry({
             entry,
           })}
           resetIsCopyMode={() => entryModalState.resetIsCopyMode()}

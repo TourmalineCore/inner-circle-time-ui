@@ -30,7 +30,7 @@ export const EntryModalContent = observer(({
 
   const {
     type,
-    isMakeUpMode,
+    isMakeUpTimeEditMode,
   } = entryModalState
 
   return (
@@ -84,7 +84,7 @@ export const EntryModalContent = observer(({
               }
             </button>
             {
-              isExistingEntry && !isMakeUpMode && (
+              isExistingEntry && !isMakeUpTimeEditMode && (
                 <>
                   <button
                     data-cy="entry-modal-delete-button"

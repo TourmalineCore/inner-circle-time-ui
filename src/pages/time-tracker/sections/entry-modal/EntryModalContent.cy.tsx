@@ -170,7 +170,7 @@ function mountComponent({
   const entryModalState = new EntryModalState()
 
   if (isMakeUpMode) {
-    entryModalState.openMakeUpEntry({
+    entryModalState.openMakeUpTimeEntry({
       entry: {} as TrackedEntry,
     })
   }

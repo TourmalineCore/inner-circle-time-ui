@@ -22,9 +22,9 @@ export type EntryStrategy = {
     entryState: any,
   }) => unknown,
   EntryContent ({
-    isMakeUpMode,
+    isMakeUpTimeEditMode,
   }: {
-    isMakeUpMode: boolean,
+    isMakeUpTimeEditMode: boolean,
   }): ReactNode,
   validateOnClient: ({
     entryState,

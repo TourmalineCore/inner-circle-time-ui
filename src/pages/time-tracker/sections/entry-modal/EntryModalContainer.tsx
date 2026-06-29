@@ -19,7 +19,7 @@ export const EntryModalContainer = observer(({
   const {
     currentEntry,
     isCopyMode,
-    isMakeUpMode,
+    isMakeUpTimeEditMode,
     type,
   } = entryModalState
 
@@ -45,7 +45,7 @@ export const EntryModalContainer = observer(({
       openDeleteModal={openDeleteModal}
     >
       {entryStrategy.EntryContent({
-        isMakeUpMode,
+        isMakeUpTimeEditMode,
       })}
     </EntryModalContent> 
   )
