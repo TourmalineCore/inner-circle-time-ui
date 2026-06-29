@@ -151,7 +151,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
     
                 <div className='away-with-make-up-time-entry__time-range'>
                   <InputMask
-                    data-cy={`entry-modal-make-up-start-time-input`}
+                    data-cy={`entry-modal-make-up-time-start-time-input`}
                     className='away-with-make-up-time-entry__time-field'
                     mask="99:99"
                     maskChar="0"
@@ -171,7 +171,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
                   />
                   {`-`}
                   <InputMask
-                    data-cy={`entry-modal-make-up-end-time-input`}
+                    data-cy={`entry-modal-make-up-time-end-time-input`}
                     className='away-with-make-up-time-entry__time-field'
                     mask="99:99"
                     maskChar="0"

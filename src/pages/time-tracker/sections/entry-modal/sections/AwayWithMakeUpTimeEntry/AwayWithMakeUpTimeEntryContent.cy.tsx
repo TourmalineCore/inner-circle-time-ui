@@ -181,10 +181,10 @@ function makeUpModeTests() {
       .find(`input`)
       .should(`not.be.disabled`)
       
-    TrackingPageActions.getEntryModalMakeUpStartTimeSelect()
+    TrackingPageActions.getEntryModalMakeUpStartTimeInput()
       .should(`not.be.disabled`)  
 
-    TrackingPageActions.getEntryModalMakeUpStartTimeSelect()
+    TrackingPageActions.getEntryModalMakeUpStartTimeInput()
       .should(`not.be.disabled`)
   })
 
@@ -208,10 +208,10 @@ function makeUpModeTests() {
     TrackingPageActions.getEntryModalEndTimeInput()
       .should(`not.be.disabled`)
 
-    TrackingPageActions.getEntryModalMakeUpStartTimeSelect()
+    TrackingPageActions.getEntryModalMakeUpStartTimeInput()
       .should(`not.be.disabled`)
 
-    TrackingPageActions.getEntryModalMakeUpEndTimeSelect()
+    TrackingPageActions.getEntryModalMakeUpEndTimeInput()
       .should(`not.be.disabled`)
   })
 }

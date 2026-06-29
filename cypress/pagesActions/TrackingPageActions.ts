@@ -58,12 +58,12 @@ export class TrackingPageActions {
     return cy.getByData(`entry-modal-type-select`)
   }
   
-  static getEntryModalMakeUpStartTimeSelect() {
-    return cy.getByData(`entry-modal-make-up-start-time-input`)
+  static getEntryModalMakeUpStartTimeInput() {
+    return cy.getByData(`entry-modal-make-up-time-start-time-input`)
   }
 
-  static getEntryModalMakeUpEndTimeSelect() {
-    return cy.getByData(`entry-modal-make-up-end-time-input`)
+  static getEntryModalMakeUpEndTimeInput() {
+    return cy.getByData(`entry-modal-make-up-time-end-time-input`)
   }
 
   static selectEntryModalType({
