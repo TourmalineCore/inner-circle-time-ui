@@ -10,9 +10,8 @@ import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryContent } from './components/EntryContent/EntryContent'
-import { EntryType } from '../../../../common/constants/entryType'
+import { ENTRY_TYPE_CONFIG, EntryType } from '../../../../common/constants/entryType'
 import { MakeUpTimeEntryWithRelatedEntryIdDto } from '@tourmalinecore/inner-circle-time-api-js-client'
-import { ENTRY_TYPE_CONFIG } from './entry-type-config'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
