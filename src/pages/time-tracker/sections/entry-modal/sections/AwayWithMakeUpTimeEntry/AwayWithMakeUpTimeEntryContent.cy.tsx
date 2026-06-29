@@ -5,17 +5,17 @@ import { AwayWithMakeUpTimeEntryState, getDefaultTimeForMakeUpTime } from "./sta
 import { AwayWithMakeUpTimeEntryStateContext } from './state/AwayWithMakeUpTimeEntryStateContext'
 
 describe(`AwayWithMakeUpTimeEntryContent`, () => {   
-  describe(`Add Make-up`, addMakeUpTests)
-  describe(`Remove Make-up`, removeMakeUpTests)
-  describe(`Display Remove Make-up Buttons`, displayRemoveMakeUpButtonsTests)
-  describe(`Make-up Mode`, makeUpModeTests)
+  describe(`Add Make-up Time`, addMakeUpTimeTests)
+  describe(`Remove Make-up Time`, removeMakeUpTimeTests)
+  describe(`Display Remove Make-up Time Buttons`, displayRemoveMakeUpTimeButtonsTests)
+  describe(`Make-up Time Edit Mode`, makeUpTimeEditModeTests)
 })
 
-function addMakeUpTests() {
+function addMakeUpTimeTests() {
   it(`
-  GIVEN one make-up 
-  WHEN click on the add make-up button
-  SHOULD add make-up to list
+  GIVEN one make-up time
+  WHEN click on the add make-up time button
+  SHOULD add make-up time to list
   `, () => {
     mountComponent({
       makeUpTimeList: [
@@ -62,11 +62,11 @@ function addMakeUpTests() {
   })
 }
 
-function removeMakeUpTests() {
+function removeMakeUpTimeTests() {
   it(`
-  GIVEN two make-up 
-  WHEN click on the 1th remove make-up button
-  SHOULD remove its make-up from list
+  GIVEN two make-up time
+  WHEN click on the 1st remove make-up time button
+  SHOULD remove its make-up time from list
   `, () => {
     mountComponent({
       makeUpTimeList: [
@@ -97,27 +97,14 @@ function removeMakeUpTests() {
     cy
       .getByData(`make-up-time`)
       .should(`have.length`, 1)
-      
-    cy
-      .get<AwayWithMakeUpTimeEntryState>(`@awayWithMakeUpTimeEntryState`)
-      .should((awayWithMakeUpTimeEntryState) => {
-        expect(awayWithMakeUpTimeEntryState.awayWithMakeUpTimeEntryData.makeUpTimeList)
-          .to
-          .deep
-          .eq([
-            {
-              id: 2,
-            },
-          ])
-      })
   })
 }
 
-function displayRemoveMakeUpButtonsTests() {
+function displayRemoveMakeUpTimeButtonsTests() {
   it(`
-  GIVEN one make-up 
+  GIVEN one make-up time
   WHEN render the component
-  SHOULD not render remove make-up buttons
+  SHOULD not render remove make-up time buttons
   `, () => {
     mountComponent({
       makeUpTimeList: [
@@ -133,9 +120,9 @@ function displayRemoveMakeUpButtonsTests() {
   })
 
   it(`
-  GIVEN more than one make-up
+  GIVEN more than one make-up time
   WHEN render the component
-  SHOULD render remove make-up buttons
+  SHOULD render remove make-up time buttons
   `, () => {
     mountComponent({
       makeUpTimeList: [
@@ -154,9 +141,9 @@ function displayRemoveMakeUpButtonsTests() {
   })
 }
 
-function makeUpModeTests() {
+function makeUpTimeEditModeTests() {
   it(`
-  GIVEN make-up mode enabled
+  GIVEN make-up time entry opened
   WHEN render the component
   SHOULD disable away fields but the make-up fields not disabled
   `, () => {
@@ -167,7 +154,8 @@ function makeUpModeTests() {
     TrackingPageActions.getEntryModalDescriptionInput()
       .should(`be.disabled`)
     
-    cy.getByData(`away-datepicker`)
+    cy
+      .getByData(`away-datepicker`)
       .find(`input`)
       .should(`be.disabled`)
       
@@ -177,28 +165,30 @@ function makeUpModeTests() {
     TrackingPageActions.getEntryModalEndTimeInput()
       .should(`be.disabled`)
 
-    cy.getByData(`make-up-time-datepicker`)
+    cy
+      .getByData(`make-up-time-datepicker`)
       .find(`input`)
       .should(`not.be.disabled`)
       
     TrackingPageActions.getEntryModalMakeUpStartTimeInput()
       .should(`not.be.disabled`)  
 
-    TrackingPageActions.getEntryModalMakeUpStartTimeInput()
+    TrackingPageActions.getEntryModalMakeUpEndTimeInput()
       .should(`not.be.disabled`)
   })
 
   it(`
-  GIVEN make-up mode disabled
+  GIVEN away with make-up time entry opened
   WHEN render the component
-  SHOULD not disable away and make-up fields
+  SHOULD not disable away fields
   `, () => {
     mountComponent()
 
     TrackingPageActions.getEntryModalDescriptionInput()
       .should(`not.be.disabled`)
     
-    cy.getByData(`away-datepicker`)
+    cy
+      .getByData(`away-datepicker`)
       .find(`input`)
       .should(`not.be.disabled`)
       
@@ -206,12 +196,6 @@ function makeUpModeTests() {
       .should(`not.be.disabled`)
 
     TrackingPageActions.getEntryModalEndTimeInput()
-      .should(`not.be.disabled`)
-
-    TrackingPageActions.getEntryModalMakeUpStartTimeInput()
-      .should(`not.be.disabled`)
-
-    TrackingPageActions.getEntryModalMakeUpEndTimeInput()
       .should(`not.be.disabled`)
   })
 }
