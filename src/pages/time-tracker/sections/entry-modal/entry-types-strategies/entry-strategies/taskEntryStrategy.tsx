@@ -2,10 +2,10 @@ import moment from "moment"
 import { CreateTaskEntryRequest, UpdateTaskEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
-import { TaskEntryState } from "./state/TaskEntryState"
-import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
-import { TaskEntryContent } from "./TaskEntryContent"
-import { EntryStrategy } from "../../entry-types-strategy"
+import { EntryStrategy } from "../entryTypesStrategy"
+import { TaskEntryState } from "../../sections/TaskEntry/state/TaskEntryState"
+import { TaskEntryStateContext } from "../../sections/TaskEntry/state/TaskEntryStateContext"
+import { TaskEntryContent } from "../../sections/TaskEntry/TaskEntryContent"
 
 export const TASK_ENTRY_STRATEGY: EntryStrategy = {
   entryStateConstructor: TaskEntryState,

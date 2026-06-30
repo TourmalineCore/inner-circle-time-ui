@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
+import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategies/entryTypesStrategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { DeleteModal } from "./sections/DeleteModal/DeleteModal"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"

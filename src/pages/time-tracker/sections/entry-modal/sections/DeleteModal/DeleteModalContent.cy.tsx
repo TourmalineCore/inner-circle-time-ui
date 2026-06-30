@@ -1,6 +1,6 @@
 import { TrackingPageActions } from "../../../../../../../cypress/pagesActions/TrackingPageActions"
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
+import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategies/entryTypesStrategy"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"

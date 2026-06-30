@@ -1,6 +1,6 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
 import { eventBus, EventBusType } from "../../../../event-bus"
-import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
+import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategies/entryTypesStrategy"
 import { DeleteModalContainer } from "./DeleteModalContainer"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"

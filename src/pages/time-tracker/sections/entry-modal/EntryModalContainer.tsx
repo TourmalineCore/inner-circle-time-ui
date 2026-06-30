@@ -2,7 +2,7 @@ import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { useContext, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import { EntryModalContent } from './EntryModalContent'
-import { EntryStrategy } from './entry-types-strategy'
+import { EntryStrategy } from './entry-types-strategies/entryTypesStrategy'
 import axios from 'axios'
 import { eventBus, EventBusType } from '../../event-bus'
 

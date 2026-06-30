@@ -1,10 +1,10 @@
 import { CreateAwayWithMakeUpTimeEntryRequest, UpdateAwayWithMakeUpTimeEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
-import { EntryStrategy } from "../../entry-types-strategy"
-import { AwayWithMakeUpTimeEntryState } from "./state/AwayWithMakeUpTimeEntryState"
-import { AwayWithMakeUpTimeEntryStateContext } from "./state/AwayWithMakeUpTimeEntryStateContext"
-import { AwayWithMakeUpTimeEntryContent } from "./AwayWithMakeUpTimeEntryContent"
+import { EntryStrategy } from "../entryTypesStrategy"
+import { AwayWithMakeUpTimeEntryState } from "../../sections/AwayWithMakeUpTimeEntry/state/AwayWithMakeUpTimeEntryState"
+import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/AwayWithMakeUpTimeEntry/state/AwayWithMakeUpTimeEntryStateContext"
+import { AwayWithMakeUpTimeEntryContent } from "../../sections/AwayWithMakeUpTimeEntry/AwayWithMakeUpTimeEntryContent"
 
 export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
   entryStateConstructor: AwayWithMakeUpTimeEntryState,
@@ -17,8 +17,8 @@ export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
   validateOnClient: ({
     entryState,
   }: {
-      entryState: AwayWithMakeUpTimeEntryState,
-    }) => validateAwayWithMakeUpTimeEntry({
+    entryState: AwayWithMakeUpTimeEntryState,
+  }) => validateAwayWithMakeUpTimeEntry({
     entryState,
   }),
   buildRequestData: ({
