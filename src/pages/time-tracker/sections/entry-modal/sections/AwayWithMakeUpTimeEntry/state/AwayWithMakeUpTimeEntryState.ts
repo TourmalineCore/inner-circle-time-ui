@@ -49,29 +49,35 @@ export class AwayWithMakeUpTimeEntryState {
     )
   }
 
-  initialize({
-    awayWithMakeUpTimeEntry,
-  }: {
-    awayWithMakeUpTimeEntry: AwayWithMakeUpTimeEntryData,
+  initializeNewEntry({
+    startTime,
+    endTime,
+  }:{
+    startTime: Date,
+    endTime: Date,
   }) {
-    const makeUpTimeList = awayWithMakeUpTimeEntry.makeUpTimeList.length > 0
-      ? awayWithMakeUpTimeEntry.makeUpTimeList
-      : [
+    this._awayWithMakeUpTimeEntryData = {
+      ...EMPTY_AWAY_WITH_MAKE_UP_TIME_ENTRY_DATA,
+      date: startTime,
+      start: startTime,
+      end: endTime,
+      makeUpTimeList: [
         {
           id: 1,
           date: null,
           startTime: getDefaultTimeForMakeUpTime(),
           endTime: getDefaultTimeForMakeUpTime(),
         },
-      ]
-
-    this._awayWithMakeUpTimeEntryData = {
-      date: awayWithMakeUpTimeEntry.date,
-      start: awayWithMakeUpTimeEntry.start,
-      end: awayWithMakeUpTimeEntry.end,
-      description: awayWithMakeUpTimeEntry.description,
-      makeUpTimeList, 
+      ], 
     }
+  }
+
+  initializeExistingEntry({
+    awayWithMakeUpTimeEntry,
+  }: {
+    awayWithMakeUpTimeEntry: AwayWithMakeUpTimeEntryData,
+  }) {
+    this._awayWithMakeUpTimeEntryData = awayWithMakeUpTimeEntry
   }
   
   isMakeUpTimeDateError({

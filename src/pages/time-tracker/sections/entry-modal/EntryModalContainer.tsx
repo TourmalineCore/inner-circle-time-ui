@@ -23,7 +23,18 @@ export const EntryModalContainer = observer(({
     type,
   } = entryModalState
 
+  const id = currentEntry?.id
+
+  const isExistingEntry = !!id
+
   useEffect(() => {
+    if (isExistingEntry) {
+      entryStrategy.initializeExistingEntryAsync({
+        entryId: id,
+        entryState,
+      })
+    }
+
     entryStrategy.loadProjectsAsync({
       entryState,
     })
@@ -31,9 +42,6 @@ export const EntryModalContainer = observer(({
     type,
   ])
 
-  const id = currentEntry?.id
-
-  const isExistingEntry = !!id
   const isDisabledTypesSelect = !!id || isCopyMode
 
   return (

@@ -1,5 +1,5 @@
-import { AwayWithMakeUpTimeEntryState, getDefaultTimeForMakeUpTime } from "./AwayWithMakeUpTimeEntryState"
 import { AwayWithMakeUpTimeEntryData } from "../../../../../types"
+import { AwayWithMakeUpTimeEntryState, EMPTY_AWAY_WITH_MAKE_UP_TIME_ENTRY_DATA, getDefaultTimeForMakeUpTime } from "./AwayWithMakeUpTimeEntryState"
 
 describe(`AwayWithMakeUpTimeEntryState`, () => {
   describe(`Initialization Data`, initializationTests)
@@ -10,30 +10,26 @@ describe(`AwayWithMakeUpTimeEntryState`, () => {
 function initializationTests() {
   it(`
   GIVEN a new AwayWithMakeUpTimeEntryState
-  WHEN initialize away with make-up time entry with empty make-up time list
-  SHOULD return awayWithMakeUpTimeEntryData with default make-up time list
+  WHEN initialize new away with make-up time entry
+  SHOULD return initialize new away with make-up time entry
   `, () => {
     const newDate = new Date()
 
-    const awayWithMakeUpTimeEntryForInitialization = {
-      date: newDate,
-      start: newDate,
-      end: newDate,
-      description: `Description`,
-      makeUpTimeList: [],
-    }
+    const awayWithMakeUpTimeEntryState = new AwayWithMakeUpTimeEntryState()
 
-    const {
-      awayWithMakeUpTimeEntryState,
-    } = createState({
-      awayWithMakeUpTimeEntryForInitialization,
+    awayWithMakeUpTimeEntryState.initializeNewEntry({
+      startTime: newDate,
+      endTime: newDate,
     })
 
     expect(awayWithMakeUpTimeEntryState.awayWithMakeUpTimeEntryData)
       .to
       .deep
       .eq({
-        ...awayWithMakeUpTimeEntryForInitialization,
+        ...EMPTY_AWAY_WITH_MAKE_UP_TIME_ENTRY_DATA,
+        date: newDate,
+        start: newDate,
+        end: newDate,
         makeUpTimeList: [
           {
             id: 1,
@@ -47,8 +43,8 @@ function initializationTests() {
 
   it(`
   GIVEN a new AwayWithMakeUpTimeEntryState
-  WHEN initialize away with make-up time entry with make-up time list
-  SHOULD return awayWithMakeUpTimeEntryData with the received make-up time list
+  WHEN initialize existing away with make-up time entry
+  SHOULD return awayWithMakeUpTimeEntryData with the received data
   `, () => {
     const newDate = new Date()
 
@@ -283,7 +279,7 @@ function createState({
 }) {
   const awayWithMakeUpTimeEntryState = new AwayWithMakeUpTimeEntryState()
 
-  awayWithMakeUpTimeEntryState.initialize({
+  awayWithMakeUpTimeEntryState.initializeExistingEntry({
     awayWithMakeUpTimeEntry: awayWithMakeUpTimeEntryForInitialization as AwayWithMakeUpTimeEntryData,
   })
 

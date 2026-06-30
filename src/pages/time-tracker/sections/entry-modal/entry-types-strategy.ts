@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { TrackedEntry } from "../../types"
 import { TASK_ENTRY_STRATEGY } from "./sections/TaskEntry/strategy"
 import { UNWELL_ENTRY_STRATEGY } from "./sections/UnwellEntry/strategy"
 import { EntryType } from "../../../../common/constants/entryType"
@@ -14,13 +13,6 @@ export const ENTRY_TYPES_STRATEGY: Record<number, EntryStrategy> = {
 export type EntryStrategy = { 
   entryStateConstructor: any,
   StateContext: React.Context<any>,
-  setEntryData: ({
-    entryData,
-    entryState,
-  }: {
-    entryData: TrackedEntry,
-    entryState: any,
-  }) => unknown,
   EntryContent ({
     isMakeUpTimeEditMode,
   }: {
@@ -36,6 +28,22 @@ export type EntryStrategy = {
   }: {
     entryState: any,
   }) => unknown,
+  initializeNewEntry:({
+    startTime,
+    endTime,
+    entryState,
+  }: {
+    startTime: Date,
+    endTime: Date,
+    entryState: any,
+  }) => unknown,
+  initializeExistingEntryAsync:({
+    entryId,
+    entryState,
+  }: {
+    entryId: number,
+    entryState: any,
+  }) => Promise<unknown>,
   createEntryAsync: ({
     requestData,
   }: {

@@ -28,8 +28,9 @@ export const EntryModal = observer(() => {
   const entryState = useMemo(() => {
     const state = new entryStrategy.entryStateConstructor()
 
-    entryStrategy.setEntryData({
-      entryData: currentEntry!,
+    entryStrategy.initializeNewEntry({
+      startTime: currentEntry!.start,
+      endTime: currentEntry!.end,
       entryState: state,
     })
   

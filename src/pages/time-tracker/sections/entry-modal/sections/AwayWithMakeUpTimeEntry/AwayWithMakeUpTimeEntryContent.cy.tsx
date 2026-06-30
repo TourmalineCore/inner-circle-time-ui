@@ -148,6 +148,11 @@ function makeUpTimeEditModeTests() {
   SHOULD disable away fields but the make-up fields not disabled
   `, () => {
     mountComponent({
+      makeUpTimeList: [
+        {
+          id: 1,
+        },
+      ],
       isMakeUpTimeEditMode: true,
     })
       
@@ -182,7 +187,13 @@ function makeUpTimeEditModeTests() {
   WHEN render the component
   SHOULD not disable away fields
   `, () => {
-    mountComponent()
+    mountComponent({
+      makeUpTimeList: [
+        {
+          id: 1,
+        },
+      ],
+    })
 
     TrackingPageActions.getEntryModalDescriptionInput()
       .should(`not.be.disabled`)
@@ -219,7 +230,7 @@ function mountComponent({
   cy.spy(awayWithMakeUpTimeEntryState, `addMakeUpTime`)
     .as(`addMakeUpTime`)
   
-  awayWithMakeUpTimeEntryState.initialize({
+  awayWithMakeUpTimeEntryState.initializeExistingEntry({
     awayWithMakeUpTimeEntry: {
       makeUpTimeList,
     } as AwayWithMakeUpTimeEntryData,

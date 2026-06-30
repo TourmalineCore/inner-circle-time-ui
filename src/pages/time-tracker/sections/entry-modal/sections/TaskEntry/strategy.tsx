@@ -1,7 +1,6 @@
 import moment from "moment"
 import { CreateTaskEntryRequest, UpdateTaskEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
-import { TrackedEntry } from "../../../../types"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
 import { TaskEntryState } from "./state/TaskEntryState"
 import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
@@ -10,17 +9,7 @@ import { EntryStrategy } from "../../entry-types-strategy"
 
 export const TASK_ENTRY_STRATEGY: EntryStrategy = {
   entryStateConstructor: TaskEntryState,
-  StateContext: TaskEntryStateContext,
-  setEntryData: ({
-    entryData,
-    entryState,
-  }: {
-    entryData: TrackedEntry,
-    entryState: TaskEntryState,
-  }) => setTaskEntryData({
-    entryState,
-    entryData,
-  }), 
+  StateContext: TaskEntryStateContext, 
   EntryContent: () => <TaskEntryContent />,
   validateOnClient: ({
     entryState,
@@ -35,6 +24,30 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
     entryState: TaskEntryState,
   }) => buildTaskEntryRequest({
     entryState, 
+  }),
+  initializeNewEntry: ({
+    startTime,
+    endTime,
+    entryState,
+  }: {
+    startTime: Date,
+    endTime: Date,
+    entryState: TaskEntryState,
+  }) => {
+    entryState.initializeNewEntry({
+      startTime,
+      endTime,
+    })
+  },
+  initializeExistingEntryAsync: async ({
+    entryId, 
+    entryState,
+  }: {
+    entryId: number,
+    entryState: TaskEntryState,
+  }) => await initializeExistingEntryAsync({
+    entryId,
+    entryState,
   }),
   createEntryAsync: ({
     requestData,
@@ -137,23 +150,29 @@ async function loadProjectsAsync({
   })
 }
 
-function setTaskEntryData({
-  entryData,
+async function initializeExistingEntryAsync({
+  entryId,
   entryState,
 }: {
-  entryData: TrackedEntry,
+  entryId: number,
   entryState: TaskEntryState,
 }) {
-  entryState.updateTaskEntryData({
-    taskEntryData: {
-      id: entryData?.id,
-      title: entryData.title || ``,
-      taskId: entryData.taskId || ``,
-      description: entryData.description || ``,
-      projectId: entryData.project?.id || ``,
-      date: entryData.start,
-      start: entryData.start,
-      end:entryData.end,
+  const {
+    data: {
+      taskEntry,
+    },
+  } = await api.trackingGetTaskEntry(entryId)
+
+  entryState.initializeExistingEntry({
+    taskEntry: {
+      id: taskEntry.id,
+      title: taskEntry.title,
+      taskId: taskEntry.taskId,
+      description: taskEntry.description,
+      projectId: taskEntry.projectId,
+      date: new Date(taskEntry.startTime),
+      start: new Date(taskEntry.startTime),
+      end: new Date(taskEntry.endTime),
     },
   })
 }

@@ -1,6 +1,5 @@
 import { CreateAwayWithMakeUpTimeEntryRequest, UpdateAwayWithMakeUpTimeEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
-import { TrackedEntry } from "../../../../types"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
 import { EntryStrategy } from "../../entry-types-strategy"
 import { AwayWithMakeUpTimeEntryState } from "./state/AwayWithMakeUpTimeEntryState"
@@ -10,16 +9,6 @@ import { AwayWithMakeUpTimeEntryContent } from "./AwayWithMakeUpTimeEntryContent
 export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
   entryStateConstructor: AwayWithMakeUpTimeEntryState,
   StateContext: AwayWithMakeUpTimeEntryStateContext,
-  setEntryData: ({
-    entryData,
-    entryState,
-  }: {
-    entryData: TrackedEntry,
-    entryState: AwayWithMakeUpTimeEntryState,
-  }) => initializeAwayWithMakeUpTimeEntryData({
-    entryState,
-    entryData,
-  }), 
   EntryContent: ({
     isMakeUpTimeEditMode,
   }: {
@@ -39,6 +28,30 @@ export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
   }) => buildAwayWithMakeUpTimeEntryRequest({
     entryState, 
   }),
+  initializeNewEntry: ({
+    startTime,
+    endTime,
+    entryState,
+  }: {
+    startTime: Date,
+    endTime: Date,
+    entryState: AwayWithMakeUpTimeEntryState,
+  }) => {
+    entryState.initializeNewEntry({
+      startTime,
+      endTime,
+    })
+  },
+  initializeExistingEntryAsync: async ({
+    entryId,
+    entryState, 
+  }: {
+    entryId: number,
+    entryState: AwayWithMakeUpTimeEntryState,
+  }) => await initializeExistingEntry({
+    entryId,
+    entryState,
+  }),
   createEntryAsync: ({
     requestData,
   }: {
@@ -55,33 +68,37 @@ export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
   label: ``,
 }
 
-function initializeAwayWithMakeUpTimeEntryData({
-  entryData,
+async function initializeExistingEntry({
+  entryId,
   entryState,
 }: {
-  entryData: TrackedEntry,
+  entryId: number,
   entryState: AwayWithMakeUpTimeEntryState,
 }) {
-  const makeUpTimeList = entryData
-    .makeUpTimeList?.map(({
-      id,
-      startTime,
-      endTime,
-    }) => ({
-      id,
-      date: startTime,
-      startTime,
-      endTime,
-    })) || []    
+  const {
+    data: {
+      awayWithMakeUpTimeEntry,
+    },
+  } = await api.trackingGetAwayWithMakeUpTimeEntry(entryId)
 
-  entryState.initialize({
+  entryState.initializeExistingEntry({
     awayWithMakeUpTimeEntry: {
-      id: entryData?.id,
-      date: entryData.start,
-      start: entryData.start,
-      end: entryData.end,
-      description: entryData.description || ``,
-      makeUpTimeList,
+      date: new Date(awayWithMakeUpTimeEntry.startTime),
+      start: new Date(awayWithMakeUpTimeEntry.startTime),
+      end: new Date(awayWithMakeUpTimeEntry.endTime),
+      description: awayWithMakeUpTimeEntry.description,
+      makeUpTimeList: awayWithMakeUpTimeEntry
+        .makeUpTimeList
+        .map(({
+          id,
+          startTime,
+          endTime,
+        }) => ({
+          id,
+          date: new Date(startTime),
+          startTime: new Date(startTime),
+          endTime: new Date(endTime),
+        })), 
     },
   })
 }

@@ -1,6 +1,5 @@
 import { CreateUnwellEntryRequest, UpdateUnwellEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
-import { TrackedEntry } from "../../../../types"
 import { concatDateAndTime } from "../../../../utils/date-and-time"
 import { EntryStrategy } from "../../entry-types-strategy"
 import { UnwellEntryState } from "./state/UnwellEntryState"
@@ -10,16 +9,6 @@ import { UnwellEntryContent } from "./UnwellEntryContent"
 export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
   entryStateConstructor: UnwellEntryState,
   StateContext: UnwellEntryStateContext,
-  setEntryData: ({
-    entryData,
-    entryState,
-  }: {
-    entryData: TrackedEntry,
-    entryState: UnwellEntryState,
-  }) => setUnwellEntryData({
-    entryState,
-    entryData,
-  }), 
   EntryContent: () => <UnwellEntryContent />,
   validateOnClient: () => validateUnwellEntry(),
   buildRequestData: ({
@@ -28,6 +17,30 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
     entryState: UnwellEntryState,
   }) => buildUnwellEntryRequest({
     entryState, 
+  }),
+  initializeNewEntry: ({
+    startTime,
+    endTime,
+    entryState,
+  }: {
+    startTime: Date,
+    endTime: Date,
+    entryState: UnwellEntryState,
+  }) => {
+    entryState.initializeNewEntry({
+      startTime,
+      endTime,
+    })
+  },
+  initializeExistingEntryAsync: async ({
+    entryId, 
+    entryState,
+  }: {
+    entryId: number,
+    entryState: UnwellEntryState,
+  }) => await initializeExistingEntry({
+    entryId,
+    entryState,
   }),
   createEntryAsync: ({
     requestData,
@@ -45,19 +58,25 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
   label: ``,
 }
 
-function setUnwellEntryData({
-  entryData,
+async function initializeExistingEntry({
+  entryId,
   entryState,
 }: {
-  entryData: TrackedEntry,
+  entryId: number,
   entryState: UnwellEntryState,
 }) {
-  entryState.updateUnwellEntryData({
-    unwellEntryData: {
-      id: entryData?.id,
-      date: entryData.start,
-      start: entryData.start,
-      end: entryData.end,
+  const {
+    data: {
+      unwellEntry,
+    },
+  } = await api.trackingGetUnwellntry(entryId)
+
+  entryState.initializeExistingEntry({
+    unwellEntry: {
+      id: unwellEntry.id,
+      date: new Date(unwellEntry.startTime),
+      start: new Date(unwellEntry.startTime),
+      end: new Date(unwellEntry.endTime),
     },
   })
 }

@@ -20,6 +20,28 @@ export class UnwellEntryState {
     return this._unwellEntryData
   }
 
+  initializeNewEntry({
+    startTime,
+    endTime,
+  }:{
+    startTime: Date,
+    endTime: Date,
+  }) {
+    this._unwellEntryData = {
+      date: startTime,
+      start: startTime,
+      end: endTime,
+    }
+  }
+
+  initializeExistingEntry({
+    unwellEntry,
+  }: {
+    unwellEntry: UnwellEntryData,
+  }) {
+    this._unwellEntryData = unwellEntry
+  }
+
   updateUnwellEntryData({
     unwellEntryData,
   }: {

@@ -71,6 +71,29 @@ export class TaskEntryState {
     }
   }
 
+  initializeNewEntry({
+    startTime,
+    endTime,
+  }:{
+    startTime: Date,
+    endTime: Date,
+  }) {
+    this._taskEntryData = {
+      ...EMPTY_TASK_ENTRY_DATA,
+      date: startTime,
+      start: startTime,
+      end: endTime,
+    }
+  }
+
+  initializeExistingEntry({
+    taskEntry,
+  }: {
+    taskEntry: TaskEntryData,
+  }) {
+    this._taskEntryData = taskEntry
+  }
+
   updateTaskEntryData({
     taskEntryData,
   }: {
