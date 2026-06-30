@@ -11,7 +11,7 @@ import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryContent } from './components/EntryContent/EntryContent'
 import { ENTRY_CARD_CONFIG, EntryType } from '../../../../common/constants/entryType'
-import { MakeUpTimeEntryWithRelatedEntryIdDto } from '@tourmalinecore/inner-circle-time-api-js-client'
+import { GetAwayWithMakeUpTimeEntryDto, GetMakeUpTimeEntryEntryDto } from '@tourmalinecore/inner-circle-time-api-js-client'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -103,7 +103,7 @@ export const TimeTrackerTableContent = observer(({
     
     // Make-up time entry does not have its own card, so it should always open a related Entry card.
     if (entry.type === EntryType.MAKE_UP_TIME) {
-      const makeUpTimeEntry = entry as unknown as MakeUpTimeEntryWithRelatedEntryIdDto
+      const makeUpTimeEntry = entry as unknown as GetMakeUpTimeEntryEntryDto
       
       const relatedEntry = entries.find(({
         id,
