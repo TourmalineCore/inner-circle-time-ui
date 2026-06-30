@@ -1,5 +1,5 @@
 
-import { AwayWithMakeUpTimeEntryDto, GetEntriesByPeriodResponse, MakeUpTimeEntryWithRelatedEntryIdDto, ProjectDto, TaskEntryDto, UnwellEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
+import { GetAwayWithMakeUpTimeEntryDto, GetEntriesByPeriodResponse, GetMakeUpTimeEntryEntryDto, GetTaskEntryDto, GetUnwellEntryDto, ProjectDto } from "@tourmalinecore/inner-circle-time-api-js-client"
 import moment from "moment"
 
 export class EntryMapper {
@@ -39,7 +39,7 @@ export class EntryMapper {
     taskEntries,
     projects,
   }: {
-    taskEntries: TaskEntryDto[],
+    taskEntries: GetTaskEntryDto[],
     projects: ProjectDto[],
   } ) {
     return taskEntries
@@ -62,7 +62,7 @@ export class EntryMapper {
   private static mapUnwellEntries({
     unwellEntries,
   }: {
-    unwellEntries: UnwellEntryDto[],
+    unwellEntries: GetUnwellEntryDto[],
   } ) {
     return unwellEntries
       .map((unwellEntry) => ({
@@ -80,7 +80,7 @@ export class EntryMapper {
   private static mapAwayWithMakeUpTimeEntries({
     awayWithMakeUpTimeEntries,
   }: {
-    awayWithMakeUpTimeEntries: AwayWithMakeUpTimeEntryDto[],
+    awayWithMakeUpTimeEntries: GetAwayWithMakeUpTimeEntryDto[],
   } ) {
     return awayWithMakeUpTimeEntries
       .map((awayWithMakeUpTimeEntry) => ({
@@ -100,7 +100,7 @@ export class EntryMapper {
   private static mapMakeUpTimeEntries({
     makeUpTimeEntries,
   }: {
-    makeUpTimeEntries: MakeUpTimeEntryWithRelatedEntryIdDto[],
+    makeUpTimeEntries: GetMakeUpTimeEntryEntryDto[],
   } ) {
     return makeUpTimeEntries
       .map((makeUpTimeEntry) => ({
