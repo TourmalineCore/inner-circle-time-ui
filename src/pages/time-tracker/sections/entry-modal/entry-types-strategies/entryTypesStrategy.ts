@@ -13,11 +13,7 @@ export const ENTRY_TYPES_STRATEGY: Record<number, EntryStrategy> = {
 export type EntryStrategy = { 
   entryStateConstructor: any,
   StateContext: React.Context<any>,
-  EntryContent ({
-    isMakeUpTimeEditMode,
-  }: {
-    isMakeUpTimeEditMode: boolean,
-  }): ReactNode,
+  EntryContent (): ReactNode,
   validateOnClient: ({
     entryState,
   }: {
@@ -61,5 +57,9 @@ export type EntryStrategy = {
   }: {
     entryState: any,
   }) => Promise<unknown>,
-  label: string,
+  modalConfiguration: {
+    label: string,
+    hasDeleteButton: boolean,
+    hasCopyButton: boolean,
+  },
 }

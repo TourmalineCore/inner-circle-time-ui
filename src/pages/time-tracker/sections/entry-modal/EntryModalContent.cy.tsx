@@ -2,13 +2,12 @@ import { TrackingPageActions } from "../../../../../cypress/pagesActions/Trackin
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
-import { TrackedEntry } from "../../types"
 
 describe(`EntryModalContent`, () => {   
   describe(`Function Call`, functionCallTests)
   describe(`Is Existing Modal Entry`, isExistingModalEntryTests)
   describe(`Is Disabled Types Select`, isDisabledTypesSelectTests)
-  describe(`Make-up Mode`, makeUpModeTests)
+  describe(`Button visibility`, buttonVisibilityTests)
 })
 
 function functionCallTests() {
@@ -123,10 +122,11 @@ function isDisabledTypesSelectTests() {
   })
 }
 
-function makeUpModeTests() {
+function buttonVisibilityTests() {
   it(`
   GIVEN opened entry modal
-  WHEN isMakeUpMode = false
+  WHEN hasDeleteButton = true
+  AND hasCopyButton = true
   SHOULD render delete and copy buttons
   `, () => {
     mountComponent({
@@ -142,11 +142,13 @@ function makeUpModeTests() {
 
   it(`
   GIVEN opened entry modal
-  WHEN isMakeUpMode = true
+  WHEN hasDeleteButton = false
+  AND hasCopyButton = false
   SHOULD not render delete and copy buttons
   `, () => {
     mountComponent({
-      isMakeUpMode: true,
+      hasDeleteButton: false,
+      hasCopyButton: false,
       isExistingEntry: true,
     })
 
@@ -159,21 +161,17 @@ function makeUpModeTests() {
 }
 
 function mountComponent({
-  isMakeUpMode = false,
+  hasDeleteButton = true,
+  hasCopyButton = true,
   isDisabledTypesSelect = false,
   isExistingEntry = false,
 }: {
-  isMakeUpMode?: boolean,
+  hasDeleteButton?: boolean,
+  hasCopyButton?: boolean,
   isDisabledTypesSelect?: boolean,
   isExistingEntry?: boolean,
 } = {}) {
   const entryModalState = new EntryModalState()
-
-  if (isMakeUpMode) {
-    entryModalState.openMakeUpTimeEntry({
-      entry: {} as TrackedEntry,
-    })
-  }
 
   const openDeleteModal = cy
     .spy()
@@ -196,6 +194,8 @@ function mountComponent({
           isExistingEntry={isExistingEntry}
           onSubmitEntry={() => {}}
           buttonLabel={``}
+          hasDeleteButton={hasDeleteButton}
+          hasCopyButton={hasCopyButton}
           openDeleteModal={openDeleteModal}
         />
       </EntryModalStateContext.Provider>,

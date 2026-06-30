@@ -19,7 +19,6 @@ export const EntryModalContainer = observer(({
   const {
     currentEntry,
     isCopyMode,
-    isMakeUpTimeEditMode,
     type,
   } = entryModalState
 
@@ -44,17 +43,23 @@ export const EntryModalContainer = observer(({
 
   const isDisabledTypesSelect = !!id || isCopyMode
 
+  const {
+    label,
+    hasCopyButton,
+    hasDeleteButton,
+  } = entryStrategy.modalConfiguration
+
   return (
     <EntryModalContent
       isExistingEntry={isExistingEntry}
       isDisabledTypesSelect={isDisabledTypesSelect}
       onSubmitEntry={onSubmitEntry}
-      buttonLabel={entryStrategy.label}
+      buttonLabel={label}
+      hasDeleteButton={hasDeleteButton}
+      hasCopyButton={hasCopyButton}
       openDeleteModal={openDeleteModal}
     >
-      {entryStrategy.EntryContent({
-        isMakeUpTimeEditMode,
-      })}
+      {entryStrategy.EntryContent()}
     </EntryModalContent> 
   )
 

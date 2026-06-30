@@ -12,9 +12,9 @@ import IconCross from '../../../../../../assets/icons/cross.svg?react'
 import clsx from 'clsx'
 
 export const AwayWithMakeUpTimeEntryContent = observer(({
-  isMakeUpTimeEditMode,
+  isAwayFieldsDisabled = false,
 }: {
-  isMakeUpTimeEditMode: boolean,
+  isAwayFieldsDisabled?: boolean,
 }) => {
   const awayWithMakeUpTimeEntryState = useContext(AwayWithMakeUpTimeEntryStateContext)
 
@@ -45,7 +45,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
           name="description" 
           data-cy="entry-modal-description-input"
           value={description} 
-          disabled={isMakeUpTimeEditMode}
+          disabled={isAwayFieldsDisabled}
           onChange={(e) => awayWithMakeUpTimeEntryState.updateAwayWithMakeUpTimeEntryData({
             awayWithMakeUpTimeEntryData: {
               description: e.target.value,
@@ -71,7 +71,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
                   date,
                 },
               })}
-              disabled={isMakeUpTimeEditMode}
+              disabled={isAwayFieldsDisabled}
               onKeyDown={(e) => e.preventDefault()}
             />
           </div>
@@ -85,7 +85,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
               value={formatTime({
                 time: start!,
               })}
-              disabled={isMakeUpTimeEditMode}
+              disabled={isAwayFieldsDisabled}
               onChange={(e) => awayWithMakeUpTimeEntryState.updateAwayWithMakeUpTimeEntryData({
                 awayWithMakeUpTimeEntryData: {
                   start: parseTimeString({
@@ -104,7 +104,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
               value={formatTime({
                 time: end!,
               })}
-              disabled={isMakeUpTimeEditMode}
+              disabled={isAwayFieldsDisabled}
               onChange={(e) => awayWithMakeUpTimeEntryState.updateAwayWithMakeUpTimeEntryData({
                 awayWithMakeUpTimeEntryData: {
                   end: parseTimeString({

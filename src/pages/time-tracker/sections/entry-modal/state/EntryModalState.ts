@@ -6,7 +6,6 @@ export class EntryModalState {
   private _currentEntry: TrackedEntry | null = null
   
   private _isCopyMode = false
-  private _isMakeUpTimeEditMode = false
   private _isOpenModal = false
     
   private _type = EntryType.TASK
@@ -26,10 +25,6 @@ export class EntryModalState {
 
   get isCopyMode() {
     return this._isCopyMode
-  }
-
-  get isMakeUpTimeEditMode() {
-    return this._isMakeUpTimeEditMode
   }
 
   get type() {
@@ -80,18 +75,6 @@ export class EntryModalState {
     this.openEntryModal()
   }
 
-  openMakeUpTimeEntry({
-    entry,
-  }: {
-    entry: TrackedEntry,
-  }) {
-    this._currentEntry = entry,
-
-    this._isMakeUpTimeEditMode = true
-
-    this.openEntryModal()
-  }
-
   copyCurrentEntry() {
     this._currentEntry = {
       ...this._currentEntry!,
@@ -115,8 +98,6 @@ export class EntryModalState {
 
   closeEntryModal() {
     this._isOpenModal = false
-
-    this._isMakeUpTimeEditMode = false
   }
 
   setType({

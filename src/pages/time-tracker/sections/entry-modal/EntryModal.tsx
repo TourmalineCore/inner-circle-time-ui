@@ -53,6 +53,10 @@ export const EntryModal = observer(() => {
     setIsDeleteModalOpen,
   ] = useState(false)
 
+  const {
+    label,
+  } = entryStrategy.modalConfiguration
+
   return (
     <>
       <StateContext.Provider value={entryState}>
@@ -66,7 +70,7 @@ export const EntryModal = observer(() => {
         isDeleteModalOpen && (
           <DeleteModal
             id={currentEntry!.id!}
-            label={entryStrategy.label}
+            label={label}
             closeEntryModal={() => entryModalState.closeEntryModal()}
             closeDeleteModal={() => setIsDeleteModalOpen(false)}
           />

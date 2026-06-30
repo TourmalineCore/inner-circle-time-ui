@@ -68,7 +68,11 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
   }) => loadProjectsAsync({
     entryState, 
   }),
-  label: `Task`,
+  modalConfiguration: {
+    label: `Task`,
+    hasCopyButton: true,
+    hasDeleteButton: true,
+  },
 }
 
 function validateTaskEntry({

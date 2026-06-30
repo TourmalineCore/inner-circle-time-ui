@@ -10,8 +10,7 @@ import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryContent } from './components/EntryContent/EntryContent'
-import { ENTRY_CARD_CONFIG, EntryType } from '../../../../common/constants/entryType'
-import { GetMakeUpTimeEntryEntryDto } from '@tourmalinecore/inner-circle-time-api-js-client'
+import { ENTRY_CARD_CONFIG } from '../../../../common/constants/entryType'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -25,7 +24,6 @@ const localizer = momentLocalizer(moment)
 export const TimeTrackerTableContent = observer(({
   isCopyMode,
   openEntry,
-  openMakeUpEntry,
   createNewEntry,
   createCopyEntry,
   resetIsCopyMode,
@@ -46,11 +44,6 @@ export const TimeTrackerTableContent = observer(({
     end: Date,
   }) => unknown,
   openEntry: ({
-    entry,
-  }: {
-    entry: TrackedEntry,
-  }) => unknown,
-  openMakeUpEntry: ({
     entry,
   }: {
     entry: TrackedEntry,
@@ -101,23 +94,9 @@ export const TimeTrackerTableContent = observer(({
       resetIsCopyMode()
     }
     
-    // Make-up time entry does not have its own card, so it should always open a related Entry card.
-    if (entry.type === EntryType.MAKE_UP_TIME) {
-      const makeUpTimeEntry = entry as unknown as GetMakeUpTimeEntryEntryDto
-      
-      const relatedEntry = entries.find(({
-        id,
-      }) => id === makeUpTimeEntry.relatedEntryId)
-
-      openMakeUpEntry({
-        entry: relatedEntry!,
-      })
-    }
-    else {
-      openEntry({
-        entry,
-      })
-    }
+    openEntry({
+      entry,
+    })
   }
 
   const eventPropGetter = ({

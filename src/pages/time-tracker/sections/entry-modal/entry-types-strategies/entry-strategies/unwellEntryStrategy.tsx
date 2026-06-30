@@ -55,7 +55,11 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
     requestData: UpdateUnwellEntryRequest,
   }) => api.trackingUpdateUnwellEntry(id, requestData),
   loadProjectsAsync: async () => {},
-  label: ``,
+  modalConfiguration: {
+    label: ``,
+    hasCopyButton: true,
+    hasDeleteButton: true,
+  },
 }
 
 async function initializeExistingEntry({

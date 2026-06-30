@@ -9,11 +9,7 @@ import { AwayWithMakeUpTimeEntryContent } from "../../sections/AwayWithMakeUpTim
 export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
   entryStateConstructor: AwayWithMakeUpTimeEntryState,
   StateContext: AwayWithMakeUpTimeEntryStateContext,
-  EntryContent: ({
-    isMakeUpTimeEditMode,
-  }: {
-    isMakeUpTimeEditMode: boolean,
-  }) => <AwayWithMakeUpTimeEntryContent isMakeUpTimeEditMode={isMakeUpTimeEditMode} />,
+  EntryContent: () => <AwayWithMakeUpTimeEntryContent />,
   validateOnClient: ({
     entryState,
   }: {
@@ -65,7 +61,11 @@ export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
     requestData: UpdateAwayWithMakeUpTimeEntryRequest,
   }) => api.trackingUpdateAwayWithMakeUpTimeEntry(id, requestData),
   loadProjectsAsync: async () => {},
-  label: ``,
+  modalConfiguration: {
+    label: ``,
+    hasCopyButton: true,
+    hasDeleteButton: true,
+  },
 }
 
 async function initializeExistingEntry({
