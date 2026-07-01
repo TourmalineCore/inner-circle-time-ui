@@ -5,8 +5,10 @@ import { EntryStrategy } from "../entryTypesStrategy"
 import { UnwellEntryState } from "../../sections/UnwellEntry/state/UnwellEntryState"
 import { UnwellEntryStateContext } from "../../sections/UnwellEntry/state/UnwellEntryStateContext"
 import { UnwellEntryContent } from "../../sections/UnwellEntry/UnwellEntryContent"
+import { EntryType } from "../../../../../../common/constants/entryType"
 
 export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
+  type: EntryType.UNWELL,
   entryStateConstructor: UnwellEntryState,
   StateContext: UnwellEntryStateContext,
   EntryContent: () => <UnwellEntryContent />,
@@ -32,13 +34,13 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
       endTime,
     })
   },
-  initializeExistingEntryAsync: async ({
+  initializeExistingEntryAsync: ({
     entryId, 
     entryState,
   }: {
     entryId: number,
     entryState: UnwellEntryState,
-  }) => await initializeExistingEntry({
+  }) => initializeExistingEntry({
     entryId,
     entryState,
   }),
@@ -70,9 +72,8 @@ async function initializeExistingEntry({
   entryState: UnwellEntryState,
 }) {
   const {
-    data: {
-      unwellEntry,
-    },
+    data: unwellEntry,
+
   } = await api.trackingGetUnwellntry(entryId)
 
   entryState.initializeExistingEntry({

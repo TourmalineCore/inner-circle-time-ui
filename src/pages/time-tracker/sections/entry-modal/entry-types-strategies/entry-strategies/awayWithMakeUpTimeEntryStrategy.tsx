@@ -5,8 +5,10 @@ import { EntryStrategy } from "../entryTypesStrategy"
 import { AwayWithMakeUpTimeEntryState } from "../../sections/AwayWithMakeUpTimeEntry/state/AwayWithMakeUpTimeEntryState"
 import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/AwayWithMakeUpTimeEntry/state/AwayWithMakeUpTimeEntryStateContext"
 import { AwayWithMakeUpTimeEntryContent } from "../../sections/AwayWithMakeUpTimeEntry/AwayWithMakeUpTimeEntryContent"
+import { EntryType } from "../../../../../../common/constants/entryType"
 
 export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
+  type: EntryType.AWAY_WITH_MAKE_UP_TIME,
   entryStateConstructor: AwayWithMakeUpTimeEntryState,
   StateContext: AwayWithMakeUpTimeEntryStateContext,
   EntryContent: () => <AwayWithMakeUpTimeEntryContent />,
@@ -38,13 +40,13 @@ export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
       endTime,
     })
   },
-  initializeExistingEntryAsync: async ({
+  initializeExistingEntryAsync: ({
     entryId,
     entryState, 
   }: {
     entryId: number,
     entryState: AwayWithMakeUpTimeEntryState,
-  }) => await initializeExistingEntry({
+  }) => initializeExistingEntry({
     entryId,
     entryState,
   }),
@@ -76,9 +78,7 @@ async function initializeExistingEntry({
   entryState: AwayWithMakeUpTimeEntryState,
 }) {
   const {
-    data: {
-      awayWithMakeUpTimeEntry,
-    },
+    data: awayWithMakeUpTimeEntry,
   } = await api.trackingGetAwayWithMakeUpTimeEntry(entryId)
 
   entryState.initializeExistingEntry({

@@ -6,8 +6,10 @@ import { EntryStrategy } from "../entryTypesStrategy"
 import { TaskEntryState } from "../../sections/TaskEntry/state/TaskEntryState"
 import { TaskEntryStateContext } from "../../sections/TaskEntry/state/TaskEntryStateContext"
 import { TaskEntryContent } from "../../sections/TaskEntry/TaskEntryContent"
+import { EntryType } from "../../../../../../common/constants/entryType"
 
 export const TASK_ENTRY_STRATEGY: EntryStrategy = {
+  type: EntryType.TASK,
   entryStateConstructor: TaskEntryState,
   StateContext: TaskEntryStateContext, 
   EntryContent: () => <TaskEntryContent />,
@@ -39,13 +41,13 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
       endTime,
     })
   },
-  initializeExistingEntryAsync: async ({
+  initializeExistingEntryAsync: ({
     entryId, 
     entryState,
   }: {
     entryId: number,
     entryState: TaskEntryState,
-  }) => await initializeExistingEntryAsync({
+  }) => initializeExistingEntryAsync({
     entryId,
     entryState,
   }),
@@ -162,9 +164,7 @@ async function initializeExistingEntryAsync({
   entryState: TaskEntryState,
 }) {
   const {
-    data: {
-      taskEntry,
-    },
+    data: taskEntry,
   } = await api.trackingGetTaskEntry(entryId)
 
   entryState.initializeExistingEntry({
