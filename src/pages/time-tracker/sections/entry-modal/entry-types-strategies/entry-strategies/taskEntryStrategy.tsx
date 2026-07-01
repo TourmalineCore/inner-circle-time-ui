@@ -7,6 +7,7 @@ import { TaskEntryState } from "../../sections/TaskEntry/state/TaskEntryState"
 import { TaskEntryStateContext } from "../../sections/TaskEntry/state/TaskEntryStateContext"
 import { TaskEntryContent } from "../../sections/TaskEntry/TaskEntryContent"
 import { EntryType } from "../../../../../../common/constants/entryType"
+import { TaskEntryData, TrackedEntry } from "../../../../types"
 
 export class TaskEntryStrategy implements EntryStrategy {
   readonly entryType = EntryType.TASK
@@ -20,17 +21,17 @@ export class TaskEntryStrategy implements EntryStrategy {
   }
 
   initializeNewEntry({
-    startTime,
-    endTime,
+    initialEntryData,
     entryState,
   }: {
-    startTime: Date,
-    endTime: Date,
+    initialEntryData: TrackedEntry,
     entryState: TaskEntryState,
   }) {
     entryState.initializeNewEntry({
-      startTime,
-      endTime,
+      taskEntry: {
+        ...initialEntryData,
+        projectId: initialEntryData.project?.id || ``,
+      } as TaskEntryData,
     })
   }
 

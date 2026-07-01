@@ -38,8 +38,7 @@ export const EntryModalContainer = observer(({
       }
       else {
         entryStrategy.initializeNewEntry({
-          startTime: currentEntry!.start,
-          endTime: currentEntry!.end,
+          initialEntryData: currentEntry,
           entryState,
         })
       }

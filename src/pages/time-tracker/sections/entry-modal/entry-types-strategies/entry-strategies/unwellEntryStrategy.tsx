@@ -6,6 +6,7 @@ import { UnwellEntryState } from "../../sections/UnwellEntry/state/UnwellEntrySt
 import { UnwellEntryStateContext } from "../../sections/UnwellEntry/state/UnwellEntryStateContext"
 import { UnwellEntryContent } from "../../sections/UnwellEntry/UnwellEntryContent"
 import { EntryType } from "../../../../../../common/constants/entryType"
+import { UnwellEntryData } from "../../../../types"
 
 export class UnwellEntryStrategy implements EntryStrategy {
   readonly entryType = EntryType.UNWELL
@@ -19,17 +20,14 @@ export class UnwellEntryStrategy implements EntryStrategy {
   }
 
   initializeNewEntry({
-    startTime,
-    endTime,
+    initialEntryData,
     entryState,
   }: {
-    startTime: Date,
-    endTime: Date,
+    initialEntryData: UnwellEntryData,
     entryState: UnwellEntryState,
   }) {
     entryState.initializeNewEntry({
-      startTime,
-      endTime,
+      unwellEntry: initialEntryData,
     })
   }
 

@@ -49,12 +49,10 @@ export type EntryStrategy = {
     entryState: any,
   }) => unknown,
   initializeNewEntry:({
-    startTime,
-    endTime,
+    initialEntryData,
     entryState,
   }: {
-    startTime: Date,
-    endTime: Date,
+    initialEntryData: any,
     entryState: any,
   }) => unknown,
   initializeExistingEntryAsync:({

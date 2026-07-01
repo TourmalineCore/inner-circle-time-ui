@@ -72,17 +72,13 @@ export class TaskEntryState {
   }
 
   initializeNewEntry({
-    startTime,
-    endTime,
-  }:{
-    startTime: Date,
-    endTime: Date,
+    taskEntry,
+  }: {
+    taskEntry: TaskEntryData,
   }) {
     this._taskEntryData = {
       ...EMPTY_TASK_ENTRY_DATA,
-      date: startTime,
-      start: startTime,
-      end: endTime,
+      ...taskEntry,
     }
   }
 

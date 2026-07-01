@@ -6,6 +6,7 @@ import { AwayWithMakeUpTimeEntryState } from "../../sections/AwayWithMakeUpTimeE
 import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/AwayWithMakeUpTimeEntry/state/AwayWithMakeUpTimeEntryStateContext"
 import { AwayWithMakeUpTimeEntryContent } from "../../sections/AwayWithMakeUpTimeEntry/AwayWithMakeUpTimeEntryContent"
 import { EntryType } from "../../../../../../common/constants/entryType"
+import { AwayWithMakeUpTimeEntryData } from "../../../../types"
 
 export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
   readonly entryType = EntryType.AWAY_WITH_MAKE_UP_TIME
@@ -19,17 +20,14 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
   }
 
   initializeNewEntry({
-    startTime,
-    endTime,
+    initialEntryData,
     entryState,
   }: {
-    startTime: Date,
-    endTime: Date,
+    initialEntryData: AwayWithMakeUpTimeEntryData,
     entryState: AwayWithMakeUpTimeEntryState,
   }) {
     entryState.initializeNewEntry({
-      startTime,
-      endTime,
+      awayWithMakeUpTimeEntry: initialEntryData,
     })
   }
 

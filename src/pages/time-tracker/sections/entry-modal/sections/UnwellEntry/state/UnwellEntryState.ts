@@ -21,16 +21,13 @@ export class UnwellEntryState {
   }
 
   initializeNewEntry({
-    startTime,
-    endTime,
+    unwellEntry,
   }:{
-    startTime: Date,
-    endTime: Date,
+    unwellEntry: UnwellEntryData,
   }) {
     this._unwellEntryData = {
-      date: startTime,
-      start: startTime,
-      end: endTime,
+      ...EMPTY_UNWELL_ENTRY_DATA,
+      ...unwellEntry,
     }
   }
 

@@ -50,17 +50,13 @@ export class AwayWithMakeUpTimeEntryState {
   }
 
   initializeNewEntry({
-    startTime,
-    endTime,
+    awayWithMakeUpTimeEntry,
   }:{
-    startTime: Date,
-    endTime: Date,
+    awayWithMakeUpTimeEntry: AwayWithMakeUpTimeEntryData,
   }) {
     this._awayWithMakeUpTimeEntryData = {
       ...EMPTY_AWAY_WITH_MAKE_UP_TIME_ENTRY_DATA,
-      date: startTime,
-      start: startTime,
-      end: endTime,
+      ...awayWithMakeUpTimeEntry,
       makeUpTimeList: [
         {
           id: 1,
