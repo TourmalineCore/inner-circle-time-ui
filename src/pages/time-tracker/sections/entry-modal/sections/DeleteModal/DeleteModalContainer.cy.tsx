@@ -103,7 +103,7 @@ function mountComponent({
     .mount(
       <DeleteModalStateContext.Provider value={deleteModalState}>
         <DeleteModalContainer 
-          id={1}
+          entryId={1}
           label={``}
           closeEntryModal={closeEntryModal}
           closeDeleteModal={closeDeleteModal}
