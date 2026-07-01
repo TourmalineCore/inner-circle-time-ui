@@ -12,8 +12,7 @@ export class UnwellEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = UnwellEntryState
   readonly StateContext = UnwellEntryStateContext
   readonly EntryContent = () => <UnwellEntryContent />
-  
-  modalConfiguration = {
+  readonly modalConfiguration = {
     label: ``,
     hasCopyButton: true,
     hasDeleteButton: true,
