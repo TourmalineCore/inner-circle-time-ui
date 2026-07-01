@@ -153,7 +153,7 @@ function makeUpTimeEditModeTests() {
           id: 1,
         },
       ],
-      isAwayFieldsDisabled: true,
+      isRelatedEntryFieldsDisabled: true,
     })
       
     TrackingPageActions.getEntryModalDescriptionInput()
@@ -213,10 +213,10 @@ function makeUpTimeEditModeTests() {
 
 function mountComponent({
   makeUpTimeList = [],
-  isAwayFieldsDisabled = false,
+  isRelatedEntryFieldsDisabled = false,
 }: {
   makeUpTimeList?: unknown[],
-  isAwayFieldsDisabled?: boolean,
+  isRelatedEntryFieldsDisabled?: boolean,
 } = {}) {
   const awayWithMakeUpTimeEntryState = new AwayWithMakeUpTimeEntryState()
 
@@ -239,7 +239,7 @@ function mountComponent({
   cy
     .mount(
       <AwayWithMakeUpTimeEntryStateContext.Provider value={awayWithMakeUpTimeEntryState}>
-        <AwayWithMakeUpTimeEntryContent isAwayFieldsDisabled={isAwayFieldsDisabled} />
+        <AwayWithMakeUpTimeEntryContent isRelatedEntryFieldsDisabled={isRelatedEntryFieldsDisabled} />
       </AwayWithMakeUpTimeEntryStateContext.Provider>,
     )
 }

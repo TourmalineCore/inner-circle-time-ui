@@ -49,7 +49,7 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
 
   get EntryContent() {
     return () => this._relatedEntryStrategy.EntryContent({
-      isAwayFieldsDisabled: true,
+      isRelatedEntryFieldsDisabled: true,
     })
   }
 
