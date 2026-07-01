@@ -7,26 +7,76 @@ import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/AwayWithMake
 import { AwayWithMakeUpTimeEntryContent } from "../../sections/AwayWithMakeUpTimeEntry/AwayWithMakeUpTimeEntryContent"
 import { EntryType } from "../../../../../../common/constants/entryType"
 
-export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
-  type: EntryType.AWAY_WITH_MAKE_UP_TIME,
-  entryStateConstructor: AwayWithMakeUpTimeEntryState,
-  StateContext: AwayWithMakeUpTimeEntryStateContext,
-  EntryContent: () => <AwayWithMakeUpTimeEntryContent />,
-  validateOnClient: ({
+export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
+  readonly type = EntryType.AWAY_WITH_MAKE_UP_TIME
+  readonly entryStateConstructor = AwayWithMakeUpTimeEntryState
+  readonly StateContext = AwayWithMakeUpTimeEntryStateContext
+  readonly EntryContent = (props: any) => <AwayWithMakeUpTimeEntryContent {...props} />
+  readonly modalConfiguration = {
+    label: ``,
+    hasCopyButton: true,
+    hasDeleteButton: true,
+  }
+
+  validateOnClient({
     entryState,
   }: {
     entryState: AwayWithMakeUpTimeEntryState,
-  }) => validateAwayWithMakeUpTimeEntry({
-    entryState,
-  }),
-  buildRequestData: ({
+  }) {
+    entryState.setIsTriedToSubmit()
+
+    if (!entryState.isValid) {
+      return false
+    }
+    
+    return true
+  }
+
+  buildRequestData({
     entryState,
   }: {
     entryState: AwayWithMakeUpTimeEntryState,
-  }) => buildAwayWithMakeUpTimeEntryRequest({
-    entryState, 
-  }),
-  initializeNewEntry: ({
+  }) {
+    const {
+      date,
+      start,
+      end,
+      description,
+      makeUpTimeList,
+    } = entryState.awayWithMakeUpTimeEntryData
+      
+    const startDateTime = concatDateAndTime({
+      date: date!,
+      time: start!,
+    })
+
+    const endDateTime = concatDateAndTime({
+      date: date!,
+      time: end!,
+    })
+
+    return {
+      startTime: startDateTime,
+      endTime: endDateTime,
+      description,
+      makeUpTimeList: makeUpTimeList.map(({
+        date,
+        startTime,
+        endTime,
+      }) => ({
+        startTime: concatDateAndTime({
+          date: date!,
+          time: startTime!,
+        }),
+        endTime: concatDateAndTime({
+          date: date!,
+          time: endTime!,
+        }),
+      })),
+    }
+  }
+
+  initializeNewEntry({
     startTime,
     endTime,
     entryState,
@@ -34,129 +84,65 @@ export const AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY: EntryStrategy = {
     startTime: Date,
     endTime: Date,
     entryState: AwayWithMakeUpTimeEntryState,
-  }) => {
+  }) {
     entryState.initializeNewEntry({
       startTime,
       endTime,
     })
-  },
-  initializeExistingEntryAsync: ({
+  }
+
+  async initializeExistingEntryAsync({
     entryId,
-    entryState, 
+    entryState,
   }: {
     entryId: number,
     entryState: AwayWithMakeUpTimeEntryState,
-  }) => initializeExistingEntry({
-    entryId,
-    entryState,
-  }),
-  createEntryAsync: ({
+  }) {
+    const {
+      data: awayWithMakeUpTimeEntry,
+    } = await api.trackingGetAwayWithMakeUpTimeEntry(entryId)
+
+    entryState.initializeExistingEntry({
+      awayWithMakeUpTimeEntry: {
+        date: new Date(awayWithMakeUpTimeEntry.startTime),
+        start: new Date(awayWithMakeUpTimeEntry.startTime),
+        end: new Date(awayWithMakeUpTimeEntry.endTime),
+        description: awayWithMakeUpTimeEntry.description,
+        makeUpTimeList: awayWithMakeUpTimeEntry
+          .makeUpTimeList
+          .map(({
+            id,
+            startTime,
+            endTime,
+          }) => ({
+            id,
+            date: new Date(startTime),
+            startTime: new Date(startTime),
+            endTime: new Date(endTime),
+          })),
+      },
+    })
+  }
+
+  async createEntryAsync({
     requestData,
   }: {
     requestData: CreateAwayWithMakeUpTimeEntryRequest,
-  }) => api.trackingCreateAwayWithMakeUpTimeEntry(requestData),
-  updateEntryAsync: ({
+  }) {
+    return api.trackingCreateAwayWithMakeUpTimeEntry(requestData)
+  }
+
+  async updateEntryAsync({
     id,
     requestData,
   }: {
     id: number,
     requestData: UpdateAwayWithMakeUpTimeEntryRequest,
-  }) => api.trackingUpdateAwayWithMakeUpTimeEntry(id, requestData),
-  loadProjectsAsync: async () => {},
-  modalConfiguration: {
-    label: ``,
-    hasCopyButton: true,
-    hasDeleteButton: true,
-  },
-}
-
-async function initializeExistingEntry({
-  entryId,
-  entryState,
-}: {
-  entryId: number,
-  entryState: AwayWithMakeUpTimeEntryState,
-}) {
-  const {
-    data: awayWithMakeUpTimeEntry,
-  } = await api.trackingGetAwayWithMakeUpTimeEntry(entryId)
-
-  entryState.initializeExistingEntry({
-    awayWithMakeUpTimeEntry: {
-      date: new Date(awayWithMakeUpTimeEntry.startTime),
-      start: new Date(awayWithMakeUpTimeEntry.startTime),
-      end: new Date(awayWithMakeUpTimeEntry.endTime),
-      description: awayWithMakeUpTimeEntry.description,
-      makeUpTimeList: awayWithMakeUpTimeEntry
-        .makeUpTimeList
-        .map(({
-          id,
-          startTime,
-          endTime,
-        }) => ({
-          id,
-          date: new Date(startTime),
-          startTime: new Date(startTime),
-          endTime: new Date(endTime),
-        })), 
-    },
-  })
-}
-
-function buildAwayWithMakeUpTimeEntryRequest({
-  entryState,
-}: {
-  entryState: AwayWithMakeUpTimeEntryState,
-}) {
-  const {
-    date,
-    start,
-    end,
-    description,
-    makeUpTimeList,
-  } = entryState.awayWithMakeUpTimeEntryData
-    
-  const startDateTime = concatDateAndTime({
-    date: date!,
-    time: start!,
-  })
-
-  const endDateTime = concatDateAndTime({
-    date: date!,
-    time: end!,
-  })
-
-  return {
-    startTime: startDateTime,
-    endTime: endDateTime,
-    description,
-    makeUpTimeList: makeUpTimeList.map(({
-      date,
-      startTime,
-      endTime,
-    }) => ({
-      startTime: concatDateAndTime({
-        date: date!,
-        time: startTime!,
-      }),
-      endTime: concatDateAndTime({
-        date: date!,
-        time: endTime!,
-      }),
-    })), 
+  }) {
+    return api.trackingUpdateAwayWithMakeUpTimeEntry(id, requestData)
   }
-}
 
-function validateAwayWithMakeUpTimeEntry({
-  entryState,
-}: {
-  entryState: AwayWithMakeUpTimeEntryState,
-}) {
-  entryState.setIsTriedToSubmit()
-
-  if (!entryState.isValid) {
-    return false
+  async loadProjectsAsync() {
+    return
   }
-  
-  return true
 }

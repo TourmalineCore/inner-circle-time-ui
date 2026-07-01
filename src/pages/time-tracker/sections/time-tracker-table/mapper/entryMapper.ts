@@ -105,6 +105,7 @@ export class EntryMapper {
     return makeUpTimeEntries
       .map((makeUpTimeEntry) => ({
         relatedEntryId: makeUpTimeEntry.relatedEntryId,
+        relatedEntryType: makeUpTimeEntry.relatedEntryType,
         type: makeUpTimeEntry.type,
         date: moment(makeUpTimeEntry.startTime)
           .toDate(),

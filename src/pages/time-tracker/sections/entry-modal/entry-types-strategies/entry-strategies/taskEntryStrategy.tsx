@@ -8,26 +8,67 @@ import { TaskEntryStateContext } from "../../sections/TaskEntry/state/TaskEntryS
 import { TaskEntryContent } from "../../sections/TaskEntry/TaskEntryContent"
 import { EntryType } from "../../../../../../common/constants/entryType"
 
-export const TASK_ENTRY_STRATEGY: EntryStrategy = {
-  type: EntryType.TASK,
-  entryStateConstructor: TaskEntryState,
-  StateContext: TaskEntryStateContext, 
-  EntryContent: () => <TaskEntryContent />,
-  validateOnClient: ({
-    entryState,
+export class TaskEntryStrategy implements EntryStrategy {
+  readonly type = EntryType.TASK
+  readonly entryStateConstructor = TaskEntryState
+  readonly StateContext = TaskEntryStateContext
+  readonly EntryContent = () => <TaskEntryContent />
+  readonly modalConfiguration = {
+    label: `Task`,
+    hasCopyButton: true,
+    hasDeleteButton: true,
+  }
+
+  validateOnClient({
+    entryState, 
+  }: { 
+    entryState: TaskEntryState,
+  }) {
+    entryState.setIsTriedToSubmit()
+
+    if (!entryState.isValid) {
+      return false
+    }
+    
+    return true
+  }
+
+  buildRequestData({
+    entryState, 
   }: {
     entryState: TaskEntryState,
-  }) => validateTaskEntry({
-    entryState, 
-  }),
-  buildRequestData: ({
-    entryState,
-  }: {
-    entryState: TaskEntryState,
-  }) => buildTaskEntryRequest({
-    entryState, 
-  }),
-  initializeNewEntry: ({
+  }) {
+    const {
+      title,
+      taskId,
+      description,
+      projectId,
+      date,
+      start,
+      end,
+    } = entryState.taskEntryData
+      
+    const startDateTime = concatDateAndTime({
+      date: date!,
+      time: start!,
+    })
+      
+    const endDateTime = concatDateAndTime({
+      date: date!,
+      time: end!,
+    })
+      
+    return {
+      title,
+      taskId,
+      description,
+      projectId,
+      startTime: startDateTime,
+      endTime: endDateTime,
+    }
+  }
+
+  initializeNewEntry({
     startTime,
     endTime,
     entryState,
@@ -35,144 +76,79 @@ export const TASK_ENTRY_STRATEGY: EntryStrategy = {
     startTime: Date,
     endTime: Date,
     entryState: TaskEntryState,
-  }) => {
+  }) {
     entryState.initializeNewEntry({
       startTime,
       endTime,
     })
-  },
-  initializeExistingEntryAsync: ({
-    entryId, 
+  }
+
+  async initializeExistingEntryAsync({
+    entryId,
     entryState,
   }: {
     entryId: number,
     entryState: TaskEntryState,
-  }) => initializeExistingEntryAsync({
-    entryId,
-    entryState,
-  }),
-  createEntryAsync: ({
+  }) {
+    const {
+      data: taskEntry,
+    } = await api.trackingGetTaskEntry(entryId)
+
+    entryState.initializeExistingEntry({
+      taskEntry: {
+        id: taskEntry.id,
+        title: taskEntry.title,
+        taskId: taskEntry.taskId,
+        description: taskEntry.description,
+        projectId: taskEntry.projectId,
+        date: new Date(taskEntry.startTime),
+        start: new Date(taskEntry.startTime),
+        end: new Date(taskEntry.endTime),
+      },
+    })
+  }
+
+  async createEntryAsync({
     requestData,
   }: {
     requestData: CreateTaskEntryRequest,
-  }) => api.trackingCreateTaskEntry(requestData),
-  updateEntryAsync: ({
+  }) {
+    return api.trackingCreateTaskEntry(requestData)
+  }
+
+  async updateEntryAsync({
     id,
     requestData,
   }: {
     id: number,
     requestData: UpdateTaskEntryRequest,
-  }) => api.trackingUpdateTaskEntry(id, requestData),
-  loadProjectsAsync: ({
+  }) {
+    return api.trackingUpdateTaskEntry(id, requestData)
+  }
+
+  async loadProjectsAsync({
     entryState,
   }: {
     entryState: TaskEntryState,
-  }) => loadProjectsAsync({
-    entryState, 
-  }),
-  modalConfiguration: {
-    label: `Task`,
-    hasCopyButton: true,
-    hasDeleteButton: true,
-  },
-}
-
-function validateTaskEntry({
-  entryState,
-}: {
-  entryState: TaskEntryState,
-}) {
-  entryState.setIsTriedToSubmit()
-
-  if (!entryState.isValid) {
-    return false
-  }
-  
-  return true
-}
-
-function buildTaskEntryRequest({
-  entryState,
-}: {
-  entryState: TaskEntryState,
-}) {
-  const {
-    title,
-    taskId,
-    description,
-    projectId,
-    date,
-    start,
-    end,
-  } = entryState.taskEntryData
+  }) {
+    const {
+      start,
+    } = entryState.taskEntryData
     
-  const startDateTime = concatDateAndTime({
-    date: date!,
-    time: start!,
-  })
-    
-  const endDateTime = concatDateAndTime({
-    date: date!,
-    time: end!,
-  })
-    
-  return {
-    title,
-    taskId,
-    description,
-    projectId,
-    startTime: startDateTime,
-    endTime: endDateTime,
-  }
-}
+    const startDate = moment(start)
+      .format(`YYYY-MM-DD`)
 
-async function loadProjectsAsync({
-  entryState,
-}: {
-  entryState: TaskEntryState,
-}) {
-  const {
-    start,
-  } = entryState.taskEntryData
-  
-  const startDate = moment(start)
-    .format(`YYYY-MM-DD`)
+    const {
+      data: {
+        projects,
+      },
+    } = await api.trackingGetEmployeeProjectsByPeriod({
+      startDate,
+      endDate: startDate,
+    })
 
-  const {
-    data: {
+    entryState.setProjects({
       projects,
-    },
-  } = await api.trackingGetEmployeeProjectsByPeriod({
-    startDate,
-    endDate: startDate,
-  })
-
-  entryState.setProjects({
-    projects,
-  })
-}
-
-async function initializeExistingEntryAsync({
-  entryId,
-  entryState,
-}: {
-  entryId: number,
-  entryState: TaskEntryState,
-}) {
-  const {
-    data: taskEntry,
-  } = await api.trackingGetTaskEntry(entryId)
-
-  entryState.initializeExistingEntry({
-    taskEntry: {
-      id: taskEntry.id,
-      title: taskEntry.title,
-      taskId: taskEntry.taskId,
-      description: taskEntry.description,
-      projectId: taskEntry.projectId,
-      date: new Date(taskEntry.startTime),
-      start: new Date(taskEntry.startTime),
-      end: new Date(taskEntry.endTime),
-    },
-  })
+    })
+  }
 }

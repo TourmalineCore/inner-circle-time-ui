@@ -1,19 +1,46 @@
 import { ReactNode } from "react"
 import { EntryType } from "../../../../../common/constants/entryType"
-import { AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY } from "./entry-strategies/awayWithMakeUpTimeEntryStrategy"
-import { TASK_ENTRY_STRATEGY } from "./entry-strategies/taskEntryStrategy"
-import { UNWELL_ENTRY_STRATEGY } from "./entry-strategies/unwellEntryStrategy"
+import { AwayWithMakeUpTimeEntryStrategy } from "./entry-strategies/awayWithMakeUpTimeEntryStrategy"
+import { TaskEntryStrategy } from "./entry-strategies/taskEntryStrategy"
+import { UnwellEntryStrategy } from "./entry-strategies/unwellEntryStrategy"
+import { MakeUpTimeEntryStrategy } from "./entry-strategies/makeUpTimeEntryStrategy"
+export class EntryTypesStrategy {
+  static create({
+    entryType,
+    relatedEntryId,
+    relatedEntryType,
+  }: {
+    entryType: EntryType,
+    relatedEntryId?: number,
+    relatedEntryType?: EntryType,
+  }) {
+    switch (entryType) {
+      case EntryType.TASK:
+        return new TaskEntryStrategy()
 
-export const ENTRY_TYPES_STRATEGY: Record<number, EntryStrategy> = {
-  [EntryType.TASK]: TASK_ENTRY_STRATEGY,
-  [EntryType.UNWELL]: UNWELL_ENTRY_STRATEGY,
-  [EntryType.AWAY_WITH_MAKE_UP_TIME]: AWAY_WITH_MAKE_UP_TIME_ENTRY_STRATEGY,
+      case EntryType.UNWELL:
+        return new UnwellEntryStrategy()
+
+      case EntryType.AWAY_WITH_MAKE_UP_TIME:
+        return new AwayWithMakeUpTimeEntryStrategy()
+        
+      case EntryType.MAKE_UP_TIME:
+        return new MakeUpTimeEntryStrategy({
+          relatedEntryId: relatedEntryId!,
+          relatedEntryType: relatedEntryType!,
+        })
+
+      default:
+        throw new Error(`Unsupported entry type: ${entryType}`)
+    }
+  }
 }
 
 export type EntryStrategy = { 
+  type: EntryType,
   entryStateConstructor: any,
   StateContext: React.Context<any>,
-  EntryContent (): ReactNode,
+  EntryContent: (props: any) => ReactNode,
   validateOnClient: ({
     entryState,
   }: {

@@ -22,7 +22,7 @@ export const EntryModalContainer = observer(({
     type,
   } = entryModalState
 
-  const id = currentEntry?.id
+  const id = currentEntry?.relatedEntryId || currentEntry?.id
 
   const isExistingEntry = !!id
 

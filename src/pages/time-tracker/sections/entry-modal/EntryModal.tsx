@@ -1,9 +1,9 @@
 import { useContext, useEffect, useMemo, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategies/entryTypesStrategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { DeleteModal } from "./sections/DeleteModal/DeleteModal"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
+import { EntryTypesStrategy } from "./entry-types-strategies/entryTypesStrategy"
 
 export const EntryModal = observer(() => {
   const entryModalState = useContext(EntryModalStateContext)
@@ -12,26 +12,26 @@ export const EntryModal = observer(() => {
     currentEntry,
     type,
   } = entryModalState
-
-  useEffect(() => {
-    if (currentEntry?.type) {
-      entryModalState.setType({
-        type: currentEntry.type,
-      })
-    }
-  }, [
-    currentEntry?.type,
-  ])
-
-  const entryStrategy = ENTRY_TYPES_STRATEGY[currentEntry?.type || type]
+  
+  const entryStrategy = EntryTypesStrategy.create({
+    entryType: currentEntry?.type || type,
+    relatedEntryId: currentEntry?.relatedEntryId,
+    relatedEntryType: currentEntry?.relatedEntryType,
+  })
 
   const entryState = useMemo(
     () => new entryStrategy.entryStateConstructor(),
-    [],
+    [
+      type,
+    ],
   )
 
+  useEffect(() => {
+    entryModalState.setType({
+      type: entryStrategy.type,
     })
   }, [
+    entryStrategy.type,
   ])
 
   useEffect(() => {

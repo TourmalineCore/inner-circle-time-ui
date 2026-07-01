@@ -4,8 +4,8 @@ import { EntryTypesStrategy } from "../../entry-types-strategies/entryTypesStrat
 import { EntryModalContainer } from "../../EntryModalContainer"
 import { EntryModalState } from "../../state/EntryModalState"
 import { EntryModalStateContext } from "../../state/EntryModalStateContext"
-import { TaskEntryState } from "./state/TaskEntryState"
-import { TaskEntryStateContext } from "./state/TaskEntryStateContext"
+import { TaskEntryState } from "../TaskEntry/state/TaskEntryState"
+import { TaskEntryStateContext } from "../TaskEntry/state/TaskEntryStateContext"
 
 describe(`TaskEntry`, () => {   
   describe(`Client validation`, clientValidation)

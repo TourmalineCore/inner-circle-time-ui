@@ -1,6 +1,4 @@
 import { TrackingPageActions } from "../../../../../../../cypress/pagesActions/TrackingPageActions"
-import { EntryType } from "../../../../../../common/constants/entryType"
-import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategies/entryTypesStrategy"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
@@ -36,7 +34,7 @@ function mountComponent() {
     .mount(
       <DeleteModalStateContext.Provider value={deleteModalState}>
         <DeleteModalContent 
-          label={ENTRY_TYPES_STRATEGY[EntryType.TASK].label}
+          label={``}
           onSubmitDeletionReason={() => {}}
           closeDeleteModal={closeDeleteModal}
         />,

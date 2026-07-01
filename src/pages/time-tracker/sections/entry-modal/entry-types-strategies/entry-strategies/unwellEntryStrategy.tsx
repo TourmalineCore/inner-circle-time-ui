@@ -7,20 +7,50 @@ import { UnwellEntryStateContext } from "../../sections/UnwellEntry/state/Unwell
 import { UnwellEntryContent } from "../../sections/UnwellEntry/UnwellEntryContent"
 import { EntryType } from "../../../../../../common/constants/entryType"
 
-export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
-  type: EntryType.UNWELL,
-  entryStateConstructor: UnwellEntryState,
-  StateContext: UnwellEntryStateContext,
-  EntryContent: () => <UnwellEntryContent />,
-  validateOnClient: () => validateUnwellEntry(),
-  buildRequestData: ({
-    entryState,
-  }: {
-    entryState: UnwellEntryState,
-  }) => buildUnwellEntryRequest({
+export class UnwellEntryStrategy implements EntryStrategy {
+  readonly type = EntryType.UNWELL
+  readonly entryStateConstructor = UnwellEntryState
+  readonly StateContext = UnwellEntryStateContext
+  readonly EntryContent = () => <UnwellEntryContent />
+  
+  modalConfiguration = {
+    label: ``,
+    hasCopyButton: true,
+    hasDeleteButton: true,
+  }
+
+  validateOnClient() {
+    return true
+  }
+
+  buildRequestData({
     entryState, 
-  }),
-  initializeNewEntry: ({
+  }: { 
+    entryState: UnwellEntryState,
+  }) {
+    const {
+      date,
+      start,
+      end,
+    } = entryState.unwellEntryData
+      
+    const startDateTime = concatDateAndTime({
+      date: date!,
+      time: start!,
+    })
+
+    const endDateTime = concatDateAndTime({
+      date: date!,
+      time: end!,
+    })
+
+    return {
+      startTime: startDateTime,
+      endTime: endDateTime,
+    }
+  }
+
+  initializeNewEntry({
     startTime,
     endTime,
     entryState,
@@ -28,91 +58,53 @@ export const UNWELL_ENTRY_STRATEGY: EntryStrategy = {
     startTime: Date,
     endTime: Date,
     entryState: UnwellEntryState,
-  }) => {
+  }) {
     entryState.initializeNewEntry({
       startTime,
       endTime,
     })
-  },
-  initializeExistingEntryAsync: ({
-    entryId, 
+  }
+
+  async initializeExistingEntryAsync({
+    entryId,
     entryState,
   }: {
     entryId: number,
     entryState: UnwellEntryState,
-  }) => initializeExistingEntry({
-    entryId,
-    entryState,
-  }),
-  createEntryAsync: ({
+  }) {
+    const {
+      data: unwellEntry,
+    } = await api.trackingGetUnwellntry(entryId)
+
+    entryState.initializeExistingEntry({
+      unwellEntry: {
+        id: unwellEntry.id,
+        date: new Date(unwellEntry.startTime),
+        start: new Date(unwellEntry.startTime),
+        end: new Date(unwellEntry.endTime),
+      },
+    })
+  }
+
+  async createEntryAsync({
     requestData,
   }: {
     requestData: CreateUnwellEntryRequest,
-  }) => api.trackingCreateUnwellEntry(requestData),
-  updateEntryAsync: ({
+  }) {
+    return api.trackingCreateUnwellEntry(requestData)
+  }
+
+  async updateEntryAsync({
     id,
     requestData,
   }: {
     id: number,
     requestData: UpdateUnwellEntryRequest,
-  }) => api.trackingUpdateUnwellEntry(id, requestData),
-  loadProjectsAsync: async () => {},
-  modalConfiguration: {
-    label: ``,
-    hasCopyButton: true,
-    hasDeleteButton: true,
-  },
-}
-
-async function initializeExistingEntry({
-  entryId,
-  entryState,
-}: {
-  entryId: number,
-  entryState: UnwellEntryState,
-}) {
-  const {
-    data: unwellEntry,
-
-  } = await api.trackingGetUnwellntry(entryId)
-
-  entryState.initializeExistingEntry({
-    unwellEntry: {
-      id: unwellEntry.id,
-      date: new Date(unwellEntry.startTime),
-      start: new Date(unwellEntry.startTime),
-      end: new Date(unwellEntry.endTime),
-    },
-  })
-}
-
-function buildUnwellEntryRequest({
-  entryState,
-}: {
-  entryState: UnwellEntryState,
-}) {
-  const {
-    date,
-    start,
-    end,
-  } = entryState.unwellEntryData
-    
-  const startDateTime = concatDateAndTime({
-    date: date!,
-    time: start!,
-  })
-
-  const endDateTime = concatDateAndTime({
-    date: date!,
-    time: end!,
-  })
-
-  return {
-    startTime: startDateTime,
-    endTime: endDateTime,
+  }) {
+    return api.trackingUpdateUnwellEntry(id, requestData)
   }
-}
 
-function validateUnwellEntry() {
-  return true
+  async loadProjectsAsync(){
+    return
+  }
 }
