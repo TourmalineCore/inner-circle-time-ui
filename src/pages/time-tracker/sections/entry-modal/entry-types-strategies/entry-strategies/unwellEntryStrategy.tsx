@@ -43,7 +43,7 @@ export class UnwellEntryStrategy implements EntryStrategy {
   }) {
     const {
       data: unwellEntry,
-    } = await api.trackingGetUnwellntry(entryId)
+    } = await api.trackingGetUnwellEntry(entryId)
 
     entryState.initializeExistingEntry({
       unwellEntry: {
