@@ -19,7 +19,6 @@ export class TaskEntryState {
 
   private _projects: ProjectDto[] = []
 
-  private _isSaving = false    
   private _isTriedToSubmit = false  
 
   constructor() {
@@ -32,10 +31,6 @@ export class TaskEntryState {
 
   get projects() {
     return this._projects
-  }
-
-  get isSaving() {
-    return this._isSaving
   }
 
   get isTriedToSubmit() {
@@ -76,6 +71,25 @@ export class TaskEntryState {
     }
   }
 
+  initializeNewEntry({
+    taskEntry,
+  }: {
+    taskEntry: TaskEntryData,
+  }) {
+    this._taskEntryData = {
+      ...EMPTY_TASK_ENTRY_DATA,
+      ...taskEntry,
+    }
+  }
+
+  initializeExistingEntry({
+    taskEntry,
+  }: {
+    taskEntry: TaskEntryData,
+  }) {
+    this._taskEntryData = taskEntry
+  }
+
   updateTaskEntryData({
     taskEntryData,
   }: {
@@ -95,19 +109,7 @@ export class TaskEntryState {
     this._projects = projects
   }
 
-  setIsSaving() {
-    this._isSaving = true
-  }
-
-  resetIsSaving() {
-    this._isSaving = false
-  }
-
   setIsTriedToSubmit() {
     this._isTriedToSubmit = true
-  }
-
-  resetIsTriedToSubmit() {
-    this._isTriedToSubmit = false
   }
 }

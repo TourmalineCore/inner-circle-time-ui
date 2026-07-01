@@ -1,13 +1,13 @@
 import { observer } from "mobx-react-lite"
 import { useContext, useEffect, useState } from "react"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
-import moment from "moment"
 import { api } from "../../../../common/api/api"
 import { Views } from "react-big-calendar"
 import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { eventBus, EventBusType } from "../../event-bus"
 import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
 import { TrackedEntry } from "../../types"
+import { EntryMapper } from "./mapper/entryMapper"
 
 export const TimeTrackerTableContainer = observer(({
   isCopyMode,
@@ -82,7 +82,7 @@ export const TimeTrackerTableContainer = observer(({
 
     async function loadedEntries() {
       const {
-        data,
+        data: entries,
       } = await api.trackingGetEntriesByPeriod({
         startDate: viewStartDate as string,
         endDate: viewEndDate as string,
@@ -97,42 +97,12 @@ export const TimeTrackerTableContainer = observer(({
         endDate: viewEndDate!,
       })
 
-      const taskEntries = data
-        .taskEntries
-        .map((taskEntry) => ({
-          id: taskEntry.id,
-          taskId: taskEntry.taskId,
-          description: taskEntry.description,
-          project: projects.find((project) => project.id === taskEntry.projectId)!,
-          title: taskEntry.title,
-          type: taskEntry.type,
-          date: moment(taskEntry.startTime)
-            .toDate(),
-          start: moment(taskEntry.startTime)
-            .toDate(),
-          end: moment(taskEntry.endTime)
-            .toDate(),
-        }))
-
-      const unwellEntries = data
-        .unwellEntries
-        .map((unwellEntry) => ({
-          id: unwellEntry.id,
-          type: unwellEntry.type,
-          date: moment(unwellEntry.startTime)
-            .toDate(),
-          start: moment(unwellEntry.startTime)
-            .toDate(),
-          end: moment(unwellEntry.endTime)
-            .toDate(),
-        })) 
-
       timeTrackerState.initialize({
         loadedData: {
-          entries: [
-            ...taskEntries,
-            ...unwellEntries,
-          ], 
+          entries: EntryMapper.toEntryList({
+            entries,
+            projects,
+          }), 
         },
       })
     }
@@ -147,9 +117,9 @@ export const TimeTrackerTableContainer = observer(({
   return (
     <TimeTrackerTableContent
       isCopyMode={isCopyMode}
+      openEntry={openEntry}
       createCopyEntry={createCopyEntry}
       createNewEntry={createNewEntry}
-      openEntry={openEntry}
       resetIsCopyMode={resetIsCopyMode}
     />
   )

@@ -4,12 +4,12 @@ import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
 import { DeleteModalContainer } from "./DeleteModalContainer"
 
 export function DeleteModal({
-  id,
+  entryId,
   label,
   closeEntryModal,
   closeDeleteModal,
 }: {
-  id: number,
+  entryId: number,
   label: string,
   closeEntryModal: () => unknown,
   closeDeleteModal: () => unknown,
@@ -22,7 +22,7 @@ export function DeleteModal({
   return (
     <DeleteModalStateContext.Provider value={deleteModalState}>
       <DeleteModalContainer 
-        id={id}
+        entryId={entryId}
         label={label}
         closeEntryModal={closeEntryModal}
         closeDeleteModal={closeDeleteModal}

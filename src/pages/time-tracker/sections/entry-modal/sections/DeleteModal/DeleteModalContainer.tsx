@@ -6,12 +6,12 @@ import { observer } from "mobx-react-lite"
 import { eventBus, EventBusType } from "../../../../event-bus"
 
 export const DeleteModalContainer = observer(({
-  id,
+  entryId,
   label,
   closeEntryModal,
   closeDeleteModal,
 }: {
-  id: number,
+  entryId: number,
   label: string,
   closeEntryModal: () => unknown,
   closeDeleteModal: () => unknown,
@@ -39,7 +39,7 @@ export const DeleteModalContainer = observer(({
     }
 
     await api.trackingSoftDeleteEntry(
-      id,
+      entryId,
       {
         deletionReason,
       },

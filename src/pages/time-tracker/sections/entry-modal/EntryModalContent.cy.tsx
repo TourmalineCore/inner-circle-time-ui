@@ -7,6 +7,7 @@ describe(`EntryModalContent`, () => {
   describe(`Function Call`, functionCallTests)
   describe(`Is Existing Modal Entry`, isExistingModalEntryTests)
   describe(`Is Disabled Types Select`, isDisabledTypesSelectTests)
+  describe(`Button visibility`, buttonVisibilityTests)
 })
 
 function functionCallTests() {
@@ -121,10 +122,52 @@ function isDisabledTypesSelectTests() {
   })
 }
 
+function buttonVisibilityTests() {
+  it(`
+  GIVEN opened entry modal
+  WHEN hasDeleteButton = true
+  AND hasCopyButton = true
+  SHOULD render delete and copy buttons
+  `, () => {
+    mountComponent({
+      isExistingEntry: true,
+    })
+
+    TrackingPageActions.getEntryModalCopyButton()
+      .should(`exist`)
+
+    TrackingPageActions.getEntryModalDeleteButton()
+      .should(`exist`)
+  })
+
+  it(`
+  GIVEN opened entry modal
+  WHEN hasDeleteButton = false
+  AND hasCopyButton = false
+  SHOULD not render delete and copy buttons
+  `, () => {
+    mountComponent({
+      hasDeleteButton: false,
+      hasCopyButton: false,
+      isExistingEntry: true,
+    })
+
+    TrackingPageActions.getEntryModalCopyButton()
+      .should(`not.exist`)
+
+    TrackingPageActions.getEntryModalDeleteButton()
+      .should(`not.exist`)
+  })
+}
+
 function mountComponent({
+  hasDeleteButton = true,
+  hasCopyButton = true,
   isDisabledTypesSelect = false,
   isExistingEntry = false,
 }: {
+  hasDeleteButton?: boolean,
+  hasCopyButton?: boolean,
   isDisabledTypesSelect?: boolean,
   isExistingEntry?: boolean,
 } = {}) {
@@ -151,6 +194,8 @@ function mountComponent({
           isExistingEntry={isExistingEntry}
           onSubmitEntry={() => {}}
           buttonLabel={``}
+          hasDeleteButton={hasDeleteButton}
+          hasCopyButton={hasCopyButton}
           openDeleteModal={openDeleteModal}
         />
       </EntryModalStateContext.Provider>,
