@@ -19,37 +19,6 @@ export class UnwellEntryStrategy implements EntryStrategy {
     hasDeleteButton: true,
   }
 
-  validateOnClient() {
-    return true
-  }
-
-  buildRequestData({
-    entryState, 
-  }: { 
-    entryState: UnwellEntryState,
-  }) {
-    const {
-      date,
-      start,
-      end,
-    } = entryState.unwellEntryData
-      
-    const startDateTime = concatDateAndTime({
-      date: date!,
-      time: start!,
-    })
-
-    const endDateTime = concatDateAndTime({
-      date: date!,
-      time: end!,
-    })
-
-    return {
-      startTime: startDateTime,
-      endTime: endDateTime,
-    }
-  }
-
   initializeNewEntry({
     startTime,
     endTime,
@@ -102,6 +71,37 @@ export class UnwellEntryStrategy implements EntryStrategy {
     requestData: UpdateUnwellEntryRequest,
   }) {
     return api.trackingUpdateUnwellEntry(id, requestData)
+  }
+
+  buildRequestData({
+    entryState, 
+  }: { 
+    entryState: UnwellEntryState,
+  }) {
+    const {
+      date,
+      start,
+      end,
+    } = entryState.unwellEntryData
+      
+    const startDateTime = concatDateAndTime({
+      date: date!,
+      time: start!,
+    })
+
+    const endDateTime = concatDateAndTime({
+      date: date!,
+      time: end!,
+    })
+
+    return {
+      startTime: startDateTime,
+      endTime: endDateTime,
+    }
+  }
+
+  validateOnClient() {
+    return true
   }
 
   async loadProjectsAsync(){

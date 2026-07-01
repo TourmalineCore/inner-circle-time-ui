@@ -18,64 +18,6 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
     hasDeleteButton: true,
   }
 
-  validateOnClient({
-    entryState,
-  }: {
-    entryState: AwayWithMakeUpTimeEntryState,
-  }) {
-    entryState.setIsTriedToSubmit()
-
-    if (!entryState.isValid) {
-      return false
-    }
-    
-    return true
-  }
-
-  buildRequestData({
-    entryState,
-  }: {
-    entryState: AwayWithMakeUpTimeEntryState,
-  }) {
-    const {
-      date,
-      start,
-      end,
-      description,
-      makeUpTimeList,
-    } = entryState.awayWithMakeUpTimeEntryData
-      
-    const startDateTime = concatDateAndTime({
-      date: date!,
-      time: start!,
-    })
-
-    const endDateTime = concatDateAndTime({
-      date: date!,
-      time: end!,
-    })
-
-    return {
-      startTime: startDateTime,
-      endTime: endDateTime,
-      description,
-      makeUpTimeList: makeUpTimeList.map(({
-        date,
-        startTime,
-        endTime,
-      }) => ({
-        startTime: concatDateAndTime({
-          date: date!,
-          time: startTime!,
-        }),
-        endTime: concatDateAndTime({
-          date: date!,
-          time: endTime!,
-        }),
-      })),
-    }
-  }
-
   initializeNewEntry({
     startTime,
     endTime,
@@ -140,6 +82,64 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
     requestData: UpdateAwayWithMakeUpTimeEntryRequest,
   }) {
     return api.trackingUpdateAwayWithMakeUpTimeEntry(id, requestData)
+  }
+
+  validateOnClient({
+    entryState,
+  }: {
+    entryState: AwayWithMakeUpTimeEntryState,
+  }) {
+    entryState.setIsTriedToSubmit()
+
+    if (!entryState.isValid) {
+      return false
+    }
+    
+    return true
+  }
+
+  buildRequestData({
+    entryState,
+  }: {
+    entryState: AwayWithMakeUpTimeEntryState,
+  }) {
+    const {
+      date,
+      start,
+      end,
+      description,
+      makeUpTimeList,
+    } = entryState.awayWithMakeUpTimeEntryData
+      
+    const startDateTime = concatDateAndTime({
+      date: date!,
+      time: start!,
+    })
+
+    const endDateTime = concatDateAndTime({
+      date: date!,
+      time: end!,
+    })
+
+    return {
+      startTime: startDateTime,
+      endTime: endDateTime,
+      description,
+      makeUpTimeList: makeUpTimeList.map(({
+        date,
+        startTime,
+        endTime,
+      }) => ({
+        startTime: concatDateAndTime({
+          date: date!,
+          time: startTime!,
+        }),
+        endTime: concatDateAndTime({
+          date: date!,
+          time: endTime!,
+        }),
+      })),
+    }
   }
 
   async loadProjectsAsync() {

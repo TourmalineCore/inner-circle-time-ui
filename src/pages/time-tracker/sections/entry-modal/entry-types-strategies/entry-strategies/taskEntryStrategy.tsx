@@ -19,55 +19,6 @@ export class TaskEntryStrategy implements EntryStrategy {
     hasDeleteButton: true,
   }
 
-  validateOnClient({
-    entryState, 
-  }: { 
-    entryState: TaskEntryState,
-  }) {
-    entryState.setIsTriedToSubmit()
-
-    if (!entryState.isValid) {
-      return false
-    }
-    
-    return true
-  }
-
-  buildRequestData({
-    entryState, 
-  }: {
-    entryState: TaskEntryState,
-  }) {
-    const {
-      title,
-      taskId,
-      description,
-      projectId,
-      date,
-      start,
-      end,
-    } = entryState.taskEntryData
-      
-    const startDateTime = concatDateAndTime({
-      date: date!,
-      time: start!,
-    })
-      
-    const endDateTime = concatDateAndTime({
-      date: date!,
-      time: end!,
-    })
-      
-    return {
-      title,
-      taskId,
-      description,
-      projectId,
-      startTime: startDateTime,
-      endTime: endDateTime,
-    }
-  }
-
   initializeNewEntry({
     startTime,
     endTime,
@@ -150,5 +101,54 @@ export class TaskEntryStrategy implements EntryStrategy {
     entryState.setProjects({
       projects,
     })
+  }
+
+  buildRequestData({
+    entryState, 
+  }: {
+    entryState: TaskEntryState,
+  }) {
+    const {
+      title,
+      taskId,
+      description,
+      projectId,
+      date,
+      start,
+      end,
+    } = entryState.taskEntryData
+      
+    const startDateTime = concatDateAndTime({
+      date: date!,
+      time: start!,
+    })
+      
+    const endDateTime = concatDateAndTime({
+      date: date!,
+      time: end!,
+    })
+      
+    return {
+      title,
+      taskId,
+      description,
+      projectId,
+      startTime: startDateTime,
+      endTime: endDateTime,
+    }
+  }
+
+  validateOnClient({
+    entryState, 
+  }: { 
+    entryState: TaskEntryState,
+  }) {
+    entryState.setIsTriedToSubmit()
+
+    if (!entryState.isValid) {
+      return false
+    }
+    
+    return true
   }
 }

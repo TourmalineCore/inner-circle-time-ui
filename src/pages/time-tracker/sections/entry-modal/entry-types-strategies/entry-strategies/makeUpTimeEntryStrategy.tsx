@@ -53,26 +53,6 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
     })
   }
 
-  validateOnClient({
-    entryState, 
-  }: { 
-    entryState: any,
-  }) {
-    return this._relatedEntryStrategy.validateOnClient({
-      entryState,
-    })
-  }
-
-  buildRequestData({
-    entryState, 
-  }: { 
-    entryState: any,
-  }) {
-    return this._relatedEntryStrategy.buildRequestData({
-      entryState,
-    })
-  }
-
   async initializeExistingEntryAsync({
     entryState,
   }: {
@@ -92,6 +72,26 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
     return this._relatedEntryStrategy.updateEntryAsync({
       id: this._relatedEntryId,
       requestData,
+    })
+  }
+
+  validateOnClient({
+    entryState, 
+  }: { 
+    entryState: any,
+  }) {
+    return this._relatedEntryStrategy.validateOnClient({
+      entryState,
+    })
+  }
+
+  buildRequestData({
+    entryState, 
+  }: { 
+    entryState: any,
+  }) {
+    return this._relatedEntryStrategy.buildRequestData({
+      entryState,
     })
   }
 
