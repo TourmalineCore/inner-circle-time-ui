@@ -134,10 +134,6 @@ async function loadProjectsAsync({
   const {
     start,
   } = entryState.taskEntryData
-
-  if (start === null) {
-    return  
-  } 
   
   const startDate = moment(start)
     .format(`YYYY-MM-DD`)

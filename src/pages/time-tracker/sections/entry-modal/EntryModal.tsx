@@ -25,18 +25,13 @@ export const EntryModal = observer(() => {
 
   const entryStrategy = ENTRY_TYPES_STRATEGY[currentEntry?.type || type]
 
-  const entryState = useMemo(() => {
-    const state = new entryStrategy.entryStateConstructor()
+  const entryState = useMemo(
+    () => new entryStrategy.entryStateConstructor(),
+    [],
+  )
 
-    entryStrategy.initializeNewEntry({
-      startTime: currentEntry!.start,
-      endTime: currentEntry!.end,
-      entryState: state,
     })
-  
-    return state
   }, [
-    type,
   ])
 
   useEffect(() => {

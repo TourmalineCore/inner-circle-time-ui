@@ -27,16 +27,27 @@ export const EntryModalContainer = observer(({
   const isExistingEntry = !!id
 
   useEffect(() => {
-    if (isExistingEntry) {
-      entryStrategy.initializeExistingEntryAsync({
-        entryId: id,
+    async function initializeEntry() {
+      if (isExistingEntry) {
+        await entryStrategy.initializeExistingEntryAsync({
+          entryId: id,
+          entryState,
+        })
+      }
+      else {
+        entryStrategy.initializeNewEntry({
+          startTime: currentEntry!.start,
+          endTime: currentEntry!.end,
+          entryState,
+        })
+      }
+
+      await entryStrategy.loadProjectsAsync({
         entryState,
       })
     }
-
-    entryStrategy.loadProjectsAsync({
-      entryState,
-    })
+   
+    initializeEntry()
   }, [
     type,
   ])
