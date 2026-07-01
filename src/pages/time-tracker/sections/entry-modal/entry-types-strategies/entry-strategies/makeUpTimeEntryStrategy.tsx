@@ -3,7 +3,6 @@ import { AwayWithMakeUpTimeEntryStrategy } from "./awayWithMakeUpTimeEntryStrate
 import { EntryType } from "../../../../../../common/constants/entryType"
 
 export class MakeUpTimeEntryStrategy implements EntryStrategy {
-  readonly type = EntryType.MAKE_UP_TIME
   readonly modalConfiguration = {
     label: ``,
     hasCopyButton: false,
@@ -42,6 +41,10 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
 
   get StateContext() {
     return this._relatedEntryStrategy.StateContext
+  }
+
+  get entryType() {
+    return this._relatedEntryStrategy.entryType
   }
 
   get EntryContent() {

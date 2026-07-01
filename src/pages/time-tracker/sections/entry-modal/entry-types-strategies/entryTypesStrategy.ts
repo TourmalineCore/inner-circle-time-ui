@@ -37,10 +37,10 @@ export class EntryTypesStrategy {
 }
 
 export type EntryStrategy = { 
-  type: EntryType,
+  entryType: EntryType,
   entryStateConstructor: any,
   StateContext: React.Context<any>,
-  EntryContent: (props: any) => ReactNode,
+  EntryContent: (props?: any) => ReactNode,
   validateOnClient: ({
     entryState,
   }: {

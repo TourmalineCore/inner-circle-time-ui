@@ -11,6 +11,8 @@ export type TrackedEntry = {
   date: Date | null,
   start: Date,
   end: Date,
+  relatedEntryId?: number,
+  relatedEntryType?: number,
   makeUpTimeList?: MakeUpTimeEntry[],
 }
 

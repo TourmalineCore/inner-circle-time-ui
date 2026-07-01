@@ -9,7 +9,7 @@ import { TaskEntryContent } from "../../sections/TaskEntry/TaskEntryContent"
 import { EntryType } from "../../../../../../common/constants/entryType"
 
 export class TaskEntryStrategy implements EntryStrategy {
-  readonly type = EntryType.TASK
+  readonly entryType = EntryType.TASK
   readonly entryStateConstructor = TaskEntryState
   readonly StateContext = TaskEntryStateContext
   readonly EntryContent = () => <TaskEntryContent />

@@ -8,7 +8,7 @@ import { AwayWithMakeUpTimeEntryContent } from "../../sections/AwayWithMakeUpTim
 import { EntryType } from "../../../../../../common/constants/entryType"
 
 export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
-  readonly type = EntryType.AWAY_WITH_MAKE_UP_TIME
+  readonly entryType = EntryType.AWAY_WITH_MAKE_UP_TIME
   readonly entryStateConstructor = AwayWithMakeUpTimeEntryState
   readonly StateContext = AwayWithMakeUpTimeEntryStateContext
   readonly EntryContent = (props: any) => <AwayWithMakeUpTimeEntryContent {...props} />

@@ -28,10 +28,10 @@ export const EntryModal = observer(() => {
 
   useEffect(() => {
     entryModalState.setType({
-      type: entryStrategy.type,
+      type: entryStrategy.entryType,
     })
   }, [
-    entryStrategy.type,
+    entryStrategy.entryType,
   ])
 
   useEffect(() => {

@@ -8,7 +8,7 @@ import { UnwellEntryContent } from "../../sections/UnwellEntry/UnwellEntryConten
 import { EntryType } from "../../../../../../common/constants/entryType"
 
 export class UnwellEntryStrategy implements EntryStrategy {
-  readonly type = EntryType.UNWELL
+  readonly entryType = EntryType.UNWELL
   readonly entryStateConstructor = UnwellEntryState
   readonly StateContext = UnwellEntryStateContext
   readonly EntryContent = () => <UnwellEntryContent />

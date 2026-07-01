@@ -107,7 +107,7 @@ export const EntryModalContainer = observer(({
       eventBus.publish(EventBusType.ENTRIES_CHANGED)
       entryModalState.resetCurrentEntry()
 
-      entryState.resetError()
+      entryModalState.resetError()
     }
     catch (error) {
       if (axios.isAxiosError(error)) {
