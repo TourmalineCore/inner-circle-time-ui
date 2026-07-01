@@ -59,7 +59,6 @@ function mountComponent({
           createCopyEntry={() => {}}
           createNewEntry={() => {}}
           openEntry={() => {}}
-          openMakeUpEntry={() => {}}
           resetIsCopyMode={() => {}}
         />
       </TimeTrackerStateContext.Provider>,

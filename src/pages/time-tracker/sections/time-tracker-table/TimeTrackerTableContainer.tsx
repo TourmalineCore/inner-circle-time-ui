@@ -12,7 +12,6 @@ import { EntryMapper } from "./mapper/entryMapper"
 export const TimeTrackerTableContainer = observer(({
   isCopyMode,
   openEntry,
-  openMakeUpEntry,
   createNewEntry,
   createCopyEntry,
   resetIsCopyMode,
@@ -33,11 +32,6 @@ export const TimeTrackerTableContainer = observer(({
     end: Date,
   }) => unknown,
   openEntry: ({
-    entry,
-  }: {
-    entry: TrackedEntry,
-  }) => unknown,
-  openMakeUpEntry: ({
     entry,
   }: {
     entry: TrackedEntry,
@@ -124,7 +118,6 @@ export const TimeTrackerTableContainer = observer(({
     <TimeTrackerTableContent
       isCopyMode={isCopyMode}
       openEntry={openEntry}
-      openMakeUpEntry={openMakeUpEntry}
       createCopyEntry={createCopyEntry}
       createNewEntry={createNewEntry}
       resetIsCopyMode={resetIsCopyMode}
