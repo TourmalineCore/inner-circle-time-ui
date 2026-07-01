@@ -2,13 +2,7 @@ import { EntryStrategy } from "../entryTypesStrategy"
 import { AwayWithMakeUpTimeEntryStrategy } from "./awayWithMakeUpTimeEntryStrategy"
 import { EntryType } from "../../../../../../common/constants/entryType"
 
-export class MakeUpTimeEntryStrategy implements EntryStrategy {
-  readonly modalConfiguration = {
-    label: ``,
-    hasCopyButton: false,
-    hasDeleteButton: false,
-  }
-  
+export class MakeUpTimeEntryStrategy implements EntryStrategy {  
   private _relatedEntryStrategy: EntryStrategy
   private _relatedEntryType: EntryType
 
@@ -28,6 +22,14 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
       
       default:
         throw new Error(`Unsupported related entry type: ${this._relatedEntryType}`)
+    }
+  }
+
+  get modalConfiguration() {
+    return {
+      ...this._relatedEntryStrategy.modalConfiguration,
+      hasCopyButton: false,
+      hasDeleteButton: false,
     }
   }
 
