@@ -22,15 +22,17 @@ export const EntryModalContainer = observer(({
     type,
   } = entryModalState
 
-  const id = currentEntry?.relatedEntryId || currentEntry?.id
+  // For make-up time entry needs relatedEntryId, because when we click on make-up time,
+  // we need to open its related entry modal and get its data
+  const entryId = currentEntry?.relatedEntryId || currentEntry?.id
 
-  const isExistingEntry = !!id
+  const isExistingEntry = !!entryId
 
   useEffect(() => {
     async function initializeEntry() {
       if (isExistingEntry) {
         await entryStrategy.initializeExistingEntryAsync({
-          entryId: id,
+          entryId,
           entryState,
         })
       }
@@ -52,7 +54,7 @@ export const EntryModalContainer = observer(({
     type,
   ])
 
-  const isDisabledTypesSelect = !!id || isCopyMode
+  const isDisabledTypesSelect = !!entryId || isCopyMode
 
   const {
     label,
@@ -91,9 +93,9 @@ export const EntryModalContainer = observer(({
         entryState,
       })
 
-      if (id) {
+      if (isExistingEntry) {
         await entryStrategy.updateEntryAsync({
-          id,
+          entryId,
           requestData,
         })
       }

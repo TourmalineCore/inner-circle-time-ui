@@ -10,17 +10,13 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
   }
   
   private _relatedEntryStrategy: EntryStrategy
-  private _relatedEntryId: number
   private _relatedEntryType: EntryType
 
   constructor({
-    relatedEntryId,
     relatedEntryType,
   }: {
-    relatedEntryId: number,
     relatedEntryType: EntryType,
   }) {
-    this._relatedEntryId = relatedEntryId
     this._relatedEntryType = relatedEntryType
     this._relatedEntryStrategy = this.selectStrategy()
   }
@@ -54,23 +50,27 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
   }
 
   async initializeExistingEntryAsync({
+    entryId,
     entryState,
   }: {
+    entryId: number,
     entryState: any,
   }) {
     return this._relatedEntryStrategy.initializeExistingEntryAsync({
-      entryId: this._relatedEntryId,
+      entryId,
       entryState,
     })
   }
 
   async updateEntryAsync({
+    entryId,
     requestData,
   }:{
+    entryId: number,
     requestData: unknown,
   }) {
     return this._relatedEntryStrategy.updateEntryAsync({
-      id: this._relatedEntryId,
+      entryId,
       requestData,
     })
   }

@@ -63,13 +63,13 @@ export class UnwellEntryStrategy implements EntryStrategy {
   }
 
   async updateEntryAsync({
-    id,
+    entryId,
     requestData,
   }: {
-    id: number,
+    entryId: number,
     requestData: UpdateUnwellEntryRequest,
   }) {
-    return api.trackingUpdateUnwellEntry(id, requestData)
+    return api.trackingUpdateUnwellEntry(entryId, requestData)
   }
 
   buildRequestData({

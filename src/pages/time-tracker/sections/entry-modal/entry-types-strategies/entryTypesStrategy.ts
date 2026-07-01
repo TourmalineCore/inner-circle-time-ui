@@ -7,11 +7,9 @@ import { MakeUpTimeEntryStrategy } from "./entry-strategies/makeUpTimeEntryStrat
 export class EntryTypesStrategy {
   static create({
     entryType,
-    relatedEntryId,
     relatedEntryType,
   }: {
     entryType: EntryType,
-    relatedEntryId?: number,
     relatedEntryType?: EntryType,
   }) {
     switch (entryType) {
@@ -26,7 +24,6 @@ export class EntryTypesStrategy {
         
       case EntryType.MAKE_UP_TIME:
         return new MakeUpTimeEntryStrategy({
-          relatedEntryId: relatedEntryId!,
           relatedEntryType: relatedEntryType!,
         })
 
@@ -73,10 +70,10 @@ export type EntryStrategy = {
     requestData: any,
   }) => Promise<unknown>,
   updateEntryAsync: ({
-    id,
+    entryId,
     requestData,
   }: {
-    id: number,
+    entryId: number,
     requestData: any,
   }) => Promise<unknown>,
   loadProjectsAsync: ({

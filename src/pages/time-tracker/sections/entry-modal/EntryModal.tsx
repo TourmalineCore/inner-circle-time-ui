@@ -15,7 +15,6 @@ export const EntryModal = observer(() => {
   
   const entryStrategy = EntryTypesStrategy.create({
     entryType: currentEntry?.type || type,
-    relatedEntryId: currentEntry?.relatedEntryId,
     relatedEntryType: currentEntry?.relatedEntryType,
   })
 
@@ -64,7 +63,7 @@ export const EntryModal = observer(() => {
       {
         isDeleteModalOpen && (
           <DeleteModal
-            id={currentEntry!.id!}
+            entryId={currentEntry!.id!}
             label={label}
             closeEntryModal={() => entryModalState.closeEntryModal()}
             closeDeleteModal={() => setIsDeleteModalOpen(false)}

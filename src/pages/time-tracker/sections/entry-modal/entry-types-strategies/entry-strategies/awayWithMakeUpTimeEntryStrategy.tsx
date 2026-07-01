@@ -75,13 +75,13 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
   }
 
   async updateEntryAsync({
-    id,
+    entryId,
     requestData,
   }: {
-    id: number,
+    entryId: number,
     requestData: UpdateAwayWithMakeUpTimeEntryRequest,
   }) {
-    return api.trackingUpdateAwayWithMakeUpTimeEntry(id, requestData)
+    return api.trackingUpdateAwayWithMakeUpTimeEntry(entryId, requestData)
   }
 
   validateOnClient({

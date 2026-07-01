@@ -68,13 +68,13 @@ export class TaskEntryStrategy implements EntryStrategy {
   }
 
   async updateEntryAsync({
-    id,
+    entryId,
     requestData,
   }: {
-    id: number,
+    entryId: number,
     requestData: UpdateTaskEntryRequest,
   }) {
-    return api.trackingUpdateTaskEntry(id, requestData)
+    return api.trackingUpdateTaskEntry(entryId, requestData)
   }
 
   async loadProjectsAsync({
