@@ -78,7 +78,7 @@ export const TaskEntryContent = observer(() => {
       <div className='task-entry__field'>
         <label 
           htmlFor="taskId"
-          className='away-with-make-up-time-entry__label'
+          className='task-entry__label'
         >
           Task ID
         </label>
@@ -102,7 +102,7 @@ export const TaskEntryContent = observer(() => {
       <div className='task-entry__field'>
         <label 
           htmlFor="title"
-          className='away-with-make-up-time-entry__label'
+          className='task-entry__label'
         >
           Task name
         </label>
@@ -126,7 +126,7 @@ export const TaskEntryContent = observer(() => {
       <div className='task-entry__field'>
         <label 
           htmlFor="description"
-          className='away-with-make-up-time-entry__label'
+          className='task-entry__label'
         >
           What has been done?
         </label>
