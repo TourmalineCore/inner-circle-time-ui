@@ -8,7 +8,7 @@ describe(`AwayWithMakeUpTimeEntryContent`, () => {
   describe(`Add Make-up Time`, addMakeUpTimeTests)
   describe(`Remove Make-up Time`, removeMakeUpTimeTests)
   describe(`Display Remove Make-up Time Buttons`, displayRemoveMakeUpTimeButtonsTests)
-  describe(`Make-up Time Edit Mode`, makeUpTimeEditModeTests)
+  describe(`Disable Fields`, disableFieldsTests)
 })
 
 function addMakeUpTimeTests() {
@@ -141,11 +141,11 @@ function displayRemoveMakeUpTimeButtonsTests() {
   })
 }
 
-function makeUpTimeEditModeTests() {
+function disableFieldsTests() {
   it(`
-  GIVEN make-up time entry opened
-  WHEN render the component
-  SHOULD disable away fields but the make-up fields not disabled
+  GIVEN away with make-up time opened
+  WHEN render the component with isRelatedEntryFieldsDisabled = true
+  SHOULD disable away fields but the make-up time fields not disabled
   `, () => {
     mountComponent({
       makeUpTimeList: [
@@ -184,8 +184,8 @@ function makeUpTimeEditModeTests() {
 
   it(`
   GIVEN away with make-up time entry opened
-  WHEN render the component
-  SHOULD not disable away fields
+  WHEN render the component with isRelatedEntryFieldsDisabled = true
+  SHOULD disable away fields but the make-up time fields not disabled
   `, () => {
     mountComponent({
       makeUpTimeList: [
