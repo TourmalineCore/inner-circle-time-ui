@@ -12,10 +12,10 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
     relatedEntryType: EntryType,
   }) {
     this._relatedEntryType = relatedEntryType
-    this._relatedEntryStrategy = this.selectStrategy()
+    this._relatedEntryStrategy = this.selectRelatedEntryStrategy()
   }
 
-  private selectStrategy() {
+  private selectRelatedEntryStrategy() {
     switch (this._relatedEntryType) {
       case EntryType.AWAY_WITH_MAKE_UP_TIME:
         return new AwayWithMakeUpTimeEntryStrategy()
