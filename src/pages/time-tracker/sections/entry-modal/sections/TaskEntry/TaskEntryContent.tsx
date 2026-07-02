@@ -43,7 +43,7 @@ export const TaskEntryContent = observer(() => {
             'error': isProjectIdError,
           })} 
           name='project'
-          data-cy="entry-modal-project-select"
+          data-cy="project-select"
           value={projectId}
           onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
@@ -83,7 +83,7 @@ export const TaskEntryContent = observer(() => {
           id="taskId"
           type="text" 
           name="taskId" 
-          data-cy="entry-modal-task-id-input"
+          data-cy="task-id-input"
           value={taskId} 
           onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
@@ -107,7 +107,7 @@ export const TaskEntryContent = observer(() => {
           id="title"
           type="text" 
           name="title" 
-          data-cy="entry-modal-title-input"
+          data-cy="title-input"
           value={title} 
           onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {
@@ -130,7 +130,7 @@ export const TaskEntryContent = observer(() => {
         <textarea 
           id="description" 
           name="description" 
-          data-cy="entry-modal-description-input"
+          data-cy="description-input"
           value={description} 
           onChange={(e) => taskEntryState.updateTaskEntryData({
             taskEntryData: {

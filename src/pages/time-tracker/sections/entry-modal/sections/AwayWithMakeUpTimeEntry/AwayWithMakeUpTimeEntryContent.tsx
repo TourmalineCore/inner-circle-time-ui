@@ -40,7 +40,7 @@ export const AwayWithMakeUpTimeEntryContent = observer(({
         <textarea 
           id="description"
           name="description" 
-          data-cy="entry-modal-description-input"
+          data-cy="description-input"
           value={description} 
           disabled={isRelatedEntryFieldsDisabled}
           onChange={(e) => awayWithMakeUpTimeEntryState.updateAwayWithMakeUpTimeEntryData({

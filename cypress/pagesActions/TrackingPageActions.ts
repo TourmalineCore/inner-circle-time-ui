@@ -27,19 +27,19 @@ export class TrackingPageActions {
   }
 
   static getEntryModalTitleInput() {
-    return cy.getByData(`entry-modal-title-input`)
+    return cy.getByData(`title-input`)
   }
 
   static getEntryModalProjectSelect() {
-    return cy.getByData(`entry-modal-project-select`)
+    return cy.getByData(`project-select`)
   }
 
   static getEntryModalTaskIdInput() {
-    return cy.getByData(`entry-modal-task-id-input`)
+    return cy.getByData(`task-id-input`)
   }
 
   static getEntryModalDescriptionInput() {
-    return cy.getByData(`entry-modal-description-input`)
+    return cy.getByData(`description-input`)
   }
 
   static getCopyAlert() {
@@ -47,15 +47,15 @@ export class TrackingPageActions {
   }
 
   static getEntryModalCopyButton() {
-    return cy.getByData(`entry-modal-copy-button`)
+    return cy.getByData(`copy-button`)
   }
 
   static getEntryModalDeleteButton() {
-    return cy.getByData(`entry-modal-delete-button`)
+    return cy.getByData(`delete-button`)
   }
 
   static getEntryModalTypeSelect() {
-    return cy.getByData(`entry-modal-type-select`)
+    return cy.getByData(`entry-type-select`)
   }
   
   static getEntryModalMakeUpStartTimeInput() {
@@ -78,7 +78,7 @@ export class TrackingPageActions {
 
   static clickByEntryModalSubmitButton() {
     return cy
-      .getByData(`entry-modal-submit-button`)
+      .getByData(`submit-button`)
       .click()
   }
 
