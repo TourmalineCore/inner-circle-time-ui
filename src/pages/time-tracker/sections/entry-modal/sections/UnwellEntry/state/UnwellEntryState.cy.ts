@@ -28,7 +28,7 @@ function initialTests() {
 function initializationTests() {
   it(`
   GIVEN a new UnwellEntryState
-  WHEN initializeNewEntry called with partial data (only date, start, end) as if the user is creating a new unwell entry
+  WHEN initializeEntry called with partial data (only date, start, end) as if the user is creating a new unwell entry
   SHOULD return unwellEntryData with recieved data but the remaining fields must be default
   `, () => {
     const newDate = new Date()
@@ -41,7 +41,7 @@ function initializationTests() {
       end: newDate,
     }
 
-    unwellEntryState.initializeNewEntry({
+    unwellEntryState.initializeEntry({
       unwellEntry: unwellEntryForInitialization as UnwellEntryData,
     })
 
@@ -56,7 +56,7 @@ function initializationTests() {
 
   it(`
   GIVEN a new UnwellEntryState
-  WHEN initializeExistingEntry called as if the user open existing unwell entry
+  WHEN initializeEntry called as if the user open existing unwell entry
   SHOULD return unwellEntryData with the received data
   `, () => {
     const newDate = new Date()
@@ -70,7 +70,7 @@ function initializationTests() {
 
     const unwellEntryState = new UnwellEntryState()
 
-    unwellEntryState.initializeExistingEntry({
+    unwellEntryState.initializeEntry({
       unwellEntry: unwellEntryForInitialization,
     })
     

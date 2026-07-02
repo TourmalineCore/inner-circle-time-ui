@@ -27,7 +27,7 @@ export class TaskEntryStrategy implements EntryStrategy {
     initialEntryData: TrackedEntry,
     entryState: TaskEntryState,
   }) {
-    entryState.initializeNewEntry({
+    entryState.initializeEntry({
       taskEntry: {
         ...initialEntryData,
         projectId: initialEntryData.project?.id || ``,
@@ -46,7 +46,7 @@ export class TaskEntryStrategy implements EntryStrategy {
       data: taskEntry,
     } = await api.trackingGetTaskEntry(entryId)
 
-    entryState.initializeExistingEntry({
+    entryState.initializeEntry({
       taskEntry: {
         id: taskEntry.id,
         title: taskEntry.title,

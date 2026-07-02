@@ -4,6 +4,7 @@ import { AwayWithMakeUpTimeEntryStrategy } from "./entry-strategies/awayWithMake
 import { TaskEntryStrategy } from "./entry-strategies/taskEntryStrategy"
 import { UnwellEntryStrategy } from "./entry-strategies/unwellEntryStrategy"
 import { MakeUpTimeEntryStrategy } from "./entry-strategies/makeUpTimeEntryStrategy"
+
 export class EntryTypesStrategy {
   static create({
     entryType,

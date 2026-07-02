@@ -31,7 +31,7 @@ function initialTests() {
 function initializationTests() {
   it(`
   GIVEN a new TaskEntryState
-  WHEN initializeNewEntry called with partial data (only date, start, end) as if the user is creating a new task entry
+  WHEN initializeEntry called with partial data (only date, start, end) as if the user is creating a new task entry
   SHOULD return taskEntryData with recieved data but the remaining fields must be default
   `, () => {
     const newDate = new Date()
@@ -44,7 +44,7 @@ function initializationTests() {
       end: newDate,
     }
 
-    taskEntryState.initializeNewEntry({
+    taskEntryState.initializeEntry({
       taskEntry: taskEntryForInitialization as TaskEntryData,
     })
 
@@ -59,7 +59,7 @@ function initializationTests() {
 
   it(`
   GIVEN a new TaskEntryState
-  WHEN initializeNewEntry called with all data as if the user is creating a copy task entry
+  WHEN initializeEntry called with all data as if the user is creating a copy task entry
   SHOULD return taskEntryData with recieved data
   `, () => {
     const newDate = new Date()
@@ -76,7 +76,7 @@ function initializationTests() {
       end: newDate,
     }
 
-    taskEntryState.initializeNewEntry({
+    taskEntryState.initializeEntry({
       taskEntry: taskEntryForInitialization,
     })
 
@@ -88,7 +88,7 @@ function initializationTests() {
 
   it(`
   GIVEN a new TaskEntryState
-  WHEN initializeExistingEntry called as if the user open existing task entry
+  WHEN initializeEntry called as if the user open existing task entry
   SHOULD return taskEntryData with the received data
   `, () => {
     const newDate = new Date()
@@ -106,7 +106,7 @@ function initializationTests() {
 
     const taskEntryState = new TaskEntryState()
 
-    taskEntryState.initializeExistingEntry({
+    taskEntryState.initializeEntry({
       taskEntry: taskEntryForInitialization,
     })
     

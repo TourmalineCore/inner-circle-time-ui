@@ -71,7 +71,7 @@ export class TaskEntryState {
     }
   }
 
-  initializeNewEntry({
+  initializeEntry({
     taskEntry,
   }: {
     taskEntry: TaskEntryData,
@@ -80,14 +80,6 @@ export class TaskEntryState {
       ...EMPTY_TASK_ENTRY_DATA,
       ...taskEntry,
     }
-  }
-
-  initializeExistingEntry({
-    taskEntry,
-  }: {
-    taskEntry: TaskEntryData,
-  }) {
-    this._taskEntryData = taskEntry
   }
 
   updateTaskEntryData({

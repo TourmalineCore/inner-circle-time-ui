@@ -26,7 +26,7 @@ export class UnwellEntryStrategy implements EntryStrategy {
     initialEntryData: UnwellEntryData,
     entryState: UnwellEntryState,
   }) {
-    entryState.initializeNewEntry({
+    entryState.initializeEntry({
       unwellEntry: initialEntryData,
     })
   }
@@ -42,7 +42,7 @@ export class UnwellEntryStrategy implements EntryStrategy {
       data: unwellEntry,
     } = await api.trackingGetUnwellEntry(entryId)
 
-    entryState.initializeExistingEntry({
+    entryState.initializeEntry({
       unwellEntry: {
         id: unwellEntry.id,
         date: new Date(unwellEntry.startTime),
