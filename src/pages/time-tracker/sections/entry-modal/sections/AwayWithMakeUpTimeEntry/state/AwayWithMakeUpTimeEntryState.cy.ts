@@ -1,5 +1,5 @@
 import { AwayWithMakeUpTimeEntryData } from "../../../../../types"
-import { AwayWithMakeUpTimeEntryState, EMPTY_AWAY_WITH_MAKE_UP_TIME_ENTRY_DATA, getDefaultTimeForMakeUpTime } from "./AwayWithMakeUpTimeEntryState"
+import { AwayWithMakeUpTimeEntryState, getDefaultTimeForMakeUpTime } from "./AwayWithMakeUpTimeEntryState"
 
 describe(`AwayWithMakeUpTimeEntryState`, () => {
   describe(`Initialization Data`, initializationTests)
@@ -17,19 +17,72 @@ function initializationTests() {
 
     const awayWithMakeUpTimeEntryState = new AwayWithMakeUpTimeEntryState()
 
+    const awayWithMakeUpTimeEntryForInitialization = {
+      date: newDate,
+      start: newDate,
+      end: newDate,
+    }
+
     awayWithMakeUpTimeEntryState.initializeNewEntry({
-      startTime: newDate,
-      endTime: newDate,
+      awayWithMakeUpTimeEntry: awayWithMakeUpTimeEntryForInitialization as AwayWithMakeUpTimeEntryData,
     })
 
     expect(awayWithMakeUpTimeEntryState.awayWithMakeUpTimeEntryData)
       .to
       .deep
       .eq({
-        ...EMPTY_AWAY_WITH_MAKE_UP_TIME_ENTRY_DATA,
-        date: newDate,
-        start: newDate,
-        end: newDate,
+        ...awayWithMakeUpTimeEntryForInitialization,
+        description: ``,
+        makeUpTimeList: [
+          {
+            id: 1,
+            date: null,
+            startTime: getDefaultTimeForMakeUpTime(),
+            endTime: getDefaultTimeForMakeUpTime(),
+          },
+        ],
+      }) 
+  })
+
+  it(`
+  GIVEN a new AwayWithMakeUpTimeEntryState
+  WHEN initialize copy of away entry that contains 2 make-up times
+  SHOULD discard original make-up time list and create a new make-up time list with one default empty make-up time entry
+  `, () => {
+    const newDate = new Date()
+
+    const awayWithMakeUpTimeEntryState = new AwayWithMakeUpTimeEntryState()
+
+    const awayWithMakeUpTimeEntryForInitialization = {
+      date: newDate,
+      start: newDate,
+      end: newDate,
+      description: `Reason`,
+      makeUpTimeList: [
+        {
+          id: 1,
+          date: newDate,
+          startTime: newDate,
+          endTime: newDate,
+        },
+        {
+          id: 2,
+          date: newDate,
+          startTime: newDate,
+          endTime: newDate,
+        },
+      ],
+    }
+
+    awayWithMakeUpTimeEntryState.initializeNewEntry({
+      awayWithMakeUpTimeEntry: awayWithMakeUpTimeEntryForInitialization as AwayWithMakeUpTimeEntryData,
+    })
+
+    expect(awayWithMakeUpTimeEntryState.awayWithMakeUpTimeEntryData)
+      .to
+      .deep
+      .eq({
+        ...awayWithMakeUpTimeEntryForInitialization,
         makeUpTimeList: [
           {
             id: 1,
