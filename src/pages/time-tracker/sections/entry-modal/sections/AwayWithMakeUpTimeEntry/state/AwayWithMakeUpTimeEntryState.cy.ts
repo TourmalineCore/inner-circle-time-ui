@@ -224,7 +224,6 @@ function validationTests() {
     } = createState({
       awayWithMakeUpTimeEntryForInitialization: {
         description: ``,
-        makeUpTimeList: [],
       },
     })
   
@@ -246,7 +245,6 @@ function validationTests() {
     } = createState({
       awayWithMakeUpTimeEntryForInitialization: {
         description: `Description`,
-        makeUpTimeList: [],
       },
     })
   
@@ -328,9 +326,7 @@ function createState({
 }: {
   awayWithMakeUpTimeEntryForInitialization: unknown,
 } = {
-  awayWithMakeUpTimeEntryForInitialization: {
-    makeUpTimeList: [],
-  },
+  awayWithMakeUpTimeEntryForInitialization: {},
 }) {
   const awayWithMakeUpTimeEntryState = new AwayWithMakeUpTimeEntryState()
 
