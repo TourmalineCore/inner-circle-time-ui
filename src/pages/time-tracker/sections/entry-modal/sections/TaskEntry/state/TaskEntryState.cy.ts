@@ -1,7 +1,9 @@
+import { TaskEntryData } from "../../../../../types"
 import { EMPTY_TASK_ENTRY_DATA, TaskEntryState } from "./TaskEntryState"
 
 describe(`TaskEntryState`, () => {
   describe(`Initial Data`, initialTests)
+  describe(`Initialization Data`, initializationTests)
   describe(`Setters Data`, settersTests)
   describe(`Validation`, validationTests)
   describe(`Try To Submit`, tryToSubmitTests)
@@ -23,6 +25,95 @@ function initialTests() {
       .to
       .deep
       .eq(EMPTY_TASK_ENTRY_DATA) 
+  })
+}
+
+function initializationTests() {
+  it(`
+  GIVEN a new TaskEntryState
+  WHEN initializeNewEntry called with partial data (only date, start, end) as if the user is creating a new task entry
+  SHOULD return taskEntryData with recieved data but the remaining fields must be default
+  `, () => {
+    const newDate = new Date()
+
+    const taskEntryState = new TaskEntryState()
+
+    const taskEntryForInitialization = {
+      date: newDate,
+      start: newDate,
+      end: newDate,
+    }
+
+    taskEntryState.initializeNewEntry({
+      taskEntry: taskEntryForInitialization as TaskEntryData,
+    })
+
+    expect(taskEntryState.taskEntryData)
+      .to
+      .deep
+      .eq({
+        ...EMPTY_TASK_ENTRY_DATA,
+        ...taskEntryForInitialization,
+      }) 
+  })
+
+  it(`
+  GIVEN a new TaskEntryState
+  WHEN initializeNewEntry called with all data as if the user is creating a copy task entry
+  SHOULD return taskEntryData with recieved data
+  `, () => {
+    const newDate = new Date()
+
+    const taskEntryState = new TaskEntryState()
+
+    const taskEntryForInitialization = {
+      title: `Task #1`,
+      date: newDate,
+      taskId: `#1`,
+      description: `Task Description`,
+      projectId: 3,
+      start: newDate,
+      end: newDate,
+    }
+
+    taskEntryState.initializeNewEntry({
+      taskEntry: taskEntryForInitialization,
+    })
+
+    expect(taskEntryState.taskEntryData)
+      .to
+      .deep
+      .eq(taskEntryForInitialization) 
+  })
+
+  it(`
+  GIVEN a new TaskEntryState
+  WHEN initializeExistingEntry called as if the user open existing task entry
+  SHOULD return taskEntryData with the received data
+  `, () => {
+    const newDate = new Date()
+
+    const taskEntryForInitialization = {
+      id: 1,
+      title: `Task #1`,
+      date: newDate,
+      taskId: `#1`,
+      description: `Task Description`,
+      projectId: 3,
+      start: newDate,
+      end: newDate,
+    }
+
+    const taskEntryState = new TaskEntryState()
+
+    taskEntryState.initializeExistingEntry({
+      taskEntry: taskEntryForInitialization,
+    })
+    
+    expect(taskEntryState.taskEntryData)
+      .to
+      .deep
+      .eq(taskEntryForInitialization) 
   })
 }
 
