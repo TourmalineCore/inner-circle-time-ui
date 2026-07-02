@@ -7,17 +7,13 @@ describe(`UnwellEntryState`, () => {
 })
 
 function initialTests() {
-  let unwellEntryState: UnwellEntryState
-
-  beforeEach(() => {
-    unwellEntryState = new UnwellEntryState()
-  })
-
   it(`
   GIVEN a new UnwellEntryState
   WHEN initialize
   SHOULD have default values
   `, () => {
+    const unwellEntryState = new UnwellEntryState()
+
     expect(unwellEntryState.unwellEntryData)
       .to
       .deep
@@ -33,16 +29,16 @@ function initializationTests() {
   `, () => {
     const newDate = new Date()
 
-    const unwellEntryState = new UnwellEntryState()
-
     const unwellEntryForInitialization = {
       date: newDate,
       start: newDate,
       end: newDate,
     }
 
-    unwellEntryState.initializeEntry({
-      unwellEntry: unwellEntryForInitialization as UnwellEntryData,
+    const {
+      unwellEntryState,
+    } = createState({
+      unwellEntryForInitialization,
     })
 
     expect(unwellEntryState.unwellEntryData)
@@ -68,10 +64,10 @@ function initializationTests() {
       end: newDate,
     }
 
-    const unwellEntryState = new UnwellEntryState()
-
-    unwellEntryState.initializeEntry({
-      unwellEntry: unwellEntryForInitialization,
+    const {
+      unwellEntryState,
+    } = createState({
+      unwellEntryForInitialization,
     })
     
     expect(unwellEntryState.unwellEntryData)
@@ -79,4 +75,22 @@ function initializationTests() {
       .deep
       .eq(unwellEntryForInitialization) 
   })
+}
+
+function createState({
+  unwellEntryForInitialization,
+}: {
+  unwellEntryForInitialization: unknown,
+} = {
+  unwellEntryForInitialization: {},
+}) {
+  const unwellEntryState = new UnwellEntryState()
+
+  unwellEntryState.initializeEntry({
+    unwellEntry: unwellEntryForInitialization as UnwellEntryData,
+  })
+
+  return {
+    unwellEntryState,
+  }
 }
