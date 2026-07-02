@@ -10,8 +10,8 @@ describe(`AwayWithMakeUpTimeEntryState`, () => {
 function initializationTests() {
   it(`
   GIVEN a new AwayWithMakeUpTimeEntryState
-  WHEN initialize new away with make-up time entry
-  SHOULD return initialize new away with make-up time entry
+  WHEN initializeNewEntry called with partial data (only date, start, end) as if the user is creating a new away with make-up time entry
+  SHOULD return awayWithMakeUpTimeEntryData with recieved data but the remaining fields must be default
   `, () => {
     const newDate = new Date()
 
@@ -46,8 +46,9 @@ function initializationTests() {
 
   it(`
   GIVEN a new AwayWithMakeUpTimeEntryState
-  WHEN initialize copy of away entry that contains 2 make-up times
-  SHOULD discard original make-up time list and create a new make-up time list with one default empty make-up time entry
+  WHEN initializeNewEntry called with all data as if the user is creating a copy away with make-up time entry
+  SHOULD return awayWithMakeUpTimeEntryData with recieved data
+  AND with a new make-up time list with one default empty make-up time entry
   `, () => {
     const newDate = new Date()
 
@@ -96,12 +97,13 @@ function initializationTests() {
 
   it(`
   GIVEN a new AwayWithMakeUpTimeEntryState
-  WHEN initialize existing away with make-up time entry
+  WHEN initializeExistingEntry called as if the user open existing away with make-up time entry
   SHOULD return awayWithMakeUpTimeEntryData with the received data
   `, () => {
     const newDate = new Date()
 
     const awayWithMakeUpTimeEntryForInitialization = {
+      id: 1,
       date: newDate,
       start: newDate,
       end: newDate,
