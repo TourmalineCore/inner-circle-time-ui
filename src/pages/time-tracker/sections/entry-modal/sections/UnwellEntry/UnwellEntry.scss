@@ -10,25 +10,7 @@
     flex-direction: column;
   }
 
-  &__time-spent-container {
-    display: flex;
-  }
-
-  &__time-range {
-    display: flex;
-    gap: 4px;
-  }
-
   &__label {
     font-size: 12px;
-  }
-
-  &__date-field {
-    margin-right: 16px;
-  }
-
-  &__date-field,
-  &__time-field {
-    width: 60px;
   }
 }

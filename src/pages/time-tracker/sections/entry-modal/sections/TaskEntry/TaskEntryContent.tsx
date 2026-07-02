@@ -1,14 +1,11 @@
-import '@tourmalinecore/react-tc-ui-kit/es/index.css'
-import "react-datepicker/dist/react-datepicker.css"
 import './TaskEntry.scss'
 
 import { TaskEntryStateContext } from './state/TaskEntryStateContext'
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import DatePicker from 'react-datepicker'
-import InputMask from 'react-input-mask'
-import { formatTime, parseTimeString } from '../../../../utils/date-and-time'
+import { parseTimeString } from '../../../../utils/date-and-time'
 import clsx from 'clsx'
+import { TimeRange } from '../../../../../../components/TimeRange/TimeRange'
 
 export const TaskEntryContent = observer(() => {
   const taskEntryState = useContext(TaskEntryStateContext)
@@ -147,61 +144,34 @@ export const TaskEntryContent = observer(() => {
       </div>
     
       <div className='task-entry__field'>
-        <span className='task-entry__label'>
-          Time spent
-        </span>
-        <div className='task-entry__completion-time-container'>
-          <DatePicker
-            data-cy="datepicker-input"
-            className='task-entry__date-field'
-            selected={date}
-            dateFormat="dd.MM"
-            onChange={(date) => taskEntryState.updateTaskEntryData({
-              taskEntryData: {
-                date,
-              },
-            })}
-            onKeyDown={(e) => e.preventDefault()}
-          />
-    
-          <div className='task-entry__time-range'>
-            <InputMask
-              data-cy="entry-modal-start-time-input"
-              className='task-entry__time-field'
-              mask="99:99"
-              maskChar="0"
-              value={formatTime({
-                time: start!,
-              })}
-              onChange={(e) => taskEntryState.updateTaskEntryData({
-                taskEntryData: {
-                  start: parseTimeString({
-                    timeString: e.target.value,
-                    originalDate: start!,
-                  }),
-                },
-              })}
-            />
-            {`-`}
-            <InputMask
-              data-cy="entry-modal-end-time-input"
-              className='task-entry__time-field'
-              mask="99:99"
-              maskChar="0"
-              value={formatTime({
-                time: end!,
-              })}
-              onChange={(e) => taskEntryState.updateTaskEntryData({
-                taskEntryData: {
-                  end: parseTimeString({
-                    timeString: e.target.value,
-                    originalDate: end!,
-                  }),
-                },
-              })}
-            />
-          </div>
-        </div>
+        <TimeRange 
+          className='task-entry__time-range'
+          label='Time spent'
+          date={date}
+          startTime={start!}
+          endTime={end!}
+          onChangeDate={(date) => taskEntryState.updateTaskEntryData({
+            taskEntryData: {
+              date,
+            },
+          })}
+          onChangeStartTime={(e) => taskEntryState.updateTaskEntryData({
+            taskEntryData: {
+              start: parseTimeString({
+                timeString: e.target.value,
+                originalDate: start!,
+              }),
+            },
+          })}
+          onChangeEndTime={(e) => taskEntryState.updateTaskEntryData({
+            taskEntryData: {
+              end: parseTimeString({
+                timeString: e.target.value,
+                originalDate: end!,
+              }),
+            },
+          })}
+        />
       </div>
     </div>
   )

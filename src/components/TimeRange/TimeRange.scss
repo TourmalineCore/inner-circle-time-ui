@@ -1,0 +1,23 @@
+.time-range {
+  &__container {
+    display: flex;
+  }
+
+  &__label {
+    font-size: 12px;
+  }
+
+  &__datepicker {
+    margin-right: 16px;
+  }
+
+  &__time-range {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__datepicker,
+  &__time-input {
+    width: 60px;
+  }
+}

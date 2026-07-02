@@ -19,11 +19,11 @@ export class TrackingPageActions {
   }
 
   static getEntryModalStartTimeInput() {
-    return cy.getByData(`entry-modal-start-time-input`)
+    return cy.getByData(`start-time-input`)
   }
 
   static getEntryModalEndTimeInput() {
-    return cy.getByData(`entry-modal-end-time-input`)
+    return cy.getByData(`end-time-input`)
   }
 
   static getEntryModalTitleInput() {
@@ -59,11 +59,11 @@ export class TrackingPageActions {
   }
   
   static getEntryModalMakeUpStartTimeInput() {
-    return cy.getByData(`entry-modal-make-up-time-start-time-input`)
+    return cy.getByData(`make-up-time-start-time-input`)
   }
 
   static getEntryModalMakeUpEndTimeInput() {
-    return cy.getByData(`entry-modal-make-up-time-end-time-input`)
+    return cy.getByData(`make-up-time-end-time-input`)
   }
 
   static selectEntryModalType({
