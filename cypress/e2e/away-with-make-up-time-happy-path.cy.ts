@@ -2,40 +2,47 @@ import { EntryType } from "../../src/common/constants/entryType"
 import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
 
 describe(`Away With Make-up Time Entry Happy Path`, () => {
-  const testDate = new Date(2025, 9, 20)
+  const dateToDeleteTask = new Date(2025, 9, 20)
+  const dateToDeleteAway = new Date(2025, 9, 13)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
     // we use different years for different tests, which does not overlap
-    cy.clock(testDate, [
+    cy.clock(new Date(2025, 9, 20), [
       `Date`,
     ])
 
     cy.authByApi()
     cy.removeTaskEntries({
-      date: testDate,
+      date: dateToDeleteTask,
     })
     cy.removeAwayWithMakeUpTimeEntries({
-      date: testDate,
+      date: dateToDeleteAway,
     })
   })
 
   afterEach(`Cleanup`, () => {
     cy.removeTaskEntries({
-      date: testDate,
+      date: dateToDeleteTask,
     })
     cy.removeAwayWithMakeUpTimeEntries({
-      date: testDate,
+      date: dateToDeleteAway,
     })
   })
 
   it(`
   GIVEN user was away for one hour
-  AND plans to make-up this time on the same day
+  AND plans to make-up this time on the next week
   WHEN user adds away with make-up time entry in the time tracker
   AND user did it as planned and was working on the task
   THEN user should see that everything has been successfully tracked in the time tracker
-  `, () => {      
+  `, () => {
+    const awayReason = `I need to go to the hospital.`
+    const absentStartTime = `13:00`
+    const absentEndTime = `14:00`
+    const makeUpStartTime = `17:00`
+    const makeUpEndTime = `18:00`
+
     TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
@@ -52,15 +59,24 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     })
 
     TrackingPageActions.getEntryModalDescriptionInput()
-      .type(`I need to go to the hospital.`)
+      .type(awayReason)
+
+    cy
+      .getByData(`away-datepicker`)
+      .find(`input`)
+      .click()
+
+    cy
+      .get(`.react-datepicker__day--013`)
+      .click()
 
     TrackingPageActions.getEntryModalStartTimeInput()
       .clear()
-      .type(`13:00`)
+      .type(absentStartTime)
     
     TrackingPageActions.getEntryModalEndTimeInput()
       .clear()
-      .type(`14:00`)
+      .type(absentEndTime)
 
     cy
       .getByData(`make-up-time-datepicker`)
@@ -72,19 +88,37 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     
     TrackingPageActions.getEntryModalMakeUpStartTimeInput()
       .clear()
-      .type(`17:00`)
+      .type(makeUpStartTime)
     
     TrackingPageActions.getEntryModalMakeUpEndTimeInput()
       .clear()
-      .type(`18:00`)
+      .type(makeUpEndTime)
 
     TrackingPageActions.clickByEntryModalSubmitButton()
 
-    cy.log(`Сheck that the Away and make-up time cards exist`)
+    cy.log(`Сheck that the Away cards exist`)
 
-    cy.contains(`Away with make-up time`)
+    cy
+      .contains(`Back`)
+      .click()
 
-    cy.contains(`Make-up time`)
+    cy
+      .contains(`Away with make-up time`)
+      .click()
+
+    checkAwayWithMakeUpTimeEntryFields()
+
+    cy
+      .contains(`Next`)
+      .click()
+
+    cy.log(`Сheck that the Make-up time cards exist`)
+
+    cy
+      .contains(`Make-up time`)
+      .click()
+
+    checkAwayWithMakeUpTimeEntryFields()
 
     cy.log(`Add a Task Entry at the same time as make-up`)
 
@@ -98,5 +132,29 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     cy.log(`Сheck that the Task entry cards exist`)
 
     cy.contains(taskTitle)
+    
+    function checkAwayWithMakeUpTimeEntryFields() {
+      TrackingPageActions
+        .getEntryModalDescriptionInput()
+        .should(`have.value`, awayReason)
+
+      TrackingPageActions
+        .getEntryModalStartTimeInput()
+        .should(`have.value`, absentStartTime)
+    
+      TrackingPageActions
+        .getEntryModalEndTimeInput()
+        .should(`have.value`, absentEndTime)
+
+      TrackingPageActions
+        .getEntryModalMakeUpStartTimeInput()
+        .should(`have.value`, makeUpStartTime)
+
+      TrackingPageActions
+        .getEntryModalMakeUpEndTimeInput()
+        .should(`have.value`, makeUpEndTime)
+
+      TrackingPageActions.clickByEntryModalCloseButton()
+    }
   })
 })
