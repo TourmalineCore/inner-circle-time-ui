@@ -21,11 +21,7 @@
   }
 
   &__entry {
-    &--unwell {
-      border: 1px solid $color-grey !important;
-      background-color: $color-grey !important;
-    }
-
+    &--unwell,
     &--away-with-make-up-time {
       border: 1px solid $color-grey !important;
       background-color: $color-grey !important;
