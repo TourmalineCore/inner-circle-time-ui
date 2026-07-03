@@ -1,6 +1,4 @@
-import { EntryType } from "../../../../../../common/constants/entryType"
 import { eventBus, EventBusType } from "../../../../event-bus"
-import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
 import { DeleteModalContainer } from "./DeleteModalContainer"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
@@ -100,13 +98,13 @@ function mountComponent({
 
   cy.spy(eventBus, `publish`)
     .as(`eventBusTrigger`)
-
+      
   cy
     .mount(
       <DeleteModalStateContext.Provider value={deleteModalState}>
         <DeleteModalContainer 
-          id={1}
-          label={ENTRY_TYPES_STRATEGY[EntryType.TASK].label}
+          entryId={1}
+          label={``}
           closeEntryModal={closeEntryModal}
           closeDeleteModal={closeDeleteModal}
         />,

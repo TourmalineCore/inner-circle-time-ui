@@ -12,33 +12,34 @@ export class TrackingPageActions {
       .find(`.rbc-time-slot`)
       .first()
       .scrollIntoView()
-      .click({
+      // Sometimes, for some reason, clicking on a slot does not work with a single click but double click works stably.
+      .dblclick({
         force: true, 
       })
   }
 
   static getEntryModalStartTimeInput() {
-    return cy.getByData(`entry-modal-start-time-input`)
+    return cy.getByData(`start-time-input`)
   }
 
   static getEntryModalEndTimeInput() {
-    return cy.getByData(`entry-modal-end-time-input`)
+    return cy.getByData(`end-time-input`)
   }
 
   static getEntryModalTitleInput() {
-    return cy.getByData(`entry-modal-title-input`)
+    return cy.getByData(`title-input`)
   }
 
   static getEntryModalProjectSelect() {
-    return cy.getByData(`entry-modal-project-select`)
+    return cy.getByData(`project-select`)
   }
 
   static getEntryModalTaskIdInput() {
-    return cy.getByData(`entry-modal-task-id-input`)
+    return cy.getByData(`task-id-input`)
   }
 
   static getEntryModalDescriptionInput() {
-    return cy.getByData(`entry-modal-description-input`)
+    return cy.getByData(`description-input`)
   }
 
   static getCopyAlert() {
@@ -46,15 +47,23 @@ export class TrackingPageActions {
   }
 
   static getEntryModalCopyButton() {
-    return cy.getByData(`entry-modal-copy-button`)
+    return cy.getByData(`copy-button`)
   }
 
   static getEntryModalDeleteButton() {
-    return cy.getByData(`entry-modal-delete-button`)
+    return cy.getByData(`delete-button`)
   }
 
   static getEntryModalTypeSelect() {
-    return cy.getByData(`entry-modal-type-select`)
+    return cy.getByData(`entry-type-select`)
+  }
+  
+  static getEntryModalMakeUpStartTimeInput() {
+    return cy.getByData(`make-up-time-start-time-input`)
+  }
+
+  static getEntryModalMakeUpEndTimeInput() {
+    return cy.getByData(`make-up-time-end-time-input`)
   }
 
   static selectEntryModalType({
@@ -69,7 +78,7 @@ export class TrackingPageActions {
 
   static clickByEntryModalSubmitButton() {
     return cy
-      .getByData(`entry-modal-submit-button`)
+      .getByData(`submit-button`)
       .click()
   }
 
@@ -79,12 +88,22 @@ export class TrackingPageActions {
       .click()
   }
 
-  static addTaskEntry() { 
+  static addTaskEntry({
+    startTime = `11:00`,
+    endTime = `15:00`,
+  }: {
+    startTime?: string,
+    endTime?: string,
+  } = {}) { 
     const taskTitle = `[E2E-SMOKE] Task 1`
     const taskId = `#test`
     const taskDescription = `Task description`
 
     this.clickOnFirstTimeSlot()
+
+    this.selectEntryModalType({
+      entryType: EntryType.TASK,
+    })
       
     this.getEntryModalTitleInput()
       .clear()
@@ -103,11 +122,11 @@ export class TrackingPageActions {
   
     this.getEntryModalStartTimeInput()
       .clear()
-      .type(`11:00`)
+      .type(startTime)
       
     this.getEntryModalEndTimeInput()
       .clear()
-      .type(`15:00`)
+      .type(endTime)
   
     this.clickByEntryModalSubmitButton()
   

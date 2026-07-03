@@ -10,21 +10,8 @@
     flex-direction: column;
   }
 
-  &__completion-time-container {
-    display: flex;
-  }
-
-  &__time-range {
-    display: flex;
-    gap: 4px;
-  }
-
   &__label {
     font-size: 12px;
-  }
-
-  &__date-field {
-    margin-right: 16px;
   }
 
   &__description {
@@ -36,10 +23,5 @@
 
   &__empty-project-option {
     display: none;
-  }
-
-  &__date-field,
-  &__time-field {
-    width: 60px;
   }
 }

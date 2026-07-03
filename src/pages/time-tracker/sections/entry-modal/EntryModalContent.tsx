@@ -16,6 +16,8 @@ export const EntryModalContent = observer(({
   isDisabledTypesSelect,
   onSubmitEntry,
   buttonLabel,
+  hasDeleteButton,
+  hasCopyButton,
   openDeleteModal,
   children,
 }: {
@@ -23,6 +25,8 @@ export const EntryModalContent = observer(({
   isDisabledTypesSelect: boolean,
   onSubmitEntry: () => unknown,
   buttonLabel: string,
+  hasDeleteButton: boolean,
+  hasCopyButton: boolean,
   openDeleteModal: () => unknown,
   children?: ReactNode,
 }) => {
@@ -42,7 +46,7 @@ export const EntryModalContent = observer(({
           <select 
             className="entry-modal__input"
             name='type'
-            data-cy="entry-modal-type-select"
+            data-cy="entry-type-select"
             value={type}
             disabled={isDisabledTypesSelect}
             onChange={(e) => entryModalState.setType({
@@ -72,7 +76,7 @@ export const EntryModalContent = observer(({
           }
           <div className="entry-modal__buttons">
             <button
-              data-cy="entry-modal-submit-button"
+              data-cy="submit-button"
               className='entry-modal__submit-button'
               type='submit'
               onClick={() => onSubmitEntry()}
@@ -85,25 +89,29 @@ export const EntryModalContent = observer(({
             {
               isExistingEntry && (
                 <>
-                  <button
-                    data-cy="entry-modal-delete-button"
-                    className='entry-modal__delete-button'
-                    type='button'
-                    onClick={openDeleteModal}
-                  >
-                    <DeleteIcon />
-                  </button>
-                  <button
-                    data-cy="entry-modal-copy-button"
-                    className='entry-modal__copy-button'
-                    type='button'
-                    onClick={() => {
-                      entryModalState.copyCurrentEntry()
-                      entryModalState.closeEntryModal()
-                    }}
-                  >
-                    <CopyIcon />
-                  </button>
+                  {hasDeleteButton && (
+                    <button
+                      data-cy="delete-button"
+                      className='entry-modal__delete-button'
+                      type='button'
+                      onClick={openDeleteModal}
+                    >
+                      <DeleteIcon />
+                    </button>
+                  )}
+                  {hasCopyButton && (
+                    <button
+                      data-cy="copy-button"
+                      className='entry-modal__copy-button'
+                      type='button'
+                      onClick={() => {
+                        entryModalState.copyCurrentEntry()
+                        entryModalState.closeEntryModal()
+                      }}
+                    >
+                      <CopyIcon />
+                    </button>
+                  )}
                 </>
               )
             }

@@ -1,6 +1,6 @@
 import { TrackingPageActions } from "../../../../../../../cypress/pagesActions/TrackingPageActions"
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
+import { EntryTypesStrategy } from "../../entry-types-strategies/entryTypesStrategy"
 import { EntryModalContainer } from "../../EntryModalContainer"
 import { EntryModalState } from "../../state/EntryModalState"
 import { EntryModalStateContext } from "../../state/EntryModalStateContext"
@@ -30,12 +30,16 @@ function mountComponent() {
   const entryModalState = new EntryModalState()
   const taskEntryState = new TaskEntryState()
 
+  const entryStrategy = EntryTypesStrategy.create({
+    entryType: EntryType.TASK,
+  }) 
+
   cy
     .mount(
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer 
-            entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
+            entryStrategy={entryStrategy}
             openDeleteModal={() => {}}
           />,
         </TaskEntryStateContext.Provider>

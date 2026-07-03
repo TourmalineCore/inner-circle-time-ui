@@ -123,6 +123,37 @@ Cypress.Commands.add(`removeUnwellEntries`, ({
     })
 })
 
+Cypress.Commands.add(`removeAwayWithMakeUpTimeEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {  
+  const day = formatDate(date)
+
+  cy.request<GetEntriesByPeriodResponse>({
+    method: `GET`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+    },
+  })
+    .then(({
+      body,
+    }) => {
+      body.awayWithMakeUpTimeEntries?.forEach(({
+        id, 
+      }) => {
+        cy.request({
+          method: `DELETE`,
+          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
+          headers: {
+            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+          },
+        })
+      })
+    })
+})
+
 function formatDate(date: Date): string {
   const y = date.getFullYear()
   const m = String(date.getMonth() + 1)

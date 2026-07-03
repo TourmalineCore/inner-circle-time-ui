@@ -2,7 +2,7 @@ import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { useContext, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import { EntryModalContent } from './EntryModalContent'
-import { EntryStrategy } from './entry-types-strategy'
+import { EntryStrategy } from './entry-types-strategies/entryTypesStrategy'
 import axios from 'axios'
 import { eventBus, EventBusType } from '../../event-bus'
 
@@ -22,28 +22,56 @@ export const EntryModalContainer = observer(({
     type,
   } = entryModalState
 
+  // For make-up time entry needs relatedEntryId, because when we click on make-up time,
+  // we need to open its related entry modal and get its data
+  const entryId = currentEntry?.relatedEntryId || currentEntry?.id
+
+  const isExistingEntry = !!entryId
+
   useEffect(() => {
-    entryStrategy.loadProjectsAsync({
-      entryState,
-    })
+    async function initializeEntry() {
+      if (isExistingEntry) {
+        await entryStrategy.initializeExistingEntryAsync({
+          entryId,
+          entryState,
+        })
+      }
+      else {
+        entryStrategy.initializeNewEntry({
+          initialEntryData: currentEntry,
+          entryState,
+        })
+      }
+
+      await entryStrategy.loadProjectsAsync({
+        entryState,
+      })
+    }
+   
+    initializeEntry()
   }, [
     type,
   ])
 
-  const id = currentEntry?.id
+  const isDisabledTypesSelect = !!entryId || isCopyMode
 
-  const isExistingEntry = !!id
-  const isDisabledTypesSelect = !!id || isCopyMode
+  const {
+    label,
+    hasCopyButton,
+    hasDeleteButton,
+  } = entryStrategy.modalConfiguration
 
   return (
     <EntryModalContent
       isExistingEntry={isExistingEntry}
       isDisabledTypesSelect={isDisabledTypesSelect}
       onSubmitEntry={onSubmitEntry}
-      buttonLabel={entryStrategy.label}
+      buttonLabel={label}
+      hasDeleteButton={hasDeleteButton}
+      hasCopyButton={hasCopyButton}
       openDeleteModal={openDeleteModal}
     >
-      {entryStrategy.EntryContent}
+      {entryStrategy.EntryContent()}
     </EntryModalContent> 
   )
 
@@ -64,9 +92,9 @@ export const EntryModalContainer = observer(({
         entryState,
       })
 
-      if (id) {
+      if (isExistingEntry) {
         await entryStrategy.updateEntryAsync({
-          id,
+          entryId,
           requestData,
         })
       }
@@ -80,7 +108,7 @@ export const EntryModalContainer = observer(({
       eventBus.publish(EventBusType.ENTRIES_CHANGED)
       entryModalState.resetCurrentEntry()
 
-      entryState.resetError()
+      entryModalState.resetError()
     }
     catch (error) {
       if (axios.isAxiosError(error)) {
@@ -90,11 +118,6 @@ export const EntryModalContainer = observer(({
           })
         }
       }
-    }
-    finally {
-      entryStrategy.finally({
-        entryState,
-      })
     }
   }
 })

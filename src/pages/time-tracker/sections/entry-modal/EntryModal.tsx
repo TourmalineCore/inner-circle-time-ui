@@ -1,9 +1,9 @@
 import { useContext, useEffect, useMemo, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { DeleteModal } from "./sections/DeleteModal/DeleteModal"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
+import { EntryTypesStrategy } from "./entry-types-strategies/entryTypesStrategy"
 
 export const EntryModal = observer(() => {
   const entryModalState = useContext(EntryModalStateContext)
@@ -12,30 +12,25 @@ export const EntryModal = observer(() => {
     currentEntry,
     type,
   } = entryModalState
+  
+  const entryStrategy = EntryTypesStrategy.create({
+    entryType: currentEntry?.type || type,
+    relatedEntryType: currentEntry?.relatedEntryType,
+  })
+
+  const entryState = useMemo(
+    () => new entryStrategy.entryStateConstructor(),
+    [
+      type,
+    ],
+  )
 
   useEffect(() => {
-    if (currentEntry?.type) {
-      entryModalState.setType({
-        type: currentEntry.type,
-      })
-    }
-  }, [
-    currentEntry?.type,
-  ])
-
-  const entryStrategy = ENTRY_TYPES_STRATEGY[currentEntry?.type || type]
-
-  const entryState = useMemo(() => {
-    const state = new entryStrategy.entryStateConstructor()
-
-    entryStrategy.setEntryData({
-      entryData: currentEntry!,
-      entryState: state,
+    entryModalState.setType({
+      type: entryStrategy.entryType,
     })
-  
-    return state
   }, [
-    type,
+    entryStrategy.entryType,
   ])
 
   useEffect(() => {
@@ -52,6 +47,10 @@ export const EntryModal = observer(() => {
     setIsDeleteModalOpen,
   ] = useState(false)
 
+  const {
+    label,
+  } = entryStrategy.modalConfiguration
+
   return (
     <>
       <StateContext.Provider value={entryState}>
@@ -64,8 +63,8 @@ export const EntryModal = observer(() => {
       {
         isDeleteModalOpen && (
           <DeleteModal
-            id={currentEntry!.id!}
-            label={entryStrategy.label}
+            entryId={currentEntry!.id!}
+            label={label}
             closeEntryModal={() => entryModalState.closeEntryModal()}
             closeDeleteModal={() => setIsDeleteModalOpen(false)}
           />

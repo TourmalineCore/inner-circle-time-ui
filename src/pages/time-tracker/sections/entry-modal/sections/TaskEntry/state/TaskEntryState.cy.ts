@@ -1,25 +1,22 @@
+import { TaskEntryData } from "../../../../../types"
 import { EMPTY_TASK_ENTRY_DATA, TaskEntryState } from "./TaskEntryState"
 
 describe(`TaskEntryState`, () => {
   describe(`Initial Data`, initialTests)
+  describe(`Initialization Data`, initializationTests)
   describe(`Setters Data`, settersTests)
-  describe(`Reset Data`, resetTests)
   describe(`Validation`, validationTests)
-  describe(`Save And Try To Submit`, saveAndTryToSubmitTests)
+  describe(`Try To Submit`, tryToSubmitTests)
 })
 
 function initialTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-  })
-
   it(`
   GIVEN a new TaskEntryState
   WHEN initialize
   SHOULD have default values
   `, () => {
+    const taskEntryState = new TaskEntryState()
+
     expect(taskEntryState.taskEntryData)
       .to
       .deep
@@ -27,72 +24,107 @@ function initialTests() {
   })
 }
 
-function settersTests() {
-  let taskEntryState: TaskEntryState
+function initializationTests() {
+  it(`
+  GIVEN a new TaskEntryState
+  WHEN initializeEntry called with partial data (only date, start, end) as if the user is creating a new task entry
+  SHOULD return taskEntryData with recieved data but the remaining fields must be default
+  `, () => {
+    const newDate = new Date()
 
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
+    const taskEntryForInitialization = {
+      date: newDate,
+      start: newDate,
+      end: newDate,
+    }
+
+    const {
+      taskEntryState,
+    } = createState({
+      taskEntryForInitialization,
+    })
+
+    taskEntryState.initializeEntry({
+      taskEntry: taskEntryForInitialization as TaskEntryData,
+    })
+
+    expect(taskEntryState.taskEntryData)
+      .to
+      .deep
+      .eq({
+        ...EMPTY_TASK_ENTRY_DATA,
+        ...taskEntryForInitialization,
+      }) 
   })
 
   it(`
-  GIVEN a state with default data
-  WHEN update unwell entry data 
-  SHOULD return updated data
+  GIVEN a new TaskEntryState
+  WHEN initializeEntry called with all data as if the user is creating a copy task entry
+  SHOULD return taskEntryData with recieved data
   `, () => {
-    const id = 1
-    const projectId = 1
-    const title = `Task 1`
-    const taskId = `#1fre33`
-    const description = `Task description`
-    const testDate = new Date(`2025-11-24`)
+    const newDate = new Date()
 
-    taskEntryState.updateTaskEntryData({
-      taskEntryData: {
-        id,
-        projectId,
-        title,
-        taskId,
-        description,
-        date: testDate,
-        start: testDate,
-        end: testDate,
-      },
+    const taskEntryForInitialization = {
+      title: `Task #1`,
+      date: newDate,
+      taskId: `#1`,
+      description: `Task Description`,
+      projectId: 3,
+      start: newDate,
+      end: newDate,
+    }
+
+    const {
+      taskEntryState,
+    } = createState({
+      taskEntryForInitialization,
     })
 
-    expect(taskEntryState.taskEntryData.id)
+    expect(taskEntryState.taskEntryData)
       .to
-      .eq(id)
-
-    expect(taskEntryState.taskEntryData.projectId)
-      .to
-      .eq(projectId)
-
-    expect(taskEntryState.taskEntryData.title)
-      .to
-      .eq(title)
-
-    expect(taskEntryState.taskEntryData.taskId)
-      .to
-      .eq(taskId)
-
-    expect(taskEntryState.taskEntryData.description)
-      .to
-      .eq(description)
-
-    expect(taskEntryState.taskEntryData.start)
-      .to
-      .eq(testDate)
-
-    expect(taskEntryState.taskEntryData.end)
-      .to
-      .eq(testDate)
+      .deep
+      .eq(taskEntryForInitialization) 
   })
 
+  it(`
+  GIVEN a new TaskEntryState
+  WHEN initializeEntry called as if the user open existing task entry
+  SHOULD return taskEntryData with the received data
+  `, () => {
+    const newDate = new Date()
+
+    const taskEntryForInitialization = {
+      id: 1,
+      title: `Task #1`,
+      date: newDate,
+      taskId: `#1`,
+      description: `Task Description`,
+      projectId: 3,
+      start: newDate,
+      end: newDate,
+    }
+
+    const {
+      taskEntryState,
+    } = createState({
+      taskEntryForInitialization,
+    })
+    
+    expect(taskEntryState.taskEntryData)
+      .to
+      .deep
+      .eq(taskEntryForInitialization) 
+  })
+}
+
+function settersTests() {
   it(`
   GIVEN a state with default projects
   WHEN set projects 
   SHOULD return updated projects
   `, () => {
+    const taskEntryState = new TaskEntryState()
+    
     const projects = [
       {
         id: 1,
@@ -108,28 +140,6 @@ function settersTests() {
       .to
       .deep
       .eq(projects)
-  })
-}
-
-function resetTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-    const testDate = new Date(`2025-11-24`)
-
-    taskEntryState.updateTaskEntryData({
-      taskEntryData: {
-        id: 1,
-        projectId: 1,
-        title: `Task 1`,
-        taskId: `#1fre33`,
-        description: `Task description`,
-        date: testDate,
-        start: testDate,
-        end: testDate,
-      },
-    })
   })
 }
 
@@ -193,25 +203,21 @@ function validationTests() {
   })
 
   it(`
-  GIVEN valid title, taskId, and description
+  GIVEN valid title, taskId, projectId and description
   WHEN isValid is activated
   SHOULD return true and all errors should be false
   `, () => {
-    const id = 1
-    const projectId = 1
-    const date = new Date(`2025-11-24`)
+    const taskEntryForInitialization = {
+      title: `Title`,
+      taskId: `TaskId`,
+      description: `Description`,
+      projectId: 1,
+    }
 
-    taskEntryState.updateTaskEntryData({
-      taskEntryData: {
-        id,
-        projectId,
-        title: `Title`,
-        taskId: `TaskId`,
-        description: `Description`,
-        date,
-        start: date,
-        end: date,
-      },
+    const {
+      taskEntryState,
+    } = createState({
+      taskEntryForInitialization,
     })
     
     taskEntryState.setIsTriedToSubmit()
@@ -233,45 +239,14 @@ function validationTests() {
   })
 }
 
-function saveAndTryToSubmitTests() {
-  let taskEntryState: TaskEntryState
-
-  beforeEach(() => {
-    taskEntryState = new TaskEntryState()
-  })
-  
-  it(`
-  GIVEN initial isSaving = false
-  WHEN trigger setIsSaving()
-  SHOULD change value to true
-  WHEN trigger resetIsSaving()
-  SHOULD change value to false
-  `, () => {
-    expect(taskEntryState.isSaving)
-      .to
-      .be
-      .false
-
-    taskEntryState.setIsSaving()
-    expect(taskEntryState.isSaving)
-      .to
-      .be
-      .true
-    
-    taskEntryState.resetIsSaving()
-    expect(taskEntryState.isSaving)
-      .to
-      .be
-      .false
-  })
-
+function tryToSubmitTests() {
   it(`
   GIVEN initial isTriedToSubmit = false
   WHEN trigger setIsTriedToSubmit()
   SHOULD change value to true
-  WHEN trigger resetIsTriedToSubmit()
-  SHOULD change value to false
   `, () => {
+    const taskEntryState = new TaskEntryState()
+
     expect(taskEntryState.isTriedToSubmit)
       .to
       .be
@@ -282,11 +257,23 @@ function saveAndTryToSubmitTests() {
       .to
       .be
       .true
-
-    taskEntryState.resetIsTriedToSubmit()
-    expect(taskEntryState.isTriedToSubmit)
-      .to
-      .be
-      .false
   })
+}
+
+function createState({
+  taskEntryForInitialization,
+}: {
+  taskEntryForInitialization: unknown,
+} = {
+  taskEntryForInitialization: {},
+}) {
+  const taskEntryState = new TaskEntryState()
+
+  taskEntryState.initializeEntry({
+    taskEntry: taskEntryForInitialization as TaskEntryData,
+  })
+
+  return {
+    taskEntryState,
+  }
 }
