@@ -48,7 +48,7 @@ export class EntryMapper {
         description: taskEntry.description,
         project: projects.find((project) => project.id === taskEntry.projectId)!,
         title: taskEntry.title,
-        type: taskEntry.type,
+        entryType: taskEntry.entryType,
         date: moment(taskEntry.startTime)
           .toDate(),
         start: moment(taskEntry.startTime)
@@ -66,7 +66,7 @@ export class EntryMapper {
     return unwellEntries
       .map((unwellEntry) => ({
         id: unwellEntry.id,
-        type: unwellEntry.type,
+        entryType: unwellEntry.entryType,
         date: moment(unwellEntry.startTime)
           .toDate(),
         start: moment(unwellEntry.startTime)
@@ -84,7 +84,7 @@ export class EntryMapper {
     return awayWithMakeUpTimeEntries
       .map((awayWithMakeUpTimeEntry) => ({
         id: awayWithMakeUpTimeEntry.id,
-        type: awayWithMakeUpTimeEntry.type,
+        entryType: awayWithMakeUpTimeEntry.entryType,
         description: awayWithMakeUpTimeEntry.description,
         date: moment(awayWithMakeUpTimeEntry.startTime)
           .toDate(),
@@ -105,7 +105,7 @@ export class EntryMapper {
       .map((makeUpTimeEntry) => ({
         relatedEntryId: makeUpTimeEntry.relatedEntryId,
         relatedEntryType: makeUpTimeEntry.relatedEntryType,
-        type: makeUpTimeEntry.type,
+        entryType: makeUpTimeEntry.entryType,
         date: moment(makeUpTimeEntry.startTime)
           .toDate(),
         start: moment(makeUpTimeEntry.startTime)

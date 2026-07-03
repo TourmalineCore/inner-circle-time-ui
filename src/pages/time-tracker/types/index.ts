@@ -7,7 +7,7 @@ export type TrackedEntry = {
   taskId?: string,
   project?: ProjectDto,
   description?: string,
-  type?: EntryType,
+  entryType?: EntryType,
   date: Date | null,
   start: Date,
   end: Date,

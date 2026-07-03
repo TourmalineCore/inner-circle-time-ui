@@ -100,10 +100,10 @@ export const TimeTrackerTableContent = observer(({
   }
 
   const eventPropGetter = ({
-    type, 
+    entryType, 
   }: TrackedEntry) => {
     return {
-      className: `time-tracker-table__entry time-tracker-table__entry--${ENTRY_CARD_CONFIG[type!].className}`,
+      className: `time-tracker-table__entry time-tracker-table__entry--${ENTRY_CARD_CONFIG[entryType!].className}`,
     } 
   }
 

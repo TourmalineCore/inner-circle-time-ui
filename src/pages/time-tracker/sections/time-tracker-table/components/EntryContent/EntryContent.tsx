@@ -5,7 +5,7 @@ import { ENTRY_CARD_CONFIG } from "../../../../../../common/constants/entryType"
 export function EntryContent({
   event, 
 }: EventProps<TrackedEntry>) {
-  const title = ENTRY_CARD_CONFIG[event.type!].cardTitle || event.title
+  const title = ENTRY_CARD_CONFIG[event.entryType!].cardTitle || event.title
 
   return (
     <>

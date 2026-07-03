@@ -6,7 +6,7 @@ import { EntryModalStateContext } from "./state/EntryModalStateContext"
 describe(`EntryModalContent`, () => {   
   describe(`Function Call`, functionCallTests)
   describe(`Is Existing Modal Entry`, isExistingModalEntryTests)
-  describe(`Is Disabled Types Select`, isDisabledTypesSelectTests)
+  describe(`Is Disabled Entry Types Select`, isDisabledEntryTypesSelectTests)
   describe(`Button visibility`, buttonVisibilityTests)
 })
 
@@ -96,28 +96,28 @@ function isExistingModalEntryTests() {
   })
 }
 
-function isDisabledTypesSelectTests() {
+function isDisabledEntryTypesSelectTests() {
   it(`
   GIVEN opened entry modal
   WHEN isDisabledTypesSelect = false
-  SHOULD not disable type select
+  SHOULD not disable entry type select
   `, () => {
     mountComponent()
 
-    TrackingPageActions.getEntryModalTypeSelect()
+    TrackingPageActions.getEntryModalEntryTypesSelect()
       .should(`not.be.disabled`)
   })
 
   it(`
   GIVEN opened entry modal
   WHEN isDisabledTypesSelect = true
-  SHOULD disable type select
+  SHOULD disable entry type select
   `, () => {
     mountComponent({
       isDisabledTypesSelect: true,
     })
 
-    TrackingPageActions.getEntryModalTypeSelect()
+    TrackingPageActions.getEntryModalEntryTypesSelect()
       .should(`be.disabled`)
   })
 }

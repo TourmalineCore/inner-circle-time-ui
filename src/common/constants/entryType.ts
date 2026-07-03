@@ -5,7 +5,7 @@ export enum EntryType {
   MAKE_UP_TIME = 4,
 }
 
-export const TYPE_LABELS: Record<string, string> = {
+export const ENTRY_TYPE_LABELS: Record<string, string> = {
   [EntryType.TASK]: `Task`,
   [EntryType.UNWELL]: `Unwell`,
   [EntryType.AWAY_WITH_MAKE_UP_TIME]: `Away With Make-Up Time`,
@@ -30,10 +30,10 @@ export const ENTRY_CARD_CONFIG = {
   },
 }
 
-export const TYPES = Object.values(EntryType)
+export const ENTRY_TYPES = Object.values(EntryType)
   // MAKE_UP_TIME is always part of another entry, so it should not be available for selection in select
   .filter(value => typeof value === `number` && value !== EntryType.MAKE_UP_TIME)
   .map(value => ({
     value: value as number,
-    label: TYPE_LABELS[value as EntryType],
+    label: ENTRY_TYPE_LABELS[value as EntryType],
   }))

@@ -10,34 +10,30 @@ export const EntryModal = observer(() => {
 
   const {
     currentEntry,
-    type,
+    entryType,
   } = entryModalState
   
   const entryStrategy = EntryTypesStrategy.create({
-    entryType: currentEntry?.type || type,
+    entryType: currentEntry?.entryType || entryType,
     relatedEntryType: currentEntry?.relatedEntryType,
   })
 
   const entryState = useMemo(
     () => new entryStrategy.entryStateConstructor(),
     [
-      type,
+      entryType,
     ],
   )
 
   useEffect(() => {
-    entryModalState.setType({
-      type: entryStrategy.entryType,
+    entryModalState.setEntryType({
+      entryType: entryStrategy.entryType,
     })
-  }, [
-    entryStrategy.entryType,
-  ])
 
-  useEffect(() => {
-    // reset error when type changes
+    // reset error when entry type changes
     entryModalState.resetError()
   }, [
-    type,
+    entryStrategy.entryType,
   ])
 
   const StateContext = entryStrategy.StateContext

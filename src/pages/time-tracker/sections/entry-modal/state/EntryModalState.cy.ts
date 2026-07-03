@@ -22,7 +22,7 @@ function initialTests() {
   WHEN initialize
   SHOULD have default values
   `, () => {
-    expect(entryModalState.type)
+    expect(entryModalState.entryType)
       .to
       .deep
       .eq(EntryType.TASK) 
@@ -53,15 +53,15 @@ function settersTests() {
   })
 
   it(`
-  GIVEN a state with default type
-  WHEN set type 
-  SHOULD return updated type
+  GIVEN a state with default entry type
+  WHEN set entry type 
+  SHOULD return updated entry type
   `, () => {
-    entryModalState.setType({
-      type: EntryType.UNWELL,
+    entryModalState.setEntryType({
+      entryType: EntryType.UNWELL,
     })
 
-    expect(entryModalState.type)
+    expect(entryModalState.entryType)
       .to
       .eq(EntryType.UNWELL)
   })
