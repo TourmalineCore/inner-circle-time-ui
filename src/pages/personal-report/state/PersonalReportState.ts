@@ -3,7 +3,7 @@ import { formatToTwoDecimalPlaces } from '../../../common/utils/formatToTwoDecim
 import { EmployeeDto, TrackedEntryDto } from '@tourmalinecore/inner-circle-time-api-js-client'
 import { PersonalReportData } from '../types'
 import moment from 'moment'
-import { TYPE_LABELS } from '../../../common/constants/entryType'
+import { ENTRY_TYPE_LABELS } from '../../../common/constants/entryType'
 
 export const UNSPECIFIED_EMPLOYEE_ID = 0
 
@@ -75,7 +75,7 @@ export class PersonalReportState {
           .format(`HH:mm`)} - ${moment(entry.endTime)
           .format(`HH:mm`)}`,
         hours: formatToTwoDecimalPlaces(entry.hours),
-        entryType: TYPE_LABELS[entry.entryType],
+        entryType: ENTRY_TYPE_LABELS[entry.entryType],
         project: entry.project ? entry.project.name : `-`,
         taskId: entry.task ? entry.task.id : `-`,
         taskTitle: entry.task ? entry.task.title : `-`,

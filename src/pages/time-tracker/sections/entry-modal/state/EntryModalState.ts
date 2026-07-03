@@ -8,7 +8,7 @@ export class EntryModalState {
   private _isCopyMode = false
   private _isOpenModal = false
     
-  private _type = EntryType.TASK
+  private _entryType = EntryType.TASK
   private _error = ``  
 
   constructor() {
@@ -27,8 +27,8 @@ export class EntryModalState {
     return this._isCopyMode
   }
 
-  get type() {
-    return this._type
+  get entryType() {
+    return this._entryType
   }
 
   get error() {
@@ -100,12 +100,12 @@ export class EntryModalState {
     this._isOpenModal = false
   }
 
-  setType({
-    type,
+  setEntryType({
+    entryType,
   }: {
-    type: EntryType,
+    entryType: EntryType,
   }) {
-    this._type = type
+    this._entryType = entryType
   }
 
   setError({

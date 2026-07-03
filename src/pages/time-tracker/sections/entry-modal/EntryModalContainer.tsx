@@ -19,7 +19,7 @@ export const EntryModalContainer = observer(({
   const {
     currentEntry,
     isCopyMode,
-    type,
+    entryType,
   } = entryModalState
 
   // For make-up time entry needs relatedEntryId, because when we click on make-up time,
@@ -50,7 +50,7 @@ export const EntryModalContainer = observer(({
    
     initializeEntry()
   }, [
-    type,
+    entryType,
   ])
 
   const isDisabledTypesSelect = !!entryId || isCopyMode

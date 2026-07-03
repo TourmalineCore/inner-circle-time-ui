@@ -54,7 +54,7 @@ export class TrackingPageActions {
     return cy.getByData(`delete-button`)
   }
 
-  static getEntryModalTypeSelect() {
+  static getEntryModalEntryTypesSelect() {
     return cy.getByData(`entry-type-select`)
   }
   
@@ -71,7 +71,7 @@ export class TrackingPageActions {
   }: {
     entryType: EntryType,
   }) {
-    return this.getEntryModalTypeSelect()
+    return this.getEntryModalEntryTypesSelect()
     // -1 because the values in select start from 0 but enum values start from 1
       .select(entryType - 1)
   }
