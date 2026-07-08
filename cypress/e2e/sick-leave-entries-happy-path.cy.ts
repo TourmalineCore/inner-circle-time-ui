@@ -66,7 +66,7 @@ describe(`Sick Leave Entry Happy Path`, () => {
       .first()
       .click()
 
-    cy.log(`Verify that when the sick leave is opened, all data is displayed correctly.`)
+    cy.log(`Verify that when the sick leave entry is opened, all data is displayed correctly.`)
 
     TrackingPageActions.getEntryModalStartDateDatepicker()
       .should(`have.value`, `05.06`)
@@ -86,7 +86,7 @@ describe(`Sick Leave Entry Happy Path`, () => {
 
     TrackingPageActions.clickByEntryModalSubmitButton()
 
-    cy.log(`Verify that the sick leave has been issued for 7 days in the current week and for 1 day in the following week.`)
+    cy.log(`Check that the sick leave is displayed correctly in the time tracker for this and next week.`)
 
     cy.contains(`Sick Leave`)
       .should(`have.length`, 7)
