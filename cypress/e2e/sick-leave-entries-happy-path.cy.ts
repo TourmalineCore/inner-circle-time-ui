@@ -34,8 +34,8 @@ describe(`Sick Leave Entry Happy Path`, () => {
   GIVEN user has a sick leave from Monday to Friday
   AND user wants to track this sick leave in the time tracker
   WHEN user adds the sick leave period from Monday to Friday in the time tracker
-  AND then after the doctor's extension, user adds a second sick leave from Saturday to Monday
-  THEN user should see both sick leave periods from Monday to Friday and from Saturday to Monday successfully tracked in the time tracker
+  AND extends it until next Monday after the doctor's visit
+  THEN user should see sick leave for 8 days in the time tracker
   `, () => {
     TrackingPageActions.visit()
 
@@ -46,7 +46,8 @@ describe(`Sick Leave Entry Happy Path`, () => {
     
     cy.log(`Add a Sick Leave Entry from Monday to Friday`)
 
-    cy.getByData(`all-day-entry-button-monday`)
+    TrackingPageActions.getAllDayButton()
+      .first()
       .click()
 
     TrackingPageActions.selectEntryModalType({
@@ -68,14 +69,20 @@ describe(`Sick Leave Entry Happy Path`, () => {
     cy.contains(`Sick Leave`)
       .should(`have.length`, 5)
 
-    cy.log(`Add a second Sick Leave Entry from Saturday to next Monday`)
+    TrackingPageActions.getAllDayButton()
 
-    cy.getByData(`all-day-entry-button-saturday`)
+      .first()
       .click()
 
-    TrackingPageActions.selectEntryModalType({
-      entryType: EntryType.SICK_LEAVE,
-    })
+    cy.log(`Check that when opening the sick leave, the data in it is displayed correctly`)
+
+    TrackingPageActions.getEntryModalStartDateDatepicker()
+      .should(`have.value`, `10.06`)
+
+    TrackingPageActions.getEntryModalEndDateDatepicker()
+      .should(`have.value`, `12.06`)
+
+    cy.log(`Update existing Sick Leave Entry`)
 
     TrackingPageActions
       .getEntryModalEndDateDatepicker()
@@ -87,12 +94,10 @@ describe(`Sick Leave Entry Happy Path`, () => {
 
     TrackingPageActions.clickByEntryModalSubmitButton()
 
-    cy.log(`Check that the sick leave has been created for 7 days`)
+    cy.log(`Check that the sick leave has been created for 7 days this week and for 1 day next week`)
 
     cy.contains(`Sick Leave`)
       .should(`have.length`, 7)
-
-    cy.log(`Check that the sick leave has been created for 1 day on the next week`)
 
     cy
       .contains(`Next`)
@@ -100,16 +105,5 @@ describe(`Sick Leave Entry Happy Path`, () => {
     
     cy.contains(`Sick Leave`)
       .should(`have.length`, 1)
-
-    cy.getByData(`all-day-entry-button-monday`)
-      .click()
-
-    cy.log(`Check that when opening the sick leave, the data in it is displayed correctly`)
-
-    TrackingPageActions.getEntryModalStartDateDatepicker()
-      .should(`have.value`, `10.06`)
-
-    TrackingPageActions.getEntryModalEndDateDatepicker()
-      .should(`have.value`, `12.06`)
   })
 })

@@ -103,6 +103,10 @@ export class TrackingPageActions {
       .click()
   }
 
+  static getAllDayButton() {
+    return cy.getByData(`all-day-entry-button`)
+  }
+
   static addTaskEntry({
     startTime = `11:00`,
     endTime = `15:00`,
