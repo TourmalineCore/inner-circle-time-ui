@@ -107,6 +107,10 @@ export class TrackingPageActions {
     return cy.getByData(`all-day-entry-button`)
   }
 
+  static getSickLeave() {
+    return cy.getByData(`sick-leave`)
+  }
+
   static addTaskEntry({
     startTime = `11:00`,
     endTime = `15:00`,
