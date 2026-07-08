@@ -64,6 +64,22 @@ export class TrackingPageActions {
 
   static getEntryModalMakeUpEndTimeInput() {
     return cy.getByData(`make-up-time-end-time-input`)
+  } 
+  
+  static getEntryModalStartDateDatepicker() {
+    return cy
+      .getByData(`start-date-datepicker`)
+      .find(`input`)
+  }
+
+  static getEntryModalEndDateDatepicker() {
+    return cy
+      .getByData(`end-date-datepicker`)
+      .find(`input`)
+  }
+
+  static getAllDayEntryButton() {
+    return cy.getByData(`all-day-entry-button`)
   }
 
   static selectEntryModalType({
