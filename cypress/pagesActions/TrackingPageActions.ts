@@ -88,6 +88,8 @@ export class TrackingPageActions {
     entryType: EntryType,
   }) {
     return this.getEntryModalTypeSelect()
+      // Passing the string value of the enum (was: numeric index with offset -1).
+      // The string value does not depend on the order of the enum, so subtraction of 1 is not necessary
       .select(entryType.toString())
   }
 
