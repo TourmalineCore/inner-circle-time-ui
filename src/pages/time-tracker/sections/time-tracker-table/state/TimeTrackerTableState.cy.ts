@@ -1,30 +1,10 @@
 import { Views } from "react-big-calendar"
-import { TimeTrackerTable } from "../../../types"
 import { TimeTrackerTableState } from "./TimeTrackerTableState"
 
 describe(`TimeTrackerTableState`, () => {
   describe(`Initialization`, initializationTests)
-  describe(`Entries Management`, entriesTests)
   describe(`View Configuration`, viewTests)
 })
-
-const ENTRIES_FOR_INITIALIZATION: TimeTrackerTable = {
-  entries: [
-    {
-      id: 1,
-      title: `Task 1`,
-      taskId: `#2fre1`,
-      project: {
-        id: 1,
-        name: `ProjectOne`,
-      },
-      description: `Task description`,
-      date: new Date(`2025-11-24`),
-      start: new Date(`2025-11-24T09:00:00`),
-      end: new Date(`2025-11-24T09:30:00`),
-    },
-  ],
-}
 
 function initializationTests() {
   it(`
@@ -39,6 +19,11 @@ function initializationTests() {
       .deep
       .eq([])
 
+    expect(timeTrackerTableState.tableData.backgroundEntries)
+      .to
+      .deep
+      .eq([])
+
     expect(timeTrackerTableState.viewStartDate)
       .to
       .be
@@ -48,29 +33,6 @@ function initializationTests() {
       .to
       .be
       .null
-  })
-}
-
-function entriesTests() {
-  let timeTrackerTableState: TimeTrackerTableState
-
-  beforeEach(() => {
-    timeTrackerTableState = new TimeTrackerTableState()
-  })
-
-  it(`
-  GIVEN an empty state
-  WHEN initialize with one entry
-  SHOULD return one entry
-  `, () => {
-    timeTrackerTableState.initialize({
-      loadedData: ENTRIES_FOR_INITIALIZATION,
-    })
-
-    expect(timeTrackerTableState.tableData)
-      .to
-      .deep
-      .eq(ENTRIES_FOR_INITIALIZATION)
   })
 }
 

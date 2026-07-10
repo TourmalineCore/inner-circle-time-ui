@@ -82,7 +82,7 @@ export const TimeTrackerTableContainer = observer(({
 
     async function loadedEntries() {
       const {
-        data: entries,
+        data: entriesResponse,
       } = await api.trackingGetEntriesByPeriod({
         startDate: viewStartDate as string,
         endDate: viewEndDate as string,
@@ -97,12 +97,18 @@ export const TimeTrackerTableContainer = observer(({
         endDate: viewEndDate!,
       })
 
+      const {
+        entries,
+        backgroundEntries,
+      } = EntryMapper.toEntryList({
+        entries: entriesResponse,
+        projects,
+      })
+
       timeTrackerState.initialize({
         loadedData: {
-          entries: EntryMapper.toEntryList({
-            entries,
-            projects,
-          }), 
+          entries,
+          backgroundEntries, 
         },
       })
     }

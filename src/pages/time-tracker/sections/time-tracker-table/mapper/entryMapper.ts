@@ -1,4 +1,4 @@
-import { AwayWithMakeUpTimeEntryDto, GetEntriesByPeriodResponse, MakeUpTimeEntryWithRelatedEntryDto, ProjectDto, TaskEntryDto, UnwellEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
+import { AwayWithMakeUpTimeEntryDto, GetEntriesByPeriodResponse, MakeUpTimeEntryWithRelatedEntryDto, ProjectDto, SickLeaveEntryDto, TaskEntryDto, UnwellEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
 import moment from "moment"
 
 export class EntryMapper {
@@ -14,24 +14,32 @@ export class EntryMapper {
       taskEntries,
       unwellEntries,
       awayWithMakeUpTimeEntries,
-      makeUpTimeEntries, 
+      makeUpTimeEntries,
+      sickLeaveEntries, 
     } = entries
 
-    return [
-      ...this.mapTaskEntries({
-        taskEntries,
-        projects,
-      }),
-      ...this.mapUnwellEntries({
-        unwellEntries,
-      }),
-      ...this.mapAwayWithMakeUpTimeEntries({
-        awayWithMakeUpTimeEntries,
-      }),
-      ...this.mapMakeUpTimeEntries({
-        makeUpTimeEntries,
-      }),
-    ]
+    return {
+      entries: [
+        ...this.mapTaskEntries({
+          taskEntries,
+          projects,
+        }),
+        ...this.mapUnwellEntries({
+          unwellEntries,
+        }),
+        ...this.mapAwayWithMakeUpTimeEntries({
+          awayWithMakeUpTimeEntries,
+        }),
+        ...this.mapMakeUpTimeEntries({
+          makeUpTimeEntries,
+        }), 
+      ],
+      backgroundEntries: [
+        ...this.mapSickLeaveEntries({
+          sickLeaveEntries,
+        }),
+      ],
+    }
   }
 
   private static mapTaskEntries({
@@ -111,6 +119,29 @@ export class EntryMapper {
         start: moment(makeUpTimeEntry.startTime)
           .toDate(),
         end: moment(makeUpTimeEntry.endTime)
+          .toDate(),
+      }))
+  }
+
+  private static mapSickLeaveEntries({
+    sickLeaveEntries,
+  }: {
+    sickLeaveEntries: SickLeaveEntryDto[],
+  } ) {
+    return sickLeaveEntries
+      .map((sickLeaveEntry) => ({
+        id: sickLeaveEntry.id,
+        type: sickLeaveEntry.entryType,
+        start: moment(sickLeaveEntry.period.startDate)
+          .startOf(`day`)
+          .toDate(),
+        end: moment(sickLeaveEntry.period.endDate)
+          .set({
+            hour: 23,
+            minute: 59,
+            second: 0,
+            millisecond: 0, 
+          })
           .toDate(),
       }))
   }

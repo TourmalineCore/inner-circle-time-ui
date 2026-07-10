@@ -60,7 +60,8 @@ export const TimeTrackerTableContent = observer(({
   } = timeTrackerState
 
   const {
-    entries, 
+    entries,
+    backgroundEntries, 
   } = tableData
 
   const handleSelectSlot = ({
@@ -121,6 +122,7 @@ export const TimeTrackerTableContent = observer(({
           timeGutterFormat: `HH:mm`,
         }}
         events={entries}
+        backgroundEvents={backgroundEntries}
         timeslots={4}
         step={15}
         localizer={localizer}
