@@ -1,4 +1,5 @@
 import { EntryType } from "../../src/common/constants/entryType"
+import { WeekDay } from "../enums/weekDay"
 
 export class TrackingPageActions {
   static visit() {
@@ -105,12 +106,20 @@ export class TrackingPageActions {
       .click()
   }
 
-  static getAllDayButton() {
-    return cy.getByData(`all-day-entry-button`)
+  static getAllDayButton({
+    weekDay,
+  }: {
+    weekDay: WeekDay,
+  }) {
+    return cy.getByData(`${weekDay}-all-day-entry-button`)
   }
 
-  static getSickLeave() {
-    return cy.getByData(`sick-leave`)
+  static getSickLeaveCard({
+    weekDay,
+  }: {
+    weekDay: WeekDay,
+  }) {
+    return cy.getByData(`${weekDay}-sick-leave-card`)
   }
 
   static addTaskEntry({

@@ -1,4 +1,5 @@
 import { EntryType } from "../../src/common/constants/entryType"
+import { WeekDay } from "../enums/weekDay"
 import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
 
 describe(`Sick Leave Entry Happy Path`, () => {
@@ -27,7 +28,7 @@ describe(`Sick Leave Entry Happy Path`, () => {
   GIVEN user has a sick leave from Monday to Friday
   AND user wants to track this sick leave in the time tracker
   WHEN user adds the sick leave period from Monday to Friday in the time tracker
-  AND extends it until next Monday after the doctor's visit
+  AND open existing sick leave and extends it until next Monday after the doctor's visit
   THEN user should see 8-day sick leave in the time tracker
   `, () => {
     TrackingPageActions.visit()
@@ -39,8 +40,9 @@ describe(`Sick Leave Entry Happy Path`, () => {
     
     cy.log(`Add a Sick Leave Entry from Monday to Friday`)
 
-    TrackingPageActions.getAllDayButton()
-      .first()
+    TrackingPageActions.getAllDayButton({
+      weekDay: WeekDay.MONDAY,
+    })
       .click()
 
     TrackingPageActions.selectEntryModalType({
@@ -59,11 +61,12 @@ describe(`Sick Leave Entry Happy Path`, () => {
 
     cy.log(`Verify that the sick leave has been created for 5 days.`)
 
-    TrackingPageActions.getSickLeave()
+    cy.get(`[data-cy*="sick-leave-card"]`)
       .should(`have.length`, 5)
 
-    TrackingPageActions.getAllDayButton()
-      .first()
+    TrackingPageActions.getAllDayButton({
+      weekDay: WeekDay.FRIDAY,
+    })
       .click()
 
     cy.log(`Verify that when the sick leave entry is opened, all data is displayed correctly.`)
@@ -88,14 +91,16 @@ describe(`Sick Leave Entry Happy Path`, () => {
 
     cy.log(`Check that the sick leave is displayed correctly in the time tracker for this and next week.`)
 
-    TrackingPageActions.getSickLeave()
+    cy.get(`[data-cy*="sick-leave-card"]`)
       .should(`have.length`, 7)
 
     cy
       .contains(`Next`)
       .click()
     
-    TrackingPageActions.getSickLeave()
+    TrackingPageActions.getSickLeaveCard({
+      weekDay: WeekDay.MONDAY,
+    })
       .should(`have.length`, 1)
   })
 })
