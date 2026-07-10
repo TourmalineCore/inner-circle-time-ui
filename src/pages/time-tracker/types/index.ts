@@ -48,4 +48,12 @@ export type MakeUpTimeEntry = {
   endTime: Date | null,
 }
 
+export type SickLeaveEntry = {
+  id?: number,
+  period: {
+    startDate: Date | null,
+    endDate: Date | null,
+  },
+}
+
 export type View = 'day' | 'week'
