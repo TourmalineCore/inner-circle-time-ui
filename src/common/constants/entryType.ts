@@ -10,6 +10,7 @@ export const TYPE_LABELS: Record<string, string> = {
   [EntryType.TASK]: `Task`,
   [EntryType.UNWELL]: `Unwell`,
   [EntryType.AWAY_WITH_MAKE_UP_TIME]: `Away With Make-Up Time`,
+  [EntryType.SICK_LEAVE]: `Sick leave`,
 }
 
 export const TYPES = Object.values(EntryType)
