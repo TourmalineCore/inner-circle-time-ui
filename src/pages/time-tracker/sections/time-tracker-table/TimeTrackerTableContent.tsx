@@ -99,14 +99,6 @@ export const TimeTrackerTableContent = observer(({
     })
   }
 
-  const eventPropGetter = ({
-    type, 
-  }: TrackedEntry) => {
-    return {
-      className: `time-tracker-table__entry time-tracker-table__entry--${ENTRY_CARD_CONFIG[type!].className}`,
-    } 
-  }
-
   const currentView = isMobile ? Views.DAY : Views.WEEK
 
   return (
@@ -127,13 +119,6 @@ export const TimeTrackerTableContent = observer(({
         ]}
         formats={{
           timeGutterFormat: `HH:mm`,
-          eventTimeRangeFormat: ({
-            start,
-            end, 
-          }) => 
-            `${moment(start)
-              .format(`HH:mm`)} - ${moment(end)
-              .format(`HH:mm`)}`,
         }}
         events={entries}
         timeslots={4}
@@ -145,7 +130,6 @@ export const TimeTrackerTableContent = observer(({
           date: date,
           view: currentView,
         })}
-        eventPropGetter={eventPropGetter}
         selectable
         scrollToTime={moment()
           .hour(8)
