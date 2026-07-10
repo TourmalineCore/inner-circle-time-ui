@@ -171,7 +171,7 @@ Cypress.Commands.add(`removeSickLeaveEntries`, ({
     .then(({
       body,
     }) => {
-      body.sickLeaveEntries?.forEach(({
+      body.sickLeaveEntries.forEach(({
         id, 
       }) => {
         cy.request({
