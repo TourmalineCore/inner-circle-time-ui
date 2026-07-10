@@ -50,6 +50,9 @@ export function EntryCardContent({
           startTime={event.start}
           endTime={event.end}
         />
+
+      case EntryType.SICK_LEAVE:
+        return <SickLeaveCardContent />
   
       default:
         return null 
