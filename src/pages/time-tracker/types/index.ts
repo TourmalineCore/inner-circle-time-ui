@@ -7,8 +7,8 @@ export type TrackedEntry = {
   taskId?: string,
   project?: ProjectDto,
   description?: string,
-  type?: EntryType,
-  date: Date | null,
+  type: EntryType,
+  date?: Date | null,
   start: Date,
   end: Date,
   relatedEntryId?: number,
@@ -18,6 +18,7 @@ export type TrackedEntry = {
 
 export type TimeTrackerTable = {
   entries: TrackedEntry[],
+  backgroundEntries: TrackedEntry[],
 }
 
 export type EntryBase = {
