@@ -19,19 +19,6 @@
       right: 60px;
     }
   }
-
-  &__entry {
-    &--unwell,
-    &--away-with-make-up-time {
-      border: 1px solid $color-grey !important;
-      background-color: $color-grey !important;
-    }
-
-    &--make-up-time {
-      border: 1px solid $color-light-pink !important;
-      background-color: $color-light-pink !important;
-    }
-  }
 }
 
 // remove background for current day
@@ -72,4 +59,20 @@
     width: 0;
     height: 0;
   }
+}
+
+.rbc-event,
+.rbc-background-event {
+  border: none !important;
+  padding: 0 !important;
+}
+
+.rbc-event-label,
+.rbc-allday-cell {
+  display: none;
+}
+
+.rbc-button-link {
+  width: 100%;
+  cursor: default;
 }
