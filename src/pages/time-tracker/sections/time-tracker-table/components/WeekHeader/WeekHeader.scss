@@ -1,0 +1,16 @@
+@use "../../../../../../styles/variables" as *;
+
+.week-header {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  &__button {
+    border: none;
+    padding: 5px 10px;
+    color: $color-white;
+    background-color: $color-blue;
+  }
+}

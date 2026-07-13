@@ -79,10 +79,6 @@ export class TrackingPageActions {
       .find(`input`)
   }
 
-  static getAllDayEntryButton() {
-    return cy.getByData(`all-day-entry-button`)
-  }
-
   static selectEntryModalType({
     entryType,
   }: {

@@ -9,8 +9,8 @@ import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
-import { EntryContent } from './components/EntryContent/EntryContent'
-import { ENTRY_CARD_CONFIG } from '../../../../common/constants/entryType'
+import { EntryCardContent } from './components/EntryCardContent/EntryCardContent'
+import { WeekHeader } from './components/WeekHeader/WeekHeader'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -146,7 +146,13 @@ export const TimeTrackerTableContent = observer(({
           .minute(59)
           .toDate()}
         components={{
-          event: EntryContent,
+          event: EntryCardContent,
+          week: {
+            header: (headerProps) => <WeekHeader
+              {...headerProps}
+              backgroundEntries={backgroundEntries}
+            />,
+          },
         }}
       />
     </>
