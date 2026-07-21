@@ -1,8 +1,9 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { WeekHeader } from "./WeekHeader"
+import { DayHeader } from "./DayHeader"
 
 describe(`WeekHeader`, () => {
   describe(`Button Text`, buttonTextTests)
+  describe(`Label visibility`, labelVisibilityTests)
 })
 
 function buttonTextTests() {
@@ -58,21 +59,59 @@ function buttonTextTests() {
   })
 }
 
+function labelVisibilityTests() {
+  it(`
+  GIVEN day header component
+  AND showLabel = true
+  WHEN render the component
+  THEN label is displayed
+  `, () => {
+    mountComponent({
+      backgroundEntries: [],
+      date: new Date(`2026-07-08`),
+    })
+    
+    cy.getByData(`day-header-label`)
+      .should(`exist`)
+  })
+
+  it(`
+  GIVEN day header component
+  AND showLabel = false
+  WHEN render the component
+  THEN label is not displayed
+  `, () => {
+    mountComponent({
+      backgroundEntries: [],
+      date: new Date(`2026-07-08`),
+      showLabel: false,
+    })
+
+    cy.getByData(`day-header-label`)
+      .should(`not.exist`)
+  })
+}
+
 function mountComponent({
   backgroundEntries,
   date,
+  showLabel = true,
 }: {
   backgroundEntries: any[],
   date: Date,
+  showLabel?: boolean,
 }) {
   cy.viewport(1366, 768)
     
   cy
     .mount(
-      <WeekHeader
+      <DayHeader
         backgroundEntries={backgroundEntries}
         date={date}
         label={``}
+        openEntry={() => {}}
+        createNewEntry={() => {}}
+        showLabel={showLabel}
       />,
     )
 }

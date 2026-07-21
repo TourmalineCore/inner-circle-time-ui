@@ -1,4 +1,4 @@
-import './WeekHeader.scss'
+import './DayHeader.scss'
 import moment from 'moment'
 
 import { EntryType } from '../../../../../../common/constants/entryType'
@@ -8,12 +8,13 @@ const BUTTON_TEXT: Record<number, string> = {
   [EntryType.SICK_LEAVE]: `Sick leave`,
 }
 
-export function WeekHeader({
+export function DayHeader({
   date,
   label,
   backgroundEntries,
   openEntry,
   createNewEntry,
+  showLabel,
 }: {
   date: Date,
   label: string,
@@ -30,6 +31,7 @@ export function WeekHeader({
     start: Date,
     end: Date,
   }) => unknown,
+  showLabel?: boolean,
 }) {
   const foundEntry = backgroundEntries.find(({
     start,
@@ -68,12 +70,14 @@ export function WeekHeader({
   } 
 
   return (  
-    <div className='week-header'>
-      <div className='week-header__container'>
-        <span>{label}</span>
+    <div className='day-header'>
+      <div className='day-header__container'>
+        {showLabel && (
+          <span data-cy='day-header-label'>{label}</span>
+        )}
         <button
           data-cy={`${weekDay}-all-day-entry-button`} 
-          className='week-header__button'
+          className='day-header__button'
           onClick={handleEntryButtonClick}
         >
           {buttonText}
