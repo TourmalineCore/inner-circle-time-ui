@@ -1,6 +1,6 @@
 import './SickLeaveEntryCardContent.scss'
 
-export function SickLeaveCardContent() {
+export function SickLeaveEntryCardContent() {
   return (
     <div className="sick-leave-entry-card-content"></div>
   )

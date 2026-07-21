@@ -5,7 +5,7 @@ import { TaskEntryCardContent } from "./components/TaskEntryCardContent/TaskEntr
 import { UnwellEntryCardContent } from "./components/UnwellEntryCardContent/UnwellEntryCardContent"
 import { AwayWithMakeUpTimeEntryCardContent } from "./components/AwayWithMakeUpTimeEntryCardContent/AwayWithMakeUpTimeEntryCardContent"
 import { MakeUpTimeEntryCardContent } from "./components/MakeUpTimeEntryCardContent/MakeUpTimeEntryCardContent"
-import { SickLeaveCardContent } from "./components/SickLeaveEntryCardContent/SickLeaveEntryCardContent"
+import { SickLeaveEntryCardContent } from "./components/SickLeaveEntryCardContent/SickLeaveEntryCardContent"
 
 export function EntryCardContent({
   event, 
