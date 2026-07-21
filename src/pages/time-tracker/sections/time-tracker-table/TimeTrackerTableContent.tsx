@@ -91,6 +91,12 @@ export const TimeTrackerTableContent = observer(({
   }
 
   const handleSelectEntry = (entry: TrackedEntry) => {
+    // Background events (sick leaves, vacation and etc) should not be clickable
+    // They can only be opened via the all day button
+    if (entry.isBackgroundEvent) {
+      return
+    }
+
     if (isCopyMode) {
       resetIsCopyMode()
     }
