@@ -14,7 +14,7 @@ export function DayHeader({
   backgroundEntries,
   openEntry,
   createNewEntry,
-  showLabel,
+  showLabel = true,
 }: {
   date: Date,
   label: string,
