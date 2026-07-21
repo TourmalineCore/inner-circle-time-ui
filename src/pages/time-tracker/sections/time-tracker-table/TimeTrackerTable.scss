@@ -67,6 +67,12 @@
   padding: 0 !important;
 }
 
+.rbc-background-event {
+  &:focus {
+    outline: none !important;
+  }
+}
+
 .rbc-event-label,
 .rbc-allday-cell {
   display: none;

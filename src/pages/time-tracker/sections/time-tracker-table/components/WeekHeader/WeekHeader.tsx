@@ -32,7 +32,7 @@ export function WeekHeader({
   })
 
   const buttonText = entry
-    ? BUTTON_TEXT[entry.type]
+    ? BUTTON_TEXT[entry.type!]
     :`Add an all-day event`
 
   const weekDay = moment(date)

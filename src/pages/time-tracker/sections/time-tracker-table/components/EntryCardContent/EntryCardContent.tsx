@@ -52,7 +52,7 @@ export function EntryCardContent({
         />
 
       case EntryType.SICK_LEAVE:
-        return <SickLeaveCardContent />
+        return <SickLeaveEntryCardContent />
   
       default:
         return null 

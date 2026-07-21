@@ -7,13 +7,14 @@ export type TrackedEntry = {
   taskId?: string,
   project?: ProjectDto,
   description?: string,
-  type: EntryType,
+  type?: EntryType,
   date?: Date | null,
   start: Date,
   end: Date,
   relatedEntryId?: number,
   relatedEntryType?: number,
   makeUpTimeList?: MakeUpTimeEntry[],
+  isBackgroundEvent?: boolean,
 }
 
 export type TimeTrackerTable = {
