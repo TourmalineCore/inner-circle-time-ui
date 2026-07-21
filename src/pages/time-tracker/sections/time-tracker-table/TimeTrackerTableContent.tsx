@@ -157,6 +157,8 @@ export const TimeTrackerTableContent = observer(({
             header: (headerProps) => <WeekHeader
               {...headerProps}
               backgroundEntries={backgroundEntries}
+              openEntry={openEntry}
+              createNewEntry={createNewEntry}
             />,
           },
         }}

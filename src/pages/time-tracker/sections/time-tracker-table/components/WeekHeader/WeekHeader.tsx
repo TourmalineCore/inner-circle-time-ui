@@ -12,12 +12,26 @@ export function WeekHeader({
   date,
   label,
   backgroundEntries,
+  openEntry,
+  createNewEntry,
 }: {
   date: Date,
   label: string,
   backgroundEntries: TrackedEntry[],
+    openEntry: ({
+      entry,
+    }: {
+    entry: TrackedEntry,
+  }) => unknown,
+    createNewEntry: ({
+      start,
+      end,
+    }: {
+    start: Date,
+    end: Date,
+  }) => unknown,
 }) {
-  const entry = backgroundEntries.find(({
+  const foundEntry = backgroundEntries.find(({
     start,
     end,
   }) => {
@@ -31,13 +45,27 @@ export function WeekHeader({
     return currentDate.isBetween(entryStart, entryEnd, `day`, `[]`) 
   })
 
-  const buttonText = entry
-    ? BUTTON_TEXT[entry.type!]
+  const buttonText = foundEntry
+    ? BUTTON_TEXT[foundEntry.type!]
     :`Add an all-day event`
 
   const weekDay = moment(date)
     .format(`dddd`)
     .toLowerCase() 
+
+  const handleEntryButtonClick = () => {
+    if (foundEntry) {
+      openEntry({
+        entry: foundEntry,
+      })
+    }
+    else {
+      createNewEntry({
+        start: date,
+        end: date,
+      })
+    }
+  } 
 
   return (  
     <div className='week-header'>
@@ -46,6 +74,7 @@ export function WeekHeader({
         <button
           data-cy={`${weekDay}-all-day-entry-button`} 
           className='week-header__button'
+          onClick={handleEntryButtonClick}
         >
           {buttonText}
         </button>

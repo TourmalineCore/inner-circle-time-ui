@@ -15,7 +15,7 @@ export class SickLeaveEntryStrategy implements EntryStrategy {
   readonly EntryContent = () => <SickLeaveEntryContent />
   readonly modalConfiguration = {
     label: ``,
-    hasCopyButton: true,
+    hasCopyButton: false,
     hasDeleteButton: true,
     isAllDayEntryType: true,
   }
