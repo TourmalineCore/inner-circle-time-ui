@@ -18,6 +18,7 @@ export class TaskEntryStrategy implements EntryStrategy {
     label: `Task`,
     hasCopyButton: true,
     hasDeleteButton: true,
+    isAllDayEntryType: false,
   }
 
   initializeNewEntry({

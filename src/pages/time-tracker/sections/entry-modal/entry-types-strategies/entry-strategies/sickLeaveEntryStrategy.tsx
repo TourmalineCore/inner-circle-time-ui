@@ -17,7 +17,9 @@ export class SickLeaveEntryStrategy implements EntryStrategy {
     label: ``,
     hasCopyButton: true,
     hasDeleteButton: true,
+    isAllDayEntryType: true,
   }
+
   initializeNewEntry({
     initialEntryData,
     entryState,

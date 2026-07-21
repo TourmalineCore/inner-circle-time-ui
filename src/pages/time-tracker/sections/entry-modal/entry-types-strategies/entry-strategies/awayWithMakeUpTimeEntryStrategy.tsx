@@ -17,6 +17,7 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
     label: ``,
     hasCopyButton: true,
     hasDeleteButton: true,
+    isAllDayEntryType: false,
   }
 
   initializeNewEntry({

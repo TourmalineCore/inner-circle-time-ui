@@ -88,5 +88,6 @@ export type EntryStrategy = {
     label: string,
     hasDeleteButton: boolean,
     hasCopyButton: boolean,
+    isAllDayEntryType: boolean,
   },
 }

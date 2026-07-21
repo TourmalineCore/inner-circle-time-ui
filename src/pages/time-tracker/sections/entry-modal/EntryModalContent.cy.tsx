@@ -1,4 +1,5 @@
 import { TrackingPageActions } from "../../../../../cypress/pagesActions/TrackingPageActions"
+import { EntryType } from "../../../../common/constants/entryType"
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
@@ -8,6 +9,7 @@ describe(`EntryModalContent`, () => {
   describe(`Is Existing Modal Entry`, isExistingModalEntryTests)
   describe(`Is Disabled Types Select`, isDisabledTypesSelectTests)
   describe(`Button visibility`, buttonVisibilityTests)
+  describe(`Entry types select options`, entryTypesSelectOptionsTests)
 })
 
 function functionCallTests() {
@@ -160,16 +162,66 @@ function buttonVisibilityTests() {
   })
 }
 
+function entryTypesSelectOptionsTests() {
+  it(`
+  GIVEN entry modal is open
+  WHEN isAllDayEntryType = true
+  THEN select options should contain only all-day entry type values
+  `, () => {
+    mountComponent({
+      isAllDayEntryType: true,
+    })
+
+    TrackingPageActions.getEntryModalTypeSelect()
+      .find(`option`)
+      .then((options) => {
+        const values = Cypress._.map(options, `value`)
+    
+        expect(values)
+          .to
+          .deep
+          .eq([
+            EntryType.SICK_LEAVE,
+          ].map(String))
+      })
+  })
+
+  it(`
+  GIVEN entry modal is opened
+  WHEN isAllDayEntryType = false
+  THEN select options should contain only non-all-day entry type values
+  `, () => {
+    mountComponent()
+
+    TrackingPageActions.getEntryModalTypeSelect()
+      .find(`option`)
+      .then((options) => {
+        const values = Cypress._.map(options, `value`)
+    
+        expect(values)
+          .to
+          .deep
+          .eq([
+            EntryType.TASK,
+            EntryType.UNWELL,
+            EntryType.AWAY_WITH_MAKE_UP_TIME,
+          ].map(String))
+      })
+  })
+}
+
 function mountComponent({
   hasDeleteButton = true,
   hasCopyButton = true,
   isDisabledTypesSelect = false,
   isExistingEntry = false,
+  isAllDayEntryType = false,
 }: {
   hasDeleteButton?: boolean,
   hasCopyButton?: boolean,
   isDisabledTypesSelect?: boolean,
   isExistingEntry?: boolean,
+  isAllDayEntryType?: boolean,
 } = {}) {
   const entryModalState = new EntryModalState()
 
@@ -196,6 +248,7 @@ function mountComponent({
           buttonLabel={``}
           hasDeleteButton={hasDeleteButton}
           hasCopyButton={hasCopyButton}
+          isAllDayEntryType={isAllDayEntryType}
           openDeleteModal={openDeleteModal}
         />
       </EntryModalStateContext.Provider>,

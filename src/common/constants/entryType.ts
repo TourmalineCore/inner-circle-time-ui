@@ -13,9 +13,16 @@ export const TYPE_LABELS: Record<string, string> = {
   [EntryType.SICK_LEAVE]: `Sick leave`,
 }
 
-export const TYPES = Object.values(EntryType)
+export const NON_ALL_DAY_ENTRY_TYPES = Object.values(EntryType)
   // MAKE_UP_TIME is always part of another entry, so it should not be available for selection in select
-  .filter(value => typeof value === `number` && value !== EntryType.MAKE_UP_TIME)
+  .filter(value => typeof value === `number` && value !== EntryType.MAKE_UP_TIME && value !== EntryType.SICK_LEAVE)
+  .map(value => ({
+    value: value as number,
+    label: TYPE_LABELS[value as EntryType],
+  }))
+
+export const ALL_DAY_ENTRY_TYPES = Object.values(EntryType)
+  .filter(value => typeof value === `number` && value === EntryType.SICK_LEAVE)
   .map(value => ({
     value: value as number,
     label: TYPE_LABELS[value as EntryType],

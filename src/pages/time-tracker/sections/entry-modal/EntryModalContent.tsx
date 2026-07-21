@@ -7,7 +7,7 @@ import { Modal } from '@tourmalinecore/react-tc-modal'
 import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { ReactNode, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import { TYPES } from '../../../../common/constants/entryType'
+import { ALL_DAY_ENTRY_TYPES, NON_ALL_DAY_ENTRY_TYPES } from '../../../../common/constants/entryType'
 import DeleteIcon from "../../../../assets/icons/trash.svg?react"
 import CopyIcon from "../../../../assets/icons/copy.svg?react"
 
@@ -18,6 +18,7 @@ export const EntryModalContent = observer(({
   buttonLabel,
   hasDeleteButton,
   hasCopyButton,
+  isAllDayEntryType,
   openDeleteModal,
   children,
 }: {
@@ -27,6 +28,7 @@ export const EntryModalContent = observer(({
   buttonLabel: string,
   hasDeleteButton: boolean,
   hasCopyButton: boolean,
+  isAllDayEntryType: boolean,
   openDeleteModal: () => unknown,
   children?: ReactNode,
 }) => {
@@ -35,6 +37,8 @@ export const EntryModalContent = observer(({
   const {
     type,
   } = entryModalState
+
+  const entryTypes = isAllDayEntryType ? ALL_DAY_ENTRY_TYPES : NON_ALL_DAY_ENTRY_TYPES 
 
   return (
     <Modal
@@ -53,7 +57,7 @@ export const EntryModalContent = observer(({
               type: Number(e.target.value),
             })}
           >
-            {TYPES.map(({
+            {entryTypes.map(({
               label,
               value,
             }) => (
