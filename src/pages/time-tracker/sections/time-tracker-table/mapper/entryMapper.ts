@@ -136,12 +136,7 @@ export class EntryMapper {
           .startOf(`day`)
           .toDate(),
         end: moment(sickLeaveEntry.period.endDate)
-          .set({
-            hour: 23,
-            minute: 59,
-            second: 0,
-            millisecond: 0, 
-          })
+          .endOf(`day`)
           .toDate(),
       }))
   }
