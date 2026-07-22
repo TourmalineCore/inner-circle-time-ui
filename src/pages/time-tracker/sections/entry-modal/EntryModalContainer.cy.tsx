@@ -1,10 +1,10 @@
-import { TrackingPageActions } from "../../../../../cypress/pagesActions/TrackingPageActions"
+import { TrackingPageActions } from "../../../../../cypress/pages-actions/TrackingPageActions"
 import { EntryType } from "../../../../common/constants/entryType"
 import { eventBus, EventBusType } from "../../event-bus"
 import { EntryTypesStrategy } from "./entry-types-strategies/entryTypesStrategy"
 import { EntryModalContainer } from "./EntryModalContainer"
-import { TaskEntryState } from "./sections/TaskEntry/state/TaskEntryState"
-import { TaskEntryStateContext } from "./sections/TaskEntry/state/TaskEntryStateContext"
+import { TaskEntryState } from "./sections/task-entry/state/TaskEntryState"
+import { TaskEntryStateContext } from "./sections/task-entry/state/TaskEntryStateContext"
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
 

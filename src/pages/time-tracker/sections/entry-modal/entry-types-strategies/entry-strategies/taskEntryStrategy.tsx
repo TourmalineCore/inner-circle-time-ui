@@ -3,9 +3,9 @@ import { CreateTaskEntryRequest, UpdateTaskEntryRequest } from "@tourmalinecore/
 import { api } from "../../../../../../common/api/api"
 import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
 import { EntryStrategy } from "../entryTypesStrategy"
-import { TaskEntryState } from "../../sections/TaskEntry/state/TaskEntryState"
-import { TaskEntryStateContext } from "../../sections/TaskEntry/state/TaskEntryStateContext"
-import { TaskEntryContent } from "../../sections/TaskEntry/TaskEntryContent"
+import { TaskEntryState } from "../../sections/task-entry/state/TaskEntryState"
+import { TaskEntryStateContext } from "../../sections/task-entry/state/TaskEntryStateContext"
+import { TaskEntryContent } from "../../sections/task-entry/TaskEntryContent"
 import { TaskEntryData, TrackedEntry } from "../../../../types"
 
 export class TaskEntryStrategy implements EntryStrategy {

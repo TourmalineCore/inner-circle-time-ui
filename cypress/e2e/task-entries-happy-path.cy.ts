@@ -1,4 +1,4 @@
-import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
+import { TrackingPageActions } from "../pages-actions/TrackingPageActions"
 
 describe(`Task Entries Happy Path`, () => {
   const testDate = new Date(2024, 9, 21)

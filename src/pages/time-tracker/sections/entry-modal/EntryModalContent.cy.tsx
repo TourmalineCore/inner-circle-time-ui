@@ -1,4 +1,4 @@
-import { TrackingPageActions } from "../../../../../cypress/pagesActions/TrackingPageActions"
+import { TrackingPageActions } from "../../../../../cypress/pages-actions/TrackingPageActions"
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"

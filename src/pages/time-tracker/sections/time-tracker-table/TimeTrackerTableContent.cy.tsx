@@ -1,4 +1,4 @@
-import { TrackingPageActions } from "../../../../../cypress/pagesActions/TrackingPageActions"
+import { TrackingPageActions } from "../../../../../cypress/pages-actions/TrackingPageActions"
 import { TimeTrackerTableState } from "./state/TimeTrackerTableState"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
