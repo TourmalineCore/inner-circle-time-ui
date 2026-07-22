@@ -1,4 +1,3 @@
-import { TrackedEntry } from "../../../pages/time-tracker/types"
 import { findEntryForDate } from "./findEntryForDate"
 
 describe(`FindEntryForDate`, () => {   
@@ -14,12 +13,10 @@ describe(`FindEntryForDate`, () => {
   WHEN try searching for any date
   SHOULD return undefined
   `, () => {
-    const entries: TrackedEntry[] = []
-
     const date = new Date(`2026-07-22`)
     
     const result = findEntryForDate({
-      entries,
+      entries: [],
       date, 
     })
     

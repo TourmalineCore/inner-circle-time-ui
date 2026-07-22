@@ -1,11 +1,11 @@
 import { EventProps } from "react-big-calendar"
 import { TrackedEntry } from "../../../../types"
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { TaskEntryCardContent } from "./components/TaskEntryCardContent/TaskEntryCardContent"
-import { UnwellEntryCardContent } from "./components/UnwellEntryCardContent/UnwellEntryCardContent"
-import { AwayWithMakeUpTimeEntryCardContent } from "./components/AwayWithMakeUpTimeEntryCardContent/AwayWithMakeUpTimeEntryCardContent"
-import { MakeUpTimeEntryCardContent } from "./components/MakeUpTimeEntryCardContent/MakeUpTimeEntryCardContent"
-import { SickLeaveEntryCardContent } from "./components/SickLeaveEntryCardContent/SickLeaveEntryCardContent"
+import { TaskEntryCardContent } from "./components/task-entry-card-content/TaskEntryCardContent"
+import { UnwellEntryCardContent } from "./components/unwell-entry-card-content/UnwellEntryCardContent"
+import { AwayWithMakeUpTimeEntryCardContent } from "./components/away-with-make-up-time-entry-card-content/AwayWithMakeUpTimeEntryCardContent"
+import { MakeUpTimeEntryCardContent } from "./components/make-up-time-entry-card-content/MakeUpTimeEntryCardContent"
+import { SickLeaveEntryCardContent } from "./components/sick-leave-entry-card-content/SickLeaveEntryCardContent"
 
 export function EntryCardContent({
   event, 

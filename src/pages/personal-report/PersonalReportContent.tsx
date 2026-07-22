@@ -7,7 +7,7 @@ import { useContext } from "react"
 import { PersonalReportTrackedEntry } from "./types"
 import { PersonalReportStateContext } from './state/PersonalReportStateContext'
 import { UNSPECIFIED_EMPLOYEE_ID } from './state/PersonalReportState'
-import { DatePicker } from '../../components/DatePicker/DatePicker'
+import { DatePicker } from '../../components/date-picker/DatePicker'
 
 export const PersonalReportContent = observer(() => {
   const personalReportState = useContext(PersonalReportStateContext)

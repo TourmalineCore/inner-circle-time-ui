@@ -1,4 +1,4 @@
-import { TrackingPageActions } from "../pages-actions/TrackingPageActions"
+import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Copy Entries Happy Path`, () => {
   const testDate = new Date(2022, 9, 24)

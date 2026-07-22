@@ -2,9 +2,9 @@ import { CreateAwayWithMakeUpTimeEntryRequest, UpdateAwayWithMakeUpTimeEntryRequ
 import { api } from "../../../../../../common/api/api"
 import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
 import { EntryStrategy } from "../entryTypesStrategy"
-import { AwayWithMakeUpTimeEntryState } from "../../sections/AwayWithMakeUpTimeEntry/state/AwayWithMakeUpTimeEntryState"
-import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/AwayWithMakeUpTimeEntry/state/AwayWithMakeUpTimeEntryStateContext"
-import { AwayWithMakeUpTimeEntryContent } from "../../sections/AwayWithMakeUpTimeEntry/AwayWithMakeUpTimeEntryContent"
+import { AwayWithMakeUpTimeEntryState } from "../../sections/away-with-make-up-time-entry/state/AwayWithMakeUpTimeEntryState"
+import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/away-with-make-up-time-entry/state/AwayWithMakeUpTimeEntryStateContext"
+import { AwayWithMakeUpTimeEntryContent } from "../../sections/away-with-make-up-time-entry/AwayWithMakeUpTimeEntryContent"
 import { AwayWithMakeUpTimeEntryData } from "../../../../types"
 
 export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {

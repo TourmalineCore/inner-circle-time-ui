@@ -1,4 +1,4 @@
-import { TrackingPageActions } from "../../../../../../../cypress/pages-actions/TrackingPageActions"
+import { TrackingPageActions } from "../../../../../../../cypress/pages-actions/trackingPageActions"
 import { EntryType } from "../../../../../../common/constants/entryType"
 import { EntryTypesStrategy } from "../../entry-types-strategies/entryTypesStrategy"
 import { EntryModalContainer } from "../../EntryModalContainer"

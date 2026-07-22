@@ -1,6 +1,6 @@
 import { EntryType } from "../../src/common/constants/entryType"
 import { WeekDay } from "../enums/weekDay"
-import { TrackingPageActions } from "../pages-actions/TrackingPageActions"
+import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Sick Leave Entry Happy Path`, () => {
   const testDate = new Date(2021, 6, 5)

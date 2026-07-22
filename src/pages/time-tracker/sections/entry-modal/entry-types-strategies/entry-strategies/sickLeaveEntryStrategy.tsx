@@ -2,10 +2,10 @@ import { CreateSickLeaveEntryRequest, UpdateSickLeaveEntryRequest } from "@tourm
 import { api } from "../../../../../../common/api/api"
 import { EntryStrategy } from "../entryTypesStrategy"
 import { EntryBase } from "../../../../types"
-import { SickLeaveEntryState } from "../../sections/SickLeaveEntry/state/SickLeaveState"
-import { SickLeaveEntryStateContext } from "../../sections/SickLeaveEntry/state/SickLeaveStateContext"
+import { SickLeaveEntryState } from "../../sections/sick-leave-entry/state/SickLeaveState"
+import { SickLeaveEntryStateContext } from "../../sections/sick-leave-entry/state/SickLeaveStateContext"
 import moment from "moment"
-import { SickLeaveEntryContent } from "../../sections/SickLeaveEntry/SickLeaveEntryContent"
+import { SickLeaveEntryContent } from "../../sections/sick-leave-entry/SickLeaveEntryContent"
 
 export class SickLeaveEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = SickLeaveEntryState

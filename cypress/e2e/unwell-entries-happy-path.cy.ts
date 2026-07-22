@@ -1,5 +1,5 @@
 import { EntryType } from "../../src/common/constants/entryType"
-import { TrackingPageActions } from "../pages-actions/TrackingPageActions"
+import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Unwell Entries Happy Path`, () => {
   const testDate = new Date(2023, 9, 23)

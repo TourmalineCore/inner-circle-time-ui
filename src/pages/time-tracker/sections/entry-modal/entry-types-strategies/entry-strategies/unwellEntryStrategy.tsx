@@ -2,9 +2,9 @@ import { CreateUnwellEntryRequest, UpdateUnwellEntryRequest } from "@tourmalinec
 import { api } from "../../../../../../common/api/api"
 import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
 import { EntryStrategy } from "../entryTypesStrategy"
-import { UnwellEntryState } from "../../sections/UnwellEntry/state/UnwellEntryState"
-import { UnwellEntryStateContext } from "../../sections/UnwellEntry/state/UnwellEntryStateContext"
-import { UnwellEntryContent } from "../../sections/UnwellEntry/UnwellEntryContent"
+import { UnwellEntryState } from "../../sections/unwell-entry/state/UnwellEntryState"
+import { UnwellEntryStateContext } from "../../sections/unwell-entry/state/UnwellEntryStateContext"
+import { UnwellEntryContent } from "../../sections/unwell-entry/UnwellEntryContent"
 import { UnwellEntryData } from "../../../../types"
 
 export class UnwellEntryStrategy implements EntryStrategy {

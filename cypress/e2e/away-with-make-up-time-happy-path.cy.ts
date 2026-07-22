@@ -1,5 +1,5 @@
 import { EntryType } from "../../src/common/constants/entryType"
-import { TrackingPageActions } from "../pages-actions/TrackingPageActions"
+import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Away With Make-up Time Entry Happy Path`, () => {
   const dateToDeleteTask = new Date(2025, 9, 20)
