@@ -57,7 +57,8 @@ function mountComponent({
         <TimeTrackerTableContent
           isCopyMode={isCopyMode}
           createCopyEntry={() => {}}
-          createNewEntry={() => {}}
+          createNewNonAllDayEntry={() => {}}
+          createNewAllDayEntry={() => {}}
           openEntry={() => {}}
           resetIsCopyMode={() => {}}
         />

@@ -110,7 +110,7 @@ function mountComponent({
         date={date}
         label={``}
         openEntry={() => {}}
-        createNewEntry={() => {}}
+        createNewAllDayEntry={() => {}}
         showLabel={showLabel}
       />,
     )
