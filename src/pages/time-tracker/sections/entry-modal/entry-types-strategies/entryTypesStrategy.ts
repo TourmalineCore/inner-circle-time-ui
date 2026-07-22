@@ -39,7 +39,6 @@ export class EntryTypesStrategy {
 }
 
 export type EntryStrategy = { 
-  entryType: EntryType,
   entryStateConstructor: any,
   StateContext: React.Context<any>,
   EntryContent: (props?: any) => ReactNode,
@@ -88,6 +87,5 @@ export type EntryStrategy = {
     label: string,
     hasDeleteButton: boolean,
     hasCopyButton: boolean,
-    isAllDayEntryType: boolean,
   },
 }

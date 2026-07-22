@@ -5,11 +5,9 @@ import { EntryStrategy } from "../entryTypesStrategy"
 import { UnwellEntryState } from "../../sections/UnwellEntry/state/UnwellEntryState"
 import { UnwellEntryStateContext } from "../../sections/UnwellEntry/state/UnwellEntryStateContext"
 import { UnwellEntryContent } from "../../sections/UnwellEntry/UnwellEntryContent"
-import { EntryType } from "../../../../../../common/constants/entryType"
 import { UnwellEntryData } from "../../../../types"
 
 export class UnwellEntryStrategy implements EntryStrategy {
-  readonly entryType = EntryType.UNWELL
   readonly entryStateConstructor = UnwellEntryState
   readonly StateContext = UnwellEntryStateContext
   readonly EntryContent = () => <UnwellEntryContent />
@@ -17,7 +15,6 @@ export class UnwellEntryStrategy implements EntryStrategy {
     label: ``,
     hasCopyButton: true,
     hasDeleteButton: true,
-    isAllDayEntryType: false,
   }
 
   initializeNewEntry({

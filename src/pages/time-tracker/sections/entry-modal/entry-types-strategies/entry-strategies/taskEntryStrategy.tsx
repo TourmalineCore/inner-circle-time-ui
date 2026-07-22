@@ -6,11 +6,9 @@ import { EntryStrategy } from "../entryTypesStrategy"
 import { TaskEntryState } from "../../sections/TaskEntry/state/TaskEntryState"
 import { TaskEntryStateContext } from "../../sections/TaskEntry/state/TaskEntryStateContext"
 import { TaskEntryContent } from "../../sections/TaskEntry/TaskEntryContent"
-import { EntryType } from "../../../../../../common/constants/entryType"
 import { TaskEntryData, TrackedEntry } from "../../../../types"
 
 export class TaskEntryStrategy implements EntryStrategy {
-  readonly entryType = EntryType.TASK
   readonly entryStateConstructor = TaskEntryState
   readonly StateContext = TaskEntryStateContext
   readonly EntryContent = () => <TaskEntryContent />
@@ -18,7 +16,6 @@ export class TaskEntryStrategy implements EntryStrategy {
     label: `Task`,
     hasCopyButton: true,
     hasDeleteButton: true,
-    isAllDayEntryType: false,
   }
 
   initializeNewEntry({

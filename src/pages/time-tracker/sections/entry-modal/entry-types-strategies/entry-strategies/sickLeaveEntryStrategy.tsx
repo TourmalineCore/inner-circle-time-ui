@@ -1,7 +1,6 @@
 import { CreateSickLeaveEntryRequest, UpdateSickLeaveEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
 import { EntryStrategy } from "../entryTypesStrategy"
-import { EntryType } from "../../../../../../common/constants/entryType"
 import { EntryBase } from "../../../../types"
 import { SickLeaveEntryState } from "../../sections/SickLeaveEntry/state/SickLeaveState"
 import { SickLeaveEntryStateContext } from "../../sections/SickLeaveEntry/state/SickLeaveStateContext"
@@ -9,7 +8,6 @@ import moment from "moment"
 import { SickLeaveEntryContent } from "../../sections/SickLeaveEntry/SickLeaveEntryContent"
 
 export class SickLeaveEntryStrategy implements EntryStrategy {
-  readonly entryType = EntryType.SICK_LEAVE
   readonly entryStateConstructor = SickLeaveEntryState
   readonly StateContext = SickLeaveEntryStateContext
   readonly EntryContent = () => <SickLeaveEntryContent />
@@ -17,7 +15,6 @@ export class SickLeaveEntryStrategy implements EntryStrategy {
     label: ``,
     hasCopyButton: false,
     hasDeleteButton: true,
-    isAllDayEntryType: true,
   }
 
   initializeNewEntry({

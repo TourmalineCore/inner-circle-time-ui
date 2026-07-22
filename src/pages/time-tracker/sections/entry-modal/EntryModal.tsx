@@ -12,9 +12,9 @@ export const EntryModal = observer(() => {
     currentEntry,
     type,
   } = entryModalState
-  
+
   const entryStrategy = EntryTypesStrategy.create({
-    entryType: currentEntry?.type || type,
+    entryType: type,
     relatedEntryType: currentEntry?.relatedEntryType,
   })
 
@@ -24,14 +24,6 @@ export const EntryModal = observer(() => {
       type,
     ],
   )
-
-  useEffect(() => {
-    entryModalState.setType({
-      type: entryStrategy.entryType,
-    })
-  }, [
-    entryStrategy.entryType,
-  ])
 
   useEffect(() => {
     // reset error when type changes

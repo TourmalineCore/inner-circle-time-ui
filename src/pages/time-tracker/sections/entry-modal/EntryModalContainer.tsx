@@ -59,7 +59,6 @@ export const EntryModalContainer = observer(({
     label,
     hasCopyButton,
     hasDeleteButton,
-    isAllDayEntryType,
   } = entryStrategy.modalConfiguration
 
   return (
@@ -70,7 +69,6 @@ export const EntryModalContainer = observer(({
       buttonLabel={label}
       hasDeleteButton={hasDeleteButton}
       hasCopyButton={hasCopyButton}
-      isAllDayEntryType={isAllDayEntryType}
       openDeleteModal={openDeleteModal}
     >
       {entryStrategy.EntryContent()}

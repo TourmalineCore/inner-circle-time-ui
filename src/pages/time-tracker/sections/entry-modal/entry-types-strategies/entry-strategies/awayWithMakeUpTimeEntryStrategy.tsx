@@ -5,11 +5,9 @@ import { EntryStrategy } from "../entryTypesStrategy"
 import { AwayWithMakeUpTimeEntryState } from "../../sections/AwayWithMakeUpTimeEntry/state/AwayWithMakeUpTimeEntryState"
 import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/AwayWithMakeUpTimeEntry/state/AwayWithMakeUpTimeEntryStateContext"
 import { AwayWithMakeUpTimeEntryContent } from "../../sections/AwayWithMakeUpTimeEntry/AwayWithMakeUpTimeEntryContent"
-import { EntryType } from "../../../../../../common/constants/entryType"
 import { AwayWithMakeUpTimeEntryData } from "../../../../types"
 
 export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
-  readonly entryType = EntryType.AWAY_WITH_MAKE_UP_TIME
   readonly entryStateConstructor = AwayWithMakeUpTimeEntryState
   readonly StateContext = AwayWithMakeUpTimeEntryStateContext
   readonly EntryContent = (props: any) => <AwayWithMakeUpTimeEntryContent {...props} />
@@ -17,7 +15,6 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
     label: ``,
     hasCopyButton: true,
     hasDeleteButton: true,
-    isAllDayEntryType: false,
   }
 
   initializeNewEntry({

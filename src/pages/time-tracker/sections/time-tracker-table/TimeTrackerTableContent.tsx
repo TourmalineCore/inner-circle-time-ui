@@ -11,6 +11,7 @@ import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryCardContent } from './components/EntryCardContent/EntryCardContent'
 import { DayHeader } from './components/DayHeader/DayHeader'
+import { EntryType } from '../../../../common/constants/entryType'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -24,7 +25,8 @@ const localizer = momentLocalizer(moment)
 export const TimeTrackerTableContent = observer(({
   isCopyMode,
   openEntry,
-  createNewEntry,
+  createNewNonAllDayEntry,
+  createNewAllDayEntry,
   createCopyEntry,
   resetIsCopyMode,
 }: {
@@ -36,7 +38,16 @@ export const TimeTrackerTableContent = observer(({
     start: Date,
     end: Date,
   }) => unknown,
-  createNewEntry: ({
+  createNewNonAllDayEntry: ({
+    backgroundEntryType,
+    start,
+    end,
+  }: {
+    backgroundEntryType?: EntryType,
+    start: Date,
+    end: Date,
+  }) => unknown,
+  createNewAllDayEntry: ({
     start,
     end,
   }: {
@@ -82,7 +93,18 @@ export const TimeTrackerTableContent = observer(({
         })
       }
       else {
-        createNewEntry({
+        const backgroundEntryType = backgroundEntries
+          .find((entry) => moment(start)
+            .isBetween(
+              moment(entry.start),
+              moment(entry.end),
+              `day`,
+              `[]`,
+            ))
+          ?.type
+
+        createNewNonAllDayEntry({
+          backgroundEntryType,
           start,
           end,
         })
@@ -158,7 +180,7 @@ export const TimeTrackerTableContent = observer(({
               {...headerProps}
               backgroundEntries={backgroundEntries}
               openEntry={openEntry}
-              createNewEntry={createNewEntry}
+              createNewAllDayEntry={createNewAllDayEntry}
               showLabel={false}
             />,
           },
@@ -167,7 +189,7 @@ export const TimeTrackerTableContent = observer(({
               {...headerProps}
               backgroundEntries={backgroundEntries}
               openEntry={openEntry}
-              createNewEntry={createNewEntry}
+              createNewAllDayEntry={createNewAllDayEntry}
             />,
           },
         }}

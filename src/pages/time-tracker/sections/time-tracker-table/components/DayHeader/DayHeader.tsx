@@ -13,21 +13,21 @@ export function DayHeader({
   label,
   backgroundEntries,
   openEntry,
-  createNewEntry,
+  createNewAllDayEntry,
   showLabel = true,
 }: {
   date: Date,
   label: string,
   backgroundEntries: TrackedEntry[],
-    openEntry: ({
-      entry,
-    }: {
+  openEntry: ({
+    entry,
+  }: {
     entry: TrackedEntry,
   }) => unknown,
-    createNewEntry: ({
-      start,
-      end,
-    }: {
+  createNewAllDayEntry: ({
+    start,
+    end,
+  }: {
     start: Date,
     end: Date,
   }) => unknown,
@@ -62,7 +62,7 @@ export function DayHeader({
       })
     }
     else {
-      createNewEntry({
+      createNewAllDayEntry({
         start: date,
         end: date,
       })

@@ -13,17 +13,25 @@ export const TYPE_LABELS: Record<string, string> = {
   [EntryType.SICK_LEAVE]: `Sick leave`,
 }
 
-export const NON_ALL_DAY_ENTRY_TYPES = Object.values(EntryType)
-  // MAKE_UP_TIME is always part of another entry, so it should not be available for selection in select
-  .filter(value => typeof value === `number` && value !== EntryType.MAKE_UP_TIME && value !== EntryType.SICK_LEAVE)
-  .map(value => ({
-    value: value as number,
-    label: TYPE_LABELS[value as EntryType],
-  }))
+export const ALL_DAY_ENTRY_TYPES = [
+  EntryType.SICK_LEAVE,
+].map((value) => ({
+  value: value as number,
+  label: TYPE_LABELS[value],
+}))
 
-export const ALL_DAY_ENTRY_TYPES = Object.values(EntryType)
-  .filter(value => typeof value === `number` && value === EntryType.SICK_LEAVE)
-  .map(value => ({
-    value: value as number,
-    label: TYPE_LABELS[value as EntryType],
-  }))
+export const NON_ALL_DAY_ENTRY_TYPES = [
+  EntryType.TASK,
+  EntryType.UNWELL,
+  EntryType.AWAY_WITH_MAKE_UP_TIME,
+].map((value) => ({
+  value: value as number,
+  label: TYPE_LABELS[value],
+}))
+
+export const CAN_OVERLAP_SICK_LEAVE = [
+  EntryType.TASK,
+].map((value) => ({
+  value: value as number,
+  label: TYPE_LABELS[value],
+}))
