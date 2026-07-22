@@ -3,6 +3,7 @@ import moment from 'moment'
 
 import { EntryType } from '../../../../../../common/constants/entryType'
 import { TrackedEntry } from '../../../../types'
+import { findEntryForDate } from '../../../../../../common/utils/find-entry-for-date/findEntryForDate'
 
 const BUTTON_TEXT: Record<number, string> = {
   [EntryType.SICK_LEAVE]: `Sick leave`,
@@ -33,18 +34,9 @@ export function DayHeader({
   }) => unknown,
   showLabel?: boolean,
 }) {
-  const foundEntry = backgroundEntries.find(({
-    start,
-    end,
-  }) => {
-    const entryStart = moment(start)
-      .startOf(`day`)
-    const entryEnd = moment(end)
-      .startOf(`day`)
-    const currentDate = moment(date)
-      .startOf(`day`)
-
-    return currentDate.isBetween(entryStart, entryEnd, `day`, `[]`) 
+  const foundEntry = findEntryForDate({
+    entries: backgroundEntries,
+    date, 
   })
 
   const buttonText = foundEntry

@@ -12,6 +12,7 @@ import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryCardContent } from './components/EntryCardContent/EntryCardContent'
 import { DayHeader } from './components/DayHeader/DayHeader'
 import { EntryType } from '../../../../common/constants/entryType'
+import { findEntryForDate } from '../../../../common/utils/find-entry-for-date/findEntryForDate'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -93,15 +94,10 @@ export const TimeTrackerTableContent = observer(({
         })
       }
       else {
-        const backgroundEntryType = backgroundEntries
-          .find((entry) => moment(start)
-            .isBetween(
-              moment(entry.start),
-              moment(entry.end),
-              `day`,
-              `[]`,
-            ))
-          ?.type
+        const backgroundEntryType = findEntryForDate({
+          entries: backgroundEntries,
+          date: start,
+        })?.type
 
         createNewNonAllDayEntry({
           backgroundEntryType,
