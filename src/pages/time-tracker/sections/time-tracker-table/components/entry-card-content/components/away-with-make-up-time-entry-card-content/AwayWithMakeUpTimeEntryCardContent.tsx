@@ -11,7 +11,7 @@ export function AwayWithMakeUpTimeEntryCardContent({
 }) {
   return (
     <div className="away-with-make-up-time-entry-card-content">
-      <div className='away-with-make-up-time-entry-content__label'>
+      <div className='away-with-make-up-time-entry-card-content__label'>
         {getDurationLabel({
           startTime,
           endTime,
