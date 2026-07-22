@@ -3,20 +3,19 @@ import moment from "moment"
 
 export class EntryMapper {
   public static toEntryList({
-    entries,
+    entriesResponse,
     projects,
   }: {
-    entries: GetEntriesByPeriodResponse,
+    entriesResponse: GetEntriesByPeriodResponse,
     projects: ProjectDto[],
-  },
-  ) {
+  }) {
     const {
       taskEntries,
       unwellEntries,
       awayWithMakeUpTimeEntries,
       makeUpTimeEntries,
       sickLeaveEntries, 
-    } = entries
+    } = entriesResponse
 
     return {
       entries: [

@@ -112,7 +112,7 @@ export const TimeTrackerTableContainer = observer(({
         entries,
         backgroundEntries,
       } = EntryMapper.toEntryList({
-        entries: entriesResponse,
+        entriesResponse,
         projects,
       })
 
