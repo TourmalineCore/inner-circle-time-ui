@@ -54,14 +54,14 @@ describe(`Sick Leave Entry Happy Path`, () => {
       .click()
 
     cy
-      .get(`.react-datepicker__day--09`)
+      .get(`.react-datepicker__day--009`)
       .click()
 
     TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.log(`Verify that the sick leave has been created for 5 days.`)
 
-    cy.get(`[data-cy*="sick-leave-card"]`)
+    TrackingPageActions.getSickLeaveCard()
       .should(`have.length`, 5)
 
     TrackingPageActions.getAllDayButton({
@@ -72,10 +72,10 @@ describe(`Sick Leave Entry Happy Path`, () => {
     cy.log(`Verify that when the sick leave entry is opened, all data is displayed correctly.`)
 
     TrackingPageActions.getEntryModalStartDateDatepicker()
-      .should(`have.value`, `05.06`)
+      .should(`have.value`, `05.07`)
 
     TrackingPageActions.getEntryModalEndDateDatepicker()
-      .should(`have.value`, `09.06`)
+      .should(`have.value`, `09.07`)
 
     cy.log(`Update existing Sick Leave Entry`)
 
@@ -84,23 +84,21 @@ describe(`Sick Leave Entry Happy Path`, () => {
       .click()
 
     cy
-      .get(`.react-datepicker__day--12`)
+      .get(`.react-datepicker__day--012`)
       .click()
 
     TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.log(`Check that the sick leave is displayed correctly in the time tracker for this and next week.`)
 
-    cy.get(`[data-cy*="sick-leave-card"]`)
+    TrackingPageActions.getSickLeaveCard()
       .should(`have.length`, 7)
 
     cy
       .contains(`Next`)
       .click()
     
-    TrackingPageActions.getSickLeaveCard({
-      weekDay: WeekDay.MONDAY,
-    })
+    TrackingPageActions.getSickLeaveCard()
       .should(`have.length`, 1)
   })
 })

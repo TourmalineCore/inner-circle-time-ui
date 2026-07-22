@@ -20,35 +20,39 @@ export const SickLeaveEntryContent = observer(() => {
     <div className='sick-leave-entry'>
       <div className='sick-leave-entry__field'>
         <div className='sick-leave-entry__period-container'>
-          <DatePicker
-            className='sick-leave-entry__datepicker'
-            selected={period.startDate}
-            dateFormat="dd.MM"
-            onChange={(date) => sickLeaveEntryState.updateSickLeaveEntry({
-              sickLeaveEntry: {
-                period: {
-                  endDate: period.endDate,
-                  startDate: date!,
+          <div data-cy='start-date-datepicker'>
+            <DatePicker
+              className='sick-leave-entry__datepicker'
+              selected={period.startDate}
+              dateFormat="dd.MM"
+              onChange={(date) => sickLeaveEntryState.updateSickLeaveEntry({
+                sickLeaveEntry: {
+                  period: {
+                    endDate: period.endDate,
+                    startDate: date!,
+                  },
                 },
-              },
-            })}
-            onKeyDown={(e) => e.preventDefault()}
-          />
+              })}
+              onKeyDown={(e) => e.preventDefault()}
+            />
+          </div>
           {`-`}
-          <DatePicker
-            className="sick-leave-entry__datepicker"
-            selected={period.endDate}
-            dateFormat="dd.MM"
-            onChange={(date) => sickLeaveEntryState.updateSickLeaveEntry({
-              sickLeaveEntry: {
-                period: {
-                  startDate: period.startDate,
-                  endDate: date!,
+          <div data-cy='end-date-datepicker'>
+            <DatePicker
+              className="sick-leave-entry__datepicker"
+              selected={period.endDate}
+              dateFormat="dd.MM"
+              onChange={(date) => sickLeaveEntryState.updateSickLeaveEntry({
+                sickLeaveEntry: {
+                  period: {
+                    startDate: period.startDate,
+                    endDate: date!,
+                  },
                 },
-              },
-            })}
-            onKeyDown={(e) => e.preventDefault()}
-          />
+              })}
+              onKeyDown={(e) => e.preventDefault()}
+            />
+          </div>
         </div>
       </div>
     </div>
