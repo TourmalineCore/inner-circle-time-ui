@@ -3,7 +3,7 @@ import './TaskEntry.scss'
 import { TaskEntryStateContext } from './state/TaskEntryStateContext'
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import { parseTimeString } from '../../../../utils/date-and-time'
+import { parseTimeString } from '../../../../../../common/utils/dateAndTime'
 import clsx from 'clsx'
 import { TimeRange } from '../../../../../../components/TimeRange/TimeRange'
 

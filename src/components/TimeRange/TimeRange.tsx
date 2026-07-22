@@ -3,7 +3,7 @@ import './TimeRange.scss'
 
 import DatePicker from "react-datepicker"
 import InputMask from 'react-input-mask'
-import { formatTime } from "../../pages/time-tracker/utils/date-and-time"
+import { formatTime } from "../../common/utils/dateAndTime"
 import clsx from "clsx"
 
 export function TimeRange({

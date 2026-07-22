@@ -2,7 +2,7 @@ import './AwayWithMakeUpTimeEntry.scss'
 
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import { parseTimeString } from '../../../../utils/date-and-time'
+import { parseTimeString } from '../../../../../../common/utils/dateAndTime'
 import { AwayWithMakeUpTimeEntryStateContext } from './state/AwayWithMakeUpTimeEntryStateContext'
 import IconCross from '../../../../../../assets/icons/cross.svg?react'
 import clsx from 'clsx'

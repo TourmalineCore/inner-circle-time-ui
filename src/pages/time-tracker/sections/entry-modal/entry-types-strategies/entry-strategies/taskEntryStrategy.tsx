@@ -1,7 +1,7 @@
 import moment from "moment"
 import { CreateTaskEntryRequest, UpdateTaskEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
-import { concatDateAndTime } from "../../../../utils/date-and-time"
+import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
 import { EntryStrategy } from "../entryTypesStrategy"
 import { TaskEntryState } from "../../sections/TaskEntry/state/TaskEntryState"
 import { TaskEntryStateContext } from "../../sections/TaskEntry/state/TaskEntryStateContext"
