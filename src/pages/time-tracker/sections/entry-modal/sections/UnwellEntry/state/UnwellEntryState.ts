@@ -20,6 +20,17 @@ export class UnwellEntryState {
     return this._unwellEntryData
   }
 
+  initializeEntry({
+    unwellEntry,
+  }:{
+    unwellEntry: UnwellEntryData,
+  }) {
+    this._unwellEntryData = {
+      ...EMPTY_UNWELL_ENTRY_DATA,
+      ...unwellEntry,
+    }
+  }
+
   updateUnwellEntryData({
     unwellEntryData,
   }: {

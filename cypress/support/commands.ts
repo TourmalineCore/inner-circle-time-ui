@@ -61,7 +61,11 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
-Cypress.Commands.add(`removeTaskEntries`, (date: Date) => {
+Cypress.Commands.add(`removeTaskEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {
   const day = formatDate(date)
 
   cy.request<GetEntriesByPeriodResponse>({
@@ -88,7 +92,11 @@ Cypress.Commands.add(`removeTaskEntries`, (date: Date) => {
     })
 })
 
-Cypress.Commands.add(`removeUnwellEntries`, (date: Date) => {  
+Cypress.Commands.add(`removeUnwellEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {  
   const day = formatDate(date)
 
   cy.request<GetEntriesByPeriodResponse>({
@@ -102,6 +110,37 @@ Cypress.Commands.add(`removeUnwellEntries`, (date: Date) => {
       body,
     }) => {
       body.unwellEntries?.forEach(({
+        id, 
+      }) => {
+        cy.request({
+          method: `DELETE`,
+          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
+          headers: {
+            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+          },
+        })
+      })
+    })
+})
+
+Cypress.Commands.add(`removeAwayWithMakeUpTimeEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {  
+  const day = formatDate(date)
+
+  cy.request<GetEntriesByPeriodResponse>({
+    method: `GET`,
+    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
+    headers: {
+      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
+    },
+  })
+    .then(({
+      body,
+    }) => {
+      body.awayWithMakeUpTimeEntries?.forEach(({
         id, 
       }) => {
         cy.request({

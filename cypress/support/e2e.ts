@@ -5,8 +5,21 @@ declare global {
   namespace Cypress {
     interface Chainable {
       authByApi(): Chainable<any>,
-      removeTaskEntries(date: Date): Chainable<any>, 
-      removeUnwellEntries(date: Date): Chainable<any>, 
+      removeTaskEntries({
+        date,
+      }: {
+        date: Date,
+      }): Chainable<any>, 
+      removeUnwellEntries({
+        date,
+      }: {
+        date: Date,
+      }): Chainable<any>, 
+      removeAwayWithMakeUpTimeEntries({
+        date,
+      }: {
+        date: Date,
+      }): Chainable<any>, 
     }
   }
 }

@@ -1,5 +1,4 @@
-import { EntryType } from "../../../../../../common/constants/entryType"
-import { ENTRY_TYPES_STRATEGY } from "../../entry-types-strategy"
+import { TrackingPageActions } from "../../../../../../../cypress/pagesActions/TrackingPageActions"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"
@@ -16,9 +15,7 @@ function eventCallTests() {
   `, () => {
     mountComponent()
     
-    cy
-      .get(`.tc-modal__close-button`)
-      .click()
+    TrackingPageActions.clickByEntryModalCloseButton()
     
     cy
       .get(`@closeDeleteModal`)
@@ -37,7 +34,7 @@ function mountComponent() {
     .mount(
       <DeleteModalStateContext.Provider value={deleteModalState}>
         <DeleteModalContent 
-          label={ENTRY_TYPES_STRATEGY[EntryType.TASK].label}
+          label={``}
           onSubmitDeletionReason={() => {}}
           closeDeleteModal={closeDeleteModal}
         />,

@@ -1,8 +1,7 @@
-import { TaskEntry } from "./features/TaskEntry"
-import { TimeTrackerPage } from "./pages/TimeTrackerPage"
+import { TrackingPageActions } from "../pagesActions/TrackingPageActions"
 
 describe(`Copy Entries Happy Path`, () => {
-  const testDate = new Date(2027, 9, 25)
+  const testDate = new Date(2022, 9, 24)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
@@ -12,37 +11,81 @@ describe(`Copy Entries Happy Path`, () => {
     ])
 
     cy.authByApi()
-    cy.removeTaskEntries(testDate)
+    cy.removeTaskEntries({
+      date: testDate,
+    })
   })
 
   afterEach(`Cleanup`, () => {
-    cy.removeTaskEntries(testDate)
+    cy.removeTaskEntries({
+      date: testDate,
+    })
   })
 
   it(`
   GIVEN empty time tracker table
-  WHEN add a new task entry
-  SHOULD see it in the time tracker table
-  THEN click on this task entry
-  AND click on copy button
-  AND click on a free time slot 
-  SHOULD see copied card with filled data
+  WHEN user adds a new task entry
+  AND user clicks on this task entry for copy
+  AND user clicks on a free time slot 
+  THEN user should see the copied card with filled data
   `, () => {
-    TimeTrackerPage.visit()
-
-    TimeTrackerPage.clickOnTimeSlot()
+    cy.intercept(
+      `GET`, 
+      `/api/time/tracking/entries?startDate=2022-10-24&endDate=2022-10-30`)
+      .as(`getEntries`)
+      
+    TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
     cy
-      .contains(`October 25 – 31`)
+      .contains(`October 24 – 30`)
       .should(`be.visible`)
 
-    TaskEntry.fill()
+    const {
+      taskTitle,
+      taskDescription,
+      taskId,
+    } = TrackingPageActions.addTaskEntry()
 
-    TaskEntry.copy()
+    cy.wait(`@getEntries`)
 
-    TimeTrackerPage.clickOnTimeSlot()
+    cy.log(`Copying the created task`)
+    
+    cy
+      .contains(taskTitle)
+      .click()
 
-    TaskEntry.checkAfterCopy()
+    TrackingPageActions.getEntryModalCopyButton()
+      .click()
+
+    TrackingPageActions
+      .getCopyAlert()
+      .should(`exist`)
+
+    cy.log(`Check that the open entry card contains the copied fields`)
+
+    TrackingPageActions.clickOnFirstTimeSlot()
+
+    TrackingPageActions
+      .getEntryModalTitleInput()
+      .should(`have.value`, taskTitle)
+
+    TrackingPageActions
+      .getEntryModalProjectSelect()
+      .should(`have.value`, 1)
+
+    TrackingPageActions
+      .getEntryModalTaskIdInput()
+      .should(`have.value`, taskId)
+
+    TrackingPageActions
+      .getEntryModalDescriptionInput()
+      .should(`have.value`, taskDescription)
+
+    TrackingPageActions.clickByEntryModalCloseButton()
+
+    TrackingPageActions
+      .getCopyAlert()
+      .should(`not.exist`)
   })
 })

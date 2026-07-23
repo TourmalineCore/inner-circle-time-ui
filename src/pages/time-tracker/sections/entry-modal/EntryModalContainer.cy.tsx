@@ -1,6 +1,7 @@
+import { TrackingPageActions } from "../../../../../cypress/pagesActions/TrackingPageActions"
 import { EntryType } from "../../../../common/constants/entryType"
 import { eventBus, EventBusType } from "../../event-bus"
-import { ENTRY_TYPES_STRATEGY } from "./entry-types-strategy"
+import { EntryTypesStrategy } from "./entry-types-strategies/entryTypesStrategy"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { TaskEntryState } from "./sections/TaskEntry/state/TaskEntryState"
 import { TaskEntryStateContext } from "./sections/TaskEntry/state/TaskEntryStateContext"
@@ -30,9 +31,7 @@ function functionCallTests() {
     
     mountComponent()
 
-    cy
-      .contains(`Add`)
-      .click()
+    TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy
       .get(`@closeEntryModal`)
@@ -68,9 +67,7 @@ function setErrorTests() {
     
     mountComponent()
 
-    cy
-      .contains(`Add`)
-      .click()
+    TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.contains(`Error message`)
   })
@@ -107,9 +104,7 @@ function resetErrorTests() {
 
     cy.contains(`Error message`)
 
-    cy
-      .contains(`Add`)
-      .click()
+    TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.
       should(`not.contain`, `Error message`)
@@ -140,13 +135,17 @@ function mountComponent({
 
   cy.spy(eventBus, `publish`)
     .as(`eventBusTrigger`)
-        
+    
+  const entryStrategy = EntryTypesStrategy.create({
+    entryType: EntryType.TASK,
+  }) 
+
   cy
     .mount(
       <EntryModalStateContext.Provider value={entryModalState}>
         <TaskEntryStateContext.Provider value={taskEntryState}>
           <EntryModalContainer
-            entryStrategy={ENTRY_TYPES_STRATEGY[EntryType.TASK]}
+            entryStrategy={entryStrategy}
             openDeleteModal={() => {}}
           />,
         </TaskEntryStateContext.Provider>

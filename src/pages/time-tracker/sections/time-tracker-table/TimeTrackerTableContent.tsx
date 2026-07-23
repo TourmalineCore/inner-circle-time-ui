@@ -10,7 +10,7 @@ import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryContent } from './components/EntryContent/EntryContent'
-import { EntryType } from '../../../../common/constants/entryType'
+import { ENTRY_CARD_CONFIG } from '../../../../common/constants/entryType'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -102,13 +102,8 @@ export const TimeTrackerTableContent = observer(({
   const eventPropGetter = ({
     type, 
   }: TrackedEntry) => {
-    const typesClassName = {
-      [EntryType.TASK]: `task`,
-      [EntryType.UNWELL]: `unwell`,
-    }
-
     return {
-      className: `time-tracker-table__entry time-tracker-table__entry--${typesClassName[type!]}`,
+      className: `time-tracker-table__entry time-tracker-table__entry--${ENTRY_CARD_CONFIG[type!].className}`,
     } 
   }
 
