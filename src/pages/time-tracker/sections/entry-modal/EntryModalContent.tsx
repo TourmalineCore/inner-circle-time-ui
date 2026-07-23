@@ -120,7 +120,6 @@ export const EntryModalContent = observer(({
       )}
       onClose={() => {
         entryModalState.closeEntryModal()
-        entryModalState.resetCurrentEntry()
       }}
     />
   )

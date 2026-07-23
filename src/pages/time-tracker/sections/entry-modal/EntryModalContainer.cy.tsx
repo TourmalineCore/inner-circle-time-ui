@@ -39,10 +39,6 @@ function functionCallTests() {
 
     cy.get(`@eventBusTrigger`)
       .should(`be.calledWith`, EventBusType.ENTRIES_CHANGED)
-      
-    cy
-      .get(`@resetCurrentEntry`)
-      .should(`have.been.calledOnce`)
   })
 }
 
@@ -126,9 +122,6 @@ function mountComponent({
       projectId: 1,
     },
   })
-
-  cy.spy(entryModalState, `resetCurrentEntry`)
-    .as(`resetCurrentEntry`)
 
   cy.spy(entryModalState, `closeEntryModal`)
     .as(`closeEntryModal`)
