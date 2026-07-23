@@ -13,7 +13,7 @@ initApiInterceptors(apiClient.instance)
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never
 
 // get all methods from API controllers
-type ControllerMethods= typeof apiClient[keyof typeof apiClient]
+type ControllerMethods = typeof apiClient[keyof typeof apiClient]
 
 // get final type with all API methods flattened
 type CombinedApi = UnionToIntersection<ControllerMethods>
