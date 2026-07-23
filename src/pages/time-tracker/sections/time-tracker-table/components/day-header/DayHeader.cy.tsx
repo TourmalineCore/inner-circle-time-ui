@@ -1,7 +1,7 @@
 import { EntryType } from "../../../../../../common/constants/entryType"
 import { DayHeader } from "./DayHeader"
 
-describe(`WeekHeader`, () => {
+describe(`DayHeader`, () => {
   describe(`Button Text`, buttonTextTests)
   describe(`Label visibility`, labelVisibilityTests)
 })
