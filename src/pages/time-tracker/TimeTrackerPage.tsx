@@ -36,11 +36,11 @@ export const TimeTrackerPage = observer(() => {
             end,
           })}
           createNewNonAllDayEntry={({
-            backgroundEntryType,
+            allDayEntryType,
             start,
             end,
           }) => entryModalState.createNewNonAllDayEntry({
-            backgroundEntryType,
+            allDayEntryType,
             start,
             end,
           })}

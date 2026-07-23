@@ -14,12 +14,12 @@ export type TrackedEntry = {
   relatedEntryId?: number,
   relatedEntryType?: number,
   makeUpTimeList?: MakeUpTimeEntry[],
-  isBackgroundEvent?: boolean,
+  isAllDayEntry?: boolean,
 }
 
 export type TimeTrackerTable = {
   entries: TrackedEntry[],
-  backgroundEntries: TrackedEntry[],
+  allDayEntries: TrackedEntry[],
 }
 
 export type EntryBase = {

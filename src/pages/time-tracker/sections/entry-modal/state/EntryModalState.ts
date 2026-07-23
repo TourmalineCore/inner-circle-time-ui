@@ -45,11 +45,11 @@ export class EntryModalState {
   }
 
   createNewNonAllDayEntry({
-    backgroundEntryType,
+    allDayEntryType,
     start,
     end,
   }: {
-    backgroundEntryType?: EntryType,
+    allDayEntryType?: EntryType,
     start: Date,
     end: Date,
   }) {
@@ -61,7 +61,7 @@ export class EntryModalState {
 
     this.setAvailableEntryTypes({
       isAllDayEntryType: false,
-      backgroundEntryType,
+      allDayEntryType,
     })
 
     this._type = NON_ALL_DAY_ENTRY_TYPES[0].value
@@ -134,10 +134,6 @@ export class EntryModalState {
     this._isCopyMode = true
   }
 
-  resetCurrentEntry() {
-    this._currentEntry = null
-  }
-
   resetIsCopyMode() {
     this._isCopyMode = false
   }
@@ -152,17 +148,17 @@ export class EntryModalState {
 
   private setAvailableEntryTypes({
     isAllDayEntryType,
-    backgroundEntryType,
+    allDayEntryType,
   }: {
     isAllDayEntryType: boolean,
-    backgroundEntryType?: EntryType,
+    allDayEntryType?: EntryType,
   }) {
     if (isAllDayEntryType) {
       this._availableEntryTypes = ALL_DAY_ENTRY_TYPES
       return
     }
 
-    if (backgroundEntryType === EntryType.SICK_LEAVE) {
+    if (allDayEntryType === EntryType.SICK_LEAVE) {
       this._availableEntryTypes = CAN_OVERLAP_SICK_LEAVE
       return
     }

@@ -8,12 +8,12 @@ describe(`WeekHeader`, () => {
 
 function buttonTextTests() {
   it(`
-  GIVEN no background entries
+  GIVEN no all day entries
   WHEN render the component
   THEN render button with "Add an all-day event" text
   `, () => {
     mountComponent({
-      backgroundEntries: [],
+      allDayEntries: [],
       date: new Date(`2026-07-08`),
     })
 
@@ -26,7 +26,7 @@ function buttonTextTests() {
   THEN render button with "Sick leave" text
   `, () => {
     mountComponent({
-      backgroundEntries: [
+      allDayEntries: [
         {
           start: new Date(`2026-07-07T00:00:00`),
           end: new Date(`2026-07-08T23:59:00`),
@@ -45,7 +45,7 @@ function buttonTextTests() {
   THEN render button with "Sick leave" text
   `, () => {
     mountComponent({
-      backgroundEntries: [
+      allDayEntries: [
         {
           start: new Date(`2026-07-07T00:00:00`),
           end: new Date(`2026-07-07T23:59:00`),
@@ -67,7 +67,7 @@ function labelVisibilityTests() {
   THEN label is displayed
   `, () => {
     mountComponent({
-      backgroundEntries: [],
+      allDayEntries: [],
       date: new Date(`2026-07-08`),
     })
     
@@ -82,7 +82,7 @@ function labelVisibilityTests() {
   THEN label is not displayed
   `, () => {
     mountComponent({
-      backgroundEntries: [],
+      allDayEntries: [],
       date: new Date(`2026-07-08`),
       showLabel: false,
     })
@@ -93,11 +93,11 @@ function labelVisibilityTests() {
 }
 
 function mountComponent({
-  backgroundEntries,
+  allDayEntries,
   date,
   showLabel = true,
 }: {
-  backgroundEntries: any[],
+  allDayEntries: any[],
   date: Date,
   showLabel?: boolean,
 }) {
@@ -106,7 +106,7 @@ function mountComponent({
   cy
     .mount(
       <DayHeader
-        backgroundEntries={backgroundEntries}
+        allDayEntries={allDayEntries}
         date={date}
         label={``}
         openEntry={() => {}}

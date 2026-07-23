@@ -27,11 +27,11 @@ export const TimeTrackerTableContainer = observer(({
     end: Date,
   }) => unknown,
   createNewNonAllDayEntry: ({
-    backgroundEntryType,
+    allDayEntryType,
     start,
     end,
   }: {
-    backgroundEntryType?: EntryType,
+    allDayEntryType?: EntryType,
     start: Date,
     end: Date,
   }) => unknown,
@@ -110,7 +110,7 @@ export const TimeTrackerTableContainer = observer(({
 
       const {
         entries,
-        backgroundEntries,
+        allDayEntries,
       } = EntryMapper.toEntryList({
         entriesResponse,
         projects,
@@ -119,7 +119,7 @@ export const TimeTrackerTableContainer = observer(({
       timeTrackerState.initialize({
         loadedData: {
           entries,
-          backgroundEntries, 
+          allDayEntries, 
         },
       })
     }

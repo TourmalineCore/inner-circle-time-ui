@@ -80,7 +80,7 @@ function createNewNonAllDayEntryTests() {
 
   it(`
   GIVEN a state with empty available entry types
-  WHEN createNewNonAllDayEntry is called without background entry type
+  WHEN createNewNonAllDayEntry is called without all day entry type
   SHOULD set available types containing only non-all-day entry types
   `, () => {
     expect(entryModalState.availableEntryTypes)
@@ -105,7 +105,7 @@ function createNewNonAllDayEntryTests() {
 
   it(`
   GIVEN a state with empty available entry types
-  WHEN createNewNonAllDayEntry is called with sick leave background entry type
+  WHEN createNewNonAllDayEntry is called with sick leave entry type
   SHOULD set available types that can overlap with sick leave
   `, () => {
     expect(entryModalState.availableEntryTypes)
@@ -114,7 +114,7 @@ function createNewNonAllDayEntryTests() {
       .eq([])
       
     entryModalState.createNewNonAllDayEntry({
-      backgroundEntryType: EntryType.SICK_LEAVE,
+      allDayEntryType: EntryType.SICK_LEAVE,
       start: new Date(),
       end: new Date(),
     })

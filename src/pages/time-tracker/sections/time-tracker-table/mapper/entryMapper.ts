@@ -33,7 +33,7 @@ export class EntryMapper {
           makeUpTimeEntries,
         }), 
       ],
-      backgroundEntries: [
+      allDayEntries: [
         ...this.mapSickLeaveEntries({
           sickLeaveEntries,
         }),
@@ -137,6 +137,7 @@ export class EntryMapper {
         end: moment(sickLeaveEntry.period.endDate)
           .endOf(`day`)
           .toDate(),
+        isAllDayEntry: true,
       }))
   }
 }

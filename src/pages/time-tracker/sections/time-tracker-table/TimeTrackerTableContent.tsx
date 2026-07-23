@@ -40,11 +40,11 @@ export const TimeTrackerTableContent = observer(({
     end: Date,
   }) => unknown,
   createNewNonAllDayEntry: ({
-    backgroundEntryType,
+    allDayEntryType,
     start,
     end,
   }: {
-    backgroundEntryType?: EntryType,
+    allDayEntryType?: EntryType,
     start: Date,
     end: Date,
   }) => unknown,
@@ -73,7 +73,7 @@ export const TimeTrackerTableContent = observer(({
 
   const {
     entries,
-    backgroundEntries, 
+    allDayEntries, 
   } = tableData
 
   const handleSelectSlot = ({
@@ -94,13 +94,13 @@ export const TimeTrackerTableContent = observer(({
         })
       }
       else {
-        const backgroundEntryType = findEntryForDate({
-          entries: backgroundEntries,
+        const allDayEntryType = findEntryForDate({
+          entries: allDayEntries,
           date: start,
         })?.type
 
         createNewNonAllDayEntry({
-          backgroundEntryType,
+          allDayEntryType,
           start,
           end,
         })
@@ -109,9 +109,9 @@ export const TimeTrackerTableContent = observer(({
   }
 
   const handleSelectEntry = (entry: TrackedEntry) => {
-    // Background events (sick leaves, vacation and etc) should not be clickable
+    // All day entries (sick leaves, vacation and etc) should not be clickable
     // They can only be opened via the all day button
-    if (entry.isBackgroundEvent) {
+    if (entry.isAllDayEntry) {
       return
     }
 
@@ -146,7 +146,7 @@ export const TimeTrackerTableContent = observer(({
           timeGutterFormat: `HH:mm`,
         }}
         events={entries}
-        backgroundEvents={backgroundEntries}
+        backgroundEvents={allDayEntries}
         timeslots={4}
         step={15}
         localizer={localizer}
@@ -174,7 +174,7 @@ export const TimeTrackerTableContent = observer(({
           day: {
             header: (headerProps) => <DayHeader
               {...headerProps}
-              backgroundEntries={backgroundEntries}
+              allDayEntries={allDayEntries}
               openEntry={openEntry}
               createNewAllDayEntry={createNewAllDayEntry}
               showLabel={false}
@@ -183,7 +183,7 @@ export const TimeTrackerTableContent = observer(({
           week: {
             header: (headerProps) => <DayHeader
               {...headerProps}
-              backgroundEntries={backgroundEntries}
+              allDayEntries={allDayEntries}
               openEntry={openEntry}
               createNewAllDayEntry={createNewAllDayEntry}
             />,

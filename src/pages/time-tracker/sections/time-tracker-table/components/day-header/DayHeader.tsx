@@ -12,14 +12,14 @@ const BUTTON_TEXT: Record<number, string> = {
 export function DayHeader({
   date,
   label,
-  backgroundEntries,
+  allDayEntries,
   openEntry,
   createNewAllDayEntry,
   showLabel = true,
 }: {
   date: Date,
   label: string,
-  backgroundEntries: TrackedEntry[],
+  allDayEntries: TrackedEntry[],
   openEntry: ({
     entry,
   }: {
@@ -34,13 +34,13 @@ export function DayHeader({
   }) => unknown,
   showLabel?: boolean,
 }) {
-  const foundEntry = findEntryForDate({
-    entries: backgroundEntries,
+  const foundAllDayEntry = findEntryForDate({
+    entries: allDayEntries,
     date, 
   })
 
-  const buttonText = foundEntry
-    ? BUTTON_TEXT[foundEntry.type!]
+  const buttonText = foundAllDayEntry
+    ? BUTTON_TEXT[foundAllDayEntry.type!]
     :`Add an all-day event`
 
   const weekDay = moment(date)
@@ -48,9 +48,9 @@ export function DayHeader({
     .toLowerCase() 
 
   const handleEntryButtonClick = () => {
-    if (foundEntry) {
+    if (foundAllDayEntry) {
       openEntry({
-        entry: foundEntry,
+        entry: foundAllDayEntry,
       })
     }
     else {

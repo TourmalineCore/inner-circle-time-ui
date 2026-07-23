@@ -19,7 +19,7 @@ function initializationTests() {
       .deep
       .eq([])
 
-    expect(timeTrackerTableState.tableData.backgroundEntries)
+    expect(timeTrackerTableState.tableData.allDayEntries)
       .to
       .deep
       .eq([])
