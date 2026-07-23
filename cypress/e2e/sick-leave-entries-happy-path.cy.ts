@@ -27,9 +27,9 @@ describe(`Sick Leave Entry Happy Path`, () => {
   it(`
   GIVEN user has a sick leave from Monday to Friday
   AND user wants to track this sick leave in the time tracker
-  WHEN user adds the sick leave period from Monday to Friday in the time tracker
+  WHEN user adds the sick leave period from Monday to Friday
   AND open existing sick leave and extends it until next Monday after the doctor's visit
-  THEN user should see 8-day sick leave in the time tracker
+  THEN user should see 8-day sick leave
   `, () => {
     TrackingPageActions.visit()
 
