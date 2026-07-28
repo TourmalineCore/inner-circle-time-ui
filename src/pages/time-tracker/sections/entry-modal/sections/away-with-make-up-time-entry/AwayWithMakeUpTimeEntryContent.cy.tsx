@@ -1,4 +1,4 @@
-import { TrackingPageActions } from "../../../../../../../cypress/pagesActions/TrackingPageActions"
+import { TrackingPageActions } from "../../../../../../../cypress/pages-actions/trackingPageActions"
 import { AwayWithMakeUpTimeEntryData } from "../../../../types"
 import { AwayWithMakeUpTimeEntryContent } from "./AwayWithMakeUpTimeEntryContent"
 import { AwayWithMakeUpTimeEntryState, getDefaultTimeForMakeUpTime } from "./state/AwayWithMakeUpTimeEntryState"

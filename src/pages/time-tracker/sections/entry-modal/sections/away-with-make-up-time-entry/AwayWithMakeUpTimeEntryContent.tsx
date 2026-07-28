@@ -2,11 +2,11 @@ import './AwayWithMakeUpTimeEntry.scss'
 
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import { parseTimeString } from '../../../../utils/date-and-time'
+import { parseTimeString } from '../../../../../../common/utils/dateAndTime'
 import { AwayWithMakeUpTimeEntryStateContext } from './state/AwayWithMakeUpTimeEntryStateContext'
 import IconCross from '../../../../../../assets/icons/cross.svg?react'
 import clsx from 'clsx'
-import { TimeRange } from '../../../../../../components/TimeRange/TimeRange'
+import { TimeRange } from '../../../../../../components/time-range/TimeRange'
 
 export const AwayWithMakeUpTimeEntryContent = observer(({
   isRelatedEntryFieldsDisabled = false,

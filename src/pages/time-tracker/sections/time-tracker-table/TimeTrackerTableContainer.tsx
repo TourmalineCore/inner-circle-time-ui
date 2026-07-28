@@ -8,11 +8,13 @@ import { eventBus, EventBusType } from "../../event-bus"
 import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
 import { TrackedEntry } from "../../types"
 import { EntryMapper } from "./mapper/entryMapper"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 
 export const TimeTrackerTableContainer = observer(({
   isCopyMode,
   openEntry,
-  createNewEntry,
+  createNewNonAllDayEntry,
+  createNewAllDayEntry,
   createCopyEntry,
   resetIsCopyMode,
 }: {
@@ -24,7 +26,16 @@ export const TimeTrackerTableContainer = observer(({
     start: Date,
     end: Date,
   }) => unknown,
-  createNewEntry: ({
+  createNewNonAllDayEntry: ({
+    allDayEntryType,
+    start,
+    end,
+  }: {
+    allDayEntryType?: EntryType,
+    start: Date,
+    end: Date,
+  }) => unknown,
+  createNewAllDayEntry: ({
     start,
     end,
   }: {
@@ -82,7 +93,7 @@ export const TimeTrackerTableContainer = observer(({
 
     async function loadedEntries() {
       const {
-        data: entries,
+        data: entriesResponse,
       } = await api.trackingGetEntriesByPeriod({
         startDate: viewStartDate as string,
         endDate: viewEndDate as string,
@@ -97,12 +108,18 @@ export const TimeTrackerTableContainer = observer(({
         endDate: viewEndDate!,
       })
 
+      const {
+        entries,
+        allDayEntries,
+      } = EntryMapper.toEntryList({
+        entriesResponse,
+        projects,
+      })
+
       timeTrackerState.initialize({
         loadedData: {
-          entries: EntryMapper.toEntryList({
-            entries,
-            projects,
-          }), 
+          entries,
+          allDayEntries, 
         },
       })
     }
@@ -119,7 +136,8 @@ export const TimeTrackerTableContainer = observer(({
       isCopyMode={isCopyMode}
       openEntry={openEntry}
       createCopyEntry={createCopyEntry}
-      createNewEntry={createNewEntry}
+      createNewNonAllDayEntry={createNewNonAllDayEntry}
+      createNewAllDayEntry={createNewAllDayEntry}
       resetIsCopyMode={resetIsCopyMode}
     />
   )

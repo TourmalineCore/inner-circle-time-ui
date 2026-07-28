@@ -1,4 +1,4 @@
-import { TrackingPageActions } from "../../../../../../../cypress/pagesActions/TrackingPageActions"
+import { TrackingPageActions } from "../../../../../../../cypress/pages-actions/trackingPageActions"
 import { DeleteModalContent } from "./DeleteModalContent"
 import { DeleteModalState } from "./state/DeleteModalState"
 import { DeleteModalStateContext } from "./state/DeleteModalStateContext"

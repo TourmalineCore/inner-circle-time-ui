@@ -1,37 +1,44 @@
-import { AwayWithMakeUpTimeEntryDto, GetEntriesByPeriodResponse, MakeUpTimeEntryWithRelatedEntryDto, ProjectDto, TaskEntryDto, UnwellEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
+import { AwayWithMakeUpTimeEntryDto, GetEntriesByPeriodResponse, MakeUpTimeEntryWithRelatedEntryDto, ProjectDto, SickLeaveEntryDto, TaskEntryDto, UnwellEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
 import moment from "moment"
 
 export class EntryMapper {
   public static toEntryList({
-    entries,
+    entriesResponse,
     projects,
   }: {
-    entries: GetEntriesByPeriodResponse,
+    entriesResponse: GetEntriesByPeriodResponse,
     projects: ProjectDto[],
-  },
-  ) {
+  }) {
     const {
       taskEntries,
       unwellEntries,
       awayWithMakeUpTimeEntries,
-      makeUpTimeEntries, 
-    } = entries
+      makeUpTimeEntries,
+      sickLeaveEntries, 
+    } = entriesResponse
 
-    return [
-      ...this.mapTaskEntries({
-        taskEntries,
-        projects,
-      }),
-      ...this.mapUnwellEntries({
-        unwellEntries,
-      }),
-      ...this.mapAwayWithMakeUpTimeEntries({
-        awayWithMakeUpTimeEntries,
-      }),
-      ...this.mapMakeUpTimeEntries({
-        makeUpTimeEntries,
-      }),
-    ]
+    return {
+      entries: [
+        ...this.mapTaskEntries({
+          taskEntries,
+          projects,
+        }),
+        ...this.mapUnwellEntries({
+          unwellEntries,
+        }),
+        ...this.mapAwayWithMakeUpTimeEntries({
+          awayWithMakeUpTimeEntries,
+        }),
+        ...this.mapMakeUpTimeEntries({
+          makeUpTimeEntries,
+        }), 
+      ],
+      allDayEntries: [
+        ...this.mapSickLeaveEntries({
+          sickLeaveEntries,
+        }),
+      ],
+    }
   }
 
   private static mapTaskEntries({
@@ -112,6 +119,25 @@ export class EntryMapper {
           .toDate(),
         end: moment(makeUpTimeEntry.endTime)
           .toDate(),
+      }))
+  }
+
+  private static mapSickLeaveEntries({
+    sickLeaveEntries,
+  }: {
+    sickLeaveEntries: SickLeaveEntryDto[],
+  } ) {
+    return sickLeaveEntries
+      .map((sickLeaveEntry) => ({
+        id: sickLeaveEntry.id,
+        type: sickLeaveEntry.entryType,
+        start: moment(sickLeaveEntry.period.startDate)
+          .startOf(`day`)
+          .toDate(),
+        end: moment(sickLeaveEntry.period.endDate)
+          .endOf(`day`)
+          .toDate(),
+        isAllDayEntry: true,
       }))
   }
 }

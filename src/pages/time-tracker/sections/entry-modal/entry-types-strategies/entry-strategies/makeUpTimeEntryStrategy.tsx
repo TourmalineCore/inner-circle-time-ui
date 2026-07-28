@@ -41,10 +41,6 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
     return this._relatedEntryStrategy.StateContext
   }
 
-  get entryType() {
-    return this._relatedEntryStrategy.entryType
-  }
-
   get EntryContent() {
     return () => this._relatedEntryStrategy.EntryContent({
       isRelatedEntryFieldsDisabled: true,

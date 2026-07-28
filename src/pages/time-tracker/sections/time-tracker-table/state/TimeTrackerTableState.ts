@@ -6,6 +6,7 @@ import { Views } from 'react-big-calendar'
 export class TimeTrackerTableState {
   private _tableData: TimeTrackerTable = {
     entries: [],
+    allDayEntries: [],
   }
 
   private _viewStartDate: string | null = null

@@ -1,0 +1,13 @@
+@use "../../../../../../../../styles/variables" as *;
+
+.make-up-time-entry-card-content {
+  border: 1px solid $color-light-pink;
+  padding: 2px 5px;
+  height: 100%;
+  background-color: $color-light-pink;
+
+  &__label {
+    font-size: 80%;
+    white-space: nowrap;
+  }
+}

@@ -1,4 +1,5 @@
 import { EntryType } from "../../src/common/constants/entryType"
+import { WeekDay } from "../enums/weekDay"
 
 export class TrackingPageActions {
   static visit() {
@@ -64,6 +65,18 @@ export class TrackingPageActions {
 
   static getEntryModalMakeUpEndTimeInput() {
     return cy.getByData(`make-up-time-end-time-input`)
+  } 
+  
+  static getEntryModalStartDateDatepicker() {
+    return cy
+      .getByData(`start-date-datepicker`)
+      .find(`input`)
+  }
+
+  static getEntryModalEndDateDatepicker() {
+    return cy
+      .getByData(`end-date-datepicker`)
+      .find(`input`)
   }
 
   static selectEntryModalType({
@@ -72,8 +85,9 @@ export class TrackingPageActions {
     entryType: EntryType,
   }) {
     return this.getEntryModalTypeSelect()
-    // -1 because the values in select start from 0 but enum values start from 1
-      .select(entryType - 1)
+      // Passing the string value of the enum (was: numeric index with offset -1).
+      // The string value does not depend on the order of the enum, so subtraction of 1 is not necessary
+      .select(entryType.toString())
   }
 
   static clickByEntryModalSubmitButton() {
@@ -86,6 +100,18 @@ export class TrackingPageActions {
     return cy
       .get(`.tc-modal__close-button`)
       .click()
+  }
+
+  static getAllDayButton({
+    weekDay,
+  }: {
+    weekDay: WeekDay,
+  }) {
+    return cy.getByData(`${weekDay}-all-day-entry-button`)
+  }
+
+  static getSickLeaveCard() {
+    return cy.getByData(`sick-leave-entry-card`)
   }
 
   static addTaskEntry({

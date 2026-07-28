@@ -9,8 +9,10 @@ import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
-import { EntryContent } from './components/EntryContent/EntryContent'
-import { ENTRY_CARD_CONFIG } from '../../../../common/constants/entryType'
+import { EntryCardContent } from './components/entry-card-content/EntryCardContent'
+import { DayHeader } from './components/day-header/DayHeader'
+import { EntryType } from '../../../../common/constants/entryType'
+import { findEntryForDate } from '../../../../common/utils/find-entry-for-date/findEntryForDate'
 
 // This is necessary so that the calendar starts on Monday, not Sunday
 moment.locale(`ru`, {
@@ -24,7 +26,8 @@ const localizer = momentLocalizer(moment)
 export const TimeTrackerTableContent = observer(({
   isCopyMode,
   openEntry,
-  createNewEntry,
+  createNewNonAllDayEntry,
+  createNewAllDayEntry,
   createCopyEntry,
   resetIsCopyMode,
 }: {
@@ -36,7 +39,16 @@ export const TimeTrackerTableContent = observer(({
     start: Date,
     end: Date,
   }) => unknown,
-  createNewEntry: ({
+  createNewNonAllDayEntry: ({
+    allDayEntryType,
+    start,
+    end,
+  }: {
+    allDayEntryType?: EntryType,
+    start: Date,
+    end: Date,
+  }) => unknown,
+  createNewAllDayEntry: ({
     start,
     end,
   }: {
@@ -60,7 +72,8 @@ export const TimeTrackerTableContent = observer(({
   } = timeTrackerState
 
   const {
-    entries, 
+    entries,
+    allDayEntries, 
   } = tableData
 
   const handleSelectSlot = ({
@@ -81,7 +94,13 @@ export const TimeTrackerTableContent = observer(({
         })
       }
       else {
-        createNewEntry({
+        const allDayEntryType = findEntryForDate({
+          entries: allDayEntries,
+          date: start,
+        })?.type
+
+        createNewNonAllDayEntry({
+          allDayEntryType,
           start,
           end,
         })
@@ -90,6 +109,12 @@ export const TimeTrackerTableContent = observer(({
   }
 
   const handleSelectEntry = (entry: TrackedEntry) => {
+    // All day entries (sick leaves, vacation and etc) should not be clickable
+    // They can only be opened via the all day button
+    if (entry.isAllDayEntry) {
+      return
+    }
+
     if (isCopyMode) {
       resetIsCopyMode()
     }
@@ -97,14 +122,6 @@ export const TimeTrackerTableContent = observer(({
     openEntry({
       entry,
     })
-  }
-
-  const eventPropGetter = ({
-    type, 
-  }: TrackedEntry) => {
-    return {
-      className: `time-tracker-table__entry time-tracker-table__entry--${ENTRY_CARD_CONFIG[type!].className}`,
-    } 
   }
 
   const currentView = isMobile ? Views.DAY : Views.WEEK
@@ -127,15 +144,9 @@ export const TimeTrackerTableContent = observer(({
         ]}
         formats={{
           timeGutterFormat: `HH:mm`,
-          eventTimeRangeFormat: ({
-            start,
-            end, 
-          }) => 
-            `${moment(start)
-              .format(`HH:mm`)} - ${moment(end)
-              .format(`HH:mm`)}`,
         }}
         events={entries}
+        backgroundEvents={allDayEntries}
         timeslots={4}
         step={15}
         localizer={localizer}
@@ -145,7 +156,6 @@ export const TimeTrackerTableContent = observer(({
           date: date,
           view: currentView,
         })}
-        eventPropGetter={eventPropGetter}
         selectable
         scrollToTime={moment()
           .hour(8)
@@ -160,7 +170,24 @@ export const TimeTrackerTableContent = observer(({
           .minute(59)
           .toDate()}
         components={{
-          event: EntryContent,
+          event: EntryCardContent,
+          day: {
+            header: (headerProps) => <DayHeader
+              {...headerProps}
+              allDayEntries={allDayEntries}
+              openEntry={openEntry}
+              createNewAllDayEntry={createNewAllDayEntry}
+              showLabel={false}
+            />,
+          },
+          week: {
+            header: (headerProps) => <DayHeader
+              {...headerProps}
+              allDayEntries={allDayEntries}
+              openEntry={openEntry}
+              createNewAllDayEntry={createNewAllDayEntry}
+            />,
+          },
         }}
       />
     </>
