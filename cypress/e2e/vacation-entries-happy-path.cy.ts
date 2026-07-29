@@ -26,7 +26,7 @@ describe(`Vacation Entry Happy Path`, () => {
 
   it(`
   GIVEN user has a 14-day paid vacation already planned and tracked in the time tracker
-  And the user wants to reschedule this vacation for the next month
+  AND user wants to reschedule this vacation for the next month
   WHEN user opens the existing vacation
   AND changes vacation dates
   THEN user should see the vacation period updated to the new dates
@@ -117,7 +117,7 @@ describe(`Vacation Entry Happy Path`, () => {
     cy
       .contains(`July 13  – 19`)
       .should(`be.visible`)
-      
+
     TrackingPageActions.getVacationEntryCard()
       .should(`have.length`, 7)
   })
