@@ -3,7 +3,8 @@ export enum EntryType {
   UNWELL = 2,
   AWAY_WITH_MAKE_UP_TIME = 3,
   MAKE_UP_TIME = 4,
-  SICK_LEAVE = 5
+  SICK_LEAVE = 5,
+  VACATION = 6
 }
 
 export const TYPE_LABELS: Record<string, string> = {

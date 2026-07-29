@@ -78,6 +78,18 @@ export class TrackingPageActions {
       .getByData(`end-date-datepicker`)
       .find(`input`)
   }
+  
+  static goToNextDatepickerMonth() {
+    return cy
+      .get(`react-datepicker__navigation--next`)
+      .click()
+  } 
+  
+  static goToNextTimeTrackerPeriod() {
+    return cy
+      .contains(`Next`)
+      .click()
+  }
 
   static selectEntryModalType({
     entryType,
@@ -112,6 +124,10 @@ export class TrackingPageActions {
 
   static getSickLeaveCard() {
     return cy.getByData(`sick-leave-entry-card`)
+  }
+
+  static getVacationEntryCard() {
+    return cy.getByData(`vacation-entry-card`)
   }
 
   static addTaskEntry({
