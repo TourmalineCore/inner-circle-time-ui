@@ -29,7 +29,7 @@ describe(`Vacation Entry Happy Path`, () => {
   AND user wants to reschedule this vacation for the next month
   WHEN user opens the existing vacation
   AND changes vacation dates
-  THEN user should see the vacation period updated to the new dates
+  THEN user should see the rescheduled vacation
   `, () => {
     TrackingPageActions.visit()
 
