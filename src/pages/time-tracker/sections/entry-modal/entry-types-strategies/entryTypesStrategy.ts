@@ -5,6 +5,7 @@ import { TaskEntryStrategy } from "./entry-strategies/taskEntryStrategy"
 import { UnwellEntryStrategy } from "./entry-strategies/unwellEntryStrategy"
 import { MakeUpTimeEntryStrategy } from "./entry-strategies/makeUpTimeEntryStrategy"
 import { SickLeaveEntryStrategy } from "./entry-strategies/sickLeaveEntryStrategy"
+import { VacationEntryStrategy } from "./entry-strategies/vacationEntryStrategy"
 
 export class EntryTypesStrategy {
   static create({
@@ -31,6 +32,9 @@ export class EntryTypesStrategy {
 
       case EntryType.SICK_LEAVE:
         return new SickLeaveEntryStrategy()
+
+      case EntryType.VACATION:
+        return new VacationEntryStrategy()
 
       default:
         throw new Error(`Unsupported entry type: ${entryType}`)

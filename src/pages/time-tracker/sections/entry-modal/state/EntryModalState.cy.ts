@@ -1,4 +1,4 @@
-import { ALL_DAY_ENTRY_TYPES, CAN_OVERLAP_SICK_LEAVE, EntryType, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from "../../../../../common/constants/entryType"
+import { ALL_DAY_ENTRY_TYPES, CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION, EntryType, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from "../../../../../common/constants/entryType"
 import { TrackedEntry } from "../../../types"
 import { EntryModalState } from "./EntryModalState"
 
@@ -122,11 +122,37 @@ function createNewNonAllDayEntryTests() {
     expect(entryModalState.availableEntryTypes)
       .to
       .deep
-      .eq(CAN_OVERLAP_SICK_LEAVE)
+      .eq(CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION)
 
     expect(entryModalState.type)
       .to
-      .eq(CAN_OVERLAP_SICK_LEAVE[0].value)
+      .eq(CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION[0].value)
+  })
+
+  it(`
+  GIVEN a state with empty available entry types
+  WHEN createNewNonAllDayEntry is called with vacation entry type
+  SHOULD set available types that can overlap with vacation
+  `, () => {
+    expect(entryModalState.availableEntryTypes)
+      .to
+      .deep
+      .eq([])
+      
+    entryModalState.createNewNonAllDayEntry({
+      allDayEntryType: EntryType.VACATION,
+      start: new Date(),
+      end: new Date(),
+    })
+
+    expect(entryModalState.availableEntryTypes)
+      .to
+      .deep
+      .eq(CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION)
+
+    expect(entryModalState.type)
+      .to
+      .eq(CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION[0].value)
   })
 }
 

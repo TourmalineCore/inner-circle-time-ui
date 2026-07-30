@@ -12,10 +12,12 @@ export const TYPE_LABELS: Record<string, string> = {
   [EntryType.UNWELL]: `Unwell`,
   [EntryType.AWAY_WITH_MAKE_UP_TIME]: `Away With Make-Up Time`,
   [EntryType.SICK_LEAVE]: `Sick leave`,
+  [EntryType.VACATION]: `Vacation`,
 }
 
 export const ALL_DAY_ENTRY_TYPES = [
   EntryType.SICK_LEAVE,
+  EntryType.VACATION,
 ].map((value) => ({
   value: value as number,
   label: TYPE_LABELS[value],
@@ -30,7 +32,7 @@ export const NON_ALL_DAY_ENTRY_TYPES = [
   label: TYPE_LABELS[value],
 }))
 
-export const CAN_OVERLAP_SICK_LEAVE = [
+export const CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION = [
   EntryType.TASK,
 ].map((value) => ({
   value: value as number,

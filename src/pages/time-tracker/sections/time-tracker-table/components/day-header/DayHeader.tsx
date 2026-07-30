@@ -7,6 +7,7 @@ import { findEntryForDate } from '../../../../../../common/utils/find-entry-for-
 
 const BUTTON_TEXT: Record<number, string> = {
   [EntryType.SICK_LEAVE]: `Sick leave`,
+  [EntryType.VACATION]: `Vacation`,
 }
 
 export function DayHeader({

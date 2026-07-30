@@ -1,0 +1,13 @@
+@use "../../../../../../../../styles/variables" as *;
+
+.vacation-entry-card-content {
+  border: 1px solid $color-light-blue;
+  padding: 2px 5px;
+  height: 100%;
+  background-color: $color-light-blue;
+  cursor: default;
+
+  &:active {
+    border: none;
+  }
+}

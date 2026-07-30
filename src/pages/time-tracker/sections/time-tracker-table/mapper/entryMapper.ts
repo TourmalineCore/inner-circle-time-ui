@@ -1,4 +1,4 @@
-import { AwayWithMakeUpTimeEntryDto, GetEntriesByPeriodResponse, MakeUpTimeEntryWithRelatedEntryDto, ProjectDto, SickLeaveEntryDto, TaskEntryDto, UnwellEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
+import { AwayWithMakeUpTimeEntryDto, GetEntriesByPeriodResponse, MakeUpTimeEntryWithRelatedEntryDto, ProjectDto, SickLeaveEntryDto, TaskEntryDto, UnwellEntryDto, VacationEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
 import moment from "moment"
 
 export class EntryMapper {
@@ -14,7 +14,8 @@ export class EntryMapper {
       unwellEntries,
       awayWithMakeUpTimeEntries,
       makeUpTimeEntries,
-      sickLeaveEntries, 
+      sickLeaveEntries,
+      vacationEntries, 
     } = entriesResponse
 
     return {
@@ -36,6 +37,9 @@ export class EntryMapper {
       allDayEntries: [
         ...this.mapSickLeaveEntries({
           sickLeaveEntries,
+        }),
+        ...this.mapVacationEntries({
+          vacationEntries,
         }),
       ],
     }
@@ -135,6 +139,25 @@ export class EntryMapper {
           .startOf(`day`)
           .toDate(),
         end: moment(sickLeaveEntry.period.endDate)
+          .endOf(`day`)
+          .toDate(),
+        isAllDayEntry: true,
+      }))
+  }
+  
+  private static mapVacationEntries({
+    vacationEntries,
+  }: {
+    vacationEntries: VacationEntryDto[],
+  } ) {
+    return vacationEntries
+      .map((vacationEntries) => ({
+        id: vacationEntries.id,
+        type: vacationEntries.entryType,
+        start: moment(vacationEntries.period.startDate)
+          .startOf(`day`)
+          .toDate(),
+        end: moment(vacationEntries.period.endDate)
           .endOf(`day`)
           .toDate(),
         isAllDayEntry: true,

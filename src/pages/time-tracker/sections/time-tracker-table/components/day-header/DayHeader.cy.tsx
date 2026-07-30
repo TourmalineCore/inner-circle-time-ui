@@ -40,6 +40,25 @@ function buttonTextTests() {
   })
 
   it(`
+  GIVEN a vacation entry spans across the current day
+  WHEN render the component
+  THEN render button with "Vacation" text
+  `, () => {
+    mountComponent({
+      allDayEntries: [
+        {
+          start: new Date(`2026-07-07T00:00:00`),
+          end: new Date(`2026-07-08T23:59:00`),
+          type: EntryType.VACATION, 
+        },
+      ],
+      date: new Date(`2026-07-08`),
+    })
+
+    cy.contains(`Vacation`)
+  })
+
+  it(`
   GIVEN a sick leave entry exists but on a different day
   WHEN render the component
   THEN render button with "Sick leave" text
