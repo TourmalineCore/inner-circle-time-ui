@@ -15,23 +15,23 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     cy.authByApi()
     cy.removeEntriesByType({
       date: dateToDeleteTask,
-      entryTypeToRemove: `taskEntries`,
+      entriesToRemove: `taskEntries`,
     })
 
     cy.removeEntriesByType({
       date: dateToDeleteAway,
-      entryTypeToRemove: `awayWithMakeUpTimeEntries`,
+      entriesToRemove: `awayWithMakeUpTimeEntries`,
     })
   })
 
   afterEach(`Cleanup`, () => {
     cy.removeEntriesByType({
       date: dateToDeleteTask,
-      entryTypeToRemove: `taskEntries`,
+      entriesToRemove: `taskEntries`,
     })
     cy.removeEntriesByType({
       date: dateToDeleteAway,
-      entryTypeToRemove: `awayWithMakeUpTimeEntries`,
+      entriesToRemove: `awayWithMakeUpTimeEntries`,
     })
   })
 

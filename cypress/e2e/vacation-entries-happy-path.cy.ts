@@ -15,14 +15,14 @@ describe(`Vacation Entry Happy Path`, () => {
     cy.authByApi()
     cy.removeEntriesByType({
       date: rescheduledVacationStartDate,
-      entryTypeToRemove: `vacationEntries`,
+      entriesToRemove: `vacationEntries`,
     })
   })
 
   afterEach(`Cleanup`, () => {
     cy.removeEntriesByType({
       date: rescheduledVacationStartDate,
-      entryTypeToRemove: `vacationEntries`,
+      entriesToRemove: `vacationEntries`,
     })
   })
 

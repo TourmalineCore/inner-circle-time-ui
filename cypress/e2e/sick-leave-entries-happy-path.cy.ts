@@ -15,14 +15,14 @@ describe(`Sick Leave Entry Happy Path`, () => {
     cy.authByApi()
     cy.removeEntriesByType({
       date: testDate,
-      entryTypeToRemove: `sickLeaveEntries`,
+      entriesToRemove: `sickLeaveEntries`,
     })
   })
 
   afterEach(`Cleanup`, () => {
     cy.removeEntriesByType({
       date: testDate,
-      entryTypeToRemove: `sickLeaveEntries`,
+      entriesToRemove: `sickLeaveEntries`,
     })
   })
 

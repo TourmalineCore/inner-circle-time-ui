@@ -1,6 +1,6 @@
 import './commands'
 
-export type EntryTypeToRemove = 'taskEntries' | 'unwellEntries' | 'awayWithMakeUpTimeEntries' | 'sickLeaveEntries' | 'vacationEntries'
+export type EntriesToRemove = 'taskEntries' | 'unwellEntries' | 'awayWithMakeUpTimeEntries' | 'sickLeaveEntries' | 'vacationEntries'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -9,10 +9,10 @@ declare global {
       authByApi(): Chainable<any>,
       removeEntriesByType({
         date,
-        entryTypeToRemove,
+        entriesToRemove,
       }: {
         date: Date,
-        entryTypeToRemove: EntryTypeToRemove,
+        entriesToRemove: EntriesToRemove,
       }): Chainable<any>, 
     }
   }

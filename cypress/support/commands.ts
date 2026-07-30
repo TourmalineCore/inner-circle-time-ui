@@ -2,7 +2,7 @@
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
 import { GetEntriesByPeriodResponse } from '@tourmalinecore/inner-circle-time-api-js-client'
-import { EntryTypeToRemove } from './e2e'
+import { EntriesToRemove } from './e2e'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -64,10 +64,10 @@ Cypress.Commands.add(`authByApi`, () => {
 
 Cypress.Commands.add(`removeEntriesByType`, ({
   date,
-  entryTypeToRemove,
+  entriesToRemove,
 }: {
   date: Date,
-  entryTypeToRemove: EntryTypeToRemove,
+  entriesToRemove: EntriesToRemove,
 }) => {
   const day = formatDate(date)
 
@@ -81,7 +81,7 @@ Cypress.Commands.add(`removeEntriesByType`, ({
     .then(({
       body,
     }) => {
-      body[entryTypeToRemove].forEach(({
+      body[entriesToRemove].forEach(({
         id, 
       }) => {
         cy.request({
