@@ -11,14 +11,16 @@ describe(`Task Entries Happy Path`, () => {
     ])
 
     cy.authByApi()
-    cy.removeTaskEntries({
+    cy.removeEntriesByType({
       date: testDate,
+      entryTypeToRemove: `taskEntries`,
     })
   })
 
   afterEach(`Cleanup`, () => {
-    cy.removeTaskEntries({
+    cy.removeEntriesByType({
       date: testDate,
+      entryTypeToRemove: `taskEntries`,
     })
   })
 

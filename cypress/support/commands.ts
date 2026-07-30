@@ -2,6 +2,7 @@
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
 import { GetEntriesByPeriodResponse } from '@tourmalinecore/inner-circle-time-api-js-client'
+import { EntryTypeToRemove } from './e2e'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -61,10 +62,12 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
-Cypress.Commands.add(`removeTaskEntries`, ({
+Cypress.Commands.add(`removeEntriesByType`, ({
   date,
+  entryTypeToRemove,
 }: {
   date: Date,
+  entryTypeToRemove: EntryTypeToRemove,
 }) => {
   const day = formatDate(date)
 
@@ -78,131 +81,7 @@ Cypress.Commands.add(`removeTaskEntries`, ({
     .then(({
       body,
     }) => {
-      body.taskEntries?.forEach(({
-        id, 
-      }) => {
-        cy.request({
-          method: `DELETE`,
-          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
-          headers: {
-            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-          },
-        })
-      })
-    })
-})
-
-Cypress.Commands.add(`removeUnwellEntries`, ({
-  date,
-}: {
-  date: Date,
-}) => {  
-  const day = formatDate(date)
-
-  cy.request<GetEntriesByPeriodResponse>({
-    method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
-    headers: {
-      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-    },
-  })
-    .then(({
-      body,
-    }) => {
-      body.unwellEntries?.forEach(({
-        id, 
-      }) => {
-        cy.request({
-          method: `DELETE`,
-          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
-          headers: {
-            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-          },
-        })
-      })
-    })
-})
-
-Cypress.Commands.add(`removeAwayWithMakeUpTimeEntries`, ({
-  date,
-}: {
-  date: Date,
-}) => {  
-  const day = formatDate(date)
-
-  cy.request<GetEntriesByPeriodResponse>({
-    method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
-    headers: {
-      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-    },
-  })
-    .then(({
-      body,
-    }) => {
-      body.awayWithMakeUpTimeEntries?.forEach(({
-        id, 
-      }) => {
-        cy.request({
-          method: `DELETE`,
-          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
-          headers: {
-            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-          },
-        })
-      })
-    })
-})
-
-Cypress.Commands.add(`removeSickLeaveEntries`, ({
-  date,
-}: {
-  date: Date,
-}) => {  
-  const day = formatDate(date)
-
-  cy.request<GetEntriesByPeriodResponse>({
-    method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
-    headers: {
-      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-    },
-  })
-    .then(({
-      body,
-    }) => {
-      body.sickLeaveEntries.forEach(({
-        id, 
-      }) => {
-        cy.request({
-          method: `DELETE`,
-          url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
-          headers: {
-            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-          },
-        })
-      })
-    })
-})
-
-Cypress.Commands.add(`removeVacationEntries`, ({
-  date,
-}: {
-  date: Date,
-}) => {  
-  const day = formatDate(date)
-
-  cy.request<GetEntriesByPeriodResponse>({
-    method: `GET`,
-    url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
-    headers: {
-      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-    },
-  })
-    .then(({
-      body,
-    }) => {
-      body.vacationEntries.forEach(({
+      body[entryTypeToRemove].forEach(({
         id, 
       }) => {
         cy.request({

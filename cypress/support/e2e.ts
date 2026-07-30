@@ -1,35 +1,19 @@
 import './commands'
 
+export type EntryTypeToRemove = 'taskEntries' | 'unwellEntries' | 'awayWithMakeUpTimeEntries' | 'sickLeaveEntries' | 'vacationEntries'
+
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
       authByApi(): Chainable<any>,
-      removeTaskEntries({
+      removeEntriesByType({
         date,
+        entryTypeToRemove,
       }: {
         date: Date,
+        entryTypeToRemove: EntryTypeToRemove,
       }): Chainable<any>, 
-      removeUnwellEntries({
-        date,
-      }: {
-        date: Date,
-      }): Chainable<any>, 
-      removeAwayWithMakeUpTimeEntries({
-        date,
-      }: {
-        date: Date,
-      }): Chainable<any>,
-      removeSickLeaveEntries({
-        date,
-      }: {
-        date: Date,
-      }): Chainable<any>,
-      removeVacationEntries({
-        date,
-      }: {
-      date: Date,
-      }): Chainable<any>,    
     }
   }
 }
