@@ -32,7 +32,7 @@ export const NON_ALL_DAY_ENTRY_TYPES = [
   label: TYPE_LABELS[value],
 }))
 
-export const CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION = [
+export const ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION = [
   EntryType.TASK,
 ].map((value) => ({
   value: value as number,

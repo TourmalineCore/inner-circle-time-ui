@@ -1,4 +1,4 @@
-import { ALL_DAY_ENTRY_TYPES, CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION, EntryType, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from "../../../../../common/constants/entryType"
+import { ALL_DAY_ENTRY_TYPES, ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION , EntryType, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from "../../../../../common/constants/entryType"
 import { TrackedEntry } from "../../../types"
 import { EntryModalState } from "./EntryModalState"
 
@@ -122,11 +122,11 @@ function createNewNonAllDayEntryTests() {
     expect(entryModalState.availableEntryTypes)
       .to
       .deep
-      .eq(CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION)
+      .eq(ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION )
 
     expect(entryModalState.type)
       .to
-      .eq(CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION[0].value)
+      .eq(ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION [0].value)
   })
 
   it(`
@@ -148,11 +148,11 @@ function createNewNonAllDayEntryTests() {
     expect(entryModalState.availableEntryTypes)
       .to
       .deep
-      .eq(CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION)
+      .eq(ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION )
 
     expect(entryModalState.type)
       .to
-      .eq(CAN_OVERLAP_WITH_SICK_LEAVE_AND_VACATION[0].value)
+      .eq(ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION [0].value)
   })
 }
 
