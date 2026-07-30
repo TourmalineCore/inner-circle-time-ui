@@ -4,10 +4,20 @@ import moment from 'moment'
 import { EntryType } from '../../../../../../common/constants/entryType'
 import { TrackedEntry } from '../../../../types'
 import { findEntryForDate } from '../../../../../../common/utils/find-entry-for-date/findEntryForDate'
+import clsx from 'clsx'
 
-const BUTTON_TEXT: Record<number, string> = {
-  [EntryType.SICK_LEAVE]: `Sick leave`,
-  [EntryType.VACATION]: `Vacation`,
+const ENTRY_TYPE_CONFIG: Record<number, {
+  text: string,
+  className: string,
+}> = {
+  [EntryType.SICK_LEAVE]: {
+    text: `Sick leave`,
+    className: `day-header__button--sick-leave`,
+  },
+  [EntryType.VACATION]: {
+    text: `Vacation`,
+    className: `day-header__button--vacation`,
+  },
 }
 
 export function DayHeader({
@@ -40,9 +50,9 @@ export function DayHeader({
     date, 
   })
 
-  const buttonText = foundAllDayEntry
-    ? BUTTON_TEXT[foundAllDayEntry.type!]
-    :`Add an all-day event`
+  const entryConfig = foundAllDayEntry
+    ? ENTRY_TYPE_CONFIG[foundAllDayEntry.type!]
+    : null
 
   const weekDay = moment(date)
     .format(`dddd`)
@@ -70,10 +80,10 @@ export function DayHeader({
         )}
         <button
           data-cy={`${weekDay}-all-day-entry-button`} 
-          className='day-header__button'
+          className={clsx(`day-header__button ${entryConfig?.className || ``}`)}
           onClick={handleEntryButtonClick}
         >
-          {buttonText}
+          {entryConfig?.text || `Add an all-day event`}
         </button>
       </div>
     </div>
