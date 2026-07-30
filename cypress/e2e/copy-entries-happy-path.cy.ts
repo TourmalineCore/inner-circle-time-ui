@@ -11,14 +11,14 @@ describe(`Copy Entries Happy Path`, () => {
     ])
 
     cy.authByApi()
-    cy.removeEntriesByType({
+    cy.removeEntries({
       date: testDate,
       entriesToRemove: `taskEntries`,
     })
   })
 
   afterEach(`Cleanup`, () => {
-    cy.removeEntriesByType({
+    cy.removeEntries({
       date: testDate,
       entriesToRemove: `taskEntries`,
     })

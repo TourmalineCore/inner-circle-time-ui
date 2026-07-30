@@ -62,7 +62,7 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
-Cypress.Commands.add(`removeEntriesByType`, ({
+Cypress.Commands.add(`removeEntries`, ({
   date,
   entriesToRemove,
 }: {
