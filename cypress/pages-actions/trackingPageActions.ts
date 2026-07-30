@@ -81,7 +81,7 @@ export class TrackingPageActions {
   
   static goToNextDatepickerMonth() {
     return cy
-      .get(`react-datepicker__navigation--next`)
+      .get(`.react-datepicker__navigation--next`)
       .click()
   } 
   

@@ -106,7 +106,7 @@ describe(`Vacation Entry Happy Path`, () => {
     cy.log(`Check that the vacation entry is displayed correctly for the period from 6 July to 12 July`)
 
     cy
-      .contains(`July 06  – 12`)
+      .contains(`July 06 – 12`)
       .should(`be.visible`)
         
     TrackingPageActions.getVacationEntryCard()
@@ -117,7 +117,7 @@ describe(`Vacation Entry Happy Path`, () => {
     TrackingPageActions.goToNextTimeTrackerPeriod()
     
     cy
-      .contains(`July 13  – 19`)
+      .contains(`July 13 – 19`)
       .should(`be.visible`)
 
     TrackingPageActions.getVacationEntryCard()
