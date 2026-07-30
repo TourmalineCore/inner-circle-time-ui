@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import { ALL_DAY_ENTRY_TYPES, ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION , EntryType, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from '../../../../../common/constants/entryType'
+import { ALL_DAY_ENTRY_TYPES, ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION, EntryType, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from '../../../../../common/constants/entryType'
 import { TrackedEntry } from '../../../types'
 
 export class EntryModalState {
@@ -159,7 +159,7 @@ export class EntryModalState {
     }
 
     if (allDayEntryType === EntryType.SICK_LEAVE || allDayEntryType === EntryType.VACATION) {
-      this._availableEntryTypes = ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION 
+      this._availableEntryTypes = ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION
       return
     }
 
