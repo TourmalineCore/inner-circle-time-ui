@@ -2,7 +2,7 @@ import './VacationEntryContent.scss'
 
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import { VacationEntryStateContext } from './state/VacationStateContext'
+import { VacationEntryStateContext } from './state/VacationEntryStateContext'
 import DatePicker from 'react-datepicker'
 
 export const VacationEntryContent = observer(() => {

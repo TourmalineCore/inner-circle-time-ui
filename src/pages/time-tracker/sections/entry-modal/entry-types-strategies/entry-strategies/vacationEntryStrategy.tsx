@@ -3,8 +3,8 @@ import { api } from "../../../../../../common/api/api"
 import { EntryStrategy } from "../entryTypesStrategy"
 import { EntryBase } from "../../../../types"
 import moment from "moment"
-import { VacationEntryState } from "../../sections/vacation-entry/state/VacationState"
-import { VacationEntryStateContext } from "../../sections/vacation-entry/state/VacationStateContext"
+import { VacationEntryState } from "../../sections/vacation-entry/state/VacationEntryState"
+import { VacationEntryStateContext } from "../../sections/vacation-entry/state/VacationEntryStateContext"
 import { VacationEntryContent } from "../../sections/vacation-entry/VacationEntryContent"
 
 export class VacationEntryStrategy implements EntryStrategy {

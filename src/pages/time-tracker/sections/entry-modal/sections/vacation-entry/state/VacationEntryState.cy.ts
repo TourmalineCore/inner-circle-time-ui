@@ -1,4 +1,4 @@
-import { EMPTY_VACATION_ENTRY, VacationEntryState } from "./VacationState"
+import { EMPTY_VACATION_ENTRY, VacationEntryState } from "./VacationEntryState"
 
 describe(`VacationEntryState`, () => {
   describe(`Initialization Data`, initializationTests)
