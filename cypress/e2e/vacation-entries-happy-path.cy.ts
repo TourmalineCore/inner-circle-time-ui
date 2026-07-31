@@ -67,6 +67,8 @@ describe(`Vacation Entry Happy Path`, () => {
 
     cy.log(`Verify that when the vacation entry is opened, all data is displayed correctly`)
 
+    cy.wait(`@getEntries`)
+    
     TrackingPageActions
       .getAllDayButton({
         weekDay: WeekDay.FRIDAY,
