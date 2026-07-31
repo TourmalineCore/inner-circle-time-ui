@@ -31,11 +31,6 @@ describe(`Vacation Entry Happy Path`, () => {
   AND changes vacation dates
   THEN user should see the rescheduled vacation
   `, () => {
-    cy.intercept(
-      `GET`, 
-      `/api/time/tracking/entries?startDate=2020-06-15&endDate=2020-06-21`)
-      .as(`getEntries`)
-
     TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
@@ -66,13 +61,12 @@ describe(`Vacation Entry Happy Path`, () => {
     TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.log(`Verify that when the vacation entry is opened, all data is displayed correctly`)
-
-    cy.wait(`@getEntries`)
     
     TrackingPageActions
       .getAllDayButton({
         weekDay: WeekDay.FRIDAY,
       })
+      .should(`have.text`, `Vacation`)
       .click()
 
     TrackingPageActions.getEntryModalStartDateDatepicker()
