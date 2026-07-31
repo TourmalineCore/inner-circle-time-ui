@@ -40,9 +40,10 @@ describe(`Vacation Entry Happy Path`, () => {
     
     cy.log(`Add a Vacation Entry from June 15th to 28th`)
 
-    TrackingPageActions.getAllDayButton({
-      weekDay: WeekDay.MONDAY,
-    })
+    TrackingPageActions
+      .getAllDayButton({
+        weekDay: WeekDay.MONDAY,
+      })
       .click()
 
     TrackingPageActions.selectEntryModalType({
@@ -61,9 +62,10 @@ describe(`Vacation Entry Happy Path`, () => {
 
     cy.log(`Verify that when the vacation entry is opened, all data is displayed correctly`)
 
-    TrackingPageActions.getAllDayButton({
-      weekDay: WeekDay.FRIDAY,
-    })
+    TrackingPageActions
+      .getAllDayButton({
+        weekDay: WeekDay.FRIDAY,
+      })
       .click()
 
     TrackingPageActions.getEntryModalStartDateDatepicker()
