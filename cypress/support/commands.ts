@@ -125,6 +125,7 @@ type EntryTypeToRemove =
 
 function removeEntries({
   date,
+  entriesToRemove,
 }: {
   date: Date,
   entriesToRemove: EntryTypeToRemove,
@@ -141,7 +142,7 @@ function removeEntries({
     .then(({
       body,
     }) => {
-      body.sickLeaveEntries.forEach(({
+      body[entriesToRemove].forEach(({
         id, 
       }) => {
         cy.request({
