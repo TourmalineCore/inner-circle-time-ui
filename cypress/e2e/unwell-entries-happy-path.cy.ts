@@ -12,16 +12,14 @@ describe(`Unwell Entries Happy Path`, () => {
     ])
 
     cy.authByApi()
-    cy.removeEntries({
-      date: testDate,
-      entriesToRemove: `unwellEntries`,
+    cy.removeUnwellEntries({
+      date:testDate,
     })
   })
 
   afterEach(`Cleanup`, () => {
-    cy.removeEntries({
+    cy.removeUnwellEntries({
       date: testDate,
-      entriesToRemove: `unwellEntries`,
     })
   })
 

@@ -2,7 +2,6 @@
 import { createAuthService } from '@tourmalinecore/react-tc-auth'
 import compareSnapshotCommand from 'cypress-image-diff-js'
 import { GetEntriesByPeriodResponse } from '@tourmalinecore/inner-circle-time-api-js-client'
-import { EntriesToRemove } from './e2e'
 
 Cypress.on(`uncaught:exception`, () => false)
 
@@ -62,13 +61,74 @@ Cypress.Commands.add(`authByApi`, () => {
     })
 })
 
-Cypress.Commands.add(`removeEntries`, ({
+Cypress.Commands.add(`removeTaskEntries`, ({
   date,
-  entriesToRemove,
 }: {
   date: Date,
-  entriesToRemove: EntriesToRemove,
-}) => {
+}) => {  
+  removeEntries({
+    date,
+    entriesToRemove: `taskEntries`,
+  })
+})
+
+Cypress.Commands.add(`removeUnwellEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {  
+  removeEntries({
+    date,
+    entriesToRemove: `unwellEntries`,
+  })
+})
+
+Cypress.Commands.add(`removeAwayWithMakeUpTimeEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {  
+  removeEntries({
+    date,
+    entriesToRemove: `awayWithMakeUpTimeEntries`,
+  })
+})
+
+Cypress.Commands.add(`removeSickLeaveEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {  
+  removeEntries({
+    date,
+    entriesToRemove: `sickLeaveEntries`,
+  })
+})
+
+Cypress.Commands.add(`removeVacationEntries`, ({
+  date,
+}: {
+  date: Date,
+}) => {  
+  removeEntries({
+    date,
+    entriesToRemove: `vacationEntries`,
+  })
+})
+
+type EntryTypeToRemove = 
+  'taskEntries' |
+  'unwellEntries' |
+  'awayWithMakeUpTimeEntries' |
+  'sickLeaveEntries' |
+  'vacationEntries'
+
+function removeEntries({
+  date,
+}: {
+  date: Date,
+  entriesToRemove: EntryTypeToRemove,
+}) {
   const day = formatDate(date)
 
   cy.request<GetEntriesByPeriodResponse>({
@@ -81,7 +141,7 @@ Cypress.Commands.add(`removeEntries`, ({
     .then(({
       body,
     }) => {
-      body[entriesToRemove].forEach(({
+      body.sickLeaveEntries.forEach(({
         id, 
       }) => {
         cy.request({
@@ -93,7 +153,7 @@ Cypress.Commands.add(`removeEntries`, ({
         })
       })
     })
-})
+}
 
 function formatDate(date: Date): string {
   const y = date.getFullYear()
