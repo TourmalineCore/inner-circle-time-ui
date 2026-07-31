@@ -58,4 +58,13 @@ export type SickLeaveEntry = {
   },
 }
 
+export type VacationEntry = {
+  id?: number,
+  period: {
+    startDate: Date | null,
+    endDate: Date | null,
+  },
+  isUnpaid: boolean,
+}
+
 export type View = 'day' | 'week'

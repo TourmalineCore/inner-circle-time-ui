@@ -24,6 +24,11 @@ declare global {
         date,
       }: {
         date: Date,
+      }): Chainable<any>,
+      removeVacationEntries({
+        date,
+      }: {
+        date: Date,
       }): Chainable<any>,  
     }
   }

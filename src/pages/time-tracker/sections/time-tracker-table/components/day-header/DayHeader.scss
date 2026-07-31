@@ -8,9 +8,21 @@
   }
 
   &__button {
-    border: none;
+    border: 1px solid $color-black;
     padding: 5px 10px;
-    color: $color-white;
-    background-color: $color-blue;
+    color: $color-black;
+    background-color: $color-white;
+
+    &--sick-leave {
+      border: none;
+      color: $color-white;
+      background-color: $color-blue;
+    }
+
+    &--vacation {
+      border: none;
+      color: $color-white;
+      background-color: $color-orange;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { EMPTY_SICK_LEAVE_ENTRY, SickLeaveEntryState } from "./SickLeaveState"
+import { EMPTY_SICK_LEAVE_ENTRY, SickLeaveEntryState } from "./SickLeaveEntryState"
 
 describe(`SickLeaveEntryState`, () => {
   describe(`Initialization Data`, initializationTests)

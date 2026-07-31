@@ -40,9 +40,10 @@ describe(`Sick Leave Entry Happy Path`, () => {
     
     cy.log(`Add a Sick Leave Entry from Monday to Friday`)
 
-    TrackingPageActions.getAllDayButton({
-      weekDay: WeekDay.MONDAY,
-    })
+    TrackingPageActions
+      .getAllDayButton({
+        weekDay: WeekDay.MONDAY,
+      })
       .click()
 
     TrackingPageActions.selectEntryModalType({
@@ -64,9 +65,10 @@ describe(`Sick Leave Entry Happy Path`, () => {
     TrackingPageActions.getSickLeaveCard()
       .should(`have.length`, 5)
 
-    TrackingPageActions.getAllDayButton({
-      weekDay: WeekDay.FRIDAY,
-    })
+    TrackingPageActions
+      .getAllDayButton({
+        weekDay: WeekDay.FRIDAY,
+      })
       .click()
 
     cy.log(`Verify that when the sick leave entry is opened, all data is displayed correctly.`)

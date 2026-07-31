@@ -2,7 +2,7 @@ import './SickLeaveEntryContent.scss'
 
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import { SickLeaveEntryStateContext } from './state/SickLeaveStateContext'
+import { SickLeaveEntryStateContext } from './state/SickLeaveEntryStateContext'
 import DatePicker from 'react-datepicker'
 
 export const SickLeaveEntryContent = observer(() => {

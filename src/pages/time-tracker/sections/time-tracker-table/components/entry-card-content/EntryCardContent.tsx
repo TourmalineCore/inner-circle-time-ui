@@ -6,6 +6,7 @@ import { UnwellEntryCardContent } from "./components/unwell-entry-card-content/U
 import { AwayWithMakeUpTimeEntryCardContent } from "./components/away-with-make-up-time-entry-card-content/AwayWithMakeUpTimeEntryCardContent"
 import { MakeUpTimeEntryCardContent } from "./components/make-up-time-entry-card-content/MakeUpTimeEntryCardContent"
 import { SickLeaveEntryCardContent } from "./components/sick-leave-entry-card-content/SickLeaveEntryCardContent"
+import { VacationEntryCardContent } from "./components/vacation-entry-card-content/VacationEntryCardContent"
 
 export function EntryCardContent({
   event, 
@@ -52,7 +53,10 @@ export function EntryCardContent({
         />
 
       case EntryType.SICK_LEAVE:
-        return <SickLeaveEntryCardContent />
+        return <SickLeaveEntryCardContent /> 
+        
+      case EntryType.VACATION:
+        return <VacationEntryCardContent />
   
       default:
         return null 
