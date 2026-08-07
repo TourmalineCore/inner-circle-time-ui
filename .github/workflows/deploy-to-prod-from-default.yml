@@ -2,8 +2,8 @@ name: Deploy to Prod and e2e test to prod
 
 on:
   push:
-    branches:
-      - master
+    # branches:
+    #   - master
 
 jobs:
   # this is needed to wait for the new docker image to be build and published to the registry
@@ -14,27 +14,27 @@ jobs:
     # without this it cannot login to the registry
     secrets: inherit
 
-  deploy-to-prod:
-    name: Deploy service to k8s for prod environment  
-    needs: [push-to-registry]
-    runs-on: self-hosted
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
+  # deploy-to-prod:
+  #   name: Deploy service to k8s for prod environment  
+  #   needs: [push-to-registry]
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Check out the repo
+  #       uses: actions/checkout@v4
 
-      - name: Deploy
-        # We use quotes because without them some vars can break down other vars
-        run: |
-            helmfile cache cleanup && helmfile apply --suppress-diff --namespace "${{ secrets.INNER_CIRCLE_PROD_NAMESPACE }}" -f ci/helmfile.yaml \
-            --state-values-set image.tag="sha-${{ github.sha }}" \
-            --state-values-set ingress.hostname="${{ secrets.INNER_CIRCLE_PROD_HOSTNAME }}" \
-            --state-values-set extraConfigMapEnvVars.API_ROOT_URL="${{ secrets.INNER_CIRCLE_PROD_TIME_API_ROOT_URL }}" \
-            --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL="${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}" > /dev/null 2>&1
+  #     - name: Deploy
+  #       # We use quotes because without them some vars can break down other vars
+  #       run: |
+  #           helmfile cache cleanup && helmfile apply --suppress-diff --namespace "${{ secrets.INNER_CIRCLE_PROD_NAMESPACE }}" -f ci/helmfile.yaml \
+  #           --state-values-set image.tag="sha-${{ github.sha }}" \
+  #           --state-values-set ingress.hostname="${{ secrets.INNER_CIRCLE_PROD_HOSTNAME }}" \
+  #           --state-values-set extraConfigMapEnvVars.API_ROOT_URL="${{ secrets.INNER_CIRCLE_PROD_TIME_API_ROOT_URL }}" \
+  #           --state-values-set extraConfigMapEnvVars.AUTH_API_ROOT_URL="${{ secrets.INNER_CIRCLE_PROD_AUTH_API_ROOT_URL }}" > /dev/null 2>&1
 
   e2e-test-prod:
     runs-on: self-hosted
     container: cypress/browsers:node-22.18.0-chrome-138.0.7204.183-1-ff-141.0-edge-138.0.3351.121-1
-    needs: [deploy-to-prod]
+    # needs: [deploy-to-prod]
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
