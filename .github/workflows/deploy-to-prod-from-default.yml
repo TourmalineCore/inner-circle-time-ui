@@ -50,7 +50,7 @@ jobs:
         run: |
           npx cypress run \
           --e2e \
-          --browser electron > /dev/null 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)    
+          --browser electron > /latest-ui.log 2>&1 || (echo "E2E PROD TESTS FAILED!" && exit 1)    
         env:
           CYPRESS_BASE_URL: ${{ secrets.INNER_CIRCLE_PROD_BASE_URL }}
           API_ROOT_URL: ${{ secrets.INNER_CIRCLE_PROD_TIME_API_ROOT_URL }}
