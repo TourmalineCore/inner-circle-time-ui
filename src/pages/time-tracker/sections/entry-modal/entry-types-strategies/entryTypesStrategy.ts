@@ -4,6 +4,8 @@ import { AwayWithMakeUpTimeEntryStrategy } from "./entry-strategies/awayWithMake
 import { TaskEntryStrategy } from "./entry-strategies/taskEntryStrategy"
 import { UnwellEntryStrategy } from "./entry-strategies/unwellEntryStrategy"
 import { MakeUpTimeEntryStrategy } from "./entry-strategies/makeUpTimeEntryStrategy"
+import { SickLeaveEntryStrategy } from "./entry-strategies/sickLeaveEntryStrategy"
+import { VacationEntryStrategy } from "./entry-strategies/vacationEntryStrategy"
 
 export class EntryTypesStrategy {
   static create({
@@ -28,6 +30,12 @@ export class EntryTypesStrategy {
           relatedEntryType: relatedEntryType!,
         })
 
+      case EntryType.SICK_LEAVE:
+        return new SickLeaveEntryStrategy()
+
+      case EntryType.VACATION:
+        return new VacationEntryStrategy()
+
       default:
         throw new Error(`Unsupported entry type: ${entryType}`)
     }
@@ -35,7 +43,6 @@ export class EntryTypesStrategy {
 }
 
 export type EntryStrategy = { 
-  entryType: EntryType,
   entryStateConstructor: any,
   StateContext: React.Context<any>,
   EntryContent: (props?: any) => ReactNode,
@@ -49,14 +56,14 @@ export type EntryStrategy = {
   }: {
     entryState: any,
   }) => unknown,
-  initializeNewEntry:({
+  initializeNewEntry: ({
     initialEntryData,
     entryState,
   }: {
     initialEntryData: any,
     entryState: any,
   }) => unknown,
-  initializeExistingEntryAsync:({
+  initializeExistingEntryAsync: ({
     entryId,
     entryState,
   }: {

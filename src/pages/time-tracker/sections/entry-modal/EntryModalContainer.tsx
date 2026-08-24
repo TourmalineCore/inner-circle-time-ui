@@ -106,7 +106,6 @@ export const EntryModalContainer = observer(({
 
       entryModalState.closeEntryModal()
       eventBus.publish(EventBusType.ENTRIES_CHANGED)
-      entryModalState.resetCurrentEntry()
 
       entryModalState.resetError()
     }

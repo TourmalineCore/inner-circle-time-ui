@@ -1,0 +1,13 @@
+@use "../../../../../../../../styles/variables" as *;
+
+.task-entry-card-content {
+  border: 1px solid $color-dark-blue;
+  padding: 2px 5px;
+  height: 100%;
+  background-color: $color-dark-blue;
+
+  &__label {
+    font-size: 80%;
+    white-space: nowrap;
+  }
+}

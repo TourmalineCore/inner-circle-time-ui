@@ -7,7 +7,6 @@ import { Modal } from '@tourmalinecore/react-tc-modal'
 import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { ReactNode, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import { TYPES } from '../../../../common/constants/entryType'
 import DeleteIcon from "../../../../assets/icons/trash.svg?react"
 import CopyIcon from "../../../../assets/icons/copy.svg?react"
 
@@ -34,6 +33,7 @@ export const EntryModalContent = observer(({
 
   const {
     type,
+    availableEntryTypes,
   } = entryModalState
 
   return (
@@ -53,7 +53,7 @@ export const EntryModalContent = observer(({
               type: Number(e.target.value),
             })}
           >
-            {TYPES.map(({
+            {availableEntryTypes.map(({
               label,
               value,
             }) => (
@@ -120,7 +120,6 @@ export const EntryModalContent = observer(({
       )}
       onClose={() => {
         entryModalState.closeEntryModal()
-        entryModalState.resetCurrentEntry()
       }}
     />
   )

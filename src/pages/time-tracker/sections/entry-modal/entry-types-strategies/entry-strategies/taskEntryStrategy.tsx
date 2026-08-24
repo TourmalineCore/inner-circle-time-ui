@@ -1,16 +1,14 @@
 import moment from "moment"
 import { CreateTaskEntryRequest, UpdateTaskEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
-import { concatDateAndTime } from "../../../../utils/date-and-time"
+import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
 import { EntryStrategy } from "../entryTypesStrategy"
-import { TaskEntryState } from "../../sections/TaskEntry/state/TaskEntryState"
-import { TaskEntryStateContext } from "../../sections/TaskEntry/state/TaskEntryStateContext"
-import { TaskEntryContent } from "../../sections/TaskEntry/TaskEntryContent"
-import { EntryType } from "../../../../../../common/constants/entryType"
+import { TaskEntryState } from "../../sections/task-entry/state/TaskEntryState"
+import { TaskEntryStateContext } from "../../sections/task-entry/state/TaskEntryStateContext"
+import { TaskEntryContent } from "../../sections/task-entry/TaskEntryContent"
 import { TaskEntryData, TrackedEntry } from "../../../../types"
 
 export class TaskEntryStrategy implements EntryStrategy {
-  readonly entryType = EntryType.TASK
   readonly entryStateConstructor = TaskEntryState
   readonly StateContext = TaskEntryStateContext
   readonly EntryContent = () => <TaskEntryContent />

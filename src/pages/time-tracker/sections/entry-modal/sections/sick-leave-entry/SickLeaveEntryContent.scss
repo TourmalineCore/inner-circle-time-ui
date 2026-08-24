@@ -1,0 +1,22 @@
+@use "../../../../../../styles/variables" as *;
+
+.sick-leave-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__period-container {
+    display: flex;
+    width: 135px;
+    gap: 4px;
+  }
+
+  &__datepicker {
+    width: 60px;
+  }
+}

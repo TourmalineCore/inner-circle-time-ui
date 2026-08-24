@@ -1,0 +1,13 @@
+@use "../../../../../../../../styles/variables" as *;
+
+.unwell-entry-card-content {
+  border: 1px solid $color-grey;
+  padding: 2px 5px;
+  height: 100%;
+  background-color: $color-grey;
+
+  &__label {
+    font-size: 80%;
+    white-space: nowrap;
+  }
+}

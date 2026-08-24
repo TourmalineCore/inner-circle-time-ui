@@ -8,16 +8,18 @@ export type TrackedEntry = {
   project?: ProjectDto,
   description?: string,
   type?: EntryType,
-  date: Date | null,
+  date?: Date | null,
   start: Date,
   end: Date,
   relatedEntryId?: number,
   relatedEntryType?: number,
   makeUpTimeList?: MakeUpTimeEntry[],
+  isAllDayEntry?: boolean,
 }
 
 export type TimeTrackerTable = {
   entries: TrackedEntry[],
+  allDayEntries: TrackedEntry[],
 }
 
 export type EntryBase = {
@@ -46,6 +48,23 @@ export type MakeUpTimeEntry = {
   date: Date | null,
   startTime: Date | null,
   endTime: Date | null,
+}
+
+export type SickLeaveEntry = {
+  id?: number,
+  period: {
+    startDate: Date | null,
+    endDate: Date | null,
+  },
+}
+
+export type VacationEntry = {
+  id?: number,
+  period: {
+    startDate: Date | null,
+    endDate: Date | null,
+  },
+  isUnpaid: boolean,
 }
 
 export type View = 'day' | 'week'

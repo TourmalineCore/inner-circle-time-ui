@@ -1,0 +1,28 @@
+@use "../../../../../../styles/variables" as *;
+
+.vacation-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__period-container {
+    display: flex;
+    width: 135px;
+    gap: 4px;
+  }
+
+  &__datepicker {
+    width: 60px;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+}

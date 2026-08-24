@@ -1,4 +1,4 @@
-import { TrackingPageActions } from "../../../../../cypress/pagesActions/TrackingPageActions"
+import { TrackingPageActions } from "../../../../../cypress/pages-actions/trackingPageActions"
 import { EntryModalContent } from "./EntryModalContent"
 import { EntryModalState } from "./state/EntryModalState"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
@@ -14,16 +14,12 @@ function functionCallTests() {
   it(`
   GIVEN opened entry modal
   WHEN click on close button
-  SHOULD trigger close entry modal and reset current entry methods 
+  SHOULD trigger close entry modal
   `, () => {
     mountComponent()
     
     TrackingPageActions.clickByEntryModalCloseButton()
       
-    cy
-      .get(`@resetCurrentEntry`)
-      .should(`have.been.calledOnce`)
-
     cy
       .get(`@closeEntryModal`)
       .should(`have.been.calledOnce`)
@@ -176,9 +172,6 @@ function mountComponent({
   const openDeleteModal = cy
     .spy()
     .as(`openDeleteModal`)
-
-  cy.spy(entryModalState, `resetCurrentEntry`)
-    .as(`resetCurrentEntry`)
 
   cy.spy(entryModalState, `closeEntryModal`)
     .as(`closeEntryModal`)
