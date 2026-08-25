@@ -38,7 +38,9 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
   }) {
     const {
       data: awayWithMakeUpTimeEntry,
-    } = await api.trackingGetAwayWithMakeUpTimeEntry(entryId)
+    } = await api
+      .tracking
+      .getAwayWithMakeUpTimeEntry(entryId)
 
     entryState.initializeExistingEntry({
       awayWithMakeUpTimeEntry: {
@@ -67,7 +69,9 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
   }: {
     requestData: CreateAwayWithMakeUpTimeEntryRequest,
   }) {
-    return api.trackingCreateAwayWithMakeUpTimeEntry(requestData)
+    return api
+      .tracking
+      .createAwayWithMakeUpTimeEntry(requestData)
   }
 
   async updateEntryAsync({
@@ -77,7 +81,9 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
     entryId: number,
     requestData: UpdateAwayWithMakeUpTimeEntryRequest,
   }) {
-    return api.trackingUpdateAwayWithMakeUpTimeEntry(entryId, requestData)
+    return api
+      .tracking
+      .updateAwayWithMakeUpTimeEntry(entryId, requestData)
   }
 
   validateOnClient({

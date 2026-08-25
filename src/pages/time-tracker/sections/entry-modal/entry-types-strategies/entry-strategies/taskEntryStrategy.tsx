@@ -42,7 +42,9 @@ export class TaskEntryStrategy implements EntryStrategy {
   }) {
     const {
       data: taskEntry,
-    } = await api.trackingGetTaskEntry(entryId)
+    } = await api
+      .tracking
+      .getTaskEntry(entryId)
 
     entryState.initializeEntry({
       taskEntry: {
@@ -63,7 +65,9 @@ export class TaskEntryStrategy implements EntryStrategy {
   }: {
     requestData: CreateTaskEntryRequest,
   }) {
-    return api.trackingCreateTaskEntry(requestData)
+    return api
+      .tracking
+      .createTaskEntry(requestData)
   }
 
   async updateEntryAsync({
@@ -73,7 +77,9 @@ export class TaskEntryStrategy implements EntryStrategy {
     entryId: number,
     requestData: UpdateTaskEntryRequest,
   }) {
-    return api.trackingUpdateTaskEntry(entryId, requestData)
+    return api
+      .tracking
+      .updateTaskEntry(entryId, requestData)
   }
 
   async loadProjectsAsync({
@@ -92,10 +98,12 @@ export class TaskEntryStrategy implements EntryStrategy {
       data: {
         projects,
       },
-    } = await api.trackingGetEmployeeProjectsByPeriod({
-      startDate,
-      endDate: startDate,
-    })
+    } = await api
+      .tracking
+      .getEmployeeProjectsByPeriod({
+        startDate,
+        endDate: startDate,
+      })
 
     entryState.setProjects({
       projects,
