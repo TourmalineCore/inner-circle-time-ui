@@ -38,7 +38,9 @@ export class UnwellEntryStrategy implements EntryStrategy {
   }) {
     const {
       data: unwellEntry,
-    } = await api.trackingGetUnwellEntry(entryId)
+    } = await api
+      .tracking
+      .getUnwellEntry(entryId)
 
     entryState.initializeEntry({
       unwellEntry: {
@@ -55,7 +57,9 @@ export class UnwellEntryStrategy implements EntryStrategy {
   }: {
     requestData: CreateUnwellEntryRequest,
   }) {
-    return api.trackingCreateUnwellEntry(requestData)
+    return api
+      .tracking
+      .createUnwellEntry(requestData)
   }
 
   async updateEntryAsync({
@@ -65,7 +69,9 @@ export class UnwellEntryStrategy implements EntryStrategy {
     entryId: number,
     requestData: UpdateUnwellEntryRequest,
   }) {
-    return api.trackingUpdateUnwellEntry(entryId, requestData)
+    return api
+      .tracking
+      .updateUnwellEntry(entryId, requestData)
   }
 
   buildRequestData({

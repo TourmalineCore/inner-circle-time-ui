@@ -43,7 +43,9 @@ export class SickLeaveEntryStrategy implements EntryStrategy {
   }) {
     const {
       data,
-    } = await api.trackingGetSickLeaveEntry(entryId)
+    } = await api
+      .tracking
+      .getSickLeaveEntry(entryId)
     
     entryState.initializeEntry({
       sickLeaveEntry: {
@@ -61,7 +63,9 @@ export class SickLeaveEntryStrategy implements EntryStrategy {
   }: {
     requestData: CreateSickLeaveEntryRequest,
   }) {
-    return api.trackingCreateSickLeaveEntry(requestData)
+    return api
+      .tracking
+      .createSickLeaveEntry(requestData)
   }
 
   async updateEntryAsync({
@@ -71,7 +75,9 @@ export class SickLeaveEntryStrategy implements EntryStrategy {
     entryId: number,
     requestData: UpdateSickLeaveEntryRequest,
   }) {
-    return api.trackingUpdateSickLeaveEntry(entryId, requestData)
+    return api
+      .tracking
+      .updateSickLeaveEntry(entryId, requestData)
   }
 
   buildRequestData({

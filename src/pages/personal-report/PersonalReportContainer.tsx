@@ -43,7 +43,9 @@ export const PersonalReportContainer = observer(() => {
       data: {
         employees,
       },
-    } = await api.reportingGetAllEmployees()
+    } = await api
+      .reporting
+      .getAllEmployees()
 
     personalReportState.initializeEmployees({
       employees,
@@ -61,11 +63,13 @@ export const PersonalReportContainer = observer(() => {
         taskHours,
         unwellHours,
       },
-    } = await api.reportingGetPersonalReport({
-      employeeId,
-      year,
-      month,
-    })
+    } = await api
+      .reporting
+      .getPersonalReport({
+        employeeId,
+        year,
+        month,
+      })
 
     personalReportState.initializePersonalReport({
       trackedEntries,

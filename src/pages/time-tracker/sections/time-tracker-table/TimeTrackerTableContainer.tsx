@@ -94,19 +94,23 @@ export const TimeTrackerTableContainer = observer(({
     async function loadedEntries() {
       const {
         data: entriesResponse,
-      } = await api.trackingGetEntriesByPeriod({
-        startDate: viewStartDate as string,
-        endDate: viewEndDate as string,
-      })
+      } = await api
+        .tracking
+        .getEntriesByPeriod({
+          startDate: viewStartDate as string,
+          endDate: viewEndDate as string,
+        })
 
       const {
         data: {
           projects,
         },
-      } = await api.trackingGetEmployeeProjectsByPeriod({
-        startDate: viewStartDate!,
-        endDate: viewEndDate!,
-      })
+      } = await api
+        .tracking
+        .getEmployeeProjectsByPeriod({
+          startDate: viewStartDate!,
+          endDate: viewEndDate!,
+        })
 
       const {
         entries,

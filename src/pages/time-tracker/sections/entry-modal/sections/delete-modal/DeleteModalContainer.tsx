@@ -38,12 +38,14 @@ export const DeleteModalContainer = observer(({
       return
     }
 
-    await api.trackingSoftDeleteEntry(
-      entryId,
-      {
-        deletionReason,
-      },
-    )
+    await api
+      .tracking
+      .softDeleteEntry(
+        entryId,
+        {
+          deletionReason,
+        },
+      )
 
     closeDeleteModal()
     closeEntryModal()
