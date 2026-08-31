@@ -64,6 +64,10 @@ jobs:
 
   cleanup:
     runs-on: self-hosted
+    needs: e2e-test-prod
     steps:
-      - name: check current dir
-        run: pwd
+      - name: Cleanup
+        run: |
+          # This cleanup step is needed to delete all files (including hidden files) from the working directory 
+          # so that the repo can be successfully checked out in the future pipelines
+          sudo rm -rf ./* ./.[!.]* || true
