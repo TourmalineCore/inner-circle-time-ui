@@ -62,9 +62,8 @@ jobs:
           USER_LOGIN: ${{ secrets.INNER_CIRCLE_PROD_AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS  }}
           USER_PASSWORD: ${{ secrets.INNER_CIRCLE_PROD_AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS  }}
 
-      - name: Cleanup
-        if: always()
-        run: |
-          # This cleanup step is needed to delete all files (including hidden files) from the working directory 
-          # so that the repo can be successfully checked out in the future pipelines
-          sudo rm -rf ./* ./.[!.]* || true
+  cleanup:
+    runs-on: self-hosted
+    steps:
+      - name: check current dir
+        run: ls
