@@ -15,7 +15,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           # we use personal access token to clone the repo and to commit later under the same account
           # this last pusher has to be different from the account that approves the pr
