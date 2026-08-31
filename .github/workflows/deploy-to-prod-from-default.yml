@@ -66,4 +66,4 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: check current dir
-        run: ls
+        run: pwd
