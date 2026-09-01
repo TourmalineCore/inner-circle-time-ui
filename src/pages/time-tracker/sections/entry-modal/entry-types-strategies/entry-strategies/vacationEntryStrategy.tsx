@@ -44,7 +44,9 @@ export class VacationEntryStrategy implements EntryStrategy {
   }) {
     const {
       data: vacationEntry,
-    } = await api.trackingGetVacationEntry(entryId)
+    } = await api
+      .tracking
+      .getVacationEntry(entryId)
     
     entryState.initializeEntry({
       vacationEntry: {
@@ -63,7 +65,9 @@ export class VacationEntryStrategy implements EntryStrategy {
   }: {
     requestData: CreateVacationEntryRequest,
   }) {
-    return api.trackingCreateVacationEntry(requestData)
+    return api
+      .tracking
+      .createVacationEntry(requestData)
   }
 
   async updateEntryAsync({
@@ -73,7 +77,9 @@ export class VacationEntryStrategy implements EntryStrategy {
     entryId: number,
     requestData: UpdateVacationEntryRequest,
   }) {
-    return api.trackingUpdateVacationEntry(entryId, requestData)
+    return api
+      .tracking
+      .updateVacationEntry(entryId, requestData)
   }
 
   buildRequestData({
