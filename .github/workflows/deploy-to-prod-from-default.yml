@@ -13,7 +13,7 @@ jobs:
     uses: ./.github/workflows/.reusable-docker-build-and-push.yml
     # without this it cannot login to the registry
     secrets: inherit
- 
+
   deploy-to-prod:
     name: Deploy service to k8s for prod environment  
     needs: [push-to-registry]
