@@ -1,37 +1,37 @@
 import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Metrics Happy Path`, () => {
-  const firstTestDay = new Date(2026, 8, 4)
-  const secondTestDay = new Date(2026, 8, 5)
+  const firstTestDate = new Date(2026, 8, 4)
+  const secondTestDate = new Date(2026, 8, 5)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
     // we use different years for different tests, which does not overlap
-    cy.clock(firstTestDay , [
+    cy.clock(firstTestDate , [
       `Date`,
     ])
 
     cy.authByApi()
     cy.removeUnwellEntries({
-      date: firstTestDay,
+      date: firstTestDate,
     })
     cy.removeTaskEntries({
-      date: firstTestDay,
+      date: firstTestDate,
     })
     cy.removeTaskEntries({
-      date: secondTestDay,
+      date: secondTestDate,
     })
   })
 
   afterEach(`Cleanup`, () => {
     cy.removeUnwellEntries({
-      date: firstTestDay,
+      date: firstTestDate,
     })
     cy.removeTaskEntries({
-      date: firstTestDay,
+      date: firstTestDate,
     })
     cy.removeTaskEntries({
-      date: secondTestDay,
+      date: secondTestDate,
     })
   })
 
