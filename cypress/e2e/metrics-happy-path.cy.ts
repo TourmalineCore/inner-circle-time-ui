@@ -1,8 +1,8 @@
 import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Metrics Happy Path`, () => {
-  const firstTestDate = new Date(2026, 8, 4)
-  const secondTestDate = new Date(2026, 8, 5)
+  const firstTestDate = new Date(2026, 8, 7)
+  const secondTestDate = new Date(2026, 8, 8)
 
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
@@ -39,19 +39,19 @@ describe(`Metrics Happy Path`, () => {
   GIVEN empty time tracker table
   WHEN user adds a new unwell entry from 8 a.m. to 12 p.m. on Monday
   AND user adds a new task entry from 1 p.m. to 5 p.m. on Monday
-  AND On Tuesday, users only tracked a stand-up from 8 a.m. to 8:20 a.m.
+  AND on Tuesday, users only tracked a stand-up from 8 a.m. to 8:20 a.m.
   THEN user should see tracked time to be 8.33
   `, () => {
     cy.intercept(
       `GET`, 
-      `/api/time/reporting/metrics?startDate=2026-09-04&endDate=2026-09-10`)
+      `/api/time/reporting/metrics?startDate=2026-09-07&endDate=2026-09-13`)
       .as(`getMetrics`)
       
     TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
     cy
-      .contains(`September 4 – 10`)
+      .contains(`September 7 – 13`)
       .should(`be.visible`)
 
     TrackingPageActions.addUnwellEntry()
@@ -62,9 +62,9 @@ describe(`Metrics Happy Path`, () => {
     })
 
     TrackingPageActions.addTaskEntry({
-      startTime: `13:00`,
-      endTime: `17:00`,
-      date: `05`,
+      startTime: `08:00`,
+      endTime: `08:20`,
+      date: `08`,
     })
 
     cy.wait(`@getMetrics`)
