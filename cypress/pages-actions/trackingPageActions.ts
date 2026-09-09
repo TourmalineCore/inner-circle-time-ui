@@ -133,9 +133,11 @@ export class TrackingPageActions {
   static addTaskEntry({
     startTime = `11:00`,
     endTime = `15:00`,
+    date,
   }: {
     startTime?: string,
     endTime?: string,
+    date?: string,
   } = {}) { 
     const taskTitle = `[E2E-SMOKE] Task 1`
     const taskId = `#test`
@@ -161,6 +163,17 @@ export class TrackingPageActions {
     this.getEntryModalDescriptionInput()
       .clear()
       .type(taskDescription)
+
+    if (date) {
+      cy
+        .getByData(`datepicker`)
+        .find(`input`)
+        .click()
+
+      cy
+        .get(`.react-datepicker__day--0${date}`)
+        .click()
+    }
   
     this.getEntryModalStartTimeInput()
       .clear()
@@ -177,5 +190,29 @@ export class TrackingPageActions {
       taskId,
       taskDescription,
     }
+  }
+
+  static addUnwellEntry({
+    startTime = `08:00`,
+    endTime = `12:00`,
+  }: {
+    startTime?: string,
+    endTime?: string,
+  } = {}) {
+    this.clickOnFirstTimeSlot()
+
+    this.selectEntryModalType({
+      entryType: EntryType.UNWELL,
+    })
+
+    this.getEntryModalStartTimeInput()
+      .clear()
+      .type(startTime)
+      
+    this.getEntryModalEndTimeInput()
+      .clear()
+      .type(endTime)
+    
+    this.clickByEntryModalSubmitButton()
   }
 }

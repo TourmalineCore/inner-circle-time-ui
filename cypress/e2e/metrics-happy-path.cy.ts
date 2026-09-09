@@ -1,0 +1,75 @@
+import { TrackingPageActions } from "../pages-actions/trackingPageActions"
+
+describe(`Metrics Happy Path`, () => {
+  const firstTestDay = new Date(2026, 8, 4)
+  const secondTestDay = new Date(2026, 8, 5)
+
+  beforeEach(`Set Date and Authorize and Cleanup`, () => {
+    // set cypress default date
+    // we use different years for different tests, which does not overlap
+    cy.clock(firstTestDay , [
+      `Date`,
+    ])
+
+    cy.authByApi()
+    cy.removeUnwellEntries({
+      date: firstTestDay,
+    })
+    cy.removeTaskEntries({
+      date: firstTestDay,
+    })
+    cy.removeTaskEntries({
+      date: secondTestDay,
+    })
+  })
+
+  afterEach(`Cleanup`, () => {
+    cy.removeUnwellEntries({
+      date: firstTestDay,
+    })
+    cy.removeTaskEntries({
+      date: firstTestDay,
+    })
+    cy.removeTaskEntries({
+      date: secondTestDay,
+    })
+  })
+
+  it(`
+  GIVEN empty time tracker table
+  WHEN user adds a new unwell entry from 8 a.m. to 12 p.m. on Monday
+  AND user adds a new task entry from 1 p.m. to 5 p.m. on Monday
+  AND On Tuesday, users only tracked a stand-up from 8 a.m. to 8:20 a.m.
+  THEN user should see tracked time to be 8.33
+  `, () => {
+    cy.intercept(
+      `GET`, 
+      `/api/time/reporting/metrics?startDate=2026-09-04&endDate=2026-09-10`)
+      .as(`getMetrics`)
+      
+    TrackingPageActions.visit()
+
+    // Waiting for the table to be displayed in the desktop version
+    cy
+      .contains(`September 4 – 10`)
+      .should(`be.visible`)
+
+    TrackingPageActions.addUnwellEntry()
+    
+    TrackingPageActions.addTaskEntry({
+      startTime: `13:00`,
+      endTime: `17:00`,
+    })
+
+    TrackingPageActions.addTaskEntry({
+      startTime: `13:00`,
+      endTime: `17:00`,
+      date: `05`,
+    })
+
+    cy.wait(`@getMetrics`)
+
+    cy.getByData(`metrics-tracked-hours`)
+      .contains(`8.33`)
+  })
+})
