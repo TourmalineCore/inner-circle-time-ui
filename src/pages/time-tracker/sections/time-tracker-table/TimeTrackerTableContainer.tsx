@@ -91,7 +91,7 @@ export const TimeTrackerTableContainer = observer(({
       return
     }
 
-    async function loadedEntries() {
+    async function loadEntriesAsync() {
       const {
         data: entriesResponse,
       } = await api
@@ -128,7 +128,7 @@ export const TimeTrackerTableContainer = observer(({
       })
     }
 
-    loadedEntries()
+    loadEntriesAsync()
   }, [
     viewStartDate,
     viewEndDate,
