@@ -1,3 +1,5 @@
+import './Metrics.scss'
+
 import { observer } from "mobx-react-lite"
 import { useContext } from "react"
 import { MetricsStateContext } from "./state/MetricsStateContext"
@@ -12,8 +14,11 @@ export const MetricsContent = observer(() => {
 
   return (
     <div className="metrics">
-      <div data-cy='metrics-tracked-hours'>
-        {formatToTwoDecimalPlaces(trackedHours)}
+      <div 
+        className="metrics__tracked-hours"
+        data-cy='metrics-tracked-hours'
+      >
+        {formatToTwoDecimalPlaces(trackedHours)} tracked hours
       </div>
     </div>
   )
