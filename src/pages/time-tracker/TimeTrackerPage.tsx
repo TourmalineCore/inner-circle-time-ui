@@ -41,8 +41,8 @@ export const TimeTrackerPage = observer(() => {
       <TimeTrackerStateContext.Provider value={timeTrackerTableState}>
         <MetricsStateContext.Provider value={metricsState}>
           <MetricsContainer
-            startDate={viewStartDate as string}
-            endDate={viewEndDate as string}
+            startDate={viewStartDate}
+            endDate={viewEndDate}
           />
           <TimeTrackerTableContainer
             isCopyMode={isCopyMode}
