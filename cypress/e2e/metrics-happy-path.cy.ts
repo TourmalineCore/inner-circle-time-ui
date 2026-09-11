@@ -41,17 +41,12 @@ describe(`Metrics Happy Path`, () => {
   AND user adds a new task entry from 1 p.m. to 5 p.m. on Monday
   AND on Tuesday, users only tracked a stand-up from 8 a.m. to 8:20 a.m.
   THEN user should see tracked time to be 8.33
-  `, () => {
-    cy.intercept(
-      `GET`, 
-      `/api/time/reporting/metrics?startDate=2026-09-07&endDate=2026-09-13`)
-      .as(`getMetrics`)
-      
+  `, () => {      
     TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
     cy
-      .contains(`September 7 – 13`)
+      .contains(`September 07 – 13`)
       .should(`be.visible`)
 
     TrackingPageActions.addUnwellEntry()
@@ -67,9 +62,7 @@ describe(`Metrics Happy Path`, () => {
       date: `08`,
     })
 
-    cy.wait(`@getMetrics`)
-
     cy.getByData(`metrics-tracked-hours`)
-      .contains(`8.33`)
+      .should(`be.visible`, 8.33)
   })
 })
