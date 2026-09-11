@@ -1,27 +1,27 @@
-import { DatePicker } from "./DatePicker"
+import { MonthPicker } from "./MonthPicker"
 
-describe(`DatePicker`, () => {
+describe(`MonthPicker`, () => {
   it(`
-  GIVEN date picker component 
+  GIVEN month picker component 
   WHEN mount
-  SHOULD render date picker component
+  SHOULD render month picker component
   `, () => {
     mountComponent()
 
     cy
-      .getByData(`date-picker`)
+      .getByData(`month-picker`)
       .should(`exist`)
   })
 
   it(`
-  GIVEN date picker component 
+  GIVEN month picker component 
   WHEN select next year
   SHOULD render correct date
   `, () => {
     mountComponent()
 
     cy
-      .getByData(`date-picker`)
+      .getByData(`month-picker`)
       .click()
 
     cy
@@ -43,8 +43,8 @@ function mountComponent() {
     .as(`onChange`)
 
   cy.mount(
-    <DatePicker
-      selectedDate={new Date(`2023-08-1`)}
+    <MonthPicker
+      selectedMonth={new Date(`2023-08-1`)}
       onChange={onChange}
     />,
   )

@@ -7,7 +7,7 @@ import { useContext } from "react"
 import { PersonalReportTrackedEntry } from "./types"
 import { PersonalReportStateContext } from './state/PersonalReportStateContext'
 import { UNSPECIFIED_EMPLOYEE_ID } from './state/PersonalReportState'
-import { DatePicker } from '../../components/date-picker/DatePicker'
+import { MonthPicker } from '../../components/month-picker/MonthPicker'
 
 export const PersonalReportContent = observer(() => {
   const personalReportState = useContext(PersonalReportStateContext)
@@ -68,8 +68,8 @@ export const PersonalReportContent = observer(() => {
               </option>
             ))}
           </select>
-          <DatePicker 
-            selectedDate={selectedDate}
+          <MonthPicker 
+            selectedMonth={selectedDate}
             onChange={(date) => {
               personalReportState.setSelectedDate({
                 newDate: date,
