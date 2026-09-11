@@ -7,7 +7,7 @@ describe(`Metrics Happy Path`, () => {
   beforeEach(`Set Date and Authorize and Cleanup`, () => {
     // set cypress default date
     // we use different years for different tests, which does not overlap
-    cy.clock(firstTestDate , [
+    cy.clock(firstTestDate, [
       `Date`,
     ])
 
