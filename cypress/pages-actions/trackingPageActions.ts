@@ -133,11 +133,9 @@ export class TrackingPageActions {
   static addTaskEntry({
     startTime = `11:00`,
     endTime = `15:00`,
-    date,
   }: {
     startTime?: string,
     endTime?: string,
-    date?: string,
   } = {}) { 
     const taskTitle = `[E2E-SMOKE] Task 1`
     const taskId = `#test`
@@ -163,17 +161,6 @@ export class TrackingPageActions {
     this.getEntryModalDescriptionInput()
       .clear()
       .type(taskDescription)
-
-    if (date) {
-      cy
-        .getByData(`datepicker`)
-        .find(`input`)
-        .click()
-
-      cy
-        .get(`.react-datepicker__day--0${date}`)
-        .click()
-    }
   
     this.getEntryModalStartTimeInput()
       .clear()
