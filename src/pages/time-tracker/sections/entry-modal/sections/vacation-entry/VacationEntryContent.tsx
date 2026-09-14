@@ -3,7 +3,7 @@ import './VacationEntryContent.scss'
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { VacationEntryStateContext } from './state/VacationEntryStateContext'
-import DatePicker from 'react-datepicker'
+import { DayMonthPicker } from '../../../../../../components/day-month-picker/DayMonthPicker'
 
 export const VacationEntryContent = observer(() => {
   const vacationEntryState = useContext(VacationEntryStateContext)
@@ -22,10 +22,9 @@ export const VacationEntryContent = observer(() => {
       <div className='vacation-entry__field'>
         <div className='vacation-entry__period-container'>
           <div data-cy='start-date-datepicker'>
-            <DatePicker
+            <DayMonthPicker
               className='vacation-entry__datepicker'
               selected={period.startDate}
-              dateFormat="dd.MM"
               onChange={(date) => vacationEntryState.updateVacationEntry({
                 vacationEntry: {
                   period: {
@@ -34,15 +33,13 @@ export const VacationEntryContent = observer(() => {
                   },
                 },
               })}
-              onKeyDown={(e) => e.preventDefault()}
             />
           </div>
           {`-`}
           <div data-cy='end-date-datepicker'>
-            <DatePicker
+            <DayMonthPicker
               className="vacation-entry__datepicker"
               selected={period.endDate}
-              dateFormat="dd.MM"
               onChange={(date) => vacationEntryState.updateVacationEntry({
                 vacationEntry: {
                   period: {
@@ -51,7 +48,6 @@ export const VacationEntryContent = observer(() => {
                   },
                 },
               })}
-              onKeyDown={(e) => e.preventDefault()}
             />
           </div>
         </div>

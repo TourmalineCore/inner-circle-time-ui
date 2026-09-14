@@ -1,10 +1,9 @@
-import "react-datepicker/dist/react-datepicker.css"
 import './TimeRange.scss'
 
-import DatePicker from "react-datepicker"
 import InputMask from 'react-input-mask'
 import { formatTime } from "../../common/utils/dateAndTime"
 import clsx from "clsx"
+import { DayMonthPicker } from "../day-month-picker/DayMonthPicker"
 
 export function TimeRange({
   date,
@@ -44,15 +43,12 @@ export function TimeRange({
       )}
       <div className='time-range__container'>
         <div data-cy={dataCy?.datepicker || `datepicker`}>
-          <DatePicker
-            className={clsx(`time-range__datepicker`, {
-              'error': isDateError,
-            })}
+          <DayMonthPicker
+            className={clsx(`time-range__datepicker`)}
+            isError={isDateError}
             selected={date}
-            dateFormat="dd.MM"
             onChange={onChangeDate}
-            disabled={isDisabled}
-            onKeyDown={(e) => e.preventDefault()}
+            isDisabled={isDisabled}
           />
         </div>
         <div className='time-range__time-range'>

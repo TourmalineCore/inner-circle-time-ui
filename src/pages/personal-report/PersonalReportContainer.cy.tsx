@@ -122,7 +122,7 @@ function monthChangeTests() {
       .select(`1`)
     
     cy
-      .getByData(`date-picker-select`)
+      .getByData(`month-picker-select`)
       .click()
 
     cy

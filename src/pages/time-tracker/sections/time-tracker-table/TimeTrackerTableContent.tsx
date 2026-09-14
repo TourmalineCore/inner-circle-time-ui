@@ -156,6 +156,11 @@ export const TimeTrackerTableContent = observer(({
           date: date,
           view: currentView,
         })}
+        slotPropGetter={(date) => ({
+          'data-cy': moment(date)
+            .format(`dddd-HH:mm`)
+            .toLowerCase(),
+        } as React.HTMLAttributes<HTMLDivElement>)}
         selectable
         scrollToTime={moment()
           .hour(8)

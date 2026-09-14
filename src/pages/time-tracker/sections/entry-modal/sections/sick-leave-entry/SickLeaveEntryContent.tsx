@@ -3,7 +3,7 @@ import './SickLeaveEntryContent.scss'
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import { SickLeaveEntryStateContext } from './state/SickLeaveEntryStateContext'
-import DatePicker from 'react-datepicker'
+import { DayMonthPicker } from '../../../../../../components/day-month-picker/DayMonthPicker'
 
 export const SickLeaveEntryContent = observer(() => {
   const sickLeaveEntryState = useContext(SickLeaveEntryStateContext)
@@ -21,10 +21,9 @@ export const SickLeaveEntryContent = observer(() => {
       <div className='sick-leave-entry__field'>
         <div className='sick-leave-entry__period-container'>
           <div data-cy='start-date-datepicker'>
-            <DatePicker
+            <DayMonthPicker
               className='sick-leave-entry__datepicker'
               selected={period.startDate}
-              dateFormat="dd.MM"
               onChange={(date) => sickLeaveEntryState.updateSickLeaveEntry({
                 sickLeaveEntry: {
                   period: {
@@ -33,15 +32,13 @@ export const SickLeaveEntryContent = observer(() => {
                   },
                 },
               })}
-              onKeyDown={(e) => e.preventDefault()}
             />
           </div>
           {`-`}
           <div data-cy='end-date-datepicker'>
-            <DatePicker
+            <DayMonthPicker
               className="sick-leave-entry__datepicker"
               selected={period.endDate}
-              dateFormat="dd.MM"
               onChange={(date) => sickLeaveEntryState.updateSickLeaveEntry({
                 sickLeaveEntry: {
                   period: {
@@ -50,7 +47,6 @@ export const SickLeaveEntryContent = observer(() => {
                   },
                 },
               })}
-              onKeyDown={(e) => e.preventDefault()}
             />
           </div>
         </div>
