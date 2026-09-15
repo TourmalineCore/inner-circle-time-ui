@@ -21,7 +21,7 @@ export const MetricsContainer = observer(({
 
   useEffect(() => {
     const unsubscribeEntriesChanged = eventBus.subscribe(EventBusType.ENTRIES_CHANGED, () => {
-      setNeedToReloadMetrics(!needToReloadMetrics)
+      setNeedToReloadMetrics((prev) => !prev)
     })
     
     return () => {
