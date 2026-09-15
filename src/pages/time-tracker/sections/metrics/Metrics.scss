@@ -1,0 +1,9 @@
+@use "../../../../styles/variables" as *;
+
+.metrics {
+  margin-bottom: 20px;
+
+  &__tracked-hours {
+    font-size: 16px;
+  }
+}
