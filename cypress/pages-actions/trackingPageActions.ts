@@ -178,4 +178,28 @@ export class TrackingPageActions {
       taskDescription,
     }
   }
+
+  static addUnwellEntry({
+    startTime = `08:00`,
+    endTime = `12:00`,
+  }: {
+    startTime?: string,
+    endTime?: string,
+  } = {}) {
+    this.clickOnFirstTimeSlot()
+
+    this.selectEntryModalType({
+      entryType: EntryType.UNWELL,
+    })
+
+    this.getEntryModalStartTimeInput()
+      .clear()
+      .type(startTime)
+      
+    this.getEntryModalEndTimeInput()
+      .clear()
+      .type(endTime)
+    
+    this.clickByEntryModalSubmitButton()
+  }
 }

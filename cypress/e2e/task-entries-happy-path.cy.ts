@@ -48,6 +48,9 @@ describe(`Task Entries Happy Path`, () => {
       .contains(taskTitle)
       .click()
 
+    cy.getByData(`metrics-tracked-hours`)
+      .should(`be.visible`, `4h 0m`)
+
     TrackingPageActions
       .getEntryModalTitleInput()
       .clear()

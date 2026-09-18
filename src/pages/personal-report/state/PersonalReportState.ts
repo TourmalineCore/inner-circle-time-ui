@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import { formatToTwoDecimalPlaces } from '../../../common/utils/formatToTwoDecimalPlaces'
+import { formatToTwoDecimalPlaces } from '../../../common/utils/formatToTwoDecimalPlaces/formatToTwoDecimalPlaces'
 import { EmployeeDto, TrackedEntryDto } from '@tourmalinecore/inner-circle-time-api-js-client'
 import { PersonalReportData } from '../types'
 import moment from 'moment'

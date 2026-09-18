@@ -1,7 +1,6 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './TimeTrackerTable.scss'
 import moment from 'moment'
-import 'moment/locale/ru'
 
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
@@ -13,13 +12,6 @@ import { EntryCardContent } from './components/entry-card-content/EntryCardConte
 import { DayHeader } from './components/day-header/DayHeader'
 import { EntryType } from '../../../../common/constants/entryType'
 import { findEntryForDate } from '../../../../common/utils/find-entry-for-date/findEntryForDate'
-
-// This is necessary so that the calendar starts on Monday, not Sunday
-moment.locale(`ru`, {
-  week: {
-    dow: 1, 
-  },
-})
 
 const localizer = momentLocalizer(moment)
 
