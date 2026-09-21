@@ -8,6 +8,14 @@ import '../../src/styles/index.scss'
 
 // commands
 import { mount } from 'cypress/react'
+import moment from 'moment'
+
+// This is necessary so that the calendar starts on Monday, not Sunday in component tests
+moment.locale(`ru`, {
+  week: {
+    dow: 1, 
+  },
+})
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

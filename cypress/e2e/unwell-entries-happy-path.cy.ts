@@ -1,4 +1,3 @@
-import { EntryType } from "../../src/common/constants/entryType"
 import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Unwell Entries Happy Path`, () => {
@@ -13,7 +12,7 @@ describe(`Unwell Entries Happy Path`, () => {
 
     cy.authByApi()
     cy.removeUnwellEntries({
-      date:testDate,
+      date: testDate,
     })
   })
 
@@ -41,24 +40,10 @@ describe(`Unwell Entries Happy Path`, () => {
       .contains(`October 23 – 29`)
       .should(`be.visible`)
 
-    TrackingPageActions.clickOnFirstTimeSlot()
-        
-    TrackingPageActions
-      .selectEntryModalType({
-        entryType: EntryType.UNWELL,
-      })
-
-    TrackingPageActions
-      .getEntryModalStartTimeInput()
-      .clear()
-      .type(`04:00`)
-    
-    TrackingPageActions
-      .getEntryModalEndTimeInput() 
-      .clear()
-      .type(`05:00`)
-
-    TrackingPageActions.clickByEntryModalSubmitButton()
+    TrackingPageActions.addUnwellEntry({
+      startTime: `04:00`,
+      endTime: `05:00`,
+    })
 
     clickByFeelingUnwellCard()
 

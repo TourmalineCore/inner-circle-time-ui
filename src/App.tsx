@@ -1,7 +1,17 @@
+import 'moment/locale/ru'
+
+import moment from 'moment'
 import { authService } from './common/authService'
 import { getPageRoutes } from './routes/pageRoutes'
 // import Layout from remote app
 import Layout from 'inner_circle_layout_ui/layout'
+
+// This is necessary so that the calendar starts on Monday, not Sunday
+moment.locale(`ru`, {
+  week: {
+    dow: 1, 
+  },
+})
 
 // eslint-disable-next-line import/no-default-export
 export default function App() {
