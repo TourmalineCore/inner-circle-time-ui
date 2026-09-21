@@ -24,8 +24,8 @@ export const MetricsContent = observer(() => {
   return (
     <div className="metrics">
       <div 
-        className="metrics__tracked-hours"
-        data-cy='metrics-tracked-hours'
+        className="metrics__tracked-time"
+        data-cy='metrics-tracked-time'
       >
         {formattedTrackedTime} tracked time
       </div>
