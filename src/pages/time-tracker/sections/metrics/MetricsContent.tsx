@@ -13,7 +13,9 @@ export const MetricsContent = observer(() => {
     trackedHours,
   } = metricsState.metrics
 
-  const trackedHoursWithTwoDecimalPlaces = formatToTwoDecimalPlaces(trackedHours)
+  const trackedHoursWithTwoDecimalPlaces = formatToTwoDecimalPlaces({
+    value: trackedHours,
+  })
 
   const formattedTrackedTime = formatHoursAsHhMm({
     hours: trackedHoursWithTwoDecimalPlaces,

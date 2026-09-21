@@ -47,7 +47,9 @@ export class PersonalReportState {
   }
 
   get totalHours() {
-    const totalPayableHours = formatToTwoDecimalPlaces(this._personalReportData.taskHours + this._personalReportData.unwellHours)
+    const totalPayableHours = formatToTwoDecimalPlaces({
+      value: this._personalReportData.taskHours + this._personalReportData.unwellHours,
+    })
 
     return {
       totalTrackedHoursPerMonth: totalPayableHours,
@@ -70,19 +72,27 @@ export class PersonalReportState {
         date: moment(entry.startTime)
           .format(`D.MM`)
           .toString(),
-        trackedHoursPerDay: formatToTwoDecimalPlaces(entry.trackedHoursPerDay),
+        trackedHoursPerDay: formatToTwoDecimalPlaces({
+          value: entry.trackedHoursPerDay,
+        }),
         time: `${moment(entry.startTime)
           .format(`HH:mm`)} - ${moment(entry.endTime)
           .format(`HH:mm`)}`,
-        hours: formatToTwoDecimalPlaces(entry.hours),
+        hours: formatToTwoDecimalPlaces({
+          value: entry.hours,
+        }),
         entryType: TYPE_LABELS[entry.entryType],
         project: entry.project ? entry.project.name : `-`,
         taskId: entry.task ? entry.task.id : `-`,
         taskTitle: entry.task ? entry.task.title : `-`,
         description: entry.description || `-`,
       })),
-      taskHours: formatToTwoDecimalPlaces(taskHours),
-      unwellHours: formatToTwoDecimalPlaces(unwellHours),
+      taskHours: formatToTwoDecimalPlaces({
+        value: taskHours,
+      }),
+      unwellHours: formatToTwoDecimalPlaces({
+        value: unwellHours,
+      }),
     }
   }
 
