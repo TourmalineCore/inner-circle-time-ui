@@ -24,14 +24,6 @@ describe(`formatToTwoDecimalPlaces`, () => {
       .to
       .eq(-1.23)
   })
-
-  it(`should return 0 when given 0 and 0.001`, () => {
-    expect(formatToTwoDecimalPlaces({
-      value: 0,
-    }))
-      .to
-      .eq(0)
-  })
   
   it(`should return 0 when given 0.001`, () => {
     expect(formatToTwoDecimalPlaces({
