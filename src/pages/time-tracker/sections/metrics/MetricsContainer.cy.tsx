@@ -14,7 +14,7 @@ function eventCallTests() {
   WHEN ENTRIES_CHANGED event is published
   SHOULD make complete network call to get metrics
   `, () => {
-    cy.intercept(`GET`, `**/reporting/metrics?startDate=2026-09-14&endDate=2026-09-20`, {
+    cy.intercept(`GET`, `**/reporting/metrics*`, {
       statusCode: 200,
     })
       .as(`getMetrics`)
