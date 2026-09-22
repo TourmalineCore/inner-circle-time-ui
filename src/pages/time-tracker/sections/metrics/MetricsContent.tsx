@@ -27,7 +27,7 @@ export const MetricsContent = observer(() => {
         className="metrics__tracked-time"
         data-cy='metrics-tracked-time'
       >
-        {formattedTrackedTime} tracked time
+        {formattedTrackedTime} tracked time per week
       </div>
     </div>
   )
