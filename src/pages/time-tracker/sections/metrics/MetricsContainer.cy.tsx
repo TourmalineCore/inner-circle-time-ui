@@ -4,7 +4,8 @@ import { MetricsState } from "./state/MetricsState"
 import { MetricsStateContext } from "./state/MetricsStateContext"
 
 describe(`MetricsContainer`, () => {
-  describe(`Event Call`, eventCallTests)   
+  describe(`Event Call`, eventCallTests)
+  describe(`Metrics Request`, metricsRequestTests)   
 })
 
 function eventCallTests() {
@@ -15,9 +16,6 @@ function eventCallTests() {
   `, () => {
     cy.intercept(`GET`, `**/reporting/metrics?startDate=2026-09-14&endDate=2026-09-20`, {
       statusCode: 200,
-      body: {
-        trackedHours: 8, 
-      },
     })
       .as(`getMetrics`)
 
@@ -43,7 +41,30 @@ function eventCallTests() {
   })
 }
 
-function mountComponent() {
+function metricsRequestTests() {
+  it(`
+  GIVEN a metrics container
+  WHEN the component is rendered
+  SHOULD make a network call for the start and end of the week
+  `, () => {
+    cy.intercept(`GET`, `**/reporting/metrics?startDate=2026-09-14&endDate=2026-09-20`, {
+      statusCode: 200,
+    })
+      .as(`getMetrics`)
+
+    mountComponent({
+      dateWithinWeek: `2026-09-14`,
+    })
+
+    cy.wait(`@getMetrics`)
+  })
+}
+
+function mountComponent({
+  dateWithinWeek = `2026-09-14`,
+}: {
+  dateWithinWeek?: string,
+} = {}) {
   const metricsState = new MetricsState()
 
   cy.spy(eventBus, `subscribe`)
@@ -56,8 +77,7 @@ function mountComponent() {
     .mount(
       <MetricsStateContext.Provider value={metricsState}>
         <MetricsContainer
-          startDate={`2026-09-14`}
-          endDate={`2026-09-20`}
+          dateWithinWeek={dateWithinWeek}
         />
       </MetricsStateContext.Provider>,
     )

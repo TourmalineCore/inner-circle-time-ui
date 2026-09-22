@@ -4,13 +4,12 @@ import { MetricsStateContext } from "./state/MetricsStateContext"
 import { api } from "../../../../common/api/api"
 import { MetricsContent } from "./MetricsContent"
 import { eventBus, EventBusType } from "../../event-bus"
+import moment from "moment"
 
 export const MetricsContainer = observer(({
-  startDate,
-  endDate,
+  dateWithinWeek,
 }: {
-  startDate: string,
-  endDate: string,
+  dateWithinWeek: string,
 }) => {
   const metricsState = useContext(MetricsStateContext)
 
@@ -35,8 +34,7 @@ export const MetricsContainer = observer(({
     loadMetricsAsync()
   }, [
     needToReloadMetrics,
-    startDate,
-    endDate,
+    dateWithinWeek,
   ])
   
   return (
@@ -44,6 +42,15 @@ export const MetricsContainer = observer(({
   )
 
   async function loadMetricsAsync() {
+    const startWeekDate = moment(dateWithinWeek)
+      // isoWeek is necessary so that moment returns the date starting from Monday, not Sunday.
+      .startOf(`isoWeek`) 
+      .format(`YYYY-MM-DD`)
+    
+    const endWeekDate = moment(dateWithinWeek)
+      .endOf(`isoWeek`) 
+      .format(`YYYY-MM-DD`)
+
     const {
       data: {
         trackedHours,
@@ -51,8 +58,8 @@ export const MetricsContainer = observer(({
     } = await api
       .reporting
       .getMetrics({
-        startDate: startDate,
-        endDate: endDate,
+        startDate: startWeekDate,
+        endDate: endWeekDate,
       })
   
     metricsState.initialize({
