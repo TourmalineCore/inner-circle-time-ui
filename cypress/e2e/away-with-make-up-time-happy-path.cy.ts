@@ -1,4 +1,5 @@
 import { EntryType } from "../../src/common/constants/entryType"
+import { WeekDay } from "../enums/weekDay"
 import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Away With Make-up Time Entry Happy Path`, () => {
@@ -52,7 +53,10 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     
     cy.log(`Add an Away with Make-up Time Entry`)
     
-    TrackingPageActions.clickOnFirstTimeSlot()
+    TrackingPageActions.clickOnTimeSlot({
+      weekDay: WeekDay.MONDAY,
+      time: `13:00`,
+    })
 
     TrackingPageActions.selectEntryModalType({
       entryType: EntryType.AWAY_WITH_MAKE_UP_TIME,
@@ -69,10 +73,6 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     cy
       .get(`.react-datepicker__day--013`)
       .click()
-
-    TrackingPageActions.getEntryModalStartTimeInput()
-      .clear()
-      .type(absentStartTime)
     
     TrackingPageActions.getEntryModalEndTimeInput()
       .clear()
@@ -102,8 +102,7 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
       .contains(`Back`)
       .click()
 
-    cy
-      .contains(`Away with make-up time`)
+    cy.getByData(`"away-with-make-up-time-${WeekDay.MONDAY}-${absentStartTime}-${absentEndTime}"`)
       .click()
 
     checkAwayWithMakeUpTimeEntryFields()
@@ -114,8 +113,7 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
 
     cy.log(`Сheck that the Make-up time cards exist`)
 
-    cy
-      .contains(`Make-up time`)
+    cy.getByData(`"make-up-time-${WeekDay.MONDAY}-${makeUpStartTime}-${makeUpEndTime}"`)
       .click()
 
     checkAwayWithMakeUpTimeEntryFields()

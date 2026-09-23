@@ -19,6 +19,21 @@ export class TrackingPageActions {
       })
   }
 
+  static clickOnTimeSlot({
+    weekDay,
+    time,
+  }: {
+    weekDay: WeekDay,
+    time: string,
+  }) {
+    return cy.getByData(`"${weekDay}-${time}"`)
+      .last()
+      .scrollIntoView()
+      .click({
+        force: true,
+      })
+  }
+
   static getEntryModalStartTimeInput() {
     return cy.getByData(`start-time-input`)
   }
