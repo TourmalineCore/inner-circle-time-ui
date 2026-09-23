@@ -3,7 +3,7 @@ import './TimeTrackerTable.scss'
 import moment from 'moment'
 
 import { observer } from 'mobx-react-lite'
-import { ReactNode, useContext } from 'react'
+import { useContext } from 'react'
 import { TimeTrackerStateContext } from './state/TimeTrackerTableStateContext'
 import { momentLocalizer, Calendar, SlotInfo, Views } from 'react-big-calendar'
 import { TrackedEntry } from '../../types'
@@ -168,13 +168,6 @@ export const TimeTrackerTableContent = observer(({
           .toDate()}
         components={{
           event: EntryCardContent,
-          dayColumnWrapper: ({
-            children,
-            date,
-          }: any) => renderDayWrapper({
-            children,
-            date,
-          }), 
           day: {
             header: (headerProps) => <DayHeader
               {...headerProps}
@@ -197,22 +190,3 @@ export const TimeTrackerTableContent = observer(({
     </>
   )
 })
-
-function renderDayWrapper({
-  children,
-  date,
-}: {
-  children: ReactNode,
-  date: Date,
-}) {
-  return (
-    <div
-      className='rbc-day-slot rbc-time-column'
-      data-cy={`day-slot-${moment(date)
-        .format(`dddd`)
-        .toLowerCase()}`}
-    >
-      {children}
-    </div>
-  )
-}

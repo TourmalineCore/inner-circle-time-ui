@@ -140,14 +140,6 @@ export class TrackingPageActions {
       .click()
   }
 
-  static getDaySlot({
-    weekDay,
-  }: {
-    weekDay: WeekDay,
-  }) {
-    return cy.getByData(`day-slot-${weekDay}`)
-  }
-
   static getAllDayButton({
     weekDay,
   }: {

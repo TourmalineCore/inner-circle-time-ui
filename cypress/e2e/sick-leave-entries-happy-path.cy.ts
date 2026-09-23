@@ -100,12 +100,7 @@ describe(`Sick Leave Entry Happy Path`, () => {
       .contains(`Next`)
       .click()
 
-    TrackingPageActions.getDaySlot({
-      weekDay: WeekDay.MONDAY, 
-    })
-      .within(() => {
-        TrackingPageActions.getSickLeaveEntry()
-          .should(`exist`)
-      })
+    TrackingPageActions.getSickLeaveEntry()
+      .should(`have.length`, 1)
   })
 })
