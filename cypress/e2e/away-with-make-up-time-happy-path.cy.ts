@@ -118,18 +118,20 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
 
     checkAwayWithMakeUpTimeEntryFields()
 
-    cy.log(`Add a Task Entry at the same time as make-up`)
+    cy.log(`Add a Task Entry at the same time as make-up time`)
 
     const {
       taskTitle,
     } = TrackingPageActions.addTaskEntry({
+      weekDay: WeekDay.MONDAY,
       startTime: `17:00`,
       endTime: `18:00`,
     })
 
     cy.log(`Сheck that the Task entry cards exist`)
 
-    cy.contains(taskTitle)
+    cy.getByData(`"task-entry-${WeekDay.MONDAY}-17:00-18:00"`)
+      .should(`contain.text`, taskTitle)
     
     function checkAwayWithMakeUpTimeEntryFields() {
       TrackingPageActions

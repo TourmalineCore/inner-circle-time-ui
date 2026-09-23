@@ -1,3 +1,4 @@
+import moment from "moment"
 import { EntryType } from "../../src/common/constants/entryType"
 import { WeekDay } from "../enums/weekDay"
 
@@ -26,12 +27,22 @@ export class TrackingPageActions {
     weekDay: WeekDay,
     time: string,
   }) {
-    return cy.getByData(`"${weekDay}-${time}"`)
+    // TODO: add comment
+    const momentTime = moment(time, `HH:mm`)
+
+    const roundingTime = momentTime.minutes(
+      Math.floor(momentTime.minutes() / 15) * 15)
+      .format(`HH:mm`)
+
+    return cy.getByData(`"${weekDay}-${roundingTime}"`)
       .last()
       .scrollIntoView()
-      .click({
-        force: true,
-      })
+      // Sometimes, for some reason, clicking on a slot does not work with a single click but double click works stably.
+      .dblclick(
+        `right`,
+        {
+          force: true,
+        })
   }
 
   static getEntryModalStartTimeInput() {
@@ -146,17 +157,22 @@ export class TrackingPageActions {
   }
 
   static addTaskEntry({
+    weekDay,
     startTime = `11:00`,
     endTime = `15:00`,
   }: {
+    weekDay: WeekDay,
     startTime?: string,
     endTime?: string,
-  } = {}) { 
+  }) { 
     const taskTitle = `[E2E-SMOKE] Task 1`
     const taskId = `#test`
     const taskDescription = `Task description`
 
-    this.clickOnFirstTimeSlot()
+    this.clickOnTimeSlot({
+      weekDay,
+      time: startTime,
+    })
 
     this.selectEntryModalType({
       entryType: EntryType.TASK,
