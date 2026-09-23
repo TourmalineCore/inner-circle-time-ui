@@ -4,7 +4,7 @@ export function VacationEntryCardContent() {
   return (
     <div
       className="vacation-entry-card-content"
-      data-cy="vacation-entry-card">
+      data-cy="vacation">
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import "./AwayWithMakeUpTimeEntryCardContent.scss"
 
 import { getDurationLabel } from "../getDurationLabel"
-import moment from "moment"
+import { getEntryCardDataCy } from "../../../../../../../../common/utils/getEntryCardDataCy/getEntryCardDataCy"
 
 export function AwayWithMakeUpTimeEntryCardContent({
   startTime,
@@ -13,10 +13,11 @@ export function AwayWithMakeUpTimeEntryCardContent({
   return (
     <div
       className="away-with-make-up-time-entry-card-content"
-      data-cy={`away-with-make-up-time-${moment(startTime)
-        .format(`dddd-HH:mm`)
-        .toLowerCase()}-${moment(endTime)
-        .format(`HH:mm`)}`}
+      data-cy={getEntryCardDataCy({
+        entryName: `away-with-make-up-time`,
+        startTime,
+        endTime,
+      })}
     >
       <div className='away-with-make-up-time-entry-card-content__label'>
         {getDurationLabel({

@@ -1,6 +1,7 @@
 import './TaskEntryCardContent.scss'
 
 import { getDurationLabel } from '../getDurationLabel'
+import { getEntryCardDataCy } from '../../../../../../../../common/utils/getEntryCardDataCy/getEntryCardDataCy'
 
 export function TaskEntryCardContent({
   title,
@@ -16,7 +17,13 @@ export function TaskEntryCardContent({
   endTime: Date,
 }) {
   return (
-    <div className="task-entry-card-content">
+    <div className="task-entry-card-content"
+      data-cy={getEntryCardDataCy({
+        entryName: `task`,
+        startTime,
+        endTime,
+      })}
+    >
       <div className='task-entry-card-content__label'>
         {getDurationLabel({
           startTime,

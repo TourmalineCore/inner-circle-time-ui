@@ -1,6 +1,7 @@
 import './UnwellEntryCardContent.scss'
 
 import { getDurationLabel } from '../getDurationLabel'
+import { getEntryCardDataCy } from '../../../../../../../../common/utils/getEntryCardDataCy/getEntryCardDataCy'
 
 export function UnwellEntryCardContent({
   startTime,
@@ -10,7 +11,13 @@ export function UnwellEntryCardContent({
   endTime: Date,
 }) {
   return (
-    <div className="unwell-entry-card-content">
+    <div className="unwell-entry-card-content"
+      data-cy={getEntryCardDataCy({
+        entryName: `unwell`,
+        startTime,
+        endTime,
+      })}
+    >
       <div className='unwell-entry-card-content__label'>
         {getDurationLabel({
           startTime,
