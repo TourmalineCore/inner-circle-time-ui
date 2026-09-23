@@ -13,7 +13,7 @@ export function UnwellEntryCardContent({
   return (
     <div className="unwell-entry-card-content"
       data-cy={getEntryCardDataCy({
-        entryName: `unwell`,
+        entryName: `unwell-entry`,
         startTime,
         endTime,
       })}

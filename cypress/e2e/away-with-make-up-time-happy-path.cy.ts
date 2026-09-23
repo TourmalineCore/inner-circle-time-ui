@@ -102,7 +102,7 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
       .contains(`Back`)
       .click()
 
-    cy.getByData(`"away-with-make-up-time-${WeekDay.MONDAY}-${absentStartTime}-${absentEndTime}"`)
+    cy.getByData(`"away-with-make-up-time-entry-${WeekDay.MONDAY}-${absentStartTime}-${absentEndTime}"`)
       .click()
 
     checkAwayWithMakeUpTimeEntryFields()

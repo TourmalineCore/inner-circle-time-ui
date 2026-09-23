@@ -137,12 +137,12 @@ export class TrackingPageActions {
     return cy.getByData(`${weekDay}-all-day-entry-button`)
   }
 
-  static getSickLeaveCard() {
-    return cy.getByData(`sick-leave-entry-card`)
+  static getSickLeaveEntry() {
+    return cy.getByData(`sick-leave-entry`)
   }
 
-  static getVacationEntryCard() {
-    return cy.getByData(`vacation-entry-card`)
+  static getVacationEntry() {
+    return cy.getByData(`vacation-entry`)
   }
 
   static addTaskEntry({

@@ -19,7 +19,7 @@ export function TaskEntryCardContent({
   return (
     <div className="task-entry-card-content"
       data-cy={getEntryCardDataCy({
-        entryName: `task`,
+        entryName: `task-entry`,
         startTime,
         endTime,
       })}

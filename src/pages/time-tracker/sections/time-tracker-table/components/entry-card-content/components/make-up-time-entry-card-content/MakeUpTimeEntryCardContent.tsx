@@ -14,7 +14,7 @@ export function MakeUpTimeEntryCardContent({
     <div
       className="make-up-time-entry-card-content"
       data-cy={getEntryCardDataCy({
-        entryName: `make-up-time`,
+        entryName: `make-up-time-entry`,
         startTime,
         endTime,
       })}
