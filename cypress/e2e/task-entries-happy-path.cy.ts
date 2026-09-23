@@ -1,3 +1,4 @@
+import { WeekDay } from "../enums/weekDay"
 import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Task Entries Happy Path`, () => {
@@ -28,11 +29,6 @@ describe(`Task Entries Happy Path`, () => {
   AND user clicks on this task entry for update
   THEN user should see the updated task entry in the time tracking table
   `, () => {
-    cy.intercept(
-      `GET`, 
-      `/api/time/tracking/entries?startDate=2024-10-21&endDate=2024-10-27`)
-      .as(`getEntries`)
-      
     TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
@@ -40,16 +36,11 @@ describe(`Task Entries Happy Path`, () => {
       .contains(`October 21 – 27`)
       .should(`be.visible`)
 
-    const {
-      taskTitle,
-    } = TrackingPageActions.addTaskEntry()
+    TrackingPageActions.addTaskEntry()
 
     cy
-      .contains(taskTitle)
+      .getByData(`"task-entry-${WeekDay.MONDAY}-11:00-15:00"`)
       .click()
-
-    cy.getByData(`metrics-tracked-time`)
-      .should(`be.visible`, `4h 0m`)
 
     TrackingPageActions
       .getEntryModalTitleInput()
@@ -80,10 +71,11 @@ describe(`Task Entries Happy Path`, () => {
 
     TrackingPageActions.clickByEntryModalSubmitButton()
 
-    cy.wait(`@getEntries`)
-
+    cy.getByData(`metrics-tracked-time`)
+      .should(`be.visible`, `4h 0m`)
+      
     cy
-      .contains(`[E2E-SMOKE] Task 2`)
+      .getByData(`"task-entry-${WeekDay.MONDAY}-13:00-17:00"`)
       .click()
 
     TrackingPageActions
