@@ -27,7 +27,11 @@ export class TrackingPageActions {
     weekDay: WeekDay,
     time: string,
   }) {
-    // TODO: add comment
+    // Slots in the time tracker have a 15-minute step.
+    // The selectors use the same step.
+    // So if the time is not a multiple of 15, we round it down
+    // to the nearest slot (for example, 10:07 to 10:00, 10:23 to 10:15).
+    // This way we can find the correct slot on the page.
     const momentTime = moment(time, `HH:mm`)
 
     const roundingTime = momentTime.minutes(
