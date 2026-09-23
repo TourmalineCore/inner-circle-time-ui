@@ -99,8 +99,13 @@ describe(`Sick Leave Entry Happy Path`, () => {
     cy
       .contains(`Next`)
       .click()
-    
-    TrackingPageActions.getSickLeaveEntry()
-      .should(`have.length`, 1)
+
+    TrackingPageActions.getDaySlot({
+      weekDay: WeekDay.MONDAY, 
+    })
+      .within(() => {
+        TrackingPageActions.getSickLeaveEntry()
+          .should(`exist`)
+      })
   })
 })

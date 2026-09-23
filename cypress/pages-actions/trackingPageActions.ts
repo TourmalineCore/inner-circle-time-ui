@@ -140,6 +140,14 @@ export class TrackingPageActions {
       .click()
   }
 
+  static getDaySlot({
+    weekDay,
+  }: {
+    weekDay: WeekDay,
+  }) {
+    return cy.getByData(`day-slot-${weekDay}`)
+  }
+
   static getAllDayButton({
     weekDay,
   }: {
@@ -157,14 +165,14 @@ export class TrackingPageActions {
   }
 
   static addTaskEntry({
-    weekDay,
+    weekDay = WeekDay.MONDAY,
     startTime = `11:00`,
     endTime = `15:00`,
   }: {
-    weekDay: WeekDay,
+    weekDay?: WeekDay,
     startTime?: string,
     endTime?: string,
-  }) { 
+  } = {}) { 
     const taskTitle = `[E2E-SMOKE] Task 1`
     const taskId = `#test`
     const taskDescription = `Task description`
