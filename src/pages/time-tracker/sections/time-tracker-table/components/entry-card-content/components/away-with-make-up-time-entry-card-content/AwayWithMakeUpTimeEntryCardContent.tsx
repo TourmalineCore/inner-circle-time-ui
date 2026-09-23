@@ -1,6 +1,7 @@
 import "./AwayWithMakeUpTimeEntryCardContent.scss"
 
 import { getDurationLabel } from "../getDurationLabel"
+import { getEntryCardDataCy } from "../../../../../../../../common/utils/getEntryCardDataCy/getEntryCardDataCy"
 
 export function AwayWithMakeUpTimeEntryCardContent({
   startTime,
@@ -10,7 +11,14 @@ export function AwayWithMakeUpTimeEntryCardContent({
   endTime: Date,
 }) {
   return (
-    <div className="away-with-make-up-time-entry-card-content">
+    <div
+      className="away-with-make-up-time-entry-card-content"
+      data-cy={getEntryCardDataCy({
+        entryName: `away-with-make-up-time-entry`,
+        startTime,
+        endTime,
+      })}
+    >
       <div className='away-with-make-up-time-entry-card-content__label'>
         {getDurationLabel({
           startTime,

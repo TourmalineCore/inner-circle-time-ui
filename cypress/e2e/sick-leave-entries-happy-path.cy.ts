@@ -62,7 +62,7 @@ describe(`Sick Leave Entry Happy Path`, () => {
 
     cy.log(`Verify that the sick leave has been created for 5 days.`)
 
-    TrackingPageActions.getSickLeaveCard()
+    TrackingPageActions.getSickLeaveEntry()
       .should(`have.length`, 5)
 
     TrackingPageActions
@@ -93,14 +93,14 @@ describe(`Sick Leave Entry Happy Path`, () => {
 
     cy.log(`Check that the sick leave is displayed correctly in the time tracker for this and next week.`)
 
-    TrackingPageActions.getSickLeaveCard()
+    TrackingPageActions.getSickLeaveEntry()
       .should(`have.length`, 7)
 
     cy
       .contains(`Next`)
       .click()
-    
-    TrackingPageActions.getSickLeaveCard()
+
+    TrackingPageActions.getSickLeaveEntry()
       .should(`have.length`, 1)
   })
 })

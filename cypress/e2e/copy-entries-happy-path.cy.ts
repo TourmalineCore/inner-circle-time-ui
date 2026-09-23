@@ -1,3 +1,4 @@
+import { WeekDay } from "../enums/weekDay"
 import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
 describe(`Copy Entries Happy Path`, () => {
@@ -29,11 +30,6 @@ describe(`Copy Entries Happy Path`, () => {
   AND user clicks on a free time slot 
   THEN user should see the copied card with filled data
   `, () => {
-    cy.intercept(
-      `GET`, 
-      `/api/time/tracking/entries?startDate=2022-10-24&endDate=2022-10-30`)
-      .as(`getEntries`)
-      
     TrackingPageActions.visit()
 
     // Waiting for the table to be displayed in the desktop version
@@ -47,14 +43,11 @@ describe(`Copy Entries Happy Path`, () => {
       taskId,
     } = TrackingPageActions.addTaskEntry()
 
-    cy.wait(`@getEntries`)
-
     cy.log(`Copying the created task`)
     
-    cy
-      .contains(taskTitle)
+    cy.getByData(`"task-entry-${WeekDay.MONDAY}-11:00-15:00"`)
       .click()
-
+      
     TrackingPageActions.getEntryModalCopyButton()
       .click()
 
@@ -64,7 +57,10 @@ describe(`Copy Entries Happy Path`, () => {
 
     cy.log(`Check that the open entry card contains the copied fields`)
 
-    TrackingPageActions.clickOnFirstTimeSlot()
+    TrackingPageActions.clickOnTimeSlot({
+      weekDay: WeekDay.TUESDAY,
+      time: `14:00`,
+    })
 
     TrackingPageActions
       .getEntryModalTitleInput()

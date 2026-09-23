@@ -1,3 +1,4 @@
+import moment from "moment"
 import { EntryType } from "../../src/common/constants/entryType"
 import { WeekDay } from "../enums/weekDay"
 
@@ -6,17 +7,33 @@ export class TrackingPageActions {
     return cy.visit(`/time/tracking`)
   }
 
-  static clickOnFirstTimeSlot() {
-    return cy.get(`.rbc-day-slot`)
-      .find(`.rbc-timeslot-group`)
-      .first()
-      .find(`.rbc-time-slot`)
-      .first()
+  static clickOnTimeSlot({
+    weekDay,
+    time,
+  }: {
+    weekDay: WeekDay,
+    time: string,
+  }) {
+    // Slots in the time tracker have a 15-minute step.
+    // The selectors use the same step.
+    // So if the time is not a multiple of 15, we round it down
+    // to the nearest slot (for example, 10:07 to 10:00, 10:23 to 10:15).
+    // This way we can find the correct slot on the page.
+    const momentTime = moment(time, `HH:mm`)
+
+    const roundingTime = momentTime.minutes(
+      Math.floor(momentTime.minutes() / 15) * 15)
+      .format(`HH:mm`)
+
+    return cy.getByData(`"${weekDay}-${roundingTime}"`)
+      .last()
       .scrollIntoView()
       // Sometimes, for some reason, clicking on a slot does not work with a single click but double click works stably.
-      .dblclick({
-        force: true, 
-      })
+      .dblclick(
+        `right`,
+        {
+          force: true,
+        })
   }
 
   static getEntryModalStartTimeInput() {
@@ -122,18 +139,20 @@ export class TrackingPageActions {
     return cy.getByData(`${weekDay}-all-day-entry-button`)
   }
 
-  static getSickLeaveCard() {
-    return cy.getByData(`sick-leave-entry-card`)
+  static getSickLeaveEntry() {
+    return cy.getByData(`sick-leave-entry`)
   }
 
-  static getVacationEntryCard() {
-    return cy.getByData(`vacation-entry-card`)
+  static getVacationEntry() {
+    return cy.getByData(`vacation-entry`)
   }
 
   static addTaskEntry({
+    weekDay = WeekDay.MONDAY,
     startTime = `11:00`,
     endTime = `15:00`,
   }: {
+    weekDay?: WeekDay,
     startTime?: string,
     endTime?: string,
   } = {}) { 
@@ -141,7 +160,10 @@ export class TrackingPageActions {
     const taskId = `#test`
     const taskDescription = `Task description`
 
-    this.clickOnFirstTimeSlot()
+    this.clickOnTimeSlot({
+      weekDay,
+      time: startTime,
+    })
 
     this.selectEntryModalType({
       entryType: EntryType.TASK,
@@ -180,13 +202,18 @@ export class TrackingPageActions {
   }
 
   static addUnwellEntry({
+    weekDay = WeekDay.MONDAY,
     startTime = `08:00`,
     endTime = `12:00`,
   }: {
+    weekDay?: WeekDay,
     startTime?: string,
     endTime?: string,
   } = {}) {
-    this.clickOnFirstTimeSlot()
+    this.clickOnTimeSlot({
+      weekDay,
+      time: startTime,
+    })
 
     this.selectEntryModalType({
       entryType: EntryType.UNWELL,

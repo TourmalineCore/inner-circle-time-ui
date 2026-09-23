@@ -4,7 +4,7 @@ export function SickLeaveEntryCardContent() {
   return (
     <div
       className="sick-leave-entry-card-content"
-      data-cy="sick-leave-entry-card">
+      data-cy="sick-leave-entry">
     </div>
   )
 }
