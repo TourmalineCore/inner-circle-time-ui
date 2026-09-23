@@ -7,19 +7,6 @@ export class TrackingPageActions {
     return cy.visit(`/time/tracking`)
   }
 
-  static clickOnFirstTimeSlot() {
-    return cy.get(`.rbc-day-slot`)
-      .find(`.rbc-timeslot-group`)
-      .first()
-      .find(`.rbc-time-slot`)
-      .first()
-      .scrollIntoView()
-      // Sometimes, for some reason, clicking on a slot does not work with a single click but double click works stably.
-      .dblclick({
-        force: true, 
-      })
-  }
-
   static clickOnTimeSlot({
     weekDay,
     time,
@@ -211,13 +198,18 @@ export class TrackingPageActions {
   }
 
   static addUnwellEntry({
+    weekDay = WeekDay.MONDAY,
     startTime = `08:00`,
     endTime = `12:00`,
   }: {
+    weekDay?: WeekDay,
     startTime?: string,
     endTime?: string,
   } = {}) {
-    this.clickOnFirstTimeSlot()
+    this.clickOnTimeSlot({
+      weekDay,
+      time: startTime,
+    })
 
     this.selectEntryModalType({
       entryType: EntryType.UNWELL,
