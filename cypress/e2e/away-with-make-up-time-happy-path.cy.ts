@@ -113,7 +113,7 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
 
     cy.log(`Сheck that the Make-up time cards exist`)
 
-    cy.getByData(`"make-up-time-${WeekDay.MONDAY}-${makeUpStartTime}-${makeUpEndTime}"`)
+    cy.getByData(`"make-up-time-entry-${WeekDay.MONDAY}-${makeUpStartTime}-${makeUpEndTime}"`)
       .click()
 
     checkAwayWithMakeUpTimeEntryFields()
