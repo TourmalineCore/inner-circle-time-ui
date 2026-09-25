@@ -19,7 +19,6 @@ dist
 
 # misc
 .DS_Store
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local
@@ -33,6 +32,7 @@ yarn-error.log*
 cypress.config*
 !cypress.config.ts
 !cypress.config.local-env.ts
+!cypress.config.mock-for-tests.ts
 
 env-config.js
 
@@ -44,3 +44,8 @@ cypress-image-diff-html-report
 # cy comparison snapshots
 cypress-image-diff-screenshots/comparison
 cypress-image-diff-screenshots/diff
+
+# fetched fresh from time-api and layout-ui on every `npm run local-services:up`
+/local-run/mock-server-initialization.json
+/local-run/api-docker-compose.yml
+/local-run/layout-ui-docker-compose.yml

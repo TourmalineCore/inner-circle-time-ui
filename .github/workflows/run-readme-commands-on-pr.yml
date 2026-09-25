@@ -1,0 +1,51 @@
+name: Run README Commands on PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  readme-steps:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # starting the Dev Container is itself the first part of the README: it runs npm ci, npm run create-config:local
+      # and npm run local-services:up, and supplies the containerEnv values they need
+      - name: npm start
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            # we need the dev server to stay up for the next steps, that is why we forward its
+            # output and start it in background with & at the end
+            npm start \
+              > /dev/null 2>&1 &
+
+            # then wait for the url the README tells you to open. wget does the waiting itself,
+            # --retry-connrefused is what keeps it going while nothing listens on the port yet.
+            # curl is not in this image, wget is
+            wget --retry-connrefused --tries=60 --waitretry=2 -q -O /dev/null \
+              http://localhost:3507/time/tracking
+          push: never
+
+      - name: npm run cypress:run:component and npm run cypress:run:e2e
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            npm run cypress:run:component
+            npm run cypress:run:e2e
+          push: never
+
+      - name: npm run docker:build and npm run docker:run
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            npm run docker:build
+
+            npm run docker:run \
+              > /dev/null 2>&1 &
+
+            wget --retry-connrefused --tries=30 --waitretry=2 -q -O /dev/null \
+              http://localhost:4457
+          push: never

@@ -5,9 +5,12 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 
 import { authService } from './common/authService'
+import { logInAsLocalDebugUserIfDebugTokenEnabled } from './common/localDebugAuth'
 import { BrowserRouter } from 'react-router-dom'
 
 async function initApp() {
+  logInAsLocalDebugUserIfDebugTokenEnabled()
+
   await authService.startPeriodicalAccessTokenRefresh()
 
   ReactDOM

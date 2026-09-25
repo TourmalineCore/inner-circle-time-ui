@@ -16,16 +16,34 @@
 		6080,
 		5901
 	],
+	// installing dependencies is a one-off, everything else has to happen on every start
+	"postCreateCommand": "npm ci",
+	// builds env-config.js and starts the services the app talks to, so a ready environment
+	// is waiting when the container opens and `npm start` only has to run the app
+	"postStartCommand": "npm run create-config:local && npm run local-services:up",
 	"runArgs": [
 		"--network=host"
 	],
+	// applied when the container is created, so every shell in it sees these without reading a file.
+	// a value set before a command wins over them: API_IMAGE_TAG=sha-6c3f5f2 npm run local-services:up
 	"containerEnv": {
 		// https://stackoverflow.com/questions/76555858/how-to-run-cypress-in-interactive-mode-in-a-devcontainer-on-windows-with-docker
-		"CHOKIDAR_USEPOLLING": "true"
+		"CHOKIDAR_USEPOLLING": "true",
+		// runtime config of the app, served to the browser as public/env-config.js
+		"API_ROOT_URL": "/api/time",
+		"AUTH_API_ROOT_URL": "/api/auth",
+		"DISABLE_ACCESS_TOKEN_REFRESH": "true",
+		"DISABLE_DEBUG_TOKEN": "false",
+		// which published images the local services run, and which branch their compose files are taken from
+		"LAYOUT_IMAGE_TAG": "latest",
+		"LAYOUT_REF": "master",
+		"API_IMAGE_TAG": "sha-e4c6bc2",
+		"API_REF": "feature/#496-change-mock-server-access-token-to-jwt"
 	},
 	"remoteEnv": {
 		// https://stackoverflow.com/q/65343518
 		// the original host directory which is needed for volume mount commands from inside the container (Docker in Docker)
+		// local-run/api-docker-compose.override.yml needs it to mount the mock server config
 		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
 	}
 }
