@@ -212,7 +212,7 @@ Other UI services can use the same layout container, and an API started in its o
 ```
 npm run cypress:run:component     # in the console
 npm run cypress:open:component    # in the Cypress window
-npm test                          # the same as cypress:run:component
+npm test                          # for update screenshots
 ```
 
 **E2E tests** run against the app in the dev server and against the mocked API, so start both first.
