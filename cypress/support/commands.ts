@@ -25,6 +25,25 @@ Cypress.Screenshot.defaults({
 
 export { }
 
+// against a local run the api takes the payload part of the jwt in X-DEBUG-TOKEN
+// instead of a real auth flow, see DISABLE_DEBUG_TOKEN in cypress.config.mock-for-tests.ts
+function getAuthHeaders() {
+  const accessToken = Cypress.env(`accessToken`)
+
+  const headers: {
+    Authorization: string,
+    'X-DEBUG-TOKEN'?: string,
+  } = {
+    Authorization: `Bearer ${accessToken}`,
+  }
+
+  if (Cypress.env(`DISABLE_DEBUG_TOKEN`) === false) {
+    headers[`X-DEBUG-TOKEN`] = accessToken.split(`.`)[1]
+  }
+
+  return headers
+}
+
 Cypress.Commands.add(`authByApi`, () => {
   let accessToken: any
   const authService = createAuthService({
@@ -135,9 +154,7 @@ function removeEntries({
   cy.request<GetEntriesByPeriodResponse>({
     method: `GET`,
     url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries?startDate=${day}&endDate=${day}`,
-    headers: {
-      Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-    },
+    headers: getAuthHeaders(),
   })
     .then(({
       body,
@@ -148,9 +165,7 @@ function removeEntries({
         cy.request({
           method: `DELETE`,
           url: `${Cypress.env(`API_ROOT_URL`)}/tracking/entries/${id}/hard-delete`,
-          headers: {
-            Authorization: `Bearer ${Cypress.env(`accessToken`)}`,
-          },
+          headers: getAuthHeaders(),
         })
       })
     })

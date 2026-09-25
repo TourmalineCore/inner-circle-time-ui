@@ -31,7 +31,6 @@
     "**/*.d.ts",
     "global-types.d.ts",
     "cypress",
-    "local-config-builder.js",
   ],
   "exclude": [
     ".vscode",
