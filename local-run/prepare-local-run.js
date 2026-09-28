@@ -108,7 +108,7 @@ function readLocalDebugJwt({
   return JSON.parse(loginMock.httpResponse.body).accessToken.value
 }
 
-// drops the entries a previous run added, so re-running doesn't append duplicates. If there is
+// drops the entry a previous run added, so re-running doesn't append duplicates. If there is
 // no env-config.js yet (local-services:up without create-config:local), nothing to inject into
 function injectIntoEnvConfig({
   path,
@@ -122,8 +122,7 @@ function injectIntoEnvConfig({
   const content = fileBuffer.toString()
   const contentWithoutOldEntries = content.replace(/^ *DEBUG_TOKEN: "[^"]*",\n/m, ``)
 
-  // env.sh writes one key per line, so the entry is added as a line of its own right after
-  // the opening brace, in the same shape as the keys env.sh puts there
+  // env.sh writes one key per line, so the entry is added as a line of its own right after the opening brace, in the same shape as the keys env.sh puts there
   fs.writeFileSync(path, contentWithoutOldEntries.replace(`window.__ENV__ = {\n`, `window.__ENV__ = {\n  ${envEntries}\n`))
 }
 

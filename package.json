@@ -23,7 +23,6 @@
     "lint-eslint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint-ts": "tsc --noEmit",
     "preview": "vite preview",
-    "test": "run-s cypress:run:component",
     "cypress:open": "cypress open",
     "cypress:open:component": "cypress open --component --browser electron",
     "cypress:run:component": "cypress run --component --browser electron",

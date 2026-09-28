@@ -45,7 +45,6 @@ function getAuthHeaders() {
 }
 
 Cypress.Commands.add(`authByApi`, () => {
-  let accessToken: any
   const authService = createAuthService({
     authApiRoot: Cypress.env(`AUTH_API_ROOT_URL`),
     authType: `ls`,
@@ -69,7 +68,8 @@ Cypress.Commands.add(`authByApi`, () => {
     }) => {
       authService.setLoggedIn(loginResponseBody)
 
-      accessToken = loginResponseBody.accessToken
+      const accessToken = loginResponseBody.accessToken
+
       cy
         .window()
         .then((window) => {

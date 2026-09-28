@@ -8,34 +8,23 @@ import svgr from 'vite-plugin-svgr'
 // description about how to set up remote app configuration you can see in
 // https://github.com/TourmalineCore/inner-circle-layout-ui/blob/master/vite.config.ts
 
-const LOCAL_ENV_PORT = 30090
+const BASE_PATH = process.env.NODE_ENV === `production` ? `/time` : ``
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig(({
   mode,
 }) => {
-  // the dev server port and the services it proxies to, from .env.local
   const localConfig = loadEnv(mode, process.cwd(), ``)
 
-  const isLocalDev = mode === `development`
-
-  // Set the port for the time based on the environment
-  const TIME_PORT = isLocalDev ? Number(localConfig.UI_PORT) : LOCAL_ENV_PORT
-
   return {
-    // Set the port on which the development server runs
-    // Documentation: https://vitejs.dev/config/server-options.html#server-port
     server: {
-      port: TIME_PORT,
-      // without this Vite silently moves to the next free port when TIME_PORT is taken,
-      // and you end up debugging an app that isn't the one you just started
-      strictPort: true,
+      // Set the port on which the development server runs
+      // Documentation: https://vitejs.dev/config/server-options.html#server-port
+      port: Number(localConfig.UI_PORT),
+      // proxy works in dev server only
       proxy: {
         '/layout': {
           target: localConfig.LAYOUT_UI_URL,
-          // the layout container's nginx serves it at root, so the prefix is stripped here.
-          // a layout-ui started from its own repo has base: '/layout' instead, and LAYOUT_UI_URL
-          // keeps the prefix for it: http://localhost:4500/layout
           rewrite: (path: string) => path.replace(/^\/layout/, ``),
         },
         // time-api serves its endpoints at root (/tracking/...), the /api/time prefix
@@ -50,7 +39,7 @@ export default defineConfig(({
     // This affects how files like scripts, styles, and images are referenced in the final build.
     // Example: If an image is imported as `/assets/logo.png`, it will be resolved as `/time/assets/logo.png`.
     // Documentation: https://vitejs.dev/config/shared-options.html#base
-    base: isLocalDev ? `/` : `/time`,
+    base: BASE_PATH,
     plugins: [
       // Enable React support
       react(),
@@ -64,8 +53,7 @@ export default defineConfig(({
         name: "inner_circle_time_ui",
         // The path where the remote application file can be found and its name
         remotes: {
-          // `http://localhost:6500/assets/inner_circle_layout_ui.js` for local docker
-          // `http://localhost:30090/layout/assets/inner_circle_layout_ui.js` for local-env
+          // the dev server proxies this to LAYOUT_UI_URL, elsewhere the ingress routes it
           inner_circle_layout_ui: `/layout/assets/inner_circle_layout_ui.js`,
         },
         // Shared dependencies to avoid duplication
@@ -77,9 +65,10 @@ export default defineConfig(({
     define: {
       // Set a global variable to handle different base paths in various environments
       // This variable is used in HTML files to dynamically adjust script paths
-      // In production, it will be `/time`, while in development it will be an empty string.
       // Example usage in HTML: <script src="%VITE_BASE_PATH%/env-config.js"></script>
-      'import.meta.env.VITE_BASE_PATH': JSON.stringify(isLocalDev ? `` : `/time`),
+      // index.html loads env-config.js through this: /env-config.js from the dev server's public
+      // folder, /time/env-config.js from the nginx of a built image
+      'import.meta.env.VITE_BASE_PATH': JSON.stringify(BASE_PATH),
     },
     // Build configuration
     build: {

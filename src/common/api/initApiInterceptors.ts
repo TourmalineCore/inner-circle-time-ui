@@ -12,7 +12,7 @@ export function initApiInterceptors(api: any) {
       config.headers.Authorization = token ? `Bearer ${token}` : ``
 
       if (DISABLE_DEBUG_TOKEN === `false`) {
-        // the api takes the payload part of the jwt on its own
+        // the api's debug auth wants the payload part on its own, without the header and the signature
         config.headers[`X-DEBUG-TOKEN`] = DEBUG_TOKEN?.split(`.`)[1]
       }
     }
