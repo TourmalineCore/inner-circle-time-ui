@@ -5,7 +5,6 @@ import fs from 'fs'
 const API_REPO_REF = encodeRef(process.env.API_REF)
 const LAYOUT_UI_REPO_REF = encodeRef(process.env.LAYOUT_REF)
 
-// path to a local inner-circle-time-api checkout, e.g. ../inner-circle-time-api
 // set this to test with mock-server-initialization.json changes you haven't pushed yet
 const API_LOCAL_PATH = process.env.API_LOCAL_PATH
 

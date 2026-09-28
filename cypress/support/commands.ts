@@ -25,8 +25,6 @@ Cypress.Screenshot.defaults({
 
 export { }
 
-// against a local run the api takes the payload part of the jwt in X-DEBUG-TOKEN
-// instead of a real auth flow, see DISABLE_DEBUG_TOKEN in cypress.config.mock-for-tests.ts
 function getAuthHeaders() {
   const accessToken = Cypress.env(`accessToken`)
 
@@ -66,9 +64,15 @@ Cypress.Commands.add(`authByApi`, () => {
     .then(({
       body: loginResponseBody,
     }) => {
-      authService.setLoggedIn(loginResponseBody)
 
-      const accessToken = loginResponseBody.accessToken
+      const accessToken = {
+        value: loginResponseBody.accessToken.value,
+      }
+
+      authService.setLoggedIn({
+        accessToken,
+        refreshToken: loginResponseBody.refreshToken,
+      })
 
       cy
         .window()

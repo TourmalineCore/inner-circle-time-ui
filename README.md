@@ -73,8 +73,6 @@ npm run local-services:up
 
 An edit to `devcontainer.json` itself needs **Dev Containers: Rebuild Container** on top of that, because `containerEnv` is applied when the container is created. The rebuild runs `create-config:local` and then `local-services:up` on start, and the second of those runs `prepare-local-run` for you, so it covers the first two groups on its own. A one-off value before a command needs no rebuild.
 
-Outside the Dev Container the keys of the first two groups are not set by anything, so pass them yourself for the commands that read them, or export them once in that terminal.
-
 ## Ports
 
 | Service                           | Dev server | Docker Compose |
@@ -154,8 +152,6 @@ npm run local-services:down:api
 ```
 API_URL=http://localhost:4507 npm start
 ```
-In the Dev Container `localhost` is the container itself, not your machine, so an API running outside it is reachable as `http://host.docker.internal:4507`.
-
 3. If your checkout also changes `mock-server-initialization.json`, take the mocks from there
 ```
 API_LOCAL_PATH=../inner-circle-time-api npm run prepare-local-run

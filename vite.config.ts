@@ -35,10 +35,6 @@ export default defineConfig(({
         },
       },
     },
-    // Base public path that is added to beginnings of static assets and routes in the generated HTML.
-    // This affects how files like scripts, styles, and images are referenced in the final build.
-    // Example: If an image is imported as `/assets/logo.png`, it will be resolved as `/time/assets/logo.png`.
-    // Documentation: https://vitejs.dev/config/shared-options.html#base
     base: BASE_PATH,
     plugins: [
       // Enable React support
