@@ -1,7 +1,7 @@
 import './TimeRange.scss'
 
 import InputMask from 'react-input-mask'
-import { formatTime } from "../../common/utils/dateAndTime"
+import { formatTime } from "../../common/utils/date-and-time/dateAndTime"
 import clsx from "clsx"
 import { DayMonthPicker } from "../day-month-picker/DayMonthPicker"
 
