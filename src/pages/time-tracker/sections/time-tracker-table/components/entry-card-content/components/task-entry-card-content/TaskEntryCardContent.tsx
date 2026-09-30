@@ -1,7 +1,7 @@
 import './TaskEntryCardContent.scss'
 
 import { getDurationLabel } from '../getDurationLabel'
-import { getEntryCardDataCy } from '../../../../../../../../common/utils/getEntryCardDataCy/getEntryCardDataCy'
+import { getEntryCardDataCy } from '../../../../../../../../common/utils/get-entry-card-data-cy/getEntryCardDataCy'
 
 export function TaskEntryCardContent({
   title,
