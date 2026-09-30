@@ -3,7 +3,7 @@ import './UnwellEntry.scss'
 import { UnwellEntryStateContext } from './state/UnwellEntryStateContext'
 import { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import { parseTimeString } from '../../../../../../common/utils/dateAndTime'
+import { parseTimeString } from '../../../../../../common/utils/date-and-time/dateAndTime'
 import { TimeRange } from '../../../../../../components/time-range/TimeRange'
 
 export const UnwellEntryContent = observer(() => {
