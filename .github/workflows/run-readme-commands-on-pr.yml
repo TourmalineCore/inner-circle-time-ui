@@ -11,6 +11,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
+      - name: npm run cypress:run:component
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: npm run cypress:run:component
+          push: never
+
       # starting the Dev Container is itself the first part of the README: it runs npm ci, npm run create-config:local
       # and npm run local-services:up, and supplies the containerEnv values they need
       - name: npm start
@@ -29,18 +35,26 @@ jobs:
               http://localhost:3507/time/tracking
           push: never
 
-      - name: npm run cypress:run:component and npm run cypress:run:e2e
+      - name: npm run cypress:run:e2e
         uses: devcontainers/ci@v0.3
         with:
-          runCmd: |
-            npm run cypress:run:component
-            npm run cypress:run:e2e
+          runCmd: npm run cypress:run:e2e
           push: never
+
+      - name: Upload screenshots of tests failed
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: |
+            cypress-image-diff-screenshots/**/*
+            cypress-image-diff-html-report/**/*
 
       - name: npm run docker:build and npm run docker:run
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
+            set -e
             npm run docker:build
 
             npm run docker:run \
