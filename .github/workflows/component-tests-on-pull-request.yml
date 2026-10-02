@@ -26,7 +26,22 @@ jobs:
 
       - name: Cypress run component tests
         uses: cypress-io/github-action@v7
+        env:
+          API_ROOT_URL: /api/time
+          AUTH_API_ROOT_URL: /api/auth
+          DISABLE_ACCESS_TOKEN_REFRESH: "true"
+          DISABLE_DEBUG_TOKEN: "false"
         with:
           component: true
-          start: npm start
+          # Need to generate env-config file with env variables, without this the tests will not run.
+          start: npm run create-config:local
           browser: electron
+
+      - name: Upload screenshots of tests failed
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: |
+            cypress-image-diff-screenshots/**/*
+            cypress-image-diff-html-report/**/*

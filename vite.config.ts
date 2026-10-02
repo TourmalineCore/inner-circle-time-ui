@@ -1,68 +1,77 @@
 /* eslint-disable @typescript-eslint/quotes */
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 // correct version of federation https://github.com/originjs/vite-plugin-federation/issues/670
 import federation from '@originjs/vite-plugin-federation'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 
-// description about how to set up remote app configuration you can see in 
+// description about how to set up remote app configuration you can see in
 // https://github.com/TourmalineCore/inner-circle-layout-ui/blob/master/vite.config.ts
 
-const LOCAL_ENV_PORT = 30090
-// Set the port for the layout based on the environment
-const TIME_PORT = process.env.NODE_ENV === `production` ? LOCAL_ENV_PORT : 4007
+const BASE_PATH = process.env.NODE_ENV === `production` ? `/time` : ``
 
 // eslint-disable-next-line import/no-default-export
-export default defineConfig({
-  // Set the port on which the development server runs
-  // Documentation: https://vitejs.dev/config/server-options.html#server-port
-  server: {
-    port: TIME_PORT,
-  },
-  // Base public path that is added to beginnings of static assets and routes in the generated HTML.
-  // This affects how files like scripts, styles, and images are referenced in the final build.
-  // Example: If an image is imported as `/assets/logo.png`, it will be resolved as `/layout/assets/logo.png`.
-  // Documentation: https://vitejs.dev/config/shared-options.html#base
-  // `/` for local docker
-  // `/time` for local-env and prod
-  base: `/time`,
-  plugins: [
-    // Enable React support
-    react(),
-    // Enable SVG imports as React components
-    svgr(),
-    // Configure module federation
-    // Example config https://github.com/originjs/vite-plugin-federation/blob/main/packages/examples/react-vite/host/vite.config.js
-    // Doc https://vitejs.dev/config/
-    federation({
-      // Unique name for the application
-      name: "inner_circle_time_ui",
-      // The path where the remote application file can be found and its name
-      remotes: {
-        // `http://localhost:4455/assets/inner_circle_layout_ui.js` for local docker
-        // `http://localhost:30090/layout/assets/inner_circle_layout_ui.js` for local-env
-        inner_circle_layout_ui: `/layout/assets/inner_circle_layout_ui.js`,
+export default defineConfig(({
+  mode,
+}) => {
+  const localConfig = loadEnv(mode, process.cwd(), ``)
+
+  return {
+    server: {
+      // Set the port on which the development server runs
+      // Documentation: https://vitejs.dev/config/server-options.html#server-port
+      port: Number(localConfig.UI_PORT),
+      // proxy works in dev server only
+      proxy: {
+        '/layout': {
+          target: localConfig.LAYOUT_UI_URL,
+          rewrite: (path: string) => path.replace(/^\/layout/, ``),
+        },
+        // time-api serves its endpoints at root (/tracking/...), the /api/time prefix
+        // only exists in the routing in front of it, so it is stripped here
+        '/api/time': {
+          target: localConfig.API_URL,
+          rewrite: (path: string) => path.replace(/^\/api\/time/, ``),
+        },
       },
-      // Shared dependencies to avoid duplication
-      shared: [
-        "react",
-      ],
-    }),
-  ],
-  define: {
-    // Set a global variable to handle different base paths in various environments
-    // This variable is used in HTML files to dynamically adjust script paths
-    // In production, it will be `/time`, while in development it will be an empty string.
-    // Example usage in HTML: <script src="%VITE_BASE_PATH%/env-config.js"></script>
-    'import.meta.env.VITE_BASE_PATH': JSON.stringify(
-      process.env.NODE_ENV === `production` ? `/time` : ``,
-    ),
-  },
-  // Build configuration
-  build: {
-    // For successful docker build 
-    // https://stackoverflow.com/questions/76616620/vite-refuses-to-use-the-correct-build-target-in-my-svelte-ts-project 
-    // https://github.com/Lenni009/vite-build-target-issue
-    target: `esnext`,
-  },
+    },
+    base: BASE_PATH,
+    plugins: [
+      // Enable React support
+      react(),
+      // Enable SVG imports as React components
+      svgr(),
+      // Configure module federation
+      // Example config https://github.com/originjs/vite-plugin-federation/blob/main/packages/examples/react-vite/host/vite.config.js
+      // Doc https://vitejs.dev/config/
+      federation({
+        // Unique name for the application
+        name: "inner_circle_time_ui",
+        // The path where the remote application file can be found and its name
+        remotes: {
+          // the dev server proxies this to LAYOUT_UI_URL, elsewhere the ingress routes it
+          inner_circle_layout_ui: `/layout/assets/inner_circle_layout_ui.js`,
+        },
+        // Shared dependencies to avoid duplication
+        shared: [
+          "react",
+        ],
+      }),
+    ],
+    define: {
+      // Set a global variable to handle different base paths in various environments
+      // This variable is used in HTML files to dynamically adjust script paths
+      // Example usage in HTML: <script src="%VITE_BASE_PATH%/env-config.js"></script>
+      // index.html loads env-config.js through this: /env-config.js from the dev server's public
+      // folder, /time/env-config.js from the nginx of a built image
+      'import.meta.env.VITE_BASE_PATH': JSON.stringify(BASE_PATH),
+    },
+    // Build configuration
+    build: {
+      // For successful docker build
+      // https://stackoverflow.com/questions/76616620/vite-refuses-to-use-the-correct-build-target-in-my-svelte-ts-project
+      // https://github.com/Lenni009/vite-build-target-issue
+      target: `esnext`,
+    },
+  }
 })
