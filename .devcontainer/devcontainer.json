@@ -37,8 +37,8 @@
 		// which published images the local services run, and which branch their compose files are taken from
 		"LAYOUT_IMAGE_TAG": "latest",
 		"LAYOUT_REF": "master",
-		"API_IMAGE_TAG": "sha-e4c6bc2",
-		"API_REF": "feature/#496-change-mock-server-access-token-to-jwt"
+		"API_IMAGE_TAG": "latest",
+		"API_REF": "master"
 	},
 	"remoteEnv": {
 		// https://stackoverflow.com/q/65343518
