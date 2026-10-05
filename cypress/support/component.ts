@@ -6,6 +6,8 @@ import '../env-config'
 // styles
 import '../../src/styles/index.scss'
 
+import '../../src/pages/time-tracker/entry-strategy/initEntriesStrategy'
+
 // commands
 import { mount } from 'cypress/react'
 import moment from 'moment'
