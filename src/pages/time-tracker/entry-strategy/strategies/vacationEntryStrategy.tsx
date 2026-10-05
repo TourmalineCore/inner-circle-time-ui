@@ -1,12 +1,13 @@
 import { CreateVacationEntryRequest, UpdateVacationEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
-import { api } from "../../../../../../common/api/api"
-import { EntryStrategy } from "../entryTypesStrategy"
-import { EntryBase } from "../../../../types"
+import { api } from "../../../../common/api/api"
+import { entryStrategyRegistry, EntryStrategy } from "../entryStrategyRegistry"
+import { EntryBase } from "../../types"
 import moment from "moment"
-import { VacationEntryState } from "../../sections/vacation-entry/state/VacationEntryState"
-import { VacationEntryStateContext } from "../../sections/vacation-entry/state/VacationEntryStateContext"
-import { VacationEntryContent } from "../../sections/vacation-entry/VacationEntryContent"
-
+import { VacationEntryState } from "../../sections/entry-modal/sections/vacation-entry/state/VacationEntryState"
+import { VacationEntryStateContext } from "../../sections/entry-modal/sections/vacation-entry/state/VacationEntryStateContext"
+import { VacationEntryContent } from "../../sections/entry-modal/sections/vacation-entry/VacationEntryContent"
+import { EntryType } from "../../../../common/constants/entryType"
+  
 export class VacationEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = VacationEntryState
   readonly StateContext = VacationEntryStateContext
@@ -114,3 +115,8 @@ export class VacationEntryStrategy implements EntryStrategy {
     return
   }
 }
+
+entryStrategyRegistry.register({
+  entryType: EntryType.VACATION,
+  strategyFactory: () => new VacationEntryStrategy(),
+})

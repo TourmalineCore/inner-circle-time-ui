@@ -1,13 +1,14 @@
 import moment from "moment"
 import { CreateTaskEntryRequest, UpdateTaskEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
-import { api } from "../../../../../../common/api/api"
-import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
-import { EntryStrategy } from "../entryTypesStrategy"
-import { TaskEntryState } from "../../sections/task-entry/state/TaskEntryState"
-import { TaskEntryStateContext } from "../../sections/task-entry/state/TaskEntryStateContext"
-import { TaskEntryContent } from "../../sections/task-entry/TaskEntryContent"
-import { TaskEntryData, TrackedEntry } from "../../../../types"
-
+import { api } from "../../../../common/api/api"
+import { concatDateAndTime } from "../../../../common/utils/dateAndTime"
+import { entryStrategyRegistry, EntryStrategy } from "../entryStrategyRegistry"
+import { TaskEntryState } from "../../sections/entry-modal/sections/task-entry/state/TaskEntryState"
+import { TaskEntryStateContext } from "../../sections/entry-modal/sections/task-entry/state/TaskEntryStateContext"
+import { TaskEntryContent } from "../../sections/entry-modal/sections/task-entry/TaskEntryContent"
+import { TaskEntryData, TrackedEntry } from "../../types"
+import { EntryType } from "../../../../common/constants/entryType"
+  
 export class TaskEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = TaskEntryState
   readonly StateContext = TaskEntryStateContext
@@ -159,3 +160,8 @@ export class TaskEntryStrategy implements EntryStrategy {
     return true
   }
 }
+
+entryStrategyRegistry.register({
+  entryType: EntryType.TASK,
+  strategyFactory: () => new TaskEntryStrategy(),
+})

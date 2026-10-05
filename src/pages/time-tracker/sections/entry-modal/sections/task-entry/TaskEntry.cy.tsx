@@ -1,6 +1,6 @@
 import { TrackingPageActions } from "../../../../../../../cypress/pages-actions/trackingPageActions"
 import { EntryType } from "../../../../../../common/constants/entryType"
-import { EntryTypesStrategy } from "../../entry-types-strategies/entryTypesStrategy"
+import { entryStrategyRegistry } from "../../../../entry-strategy/entryStrategyRegistry"
 import { EntryModalContainer } from "../../EntryModalContainer"
 import { EntryModalState } from "../../state/EntryModalState"
 import { EntryModalStateContext } from "../../state/EntryModalStateContext"
@@ -30,7 +30,7 @@ function mountComponent() {
   const entryModalState = new EntryModalState()
   const taskEntryState = new TaskEntryState()
 
-  const entryStrategy = EntryTypesStrategy.create({
+  const entryStrategy = entryStrategyRegistry.create({
     entryType: EntryType.TASK,
   }) 
 

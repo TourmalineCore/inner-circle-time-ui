@@ -1,12 +1,13 @@
 import { CreateUnwellEntryRequest, UpdateUnwellEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
-import { api } from "../../../../../../common/api/api"
-import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
-import { EntryStrategy } from "../entryTypesStrategy"
-import { UnwellEntryState } from "../../sections/unwell-entry/state/UnwellEntryState"
-import { UnwellEntryStateContext } from "../../sections/unwell-entry/state/UnwellEntryStateContext"
-import { UnwellEntryContent } from "../../sections/unwell-entry/UnwellEntryContent"
-import { UnwellEntryData } from "../../../../types"
-
+import { api } from "../../../../common/api/api"
+import { concatDateAndTime } from "../../../../common/utils/dateAndTime"
+import { entryStrategyRegistry, EntryStrategy } from "../entryStrategyRegistry"
+import { UnwellEntryState } from "../../sections/entry-modal/sections/unwell-entry/state/UnwellEntryState"
+import { UnwellEntryStateContext } from "../../sections/entry-modal/sections/unwell-entry/state/UnwellEntryStateContext"
+import { UnwellEntryContent } from "../../sections/entry-modal/sections/unwell-entry/UnwellEntryContent"
+import { UnwellEntryData } from "../../types"
+import { EntryType } from "../../../../common/constants/entryType"
+  
 export class UnwellEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = UnwellEntryState
   readonly StateContext = UnwellEntryStateContext
@@ -109,3 +110,8 @@ export class UnwellEntryStrategy implements EntryStrategy {
     return
   }
 }
+
+entryStrategyRegistry.register({
+  entryType: EntryType.UNWELL,
+  strategyFactory: () => new UnwellEntryStrategy(),
+})

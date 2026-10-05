@@ -1,4 +1,5 @@
 import './styles/index.scss'
+import './pages/time-tracker/entry-strategy/initEntriesStrategy'
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
