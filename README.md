@@ -34,6 +34,18 @@ Then open http://localhost:3507/time/tracking.
 
 `npm start` runs only the dev server. The config and the containers are ready before it.
 
+## Start the app against local-env
+
+This mode requires a running [inner-circle-local-env](https://github.com/TourmalineCore/inner-circle-local-env).
+
+```bash
+npm run start:local-env
+```
+
+Then open http://localhost:3507/time/tracking.
+
+For the login, use one of the [accounts](https://github.com/TourmalineCore/inner-circle-local-env/blob/master/deploy/jobs/test-accounts-config.json).
+
 ## Configuration
 
 The values of a local run live in two places.

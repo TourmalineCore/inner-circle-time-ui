@@ -5,7 +5,7 @@
   "homepage": "/time",
   "scripts": {
     "start": "vite --host",
-    "start-local-env": "vite --host --mode local-env --port 30090",
+    "start:local-env": "vite --host --mode local-env",
     "local-services:up": "npm-run-all -l -s prepare-local-run -p local-services:up:layout-ui local-services:up:api",
     "local-services:up:api": "docker compose --env-file .env.local -p inner-circle-time-api -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests up -d --wait --no-build --pull always",
     "local-services:up:layout-ui": "docker compose --env-file .env.local -p inner-circle-layout-ui -f local-run/layout-ui-docker-compose.yml -f local-run/layout-ui-docker-compose.override.yml up -d --wait --no-build --pull always",
