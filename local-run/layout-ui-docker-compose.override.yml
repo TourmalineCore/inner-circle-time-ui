@@ -1,0 +1,7 @@
+# docker compose override file: passed to `docker compose` together with the fetched
+# layout-ui-docker-compose.yml, and merged on top of it, so it only needs to list the
+# fields that change - here, swapping the build step for the published image
+services:
+
+  inner-circle-layout-ui:
+    image: ghcr.io/tourmalinecore/inner-circle-layout-ui:${LAYOUT_IMAGE_TAG}

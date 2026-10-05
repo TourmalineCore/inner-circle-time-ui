@@ -10,20 +10,32 @@ cypress
 ci/values.yaml
 
 # also ignore all component cypress tests
+cypress-image-diff-screenshots
+cypress-image-diff-html-report
 src/**/*.cy.ts
 src/**/*.cy.tsx
+
+# local run tooling: fetched compose files, the mock server config and the scripts
+local-run
 
 # all env vars related files except for the .env-vars one
 .env*
 !.env-vars
 
+# runtime config of a local run
+env-config-js-builder.local.sh
+public/env-config.js
+
 # root level files
 .dockerignore
-.eslintrc
+.eslintrc*
 .gitattributes
 .gitignore
-cypress.config.ts
+.stylelintrc.json
+cypress.config*
 Dockerfile
 global-types.d.ts
 LICENSE
 README.md
+test-guideline-ui.md
+**/.DS_Store
