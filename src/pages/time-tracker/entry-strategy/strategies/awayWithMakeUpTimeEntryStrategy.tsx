@@ -6,7 +6,7 @@ import { AwayWithMakeUpTimeEntryState } from "../../sections/entry-modal/section
 import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/entry-modal/sections/away-with-make-up-time-entry/state/AwayWithMakeUpTimeEntryStateContext"
 import { AwayWithMakeUpTimeEntryContent } from "../../sections/entry-modal/sections/away-with-make-up-time-entry/AwayWithMakeUpTimeEntryContent"
 import { AwayWithMakeUpTimeEntryData } from "../../types"
-import { EntryType } from "../../../../common/constants/entryType"
+import { EntryType } from "../../../../common/constants/entryType"  
 
 export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = AwayWithMakeUpTimeEntryState
@@ -152,5 +152,5 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
 
 entryStrategyRegistry.register({
   entryType: EntryType.AWAY_WITH_MAKE_UP_TIME,
-  strategyFactory: () => new AwayWithMakeUpTimeEntryStrategy()
+  strategyFactory: () => new AwayWithMakeUpTimeEntryStrategy(),
 })

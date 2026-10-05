@@ -5,7 +5,7 @@ import { EntryType } from "../../../../common/constants/entryType"
 export class MakeUpTimeEntryStrategy implements EntryStrategy {  
   private _relatedEntryStrategy: EntryStrategy
   private _relatedEntryType: EntryType
-
+  
   constructor({
     relatedEntryType,
   }: {
@@ -108,15 +108,15 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
 
 const createMakeUpTimeStrategy = (relatedEntryType?: EntryType) => {
   if (!relatedEntryType) {
-    throw new Error("MakeUpTime requires relatedEntryType")
+    throw new Error(`MakeUpTime requires relatedEntryType`)
   }
 
   return new MakeUpTimeEntryStrategy({
-    relatedEntryType
+    relatedEntryType,
   })
 }
 
 entryStrategyRegistry.register({
   entryType: EntryType.MAKE_UP_TIME,
-  strategyFactory: createMakeUpTimeStrategy
+  strategyFactory: createMakeUpTimeStrategy,
 })

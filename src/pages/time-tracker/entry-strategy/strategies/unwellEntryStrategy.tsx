@@ -7,7 +7,7 @@ import { UnwellEntryStateContext } from "../../sections/entry-modal/sections/unw
 import { UnwellEntryContent } from "../../sections/entry-modal/sections/unwell-entry/UnwellEntryContent"
 import { UnwellEntryData } from "../../types"
 import { EntryType } from "../../../../common/constants/entryType"
-
+  
 export class UnwellEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = UnwellEntryState
   readonly StateContext = UnwellEntryStateContext
@@ -113,5 +113,5 @@ export class UnwellEntryStrategy implements EntryStrategy {
 
 entryStrategyRegistry.register({
   entryType: EntryType.UNWELL,
-  strategyFactory: () => new UnwellEntryStrategy()
+  strategyFactory: () => new UnwellEntryStrategy(),
 })

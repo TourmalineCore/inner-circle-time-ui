@@ -7,7 +7,7 @@ import { VacationEntryState } from "../../sections/entry-modal/sections/vacation
 import { VacationEntryStateContext } from "../../sections/entry-modal/sections/vacation-entry/state/VacationEntryStateContext"
 import { VacationEntryContent } from "../../sections/entry-modal/sections/vacation-entry/VacationEntryContent"
 import { EntryType } from "../../../../common/constants/entryType"
-
+  
 export class VacationEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = VacationEntryState
   readonly StateContext = VacationEntryStateContext
@@ -118,5 +118,5 @@ export class VacationEntryStrategy implements EntryStrategy {
 
 entryStrategyRegistry.register({
   entryType: EntryType.VACATION,
-  strategyFactory: () => new VacationEntryStrategy()
+  strategyFactory: () => new VacationEntryStrategy(),
 })

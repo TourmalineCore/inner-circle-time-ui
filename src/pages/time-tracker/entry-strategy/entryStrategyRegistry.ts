@@ -11,7 +11,7 @@ class EntryStrategyRegistry {
     strategyFactory,
   }: {
     entryType: EntryType,
-    strategyFactory: EntryStrategyFactory
+    strategyFactory: EntryStrategyFactory,
   }) {
     if (this.factories.has(entryType)) {
       throw new Error(`The strategy for the ${entryType} type has already been registered`)
@@ -22,10 +22,10 @@ class EntryStrategyRegistry {
 
   public create({
     entryType,
-    relatedEntryType
+    relatedEntryType,
   }: {
     entryType: EntryType,
-    relatedEntryType?: EntryType
+    relatedEntryType?: EntryType,
   }) {
     const strategyFactory = this.factories.get(entryType)
 
@@ -84,13 +84,6 @@ export type EntryStrategy = {
   }: {
     entryState: any,
   }) => Promise<unknown>,
-  // mapToTrackedEntry: ({
-  //   apiEntry,
-  //   projects
-  // }: {
-  //   apiEntry: any,
-  //   projects: ProjectDto[]
-  // }) => TrackedEntry;
   modalConfiguration: {
     label: string,
     hasDeleteButton: boolean,

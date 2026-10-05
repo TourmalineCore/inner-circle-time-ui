@@ -7,7 +7,7 @@ import { SickLeaveEntryStateContext } from "../../sections/entry-modal/sections/
 import moment from "moment"
 import { SickLeaveEntryContent } from "../../sections/entry-modal/sections/sick-leave-entry/SickLeaveEntryContent"
 import { EntryType } from "../../../../common/constants/entryType"
-
+  
 export class SickLeaveEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = SickLeaveEntryState
   readonly StateContext = SickLeaveEntryStateContext
@@ -114,5 +114,5 @@ export class SickLeaveEntryStrategy implements EntryStrategy {
 
 entryStrategyRegistry.register({
   entryType: EntryType.SICK_LEAVE,
-  strategyFactory: () => new SickLeaveEntryStrategy()
+  strategyFactory: () => new SickLeaveEntryStrategy(),
 })
