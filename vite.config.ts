@@ -42,7 +42,7 @@ export default defineConfig(({
           '/api/auth': {
             target: localConfig.AUTH_API_URL,
           },
-        }: {})
+        }: {}),
       },
     },
     base: BASE_PATH,
