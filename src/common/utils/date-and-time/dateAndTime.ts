@@ -43,7 +43,6 @@ export function concatDateAndTimeToMinute({
       .hours())
     .minutes(moment(time)
       .minutes())
-    .seconds(0)
-    .millisecond(0)
+    .startOf(`minute`)
     .format(`YYYY-MM-DDTHH:mm:ss`)
 }
