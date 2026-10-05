@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { DeleteModal } from "./sections/delete-modal/DeleteModal"
 import { EntryModalStateContext } from "./state/EntryModalStateContext"
-import { EntryTypesStrategy } from "./entry-types-strategies/entryTypesStrategy"
+import { entryStrategyRegistry } from "../../entry-strategy/entryStrategyRegistry"
 
 export const EntryModal = observer(() => {
   const entryModalState = useContext(EntryModalStateContext)
@@ -13,7 +13,7 @@ export const EntryModal = observer(() => {
     type,
   } = entryModalState
 
-  const entryStrategy = EntryTypesStrategy.create({
+  const entryStrategy = entryStrategyRegistry.create({
     entryType: type,
     relatedEntryType: currentEntry?.relatedEntryType,
   })

@@ -1,11 +1,12 @@
 import { CreateAwayWithMakeUpTimeEntryRequest, UpdateAwayWithMakeUpTimeEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
-import { api } from "../../../../../../common/api/api"
-import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
-import { EntryStrategy } from "../entryTypesStrategy"
-import { AwayWithMakeUpTimeEntryState } from "../../sections/away-with-make-up-time-entry/state/AwayWithMakeUpTimeEntryState"
-import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/away-with-make-up-time-entry/state/AwayWithMakeUpTimeEntryStateContext"
-import { AwayWithMakeUpTimeEntryContent } from "../../sections/away-with-make-up-time-entry/AwayWithMakeUpTimeEntryContent"
-import { AwayWithMakeUpTimeEntryData } from "../../../../types"
+import { api } from "../../../../common/api/api"
+import { concatDateAndTime } from "../../../../common/utils/dateAndTime"
+import { entryStrategyRegistry, EntryStrategy } from "../entryStrategyRegistry"
+import { AwayWithMakeUpTimeEntryState } from "../../sections/entry-modal/sections/away-with-make-up-time-entry/state/AwayWithMakeUpTimeEntryState"
+import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/entry-modal/sections/away-with-make-up-time-entry/state/AwayWithMakeUpTimeEntryStateContext"
+import { AwayWithMakeUpTimeEntryContent } from "../../sections/entry-modal/sections/away-with-make-up-time-entry/AwayWithMakeUpTimeEntryContent"
+import { AwayWithMakeUpTimeEntryData } from "../../types"
+import { EntryType } from "../../../../common/constants/entryType"
 
 export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = AwayWithMakeUpTimeEntryState
@@ -148,3 +149,8 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
     return
   }
 }
+
+entryStrategyRegistry.register({
+  entryType: EntryType.AWAY_WITH_MAKE_UP_TIME,
+  strategyFactory: () => new AwayWithMakeUpTimeEntryStrategy()
+})

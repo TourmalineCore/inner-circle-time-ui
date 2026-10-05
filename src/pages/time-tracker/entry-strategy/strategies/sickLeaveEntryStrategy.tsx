@@ -1,11 +1,12 @@
 import { CreateSickLeaveEntryRequest, UpdateSickLeaveEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
-import { api } from "../../../../../../common/api/api"
-import { EntryStrategy } from "../entryTypesStrategy"
-import { EntryBase } from "../../../../types"
-import { SickLeaveEntryState } from "../../sections/sick-leave-entry/state/SickLeaveEntryState"
-import { SickLeaveEntryStateContext } from "../../sections/sick-leave-entry/state/SickLeaveEntryStateContext"
+import { api } from "../../../../common/api/api"
+import { entryStrategyRegistry, EntryStrategy } from "../entryStrategyRegistry"
+import { EntryBase } from "../../types"
+import { SickLeaveEntryState } from "../../sections/entry-modal/sections/sick-leave-entry/state/SickLeaveEntryState"
+import { SickLeaveEntryStateContext } from "../../sections/entry-modal/sections/sick-leave-entry/state/SickLeaveEntryStateContext"
 import moment from "moment"
-import { SickLeaveEntryContent } from "../../sections/sick-leave-entry/SickLeaveEntryContent"
+import { SickLeaveEntryContent } from "../../sections/entry-modal/sections/sick-leave-entry/SickLeaveEntryContent"
+import { EntryType } from "../../../../common/constants/entryType"
 
 export class SickLeaveEntryStrategy implements EntryStrategy {
   readonly entryStateConstructor = SickLeaveEntryState
@@ -110,3 +111,8 @@ export class SickLeaveEntryStrategy implements EntryStrategy {
     return
   }
 }
+
+entryStrategyRegistry.register({
+  entryType: EntryType.SICK_LEAVE,
+  strategyFactory: () => new SickLeaveEntryStrategy()
+})

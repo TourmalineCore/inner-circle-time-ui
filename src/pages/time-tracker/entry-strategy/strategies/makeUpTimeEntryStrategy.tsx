@@ -1,6 +1,6 @@
-import { EntryStrategy } from "../entryTypesStrategy"
+import { entryStrategyRegistry, EntryStrategy } from "../entryStrategyRegistry"
 import { AwayWithMakeUpTimeEntryStrategy } from "./awayWithMakeUpTimeEntryStrategy"
-import { EntryType } from "../../../../../../common/constants/entryType"
+import { EntryType } from "../../../../common/constants/entryType"
 
 export class MakeUpTimeEntryStrategy implements EntryStrategy {  
   private _relatedEntryStrategy: EntryStrategy
@@ -105,3 +105,18 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
     return
   }
 }
+
+const createMakeUpTimeStrategy = (relatedEntryType?: EntryType) => {
+  if (!relatedEntryType) {
+    throw new Error("MakeUpTime requires relatedEntryType")
+  }
+
+  return new MakeUpTimeEntryStrategy({
+    relatedEntryType
+  })
+}
+
+entryStrategyRegistry.register({
+  entryType: EntryType.MAKE_UP_TIME,
+  strategyFactory: createMakeUpTimeStrategy
+})

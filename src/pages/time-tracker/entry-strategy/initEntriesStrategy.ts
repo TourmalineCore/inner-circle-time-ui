@@ -1,0 +1,6 @@
+import "./strategies/taskEntryStrategy"
+import "./strategies/unwellEntryStrategy"
+import "./strategies/awayWithMakeUpTimeEntryStrategy"
+import "./strategies/makeUpTimeEntryStrategy"
+import "./strategies/sickLeaveEntryStrategy"
+import "./strategies/vacationEntryStrategy"

@@ -1,7 +1,7 @@
 import { TrackingPageActions } from "../../../../../cypress/pages-actions/trackingPageActions"
 import { EntryType } from "../../../../common/constants/entryType"
 import { eventBus, EventBusType } from "../../event-bus"
-import { EntryTypesStrategy } from "./entry-types-strategies/entryTypesStrategy"
+import { entryStrategyRegistry } from "../../entry-strategy/entryStrategyRegistry"
 import { EntryModalContainer } from "./EntryModalContainer"
 import { TaskEntryState } from "./sections/task-entry/state/TaskEntryState"
 import { TaskEntryStateContext } from "./sections/task-entry/state/TaskEntryStateContext"
@@ -129,7 +129,7 @@ function mountComponent({
   cy.spy(eventBus, `publish`)
     .as(`eventBusTrigger`)
     
-  const entryStrategy = EntryTypesStrategy.create({
+  const entryStrategy = entryStrategyRegistry.create({
     entryType: EntryType.TASK,
   }) 
 
