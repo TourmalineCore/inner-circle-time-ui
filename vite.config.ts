@@ -33,6 +33,16 @@ export default defineConfig(({
           target: localConfig.API_URL,
           rewrite: (path: string) => path.replace(/^\/api\/time/, ``),
         },
+        // auth proxies are only added when both URLs are configured
+        // and it is used only for the local-env startup mode
+        ...(localConfig.AUTH_UI_URL && localConfig.AUTH_API_URL ? {
+          '/auth': {
+            target: localConfig.AUTH_UI_URL,
+          },
+          '/api/auth': {
+            target: localConfig.AUTH_API_URL,
+          },
+        }: {})
       },
     },
     base: BASE_PATH,
