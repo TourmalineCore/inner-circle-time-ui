@@ -31,7 +31,7 @@ export function parseTimeString({
     .toDate()
 }
 
-export function concatDateAndTime({
+export function concatDateAndTimeToMinute({
   date,
   time,
 }: {
@@ -43,7 +43,7 @@ export function concatDateAndTime({
       .hours())
     .minutes(moment(time)
       .minutes())
-    .seconds(moment(time)
-      .seconds())
+    // it sets the seconds and milliseconds of the current date and time to zero
+    .startOf(`minute`)
     .format(`YYYY-MM-DDTHH:mm:ss`)
 }
