@@ -19,7 +19,7 @@ When your Dev Container is ready, the VSCode window will be re-opened. Open a ne
 ### What happens when the container starts
 
 1. **`npm ci`** installs the exact dependency versions from `package-lock.json`. This runs once, when the container is created.
-2. **`npm run create-config:local`** builds `public/env-config.js` out of the keys listed in `.env-vars`, taking their values from the container environment. The app reads this file in the browser.
+2. **`npm run create-env-config:local`** builds `public/env-config.js` out of the keys listed in `.env-vars`, taking their values from `.env.local` and the container environment. The app reads this file in the browser.
 3. **`npm run local-services:up`** downloads the compose files of the API and of layout-ui from GitHub, together with the API mock config, and starts those services. You do not need their repositories on your machine.
 
 Steps 2 and 3 run on every container start, so each session begins with a fresh config and up to date images. You can also run both commands yourself, without restarting the container.
@@ -32,7 +32,7 @@ npm start
 
 Then open http://localhost:3507/time/tracking.
 
-`npm start` runs only the dev server. The config and the containers are ready before it.
+`npm start` builds `public/env-config.js` out of `.env.local`, adds the debug token from the API mocks to it, and runs the dev server. The containers are ready before it.
 
 ## Start the app against local-env
 
@@ -44,6 +44,8 @@ npm run start:local-env
 
 Then open http://localhost:3507/time/tracking.
 
+The command builds `public/env-config.js` out of `.env.local-env`, and runs the dev server.
+
 For the login, use one of the [accounts](https://github.com/TourmalineCore/inner-circle-local-env/blob/master/deploy/jobs/test-accounts-config.json).
 
 ## Configuration
@@ -52,28 +54,23 @@ The values of a local run live in two places.
 
 | group | keys | where |
 | :--- | :--- | :--- |
-| runtime config the app reads in the browser | `API_ROOT_URL`, `AUTH_API_ROOT_URL`, `DISABLE_ACCESS_TOKEN_REFRESH`, `DISABLE_DEBUG_TOKEN` | `containerEnv` in `.devcontainer/devcontainer.json` |
+| runtime config the app reads in the browser | `API_ROOT_URL`, `AUTH_API_ROOT_URL` | `containerEnv` in `.devcontainer/devcontainer.json` |
+| | `DISABLE_ACCESS_TOKEN_REFRESH`, `DISABLE_DEBUG_TOKEN` | `.env.local`, and `.env.local-env` for local-env |
 | the images the local services run, and the branch their compose files come from | `LAYOUT_IMAGE_TAG`, `LAYOUT_REF`, `API_IMAGE_TAG`, `API_REF` | `containerEnv` in `.devcontainer/devcontainer.json` |
 | the dev server port, and the services it proxies to | `UI_PORT`, `LAYOUT_UI_URL`, `API_URL` | `.env.local` |
 
-`containerEnv` puts its keys into the environment of the container itself, so the scripts in `local-run`, `docker compose` and the Vite config all see them without opening a file. `.env.local` is read by the Vite config.
+`containerEnv` puts its keys into the environment of the container itself, so the scripts in `local-run`, `docker compose` and the Vite config all see them without opening a file. `.env.local` is read by the Vite config and by `create-env-config:local`.
 
 There are two ways to change a value, and you can mix them:
 
-- **set it before a command** - `LAYOUT_IMAGE_TAG=sha-9c1e044 npm run local-services:up`. A value from the terminal wins over both places;
+- **set it before a command** - `LAYOUT_IMAGE_TAG=sha-9c1e044 npm run local-services:up`. A value from the terminal wins over both places, except `DISABLE_ACCESS_TOKEN_REFRESH` and `DISABLE_DEBUG_TOKEN`, which are always taken from the env file;
 - **edit the file the key lives in** - the value stays until you change it back.
 
 A variable written before a command applies to that command only. `VAR=1 npm run local-services:up && npm start` does not pass `VAR` to `npm start`, and a variable on a line of its own passes it to nothing. Use `export VAR=1` when you need it for several commands.
 
 What you re-run after the change depends on the group the key is in.
 
-**First group** - build the config again, then put the token back into it:
-
-```
-npm run create-config:local && npm run prepare-local-run
-```
-
-Both commands are needed. `create-config:local` writes `public/env-config.js` from scratch out of the keys listed in `.env-vars`, and `DEBUG_TOKEN` is not among them - it comes from the API mock config, and `prepare-local-run` appends it to the file afterwards. Run the build on its own and you are left without a token, so the app cannot log in. Reload the page once both commands are done.
+**First group** - restart `npm start`. It writes `public/env-config.js` from scratch out of the keys listed in `.env-vars`, then `local-run/add-debug-token.js` adds `DEBUG_TOKEN` to it. The token is taken from `local-run/mock-server-initialization.json`, which `local-services:up` downloads, so without the services started at least once `npm start` stops with an error.
 
 **Second group** - start the services again:
 
@@ -83,7 +80,7 @@ npm run local-services:up
 
 **Third group** - restart `npm start`. `vite.config.ts` reads these keys when the dev server starts, so the containers don't have to be touched.
 
-An edit to `devcontainer.json` itself needs **Dev Containers: Rebuild Container** on top of that, because `containerEnv` is applied when the container is created. The rebuild runs `create-config:local` and then `local-services:up` on start, and the second of those runs `prepare-local-run` for you, so it covers the first two groups on its own. A one-off value before a command needs no rebuild.
+An edit to `devcontainer.json` itself needs **Dev Containers: Rebuild Container** on top of that, because `containerEnv` is applied when the container is created. The rebuild runs `create-env-config:local` and then `local-services:up` on start, so it covers the first two groups on its own. A one-off value before a command needs no rebuild.
 
 ## Ports
 
@@ -169,7 +166,7 @@ API_URL=http://localhost:4507 npm start
 API_LOCAL_PATH=../inner-circle-time-api npm run prepare-local-run
 ```
 
-`API_LOCAL_PATH` changes one thing: the mock file is copied from your folder, not downloaded from GitHub. The mocks hold the debug token that the app uses to log in, so a new copy also updates that token in `env-config.js`.
+`API_LOCAL_PATH` changes one thing: the mock file is copied from your folder, not downloaded from GitHub. The mocks hold the debug token that the app uses to log in, so restart `npm start` to take the token from the new copy.
 
 `prepare-local-run` starts no containers, which is what you want here, because step 1 stopped them. Run `npm run local-services:up` instead when the mock server container has to use the new mocks as well - that command starts the API containers again.
 
