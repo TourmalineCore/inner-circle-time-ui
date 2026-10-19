@@ -35,10 +35,11 @@ async function prepareLocalRunAsync() {
   // api-docker-compose.override.yml mounts this file into api-mock-server,
   // and add-debug-token takes the token for env-config.js from it
   if (API_LOCAL_PATH) {
-    copyLocalFile({
-      from: `${API_LOCAL_PATH}/e2e/mock-server-initialization.json`,
-      to: MOCK_SERVER_CONFIG_PATH,
-    })
+    // copies the file from a local path instead of fetching it from GitHub
+    fs.copyFileSync(
+      `${API_LOCAL_PATH}/e2e/mock-server-initialization.json`, 
+      MOCK_SERVER_CONFIG_PATH,
+    )
   }
   else {
     await fetchRemoteFileAsync({
@@ -64,14 +65,6 @@ async function fetchRemoteFileAsync({
   const body = await response.text()
 
   fs.writeFileSync(path, body)
-}
-
-// copies a file from a local path instead of fetching it from GitHub
-function copyLocalFile({
-  from,
-  to,
-}) {
-  fs.copyFileSync(from, to)
 }
 
 prepareLocalRunAsync()
