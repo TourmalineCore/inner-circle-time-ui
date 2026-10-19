@@ -21,11 +21,6 @@ const LAYOUT_UI_REPO_URL = `https://raw.githubusercontent.com/TourmalineCore/inn
 const LAYOUT_UI_COMPOSE_URL = `${LAYOUT_UI_REPO_URL}/docker-compose.yml`
 const LAYOUT_UI_COMPOSE_PATH = `./local-run/layout-ui-docker-compose.yml`
 
-const ENV_CONFIG_PATH = `./public/env-config.js`
-
-// find  "...all-permissions" or  "...ALL_PERMISSIONS"
-const ALL_PERMISSIONS_LOGIN_PATTERN = /all[-_]permissions/i
-
 async function prepareLocalRunAsync() {
   await fetchRemoteFileAsync({
     url: API_COMPOSE_URL,
@@ -37,29 +32,20 @@ async function prepareLocalRunAsync() {
     path: LAYOUT_UI_COMPOSE_PATH,
   })
 
-  // also written to disk: api-docker-compose.override.yml mounts this file into api-mock-server
-  const mockServerConfigBody = API_LOCAL_PATH
-    ? copyLocalFile({
+  // api-docker-compose.override.yml mounts this file into api-mock-server,
+  // and add-debug-token takes the token for env-config.js from it
+  if (API_LOCAL_PATH) {
+    copyLocalFile({
       from: `${API_LOCAL_PATH}/e2e/mock-server-initialization.json`,
       to: MOCK_SERVER_CONFIG_PATH,
     })
-    : await fetchRemoteFileAsync({
+  }
+  else {
+    await fetchRemoteFileAsync({
       url: MOCK_SERVER_CONFIG_URL,
       path: MOCK_SERVER_CONFIG_PATH,
     })
-  const mockServerConfig = JSON.parse(mockServerConfigBody)
-
-  const localDebugJwt = readLocalDebugJwt({
-    mockServerConfig,
-  })
-
-  const envEntries = `DEBUG_TOKEN: "${localDebugJwt}",`
-
-  // writes the mock server's token into env-config.js so the local app can use it
-  injectIntoEnvConfig({
-    path: ENV_CONFIG_PATH,
-    envEntries,
-  })
+  }
 }
 
 // escapes `#`, which would otherwise start a URL fragment, but also escapes `/`,
@@ -78,8 +64,6 @@ async function fetchRemoteFileAsync({
   const body = await response.text()
 
   fs.writeFileSync(path, body)
-
-  return body
 }
 
 // copies a file from a local path instead of fetching it from GitHub
@@ -87,42 +71,7 @@ function copyLocalFile({
   from,
   to,
 }) {
-  const body = fs.readFileSync(from, `utf-8`)
-
-  fs.writeFileSync(to, body)
-
-  return body
-}
-
-// mock-server-initialization.json can have several /api/auth/login mocks
-// we need the all-permissions one, so match on the login value, not just the path
-function readLocalDebugJwt({
-  mockServerConfig,
-}) {
-  const loginMock = mockServerConfig.find((mock) => (
-    mock.httpRequest.path === `/api/auth/login`
-    && ALL_PERMISSIONS_LOGIN_PATTERN.test(mock.httpRequest.body.login)
-  ))
-
-  return JSON.parse(loginMock.httpResponse.body).accessToken.value
-}
-
-// drops the entry a previous run added, so re-running doesn't append duplicates. If there is
-// no env-config.js yet (local-services:up without create-config:local), nothing to inject into
-function injectIntoEnvConfig({
-  path,
-  envEntries,
-}) {
-  if (!fs.existsSync(path)) {
-    return
-  }
-
-  const fileBuffer = fs.readFileSync(path)
-  const content = fileBuffer.toString()
-  const contentWithoutOldEntries = content.replace(/^ *DEBUG_TOKEN: "[^"]*",\n/m, ``)
-
-  // env.sh writes one key per line, so the entry is added as a line of its own right after the opening brace, in the same shape as the keys env.sh puts there
-  fs.writeFileSync(path, contentWithoutOldEntries.replace(`window.__ENV__ = {\n`, `window.__ENV__ = {\n  ${envEntries}\n`))
+  fs.copyFileSync(from, to)
 }
 
 prepareLocalRunAsync()
