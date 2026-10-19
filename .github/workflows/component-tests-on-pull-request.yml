@@ -32,7 +32,7 @@ jobs:
         with:
           component: true
           # Need to generate env-config file with env variables, without this the tests will not run.
-          start: npm run create-config:local
+          start: npm run create-env-config:local
           browser: electron
 
       - name: Upload screenshots of tests failed

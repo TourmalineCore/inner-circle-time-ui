@@ -20,7 +20,7 @@
 	"postCreateCommand": "npm ci",
 	// builds env-config.js and starts the services the app talks to, so a ready environment
 	// is waiting when the container opens
-	"postStartCommand": "npm run create-config:local && npm run local-services:up",
+	"postStartCommand": "npm run create-env-config:local && npm run local-services:up",
 	"runArgs": [
 		"--network=host"
 	],

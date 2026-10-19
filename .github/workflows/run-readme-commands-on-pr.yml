@@ -17,7 +17,7 @@ jobs:
           runCmd: npm run cypress:run:component
           push: never
 
-      # starting the Dev Container is itself the first part of the README: it runs npm ci, npm run create-config:local
+      # starting the Dev Container is itself the first part of the README: it runs npm ci, npm run create-env-config:local
       # and npm run local-services:up, and supplies the containerEnv values they need
       - name: npm start
         uses: devcontainers/ci@v0.3
