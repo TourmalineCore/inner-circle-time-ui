@@ -67,14 +67,18 @@ jobs:
   readme-steps-against-local-env:
     runs-on: ubuntu-24.04
     steps:
+      # local-env goes into a folder of its own, otherwise its Dev Container has the same workspace folder as the ui one,
+      # and devcontainer up of the next steps finds the running local-env container and runs the ui commands there
       - name: Checkout local-env
         uses: actions/checkout@v7
         with:
           repository: TourmalineCore/inner-circle-local-env
+          path: inner-circle-local-env
 
       - name: Deploy Local Env to Kind k8s
         uses: devcontainers/ci@v0.3
         with:
+          subFolder: inner-circle-local-env
           cacheFrom: ghcr.io/tourmalinecore/inner-circle-local-env-devcontainer
           runCmd: |
             kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
