@@ -22,6 +22,7 @@ describe(`TimeTrackerTableContainer`, () => {
   })
 
   describe(`Switch periods`, switchPeriodsTests)
+  describe(`Viewport resize`, viewportResizeTests)
 })
 
 function switchPeriodsTests() {
@@ -115,7 +116,56 @@ function switchPeriodsTests() {
 
     cy.wait(`@getProjectsPreviousWeek`)
     cy.wait(`@getPreviousWeek`)
-  }) 
+  })
+}
+
+function viewportResizeTests() {
+  it(`
+  GIVEN component is mounted in desktop view
+  WHEN user click by back button
+  AND viewport is resized to tablet
+  SHOULD not send API requests with incorrect dates when viewport is resized
+  `, () => {
+    cy.viewport(1366, 768)
+
+    cy
+      .intercept( 
+        `GET`,
+        `*/time/tracking/entries?startDate=2025-11-24&endDate=2025-11-30`,
+        {
+          statusCode: 200,
+          body: [],
+        },
+      )
+      .as(`getCorrectWeekEntries`)
+
+    mountComponent()
+
+    cy.contains(`November 24 – 30`)
+
+    cy.wait(`@getCorrectWeekEntries`)
+
+    cy
+      .contains(`Back`)
+      .click()
+
+    cy.contains(`November 17 – 23`)
+
+    cy
+      .get(`@getCorrectWeekEntries.all`)
+      .should(`have.length`, 1)
+
+    cy.viewport(1024, 768)
+
+    // Pause for UI stabilization after resizing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+
+    cy.wait(200)
+
+    cy
+      .get(`@getCorrectWeekEntries.all`)
+      .should(`have.length`, 1)
+  })
 }
 
 function mountComponent() {
