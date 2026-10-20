@@ -2,8 +2,6 @@ import { observer } from "mobx-react-lite"
 import { useContext, useEffect, useState } from "react"
 import { TimeTrackerStateContext } from "./state/TimeTrackerTableStateContext"
 import { api } from "../../../../common/api/api"
-import { Views } from "react-big-calendar"
-import { useDeviceSize } from "../../../../common/hooks/useDeviceSize"
 import { eventBus, EventBusType } from "../../event-bus"
 import { TimeTrackerTableContent } from "./TimeTrackerTableContent"
 import { TrackedEntry } from "../../types"
@@ -60,19 +58,6 @@ export const TimeTrackerTableContainer = observer(({
     needToReloadEntries,
     setNeedToReloadEntries,
   ] = useState(false)
-
-  const {
-    isDesktop,
-  } = useDeviceSize()
-
-  useEffect(() => {
-    timeTrackerState.setViewPeriod({
-      date: new Date(),
-      view: Views.WEEK,
-    })
-  }, [
-    isDesktop,
-  ])
 
   useEffect(() => {
     const unsubscribeEntriesChanged = eventBus.subscribe(EventBusType.ENTRIES_CHANGED, () => {

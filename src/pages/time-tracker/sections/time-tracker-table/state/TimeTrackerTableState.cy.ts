@@ -1,4 +1,3 @@
-import { Views } from "react-big-calendar"
 import { TimeTrackerTableState } from "./TimeTrackerTableState"
 import moment from "moment"
 
@@ -50,12 +49,11 @@ function viewTests() {
 
   it(`
   GIVEN a state with no view period set
-  WHEN set view period to week
-  SHOULD return correctly viewStartDate and viewEndDate
+  WHEN setViewPeriod is called with date 2025-12-25
+  THEN viewStartDate should equal 2025-12-22 and viewEndDate should equal 2025-12-28
   `, () => {
     timeTrackerTableState.setViewPeriod({
       date: new Date(`2025-12-25`),
-      view: Views.WEEK, 
     })
 
     expect(timeTrackerTableState.viewStartDate)
@@ -65,24 +63,5 @@ function viewTests() {
     expect(timeTrackerTableState.viewEndDate)
       .to
       .eq(`2025-12-28`)
-  })
-
-  it(`
-  GIVEN a state with no view period set
-  WHEN set view period to day
-  SHOULD return correctly viewStartDate and viewEndDate
-  `, () => {
-    timeTrackerTableState.setViewPeriod({
-      date: new Date(`2025-12-25`),
-      view: Views.DAY, 
-    })
-
-    expect(timeTrackerTableState.viewStartDate)
-      .to
-      .eq(`2025-12-25`)
-
-    expect(timeTrackerTableState.viewEndDate)
-      .to
-      .eq(`2025-12-25`)
   })
 }

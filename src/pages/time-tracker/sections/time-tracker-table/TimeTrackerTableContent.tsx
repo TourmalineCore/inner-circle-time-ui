@@ -146,7 +146,6 @@ export const TimeTrackerTableContent = observer(({
         onSelectEvent={handleSelectEntry}
         onNavigate={(date) => timeTrackerState.setViewPeriod({
           date: date,
-          view: currentView,
         })}
         slotPropGetter={(date) => ({
           'data-cy': moment(date)
