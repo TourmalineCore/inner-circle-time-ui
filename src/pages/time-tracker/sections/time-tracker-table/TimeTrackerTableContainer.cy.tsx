@@ -157,9 +157,9 @@ function viewportResizeTests() {
 
     cy.viewport(1024, 768)
 
-    // Pause for UI stabilization after resizing
+    // A pause is necessary, without it, the test may falsely pass
+    // if the bug returns, since the request will not have time to go away before verification
     // eslint-disable-next-line cypress/no-unnecessary-waiting
-
     cy.wait(200)
 
     cy
