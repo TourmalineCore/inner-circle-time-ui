@@ -1,6 +1,6 @@
 import { CreateUnwellEntryRequest, UpdateUnwellEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
-import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
+import { concatDateAndTimeToMinute } from "../../../../../../common/utils/date-and-time/dateAndTime"
 import { EntryStrategy } from "../entryTypesStrategy"
 import { UnwellEntryState } from "../../sections/unwell-entry/state/UnwellEntryState"
 import { UnwellEntryStateContext } from "../../sections/unwell-entry/state/UnwellEntryStateContext"
@@ -84,13 +84,13 @@ export class UnwellEntryStrategy implements EntryStrategy {
       start,
       end,
     } = entryState.unwellEntryData
-      
-    const startDateTime = concatDateAndTime({
+    
+    const startDateTime = concatDateAndTimeToMinute({
       date: date!,
       time: start!,
     })
 
-    const endDateTime = concatDateAndTime({
+    const endDateTime = concatDateAndTimeToMinute({
       date: date!,
       time: end!,
     })

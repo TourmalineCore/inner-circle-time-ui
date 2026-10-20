@@ -1,6 +1,6 @@
 import { CreateAwayWithMakeUpTimeEntryRequest, UpdateAwayWithMakeUpTimeEntryRequest } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { api } from "../../../../../../common/api/api"
-import { concatDateAndTime } from "../../../../../../common/utils/dateAndTime"
+import { concatDateAndTimeToMinute } from "../../../../../../common/utils/date-and-time/dateAndTime"
 import { EntryStrategy } from "../entryTypesStrategy"
 import { AwayWithMakeUpTimeEntryState } from "../../sections/away-with-make-up-time-entry/state/AwayWithMakeUpTimeEntryState"
 import { AwayWithMakeUpTimeEntryStateContext } from "../../sections/away-with-make-up-time-entry/state/AwayWithMakeUpTimeEntryStateContext"
@@ -113,12 +113,12 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
       makeUpTimeList,
     } = entryState.awayWithMakeUpTimeEntryData
       
-    const startDateTime = concatDateAndTime({
+    const startDateTime = concatDateAndTimeToMinute({
       date: date!,
       time: start!,
     })
 
-    const endDateTime = concatDateAndTime({
+    const endDateTime = concatDateAndTimeToMinute({
       date: date!,
       time: end!,
     })
@@ -132,11 +132,11 @@ export class AwayWithMakeUpTimeEntryStrategy implements EntryStrategy {
         startTime,
         endTime,
       }) => ({
-        startTime: concatDateAndTime({
+        startTime: concatDateAndTimeToMinute({
           date: date!,
           time: startTime!,
         }),
-        endTime: concatDateAndTime({
+        endTime: concatDateAndTimeToMinute({
           date: date!,
           time: endTime!,
         }),
