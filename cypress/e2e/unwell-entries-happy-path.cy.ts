@@ -55,7 +55,16 @@ describe(`Unwell Entries Happy Path`, () => {
       .clear()
       .type(`17:00`)
 
+    cy
+      .intercept({
+        method: `GET`,
+        pathname: `**/tracking/entries`,
+      })
+      .as(`getEntries`)
+
     TrackingPageActions.clickByEntryModalSubmitButton()
+
+    cy.wait(`@getEntries`)
 
     cy
       .getByData(`"unwell-entry-${WeekDay.MONDAY}-14:00-17:00"`)

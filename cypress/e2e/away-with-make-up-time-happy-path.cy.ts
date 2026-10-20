@@ -94,6 +94,13 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
       .clear()
       .type(makeUpEndTime)
 
+    cy
+      .intercept({
+        method: `GET`,
+        pathname: `**/tracking/entries`,
+      })
+      .as(`getEntries`)
+
     TrackingPageActions.clickByEntryModalSubmitButton()
 
     cy.log(`Сheck that the Away cards exist`)
@@ -101,6 +108,8 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     cy
       .contains(`Back`)
       .click()
+
+    cy.wait(`@getEntries`)
 
     cy.getByData(`"away-with-make-up-time-entry-${WeekDay.MONDAY}-${absentStartTime}-${absentEndTime}"`)
       .click()
