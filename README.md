@@ -232,3 +232,10 @@ npm run cypress:open:e2e    # in the Cypress window
 npm run cypress:run:e2e:local-env     # in the console
 npm run cypress:open:e2e:local-env    # in the Cypress window
 ```
+
+If you started the app with `npm run start:local-env`, run the tests against it:
+
+```
+npm run cypress:run:e2e:local-ui-against-local-env     # in the console
+npm run cypress:open:e2e:local-ui-against-local-env    # in the Cypress window
+```

@@ -30,7 +30,9 @@
     "cypress:open:e2e": "cypress open --e2e --browser electron --config-file cypress.config.mock-for-tests.ts",
     "cypress:run:e2e": "cypress run --e2e --config-file cypress.config.mock-for-tests.ts",
     "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config-file cypress.config.local-env.ts",
-    "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts"
+    "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts",
+    "cypress:open:e2e:local-ui-against-local-env": "cypress open --e2e --browser electron --config-file cypress.config.local-env.ts --config baseUrl=http://localhost:3507",
+    "cypress:run:e2e:local-ui-against-local-env": "cypress run --e2e --config-file cypress.config.local-env.ts --config baseUrl=http://localhost:3507"
   },
   "dependencies": {
     "@originjs/vite-plugin-federation": "^1.3.9",
