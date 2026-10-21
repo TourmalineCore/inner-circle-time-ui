@@ -36,7 +36,7 @@ function switchPeriodsTests() {
     cy
       .intercept(
         `GET`,
-        `*/time/tracking/task-entries/projects?startDate=2025-11-24&endDate=2025-11-30`,
+        `*/time/tracking/task-entries/projects*`,
         {
           statusCode: 200,
           body: {
@@ -49,7 +49,7 @@ function switchPeriodsTests() {
     cy
       .intercept(
         `GET`,
-        `*/time/tracking/entries?startDate=2025-11-24&endDate=2025-11-30`,
+        `*/time/tracking/entries*`,
         {
           statusCode: 200,
           body: [],
@@ -78,10 +78,12 @@ function switchPeriodsTests() {
       
     cy.contains(`Saturday Nov 29`)
 
-    cy.get(`@getProjects.all`)
+    cy
+      .get(`@getProjects.all`)
       .should(`have.length`, 1)
 
-    cy.get(`@getEntries.all`)
+    cy
+      .get(`@getEntries.all`)
       .should(`have.length`, 1)
   })
 
@@ -145,6 +147,8 @@ function switchPeriodsTests() {
     cy.wait(`@getProjectsCurrentWeek`)
 
     cy.wait(`@getEntriesCurrentWeek`)
+
+    cy.log(`Navigate to next week`)
 
     for (let i = 0; i < 4; i++) {
       cy
@@ -224,13 +228,13 @@ function viewportResizeTests() {
           body: [],
         },
       )
-      .as(`getEntriesForNov24to30`)
+      .as(`getEntriesForNov24To30`)
 
     mountComponent()
 
     cy.contains(`November 24 – 30`)
 
-    cy.wait(`@getEntriesForNov24to30`)
+    cy.wait(`@getEntriesForNov24To30`)
 
     cy
       .contains(`Back`)
@@ -239,7 +243,7 @@ function viewportResizeTests() {
     cy.contains(`November 17 – 23`)
 
     cy
-      .get(`@getEntriesForNov24to30.all`)
+      .get(`@getEntriesForNov24To30.all`)
       .should(`have.length`, 1)
 
     cy.viewport(1024, 768)
@@ -250,7 +254,7 @@ function viewportResizeTests() {
     cy.wait(200)
 
     cy
-      .get(`@getEntriesForNov24to30.all`)
+      .get(`@getEntriesForNov24To30.all`)
       .should(`have.length`, 1)
   })
 }
