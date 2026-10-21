@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# exports the keys of the env file passed as an argument
+set -a
+source "$1"
+set +a
+
 # builds env-config.js for a local run
 bash ./ci/env.sh
 
