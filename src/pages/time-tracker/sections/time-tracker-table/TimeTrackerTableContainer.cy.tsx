@@ -137,13 +137,13 @@ function viewportResizeTests() {
           body: [],
         },
       )
-      .as(`getCorrectWeekEntries`)
+      .as(`getEntrieForNov24to30`)
 
     mountComponent()
 
     cy.contains(`November 24 – 30`)
 
-    cy.wait(`@getCorrectWeekEntries`)
+    cy.wait(`@getEntrieForNov24to30`)
 
     cy
       .contains(`Back`)
@@ -152,7 +152,7 @@ function viewportResizeTests() {
     cy.contains(`November 17 – 23`)
 
     cy
-      .get(`@getCorrectWeekEntries.all`)
+      .get(`@getEntrieForNov24to30.all`)
       .should(`have.length`, 1)
 
     cy.viewport(1024, 768)
@@ -163,7 +163,7 @@ function viewportResizeTests() {
     cy.wait(200)
 
     cy
-      .get(`@getCorrectWeekEntries.all`)
+      .get(`@getEntrieForNov24to30.all`)
       .should(`have.length`, 1)
   })
 }
