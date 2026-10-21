@@ -94,13 +94,25 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
       .clear()
       .type(makeUpEndTime)
 
+    cy
+      .intercept({
+        method: `GET`,
+        pathname: `**/tracking/entries`,
+      })
+      .as(`getEntries`)
+
     TrackingPageActions.clickByEntryModalSubmitButton()
+
+    // the reload after the save, so the previous week is loaded with the new entry
+    cy.wait(`@getEntries`)
 
     cy.log(`Сheck that the Away cards exist`)
 
     cy
       .contains(`Back`)
       .click()
+
+    cy.wait(`@getEntries`)
 
     cy.getByData(`"away-with-make-up-time-entry-${WeekDay.MONDAY}-${absentStartTime}-${absentEndTime}"`)
       .click()
