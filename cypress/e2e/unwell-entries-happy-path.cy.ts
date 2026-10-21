@@ -81,6 +81,8 @@ describe(`Unwell Entries Happy Path`, () => {
       .getByData(`"unwell-entry-${WeekDay.MONDAY}-14:00-17:00"`)
       .click()
 
+    cy.wait(`@getUnwellEntry`)
+
     TrackingPageActions
       .getEntryModalStartTimeInput()
       .should(`have.value`, `14:00`)
