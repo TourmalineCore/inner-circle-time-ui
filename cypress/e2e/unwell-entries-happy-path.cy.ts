@@ -41,9 +41,20 @@ describe(`Unwell Entries Happy Path`, () => {
       endTime: `14:00`,
     })
 
+    // the modal loads the entry and then fills the inputs with it,
+    // so typing before the entry is loaded is overwritten with the old values
+    cy
+      .intercept({
+        method: `GET`,
+        pathname: `**/tracking/unwell-entries/*`,
+      })
+      .as(`getUnwellEntry`)
+
     cy
       .getByData(`"unwell-entry-${WeekDay.MONDAY}-13:00-14:00"`)
       .click()
+
+    cy.wait(`@getUnwellEntry`)
 
     TrackingPageActions
       .getEntryModalStartTimeInput()
