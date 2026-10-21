@@ -70,10 +70,6 @@ describe(`Unwell Entries Happy Path`, () => {
       .getByData(`"unwell-entry-${WeekDay.MONDAY}-14:00-17:00"`)
       .click()
 
-    // figure out why the pipeline test is failing
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(2000)
-
     TrackingPageActions
       .getEntryModalStartTimeInput()
       .should(`have.value`, `14:00`)
