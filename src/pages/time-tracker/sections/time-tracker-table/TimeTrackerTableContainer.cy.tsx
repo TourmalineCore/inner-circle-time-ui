@@ -28,11 +28,10 @@ describe(`TimeTrackerTableContainer`, () => {
 function switchPeriodsTests() {
   it(`
   GIVEN mobile view
-  WHEN click next button
-  SHOULD render next day
-  AND send correct request
+  WHEN navigate between days within the same week
+  SHOULD send request to get data only once
   `, () => {
-    cy.viewport(375, 768) 
+    cy.viewport(375, 768)
 
     cy
       .intercept(
@@ -45,7 +44,7 @@ function switchPeriodsTests() {
           },
         },
       )
-      .as(`getProjectsNextDay`)
+      .as(`getProjects`)
 
     cy
       .intercept(
@@ -56,9 +55,13 @@ function switchPeriodsTests() {
           body: [],
         },
       )
-      .as(`getNextDay`)
-  
+      .as(`getEntries`)
+
     mountComponent()
+
+    cy.wait(`@getProjects`)
+
+    cy.wait(`@getEntries`)
 
     cy.contains(`Thursday Nov 27`)
 
@@ -66,11 +69,95 @@ function switchPeriodsTests() {
       .contains(`Next`)
       .click()
 
-    cy.contains(`Friday Nov 28`)
+    cy
+      .contains(`Friday Nov 28`)
 
-    cy.wait(`@getProjectsNextDay`)
-    cy.wait(`@getNextDay`)
-  }) 
+    cy
+      .contains(`Next`)
+      .click()
+      
+    cy.contains(`Saturday Nov 29`)
+
+    cy.get(`@getProjects.all`)
+      .should(`have.length`, 1)
+
+    cy.get(`@getEntries.all`)
+      .should(`have.length`, 1)
+  })
+
+  it(`
+  GIVEN mobile view
+  WHEN navigate to the next week
+  SHOULD send requests with the next week dates
+  `, () => {   
+    cy.viewport(375, 768) 
+
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/task-entries/projects?startDate=2025-11-24&endDate=2025-11-30`,
+        {
+          statusCode: 200,
+          body: {
+            projects: PROJECTS, 
+          },
+        },
+      )
+      .as(`getProjectsCurrentWeek`)
+
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/entries?startDate=2025-11-24&endDate=2025-11-30`,
+        {
+          statusCode: 200,
+          body: [],
+        },
+      )
+      .as(`getEntriesCurrentWeek`)
+
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/task-entries/projects?startDate=2025-12-01&endDate=2025-12-07`,
+        {
+          statusCode: 200,
+          body: {
+            projects: PROJECTS, 
+          },
+        },
+      )
+      .as(`getProjectsNextWeek`)
+
+    cy
+      .intercept(
+        `GET`,
+        `*/time/tracking/entries?startDate=2025-12-01&endDate=2025-12-07`,
+        {
+          statusCode: 200,
+          body: [],
+        },
+      )
+      .as(`getEntriesNextWeek`)
+
+    mountComponent()
+
+    cy.wait(`@getProjectsCurrentWeek`)
+
+    cy.wait(`@getEntriesCurrentWeek`)
+
+    for (let i = 0; i < 4; i++) {
+      cy
+        .contains(`Next`)
+        .click()
+    }
+
+    cy.contains(`Monday Dec 01`)
+
+    cy.wait(`@getProjectsNextWeek`)
+      
+    cy.wait(`@getEntriesNextWeek`)
+  })
 
   it(`
   GIVEN desktop view
@@ -122,7 +209,7 @@ function switchPeriodsTests() {
 function viewportResizeTests() {
   it(`
   GIVEN component is mounted in desktop view
-  WHEN user click by back button
+  WHEN user clicks on back button
   AND viewport is resized to tablet
   SHOULD not send API requests with incorrect dates when viewport is resized
   `, () => {
@@ -137,13 +224,13 @@ function viewportResizeTests() {
           body: [],
         },
       )
-      .as(`getEntrieForNov24to30`)
+      .as(`getEntriesForNov24to30`)
 
     mountComponent()
 
     cy.contains(`November 24 – 30`)
 
-    cy.wait(`@getEntrieForNov24to30`)
+    cy.wait(`@getEntriesForNov24to30`)
 
     cy
       .contains(`Back`)
@@ -152,7 +239,7 @@ function viewportResizeTests() {
     cy.contains(`November 17 – 23`)
 
     cy
-      .get(`@getEntrieForNov24to30.all`)
+      .get(`@getEntriesForNov24to30.all`)
       .should(`have.length`, 1)
 
     cy.viewport(1024, 768)
@@ -163,7 +250,7 @@ function viewportResizeTests() {
     cy.wait(200)
 
     cy
-      .get(`@getEntrieForNov24to30.all`)
+      .get(`@getEntriesForNov24to30.all`)
       .should(`have.length`, 1)
   })
 }
