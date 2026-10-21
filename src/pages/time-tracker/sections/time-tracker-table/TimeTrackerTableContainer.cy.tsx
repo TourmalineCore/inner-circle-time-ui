@@ -119,7 +119,7 @@ function switchPeriodsTests() {
     cy
       .intercept(
         `GET`,
-        `*/time/tracking/task-entries/projects?startDate=2025-11-17&endDate=2025-11-23`,
+        `*/time/tracking/task-entries/projects?startDate=2025-12-01&endDate=2025-12-07`,
         {
           statusCode: 200,
           body: {
@@ -127,18 +127,18 @@ function switchPeriodsTests() {
           },
         },
       )
-      .as(`getProjectsPreviousWeek`)
+      .as(`getProjectsNextWeek`)
 
     cy
       .intercept(
         `GET`,
-        `*/time/tracking/entries?startDate=2025-11-17&endDate=2025-11-23`,
+        `*/time/tracking/entries?startDate=2025-12-01&endDate=2025-12-07`,
         {
           statusCode: 200,
           body: [],
         },
       )
-      .as(`getEntriesPreviousWeek`)
+      .as(`getEntriesNextWeek`)
 
     mountComponent()
 
@@ -148,15 +148,15 @@ function switchPeriodsTests() {
 
     for (let i = 0; i < 4; i++) {
       cy
-        .contains(`Back`)
+        .contains(`Next`)
         .click()
     }
 
-    cy.contains(`Sunday Nov 23`)
+    cy.contains(`Monday Dec 01`)
 
-    cy.wait(`@getProjectsPreviousWeek`)
+    cy.wait(`@getProjectsNextWeek`)
       
-    cy.wait(`@getEntriesPreviousWeek`)
+    cy.wait(`@getEntriesNextWeek`)
   })
 
   it(`
@@ -189,7 +189,7 @@ function switchPeriodsTests() {
           body: [],
         },
       )
-      .as(`getPreviousWeek`)
+      .as(`getEntriesPreviousWeek`)
   
     mountComponent()
 
@@ -202,7 +202,7 @@ function switchPeriodsTests() {
     cy.contains(`November 17 – 23`)
 
     cy.wait(`@getProjectsPreviousWeek`)
-    cy.wait(`@getPreviousWeek`)
+    cy.wait(`@getEntriesPreviousWeek`)
   })
 }
 
