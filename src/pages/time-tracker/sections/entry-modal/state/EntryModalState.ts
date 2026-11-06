@@ -8,9 +8,9 @@ export class EntryModalState {
   private _isCopyMode = false
   private _isOpenModal = false
     
-  private _type = EntryType.TASK
+  private _type: EntryType = EntryType.Task
   private _availableEntryTypes: { 
-    value: number,
+    value: EntryType,
     label: string,
   }[] = []
 
@@ -158,7 +158,7 @@ export class EntryModalState {
       return
     }
 
-    if (allDayEntryType === EntryType.SICK_LEAVE || allDayEntryType === EntryType.VACATION) {
+    if (allDayEntryType === EntryType.SickLeave || allDayEntryType === EntryType.Vacation) {
       this._availableEntryTypes = ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION
       return
     }

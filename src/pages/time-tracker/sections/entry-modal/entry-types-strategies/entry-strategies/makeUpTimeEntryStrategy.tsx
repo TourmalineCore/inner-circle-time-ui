@@ -17,7 +17,7 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
 
   private selectRelatedEntryStrategy() {
     switch (this._relatedEntryType) {
-      case EntryType.AWAY_WITH_MAKE_UP_TIME:
+      case EntryType.AwayWithMakeUpTime:
         return new AwayWithMakeUpTimeEntryStrategy()
       
       default:

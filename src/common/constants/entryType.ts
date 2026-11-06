@@ -1,40 +1,37 @@
-export enum EntryType {
-  TASK = 1,
-  UNWELL = 2,
-  AWAY_WITH_MAKE_UP_TIME = 3,
-  MAKE_UP_TIME = 4,
-  SICK_LEAVE = 5,
-  VACATION = 6,
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
+
+export {
+  EntryType,
 }
 
 export const TYPE_LABELS: Record<string, string> = {
-  [EntryType.TASK]: `Task`,
-  [EntryType.UNWELL]: `Unwell`,
-  [EntryType.AWAY_WITH_MAKE_UP_TIME]: `Away With Make-Up Time`,
-  [EntryType.SICK_LEAVE]: `Sick leave`,
-  [EntryType.VACATION]: `Vacation`,
+  [EntryType.Task]: `Task`,
+  [EntryType.Unwell]: `Unwell`,
+  [EntryType.AwayWithMakeUpTime]: `Away With Make-Up Time`,
+  [EntryType.SickLeave]: `Sick leave`,
+  [EntryType.Vacation]: `Vacation`,
 }
 
 export const ALL_DAY_ENTRY_TYPES = [
-  EntryType.SICK_LEAVE,
-  EntryType.VACATION,
+  EntryType.SickLeave,
+  EntryType.Vacation,
 ].map((value) => ({
-  value: value as number,
+  value,
   label: TYPE_LABELS[value],
 }))
 
 export const NON_ALL_DAY_ENTRY_TYPES = [
-  EntryType.TASK,
-  EntryType.UNWELL,
-  EntryType.AWAY_WITH_MAKE_UP_TIME,
+  EntryType.Task,
+  EntryType.Unwell,
+  EntryType.AwayWithMakeUpTime,
 ].map((value) => ({
-  value: value as number,
+  value,
   label: TYPE_LABELS[value],
 }))
 
 export const ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION = [
-  EntryType.TASK,
+  EntryType.Task,
 ].map((value) => ({
-  value: value as number,
+  value,
   label: TYPE_LABELS[value],
 }))

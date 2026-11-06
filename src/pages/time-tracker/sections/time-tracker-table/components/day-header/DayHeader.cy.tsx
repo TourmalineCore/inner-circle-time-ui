@@ -30,7 +30,7 @@ function buttonTextTests() {
         {
           start: new Date(`2026-07-07T00:00:00`),
           end: new Date(`2026-07-08T23:59:00`),
-          type: EntryType.SICK_LEAVE, 
+          type: EntryType.SickLeave,
         },
       ],
       date: new Date(`2026-07-08`),
@@ -49,7 +49,7 @@ function buttonTextTests() {
         {
           start: new Date(`2026-07-07T00:00:00`),
           end: new Date(`2026-07-08T23:59:00`),
-          type: EntryType.VACATION, 
+          type: EntryType.Vacation,
         },
       ],
       date: new Date(`2026-07-08`),
@@ -68,7 +68,7 @@ function buttonTextTests() {
         {
           start: new Date(`2026-07-07T00:00:00`),
           end: new Date(`2026-07-07T23:59:00`),
-          type: EntryType.SICK_LEAVE, 
+          type: EntryType.SickLeave,
         },
       ],
       date: new Date(`2026-07-08`),

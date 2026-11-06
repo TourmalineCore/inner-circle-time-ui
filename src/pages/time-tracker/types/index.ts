@@ -12,7 +12,7 @@ export type TrackedEntry = {
   start: Date,
   end: Date,
   relatedEntryId?: number,
-  relatedEntryType?: number,
+  relatedEntryType?: EntryType,
   makeUpTimeList?: MakeUpTimeEntry[],
   isAllDayEntry?: boolean,
 }
