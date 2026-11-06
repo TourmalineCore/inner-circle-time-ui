@@ -29,7 +29,7 @@ function initialTests() {
     expect(entryModalState.type)
       .to
       .deep
-      .eq(EntryType.TASK) 
+      .eq(EntryType.TASK)
     
     expect(entryModalState.error)
       .to

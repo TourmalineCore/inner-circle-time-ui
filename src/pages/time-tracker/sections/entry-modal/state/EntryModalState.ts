@@ -8,9 +8,9 @@ export class EntryModalState {
   private _isCopyMode = false
   private _isOpenModal = false
     
-  private _type = EntryType.TASK
+  private _type: EntryType = EntryType.TASK
   private _availableEntryTypes: { 
-    value: number,
+    value: EntryType,
     label: string,
   }[] = []
 

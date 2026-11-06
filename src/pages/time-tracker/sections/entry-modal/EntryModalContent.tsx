@@ -8,6 +8,7 @@ import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { ReactNode, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import DeleteIcon from "../../../../assets/icons/trash.svg?react"
+import { EntryType } from "../../../../common/constants/entryType"
 import CopyIcon from "../../../../assets/icons/copy.svg?react"
 
 export const EntryModalContent = observer(({
@@ -50,7 +51,7 @@ export const EntryModalContent = observer(({
             value={type}
             disabled={isDisabledTypesSelect}
             onChange={(e) => entryModalState.setType({
-              type: Number(e.target.value),
+              type: e.target.value as EntryType,
             })}
           >
             {availableEntryTypes.map(({
