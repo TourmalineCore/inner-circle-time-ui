@@ -14,7 +14,7 @@ const INITIALIZE_PERSONAL_REPORT = {
       startTime: `2026-04-10 10:00:00`,
       endTime: `2026-04-10 12:00:00`,
       hours: 2,
-      entryType: EntryType.TASK,
+      entryType: EntryType.Task,
       project: {
         id: 1,
         name: `ProjectOne`,
@@ -31,7 +31,7 @@ const INITIALIZE_PERSONAL_REPORT = {
       startTime: `2026-04-09 10:00:00`,
       endTime: `2026-04-09 14:00:00`,
       hours: 4,
-      entryType: EntryType.UNWELL,
+      entryType: EntryType.Unwell,
       project: null!,
       task: null!,
       description: null,

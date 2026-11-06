@@ -10,11 +10,11 @@ const ENTRY_TYPE_CONFIG: Partial<Record<EntryType, {
   text: string,
   className: string,
 }>> = {
-  [EntryType.SICK_LEAVE]: {
+  [EntryType.SickLeave]: {
     text: `Sick leave`,
     className: `day-header__button--sick-leave`,
   },
-  [EntryType.VACATION]: {
+  [EntryType.Vacation]: {
     text: `Vacation`,
     className: `day-header__button--vacation`,
   },

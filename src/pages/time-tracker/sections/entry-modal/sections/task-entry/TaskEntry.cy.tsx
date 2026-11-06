@@ -31,7 +31,7 @@ function mountComponent() {
   const taskEntryState = new TaskEntryState()
 
   const entryStrategy = EntryTypesStrategy.create({
-    entryType: EntryType.TASK,
+    entryType: EntryType.Task,
   }) 
 
   cy

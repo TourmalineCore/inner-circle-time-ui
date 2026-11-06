@@ -59,7 +59,7 @@ describe(`Away With Make-up Time Entry Happy Path`, () => {
     })
 
     TrackingPageActions.selectEntryModalType({
-      entryType: EntryType.AWAY_WITH_MAKE_UP_TIME,
+      entryType: EntryType.AwayWithMakeUpTime,
     })
 
     TrackingPageActions.getEntryModalDescriptionInput()

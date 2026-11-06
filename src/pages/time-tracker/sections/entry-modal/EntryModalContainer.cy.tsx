@@ -130,7 +130,7 @@ function mountComponent({
     .as(`eventBusTrigger`)
     
   const entryStrategy = EntryTypesStrategy.create({
-    entryType: EntryType.TASK,
+    entryType: EntryType.Task,
   }) 
 
   cy

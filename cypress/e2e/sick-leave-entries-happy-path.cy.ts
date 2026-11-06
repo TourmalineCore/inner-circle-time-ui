@@ -47,7 +47,7 @@ describe(`Sick Leave Entry Happy Path`, () => {
       .click()
 
     TrackingPageActions.selectEntryModalType({
-      entryType: EntryType.SICK_LEAVE,
+      entryType: EntryType.SickLeave,
     })
 
     TrackingPageActions

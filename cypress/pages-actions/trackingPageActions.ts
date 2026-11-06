@@ -164,7 +164,7 @@ export class TrackingPageActions {
     })
 
     this.selectEntryModalType({
-      entryType: EntryType.TASK,
+      entryType: EntryType.Task,
     })
       
     this.getEntryModalTitleInput()
@@ -214,7 +214,7 @@ export class TrackingPageActions {
     })
 
     this.selectEntryModalType({
-      entryType: EntryType.UNWELL,
+      entryType: EntryType.Unwell,
     })
 
     this.getEntryModalStartTimeInput()

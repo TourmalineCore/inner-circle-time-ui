@@ -47,7 +47,7 @@ describe(`Vacation Entry Happy Path`, () => {
       .click()
 
     TrackingPageActions.selectEntryModalType({
-      entryType: EntryType.VACATION,
+      entryType: EntryType.Vacation,
     })
 
     TrackingPageActions
