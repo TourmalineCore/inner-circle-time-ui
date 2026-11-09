@@ -1,8 +1,7 @@
-import { TrackedEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
+import { EntryType, TrackedEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { PersonalReportContent } from "./PersonalReportContent"
 import { PersonalReportState } from "./state/PersonalReportState"
 import { PersonalReportStateContext } from "./state/PersonalReportStateContext"
-import { EntryType } from "../../common/constants/entryType"
 
 describe(`PersonalReportContent`, () => {
   describe(`Initialization`, initializationTests)

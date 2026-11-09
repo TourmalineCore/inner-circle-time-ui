@@ -1,4 +1,4 @@
-import { EntryType } from "../../common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { PersonalReportContainer } from "./PersonalReportContainer"
 import { PersonalReportState } from "./state/PersonalReportState"
 import { PersonalReportStateContext } from "./state/PersonalReportStateContext"

@@ -1,5 +1,5 @@
 import moment from "moment"
-import { EntryType } from "../../src/common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { WeekDay } from "../enums/weekDay"
 
 export class TrackingPageActions {

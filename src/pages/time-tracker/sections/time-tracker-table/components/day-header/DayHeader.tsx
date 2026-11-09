@@ -1,7 +1,7 @@
 import './DayHeader.scss'
 import moment from 'moment'
 
-import { EntryType } from '../../../../../../common/constants/entryType'
+import { EntryType } from '@tourmalinecore/inner-circle-time-api-js-client'
 import { TrackedEntry } from '../../../../types'
 import { findEntryForDate } from '../../../../../../common/utils/find-entry-for-date/findEntryForDate'
 import clsx from 'clsx'

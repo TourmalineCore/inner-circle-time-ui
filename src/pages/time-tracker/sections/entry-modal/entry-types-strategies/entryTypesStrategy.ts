@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { EntryType } from "../../../../../common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { AwayWithMakeUpTimeEntryStrategy } from "./entry-strategies/awayWithMakeUpTimeEntryStrategy"
 import { TaskEntryStrategy } from "./entry-strategies/taskEntryStrategy"
 import { UnwellEntryStrategy } from "./entry-strategies/unwellEntryStrategy"

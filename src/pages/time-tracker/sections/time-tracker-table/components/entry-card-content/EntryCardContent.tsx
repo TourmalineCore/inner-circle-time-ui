@@ -1,6 +1,6 @@
 import { EventProps } from "react-big-calendar"
 import { TrackedEntry } from "../../../../types"
-import { EntryType } from "../../../../../../common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { TaskEntryCardContent } from "./components/task-entry-card-content/TaskEntryCardContent"
 import { UnwellEntryCardContent } from "./components/unwell-entry-card-content/UnwellEntryCardContent"
 import { AwayWithMakeUpTimeEntryCardContent } from "./components/away-with-make-up-time-entry-card-content/AwayWithMakeUpTimeEntryCardContent"

@@ -8,7 +8,7 @@ import { EntryModalStateContext } from './state/EntryModalStateContext'
 import { ReactNode, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import DeleteIcon from "../../../../assets/icons/trash.svg?react"
-import { EntryType } from "../../../../common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 import CopyIcon from "../../../../assets/icons/copy.svg?react"
 
 export const EntryModalContent = observer(({

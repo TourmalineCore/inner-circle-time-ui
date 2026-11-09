@@ -10,7 +10,7 @@ import { TrackedEntry } from '../../types'
 import { useDeviceSize } from '../../../../common/hooks/useDeviceSize'
 import { EntryCardContent } from './components/entry-card-content/EntryCardContent'
 import { DayHeader } from './components/day-header/DayHeader'
-import { EntryType } from '../../../../common/constants/entryType'
+import { EntryType } from '@tourmalinecore/inner-circle-time-api-js-client'
 import { findEntryForDate } from '../../../../common/utils/find-entry-for-date/findEntryForDate'
 
 const localizer = momentLocalizer(moment)

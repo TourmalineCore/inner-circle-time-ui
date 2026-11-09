@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx'
-import { ALL_DAY_ENTRY_TYPES, ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION, EntryType, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from '../../../../../common/constants/entryType'
+import { EntryType } from '@tourmalinecore/inner-circle-time-api-js-client'
+import { ALL_DAY_ENTRY_TYPES, ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from '../../../../../common/constants/entryType'
 import { TrackedEntry } from '../../../types'
 
 export class EntryModalState {

@@ -1,9 +1,5 @@
 import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 
-export {
-  EntryType,
-}
-
 export const TYPE_LABELS: Record<string, string> = {
   [EntryType.Task]: `Task`,
   [EntryType.Unwell]: `Unwell`,
