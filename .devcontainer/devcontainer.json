@@ -38,7 +38,7 @@
 		"LAYOUT_IMAGE_TAG": "latest",
 		"LAYOUT_REF": "master",
 		"API_IMAGE_TAG": "latest",
-		"API_REF": "master"
+		"API_REF": "feature/#514-configure-string-enums"
 	},
 	"remoteEnv": {
 		// https://stackoverflow.com/q/65343518
