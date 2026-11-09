@@ -37,8 +37,8 @@
 		// which published images the local services run, and which branch their compose files are taken from
 		"LAYOUT_IMAGE_TAG": "latest",
 		"LAYOUT_REF": "master",
-		"API_IMAGE_TAG": "sha-bd1bb89",
-		"API_REF": "feature/#514-configure-string-enums"
+		"API_IMAGE_TAG": "latest",
+		"API_REF": "master"
 	},
 	"remoteEnv": {
 		// https://stackoverflow.com/q/65343518
