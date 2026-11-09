@@ -1,20 +1,20 @@
 import './DayHeader.scss'
 import moment from 'moment'
 
-import { EntryType } from '../../../../../../common/constants/entryType'
+import { EntryType } from '@tourmalinecore/inner-circle-time-api-js-client'
 import { TrackedEntry } from '../../../../types'
 import { findEntryForDate } from '../../../../../../common/utils/find-entry-for-date/findEntryForDate'
 import clsx from 'clsx'
 
-const ENTRY_TYPE_CONFIG: Record<number, {
+const ENTRY_TYPE_CONFIG: Partial<Record<EntryType, {
   text: string,
   className: string,
-}> = {
-  [EntryType.SICK_LEAVE]: {
+}>> = {
+  [EntryType.SickLeave]: {
     text: `Sick leave`,
     className: `day-header__button--sick-leave`,
   },
-  [EntryType.VACATION]: {
+  [EntryType.Vacation]: {
     text: `Vacation`,
     className: `day-header__button--vacation`,
   },

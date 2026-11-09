@@ -1,6 +1,6 @@
 import { EventProps } from "react-big-calendar"
 import { TrackedEntry } from "../../../../types"
-import { EntryType } from "../../../../../../common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { TaskEntryCardContent } from "./components/task-entry-card-content/TaskEntryCardContent"
 import { UnwellEntryCardContent } from "./components/unwell-entry-card-content/UnwellEntryCardContent"
 import { AwayWithMakeUpTimeEntryCardContent } from "./components/away-with-make-up-time-entry-card-content/AwayWithMakeUpTimeEntryCardContent"
@@ -25,7 +25,7 @@ export function EntryCardContent({
     event: TrackedEntry,
   }) {
     switch (event.type) {
-      case EntryType.TASK:
+      case EntryType.Task:
         return <TaskEntryCardContent
           title={event.title!}
           taskId={event.taskId!}
@@ -34,28 +34,28 @@ export function EntryCardContent({
           endTime={event.end}
         />
   
-      case EntryType.UNWELL:
+      case EntryType.Unwell:
         return <UnwellEntryCardContent
           startTime={event.start}
           endTime={event.end}
         />
   
-      case EntryType.AWAY_WITH_MAKE_UP_TIME:
+      case EntryType.AwayWithMakeUpTime:
         return <AwayWithMakeUpTimeEntryCardContent 
           startTime={event.start}
           endTime={event.end}
         />
   
-      case EntryType.MAKE_UP_TIME:
+      case EntryType.MakeUpTime:
         return <MakeUpTimeEntryCardContent
           startTime={event.start}
           endTime={event.end}
         />
 
-      case EntryType.SICK_LEAVE:
+      case EntryType.SickLeave:
         return <SickLeaveEntryCardContent /> 
         
-      case EntryType.VACATION:
+      case EntryType.Vacation:
         return <VacationEntryCardContent />
   
       default:

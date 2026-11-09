@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { EntryType } from "../../../../../common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { AwayWithMakeUpTimeEntryStrategy } from "./entry-strategies/awayWithMakeUpTimeEntryStrategy"
 import { TaskEntryStrategy } from "./entry-strategies/taskEntryStrategy"
 import { UnwellEntryStrategy } from "./entry-strategies/unwellEntryStrategy"
@@ -16,24 +16,24 @@ export class EntryTypesStrategy {
     relatedEntryType?: EntryType,
   }) {
     switch (entryType) {
-      case EntryType.TASK:
+      case EntryType.Task:
         return new TaskEntryStrategy()
 
-      case EntryType.UNWELL:
+      case EntryType.Unwell:
         return new UnwellEntryStrategy()
 
-      case EntryType.AWAY_WITH_MAKE_UP_TIME:
+      case EntryType.AwayWithMakeUpTime:
         return new AwayWithMakeUpTimeEntryStrategy()
         
-      case EntryType.MAKE_UP_TIME:
+      case EntryType.MakeUpTime:
         return new MakeUpTimeEntryStrategy({
           relatedEntryType: relatedEntryType!,
         })
 
-      case EntryType.SICK_LEAVE:
+      case EntryType.SickLeave:
         return new SickLeaveEntryStrategy()
 
-      case EntryType.VACATION:
+      case EntryType.Vacation:
         return new VacationEntryStrategy()
 
       default:

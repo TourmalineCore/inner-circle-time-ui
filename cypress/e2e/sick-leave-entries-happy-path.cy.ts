@@ -1,4 +1,4 @@
-import { EntryType } from "../../src/common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { WeekDay } from "../enums/weekDay"
 import { TrackingPageActions } from "../pages-actions/trackingPageActions"
 
@@ -47,7 +47,7 @@ describe(`Sick Leave Entry Happy Path`, () => {
       .click()
 
     TrackingPageActions.selectEntryModalType({
-      entryType: EntryType.SICK_LEAVE,
+      entryType: EntryType.SickLeave,
     })
 
     TrackingPageActions

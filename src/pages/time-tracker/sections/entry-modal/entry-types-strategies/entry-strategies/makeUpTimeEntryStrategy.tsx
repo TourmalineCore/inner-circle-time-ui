@@ -1,6 +1,6 @@
 import { EntryStrategy } from "../entryTypesStrategy"
 import { AwayWithMakeUpTimeEntryStrategy } from "./awayWithMakeUpTimeEntryStrategy"
-import { EntryType } from "../../../../../../common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 
 export class MakeUpTimeEntryStrategy implements EntryStrategy {  
   private _relatedEntryStrategy: EntryStrategy
@@ -17,7 +17,7 @@ export class MakeUpTimeEntryStrategy implements EntryStrategy {
 
   private selectRelatedEntryStrategy() {
     switch (this._relatedEntryType) {
-      case EntryType.AWAY_WITH_MAKE_UP_TIME:
+      case EntryType.AwayWithMakeUpTime:
         return new AwayWithMakeUpTimeEntryStrategy()
       
       default:

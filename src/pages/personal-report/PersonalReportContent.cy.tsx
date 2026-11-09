@@ -1,8 +1,7 @@
-import { TrackedEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
+import { EntryType, TrackedEntryDto } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { PersonalReportContent } from "./PersonalReportContent"
 import { PersonalReportState } from "./state/PersonalReportState"
 import { PersonalReportStateContext } from "./state/PersonalReportStateContext"
-import { EntryType } from "../../common/constants/entryType"
 
 describe(`PersonalReportContent`, () => {
   describe(`Initialization`, initializationTests)
@@ -22,7 +21,7 @@ function initializationTests() {
           startTime: `2026-04-10 10:00:00`,
           endTime: `2026-04-10 12:00:00`,
           hours: 2,
-          entryType: EntryType.TASK,
+          entryType: EntryType.Task,
           project: {
             id: 1,
             name: `ProjectOne`,

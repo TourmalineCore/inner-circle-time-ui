@@ -1,5 +1,5 @@
 import { TrackingPageActions } from "../../../../../../../cypress/pages-actions/trackingPageActions"
-import { EntryType } from "../../../../../../common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
 import { EntryTypesStrategy } from "../../entry-types-strategies/entryTypesStrategy"
 import { EntryModalContainer } from "../../EntryModalContainer"
 import { EntryModalState } from "../../state/EntryModalState"
@@ -31,7 +31,7 @@ function mountComponent() {
   const taskEntryState = new TaskEntryState()
 
   const entryStrategy = EntryTypesStrategy.create({
-    entryType: EntryType.TASK,
+    entryType: EntryType.Task,
   }) 
 
   cy

@@ -1,4 +1,5 @@
-import { ALL_DAY_ENTRY_TYPES, ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION, EntryType, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from "../../../../../common/constants/entryType"
+import { EntryType } from "@tourmalinecore/inner-circle-time-api-js-client"
+import { ALL_DAY_ENTRY_TYPES, ENTRY_TYPES_ALLOWED_TO_OVERLAP_WITH_SICK_LEAVE_AND_VACATION, NON_ALL_DAY_ENTRY_TYPES, TYPE_LABELS } from "../../../../../common/constants/entryType"
 import { TrackedEntry } from "../../../types"
 import { EntryModalState } from "./EntryModalState"
 
@@ -29,7 +30,7 @@ function initialTests() {
     expect(entryModalState.type)
       .to
       .deep
-      .eq(EntryType.TASK) 
+      .eq(EntryType.Task)
     
     expect(entryModalState.error)
       .to
@@ -62,12 +63,12 @@ function settersTests() {
   SHOULD return updated type
   `, () => {
     entryModalState.setType({
-      type: EntryType.UNWELL,
+      type: EntryType.Unwell,
     })
 
     expect(entryModalState.type)
       .to
-      .eq(EntryType.UNWELL)
+      .eq(EntryType.Unwell)
   })
 }
 
@@ -114,7 +115,7 @@ function createNewNonAllDayEntryTests() {
       .eq([])
       
     entryModalState.createNewNonAllDayEntry({
-      allDayEntryType: EntryType.SICK_LEAVE,
+      allDayEntryType: EntryType.SickLeave,
       start: new Date(),
       end: new Date(),
     })
@@ -140,7 +141,7 @@ function createNewNonAllDayEntryTests() {
       .eq([])
       
     entryModalState.createNewNonAllDayEntry({
-      allDayEntryType: EntryType.VACATION,
+      allDayEntryType: EntryType.Vacation,
       start: new Date(),
       end: new Date(),
     })
@@ -207,7 +208,7 @@ function openEntryTests() {
       
     const taskEntry = {
       id: 1,
-      type: EntryType.TASK,
+      type: EntryType.Task,
     }
       
     entryModalState.openEntry({
@@ -219,8 +220,8 @@ function openEntryTests() {
       .deep
       .eq([
         {
-          value: EntryType.TASK,
-          label: TYPE_LABELS[EntryType.TASK],
+          value: EntryType.Task,
+          label: TYPE_LABELS[EntryType.Task],
         },
       ])
 
@@ -234,8 +235,8 @@ function openEntryTests() {
 `, () => {
     const makeUpTimeEntry = {
       id: 1,
-      type: EntryType.MAKE_UP_TIME,
-      relatedEntryType: EntryType.AWAY_WITH_MAKE_UP_TIME,
+      type: EntryType.MakeUpTime,
+      relatedEntryType: EntryType.AwayWithMakeUpTime,
     }
       
     entryModalState.openEntry({
@@ -247,8 +248,8 @@ function openEntryTests() {
       .deep
       .eq([
         {
-          value: EntryType.AWAY_WITH_MAKE_UP_TIME,
-          label: TYPE_LABELS[EntryType.AWAY_WITH_MAKE_UP_TIME],
+          value: EntryType.AwayWithMakeUpTime,
+          label: TYPE_LABELS[EntryType.AwayWithMakeUpTime],
         },
       ])
   })
