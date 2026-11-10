@@ -23,7 +23,7 @@ local-run
 !.env-vars
 
 # runtime config of a local run
-env-config-js-builder.local.sh
+env-config-js-builder.sh
 public/env-config.js
 
 # root level files

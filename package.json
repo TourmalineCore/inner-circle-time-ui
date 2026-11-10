@@ -4,8 +4,8 @@
   "private": true,
   "homepage": "/time",
   "scripts": {
-    "start": "vite --host",
-    "start-local-env": "vite --host --mode local-env --port 30090",
+    "start": "npm run create-env-config:local && node local-run/add-debug-token && vite --host",
+    "start:local-env": "npm run create-env-config:local-env && vite --host --mode local-env",
     "local-services:up": "npm-run-all -l -s prepare-local-run -p local-services:up:layout-ui local-services:up:api",
     "local-services:up:api": "docker compose --env-file .env.local -p inner-circle-time-api -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests up -d --wait --no-build --pull always",
     "local-services:up:layout-ui": "docker compose --env-file .env.local -p inner-circle-layout-ui -f local-run/layout-ui-docker-compose.yml -f local-run/layout-ui-docker-compose.override.yml up -d --wait --no-build --pull always",
@@ -13,7 +13,8 @@
     "local-services:down:api": "docker compose --env-file .env.local -p inner-circle-time-api -f local-run/api-docker-compose.yml -f local-run/api-docker-compose.override.yml --profile MockForTests down",
     "local-services:down:layout-ui": "docker compose --env-file .env.local -p inner-circle-layout-ui -f local-run/layout-ui-docker-compose.yml -f local-run/layout-ui-docker-compose.override.yml down",
     "prepare-local-run": "node --env-file=.env.local local-run/prepare-local-run",
-    "create-config:local": "bash env-config-js-builder.local.sh",
+    "create-env-config:local": "bash env-config-js-builder.sh .env.local",
+    "create-env-config:local-env": "bash env-config-js-builder.sh .env.local-env",
     "build": "run-s lint-ts build:vite",
     "build:vite": "vite build",
     "docker:build": "docker build -t inner-circle-time-ui .",
@@ -29,7 +30,9 @@
     "cypress:open:e2e": "cypress open --e2e --browser electron --config-file cypress.config.mock-for-tests.ts",
     "cypress:run:e2e": "cypress run --e2e --config-file cypress.config.mock-for-tests.ts",
     "cypress:open:e2e:local-env": "cypress open --e2e --browser electron --config-file cypress.config.local-env.ts",
-    "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts"
+    "cypress:run:e2e:local-env": "cypress run --e2e --config-file cypress.config.local-env.ts",
+    "cypress:open:e2e:local-ui-against-local-env": "cypress open --e2e --browser electron --config-file cypress.config.local-env.ts --config baseUrl=http://localhost:3507",
+    "cypress:run:e2e:local-ui-against-local-env": "cypress run --e2e --config-file cypress.config.local-env.ts --config baseUrl=http://localhost:3507"
   },
   "dependencies": {
     "@originjs/vite-plugin-federation": "^1.3.9",

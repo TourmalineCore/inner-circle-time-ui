@@ -17,7 +17,7 @@ jobs:
           runCmd: npm run cypress:run:component
           push: never
 
-      # starting the Dev Container is itself the first part of the README: it runs npm ci, npm run create-config:local
+      # starting the Dev Container is itself the first part of the README: it runs npm ci, npm run create-env-config:local
       # and npm run local-services:up, and supplies the containerEnv values they need
       - name: npm start
         uses: devcontainers/ci@v0.3
@@ -63,3 +63,60 @@ jobs:
             wget --retry-connrefused --tries=30 --waitretry=2 -q -O /dev/null \
               http://localhost:4457
           push: never
+
+  readme-steps-against-local-env:
+    runs-on: ubuntu-24.04
+    steps:
+      # local-env goes into a folder of its own, otherwise its Dev Container has the same workspace folder as the ui one,
+      # and devcontainer up of the next steps finds the running local-env container and runs the ui commands there
+      - name: Checkout local-env
+        uses: actions/checkout@v7
+        with:
+          repository: TourmalineCore/inner-circle-local-env
+          path: inner-circle-local-env
+
+      - name: Deploy Local Env to Kind k8s
+        uses: devcontainers/ci@v0.3
+        with:
+          subFolder: inner-circle-local-env
+          cacheFrom: ghcr.io/tourmalinecore/inner-circle-local-env-devcontainer
+          runCmd: |
+            kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
+            # we need to properly expose KUBECONFIG as an absolute path, pwd prints current working directory path
+            export KUBECONFIG=$(pwd)/.inner-circle-cluster-kubeconfig
+
+            helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+          push: never
+
+      - name: Checkout ui
+        uses: actions/checkout@v7
+
+      - name: npm run start:local-env
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            set -e
+            wget --retry-connrefused --tries=60 --waitretry=2 -q -O /dev/null \
+              http://localhost:30090
+
+            npm run start:local-env \
+              > /dev/null 2>&1 &
+
+            wget --retry-connrefused --tries=60 --waitretry=2 -q -O /dev/null \
+              http://localhost:3507/time/tracking
+          push: never
+
+      - name: npm run cypress:run:e2e:local-ui-against-local-env
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: npm run cypress:run:e2e:local-ui-against-local-env
+          push: never
+
+      - name: Upload videos of tests failed
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: cypress-videos
+          path: |
+            cypress/videos/*.mp4
+            cypress/screenshots/**/*.png

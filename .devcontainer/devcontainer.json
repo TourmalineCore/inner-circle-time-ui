@@ -19,8 +19,8 @@
 	// installing dependencies is a one-off, everything else has to happen on every start
 	"postCreateCommand": "npm ci",
 	// builds env-config.js and starts the services the app talks to, so a ready environment
-	// is waiting when the container opens and `npm start` only has to run the app
-	"postStartCommand": "npm run create-config:local && npm run local-services:up",
+	// is waiting when the container opens
+	"postStartCommand": "npm run create-env-config:local && npm run local-services:up",
 	"runArgs": [
 		"--network=host"
 	],
@@ -32,8 +32,6 @@
 		// runtime config of the app, served to the browser as public/env-config.js
 		"API_ROOT_URL": "/api/time",
 		"AUTH_API_ROOT_URL": "/api/auth",
-		"DISABLE_ACCESS_TOKEN_REFRESH": "true",
-		"DISABLE_DEBUG_TOKEN": "false",
 		// which published images the local services run, and which branch their compose files are taken from
 		"LAYOUT_IMAGE_TAG": "latest",
 		"LAYOUT_REF": "master",
